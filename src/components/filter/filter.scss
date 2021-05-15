@@ -9,4 +9,12 @@
       border: 2px solid var(--primary) !important;
     }
   }
+
+  ul.filter-list {
+    margin: 17px 0 0 0;
+    padding: 0 0 0 10px;
+    height: 300px;
+    overflow: auto;
+    list-style: none;
+  }
 }
