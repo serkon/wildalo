@@ -1,0 +1,19 @@
+
+:root {
+  --background: #fafafa;
+  --color: #1ea4ce;
+  --color-dark: #147594;
+  --font-family: "Open Sans";
+  --font-500: #697488;
+  --font-600: #525252;
+  --font-700: #191919;
+}
+
+html {
+  body {
+    margin: 0;
+    background: var(--background);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}

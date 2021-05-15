@@ -1,0 +1,117 @@
+{
+  "name": "react-demo",
+  "version": "0.1.1",
+  "private": true,
+  "dependencies": {
+    "@logo-software/theme": "^3.10.5",
+    "@reduxjs/toolkit": "^1.5.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "redux": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/react": "^17.0.5",
+    "@types/react-dom": "^17.0.3",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/node": "^15.0.2",
+    "@typescript-eslint/eslint-plugin": "^4.22.1",
+    "@typescript-eslint/parser": "^4.22.1",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^13.1.8",
+    "eslint": "^7.26.0",
+    "eslint-plugin-json-format": "^2.0.1",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
+    "sass": "^1.32.12",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
+    "stylelint-no-unsupported-browser-features": "^4.1.4",
+    "stylelint-order": "^4.1.0",
+    "typescript": "^4.2.4",
+    "web-vitals": "^1.1.2"
+  },
+  "dist": "build",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "######### ESLINT:TYPESCRIPT": "",
+    "pretsc": "eslint . --ext .ts,.tsx --fix",
+    "######### ESLINT:JAVASCRIPT": "",
+    "js": "eslint src --ext .js,.jsx,.json --fix",
+    "######### GENERAL PROJECT": "##########",
+    "serve": "npm run build && npx live-server ./${npm_package_dist}",
+    "######### COMMANDS": "##########",
+    "patch": "npm run patch:commit",
+    "minor": "npm run minor:commit",
+    "pre": "npm run pre:commit",
+    "major": "npm run major:commit",
+    "com": "echo 'logo-software-'${npm_package_dist}-*.*.*.tgz",
+    "pack": "npm run build && mkdirp ./archives && cd ./archives; npm pack ../; cd ../",
+    "pub": "rm -rf './archives/'${npm_package_name}-*.*.*.tgz && npm run pack && npm publish --access public './archives/'${npm_package_name}-*.*.*.tgz",
+    "upub": "npm run unpublish",
+    "######### VERSION": "##########",
+    "ver:patch": "npm version patch --no-git-tag-version",
+    "ver:minor": "npm version minor --no-git-tag-version",
+    "ver:pre": "npm version prerelease --no-git-tag-version",
+    "ver:major": "npm version major --no-git-tag-version",
+    "postversion": "echo '#########\n### Versioning to:' $npm_package_version '\n### CommandPATH: ' $INIT_CWD '\n#########' && git status",
+    "git-commit": "git add -A . && git commit . -m $TYPE'('$npm_package_name'): upgrading to v.'$npm_package_version",
+    "git-release": "git add -A . && git commit . -m $TYPE'('$npm_package_name'): cut the v.'$npm_package_version' release'",
+    "patch:commit": "npm run ver:patch && npm run build && TYPE=fix npm run git-commit && npm run tag",
+    "minor:commit": "npm run ver:minor && npm run build && TYPE=feat npm run git-commit && npm run tag",
+    "pre:commit": "npm run ver:pre && npm run build && TYPE=prerelease npm run git-commit && npm run tag",
+    "major:commit": "npm run ver:major && TYPE=release npm run git-release && npm run tag",
+    "unpublish": "npm unpublish $npm_package_name@$npm_package_version",
+    "tag": "git tag $npm_package_version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://stash.logo.com.tr/scm/fd/bootstrap.git"
+  },
+  "keywords": [
+    "low",
+    "code",
+    "bootstrap",
+    ".net",
+    "css",
+    "scss",
+    "design",
+    "guide"
+  ],
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "files": [
+    "build/**/*"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": "eslint --cache --fix"
+  }
+}
