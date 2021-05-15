@@ -18,6 +18,10 @@ export const Filter = (props: FilterProps): JSX.Element => {
   const [selected, setSelected] = useState<any[]>([]);
   const [init, setInit] = useState<boolean>(false);
 
+  const idGenerator =  () => {
+    return '_' + Math.random().toString(36).substr(2, 9);
+  };
+
   const filter = () => {
     const value = inputRef.current?.value;
     window.clearTimeout(timeout);
@@ -39,6 +43,10 @@ export const Filter = (props: FilterProps): JSX.Element => {
     setInit(true);
   }
 
+  const isSelected = (item: any): boolean => {
+    return !!selected.find(s => item === s);
+  }
+
   useEffect(() => {
     console.log('selected: ', selected);
     if (init) {
@@ -46,6 +54,7 @@ export const Filter = (props: FilterProps): JSX.Element => {
     }
   }, [selected])
 
+  const id = idGenerator();
   return (
     <>
       <input ref={inputRef} onChange={filter} className="filter" placeholder={placeholder}/>
@@ -53,8 +62,8 @@ export const Filter = (props: FilterProps): JSX.Element => {
         {
           filtered?.map((item, key) =>
             <li key={key}>
-              <input id={`${key}-id`} type="checkbox" onClick={() => pushSelected(item)}/>
-              <label htmlFor={`${key}-id`}>{path ? item[path] : item}</label>
+              <input id={`${key}-${id}`} type="checkbox" onChange={() => pushSelected(item)} checked={isSelected(item)}/>
+              <label htmlFor={`${key}-${id}`}>{path ? item[path] : item}</label>
             </li>,
           )
         }

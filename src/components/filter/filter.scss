@@ -16,5 +16,9 @@
     height: 300px;
     overflow: auto;
     list-style: none;
+
+    li {
+      display: flex;
+    }
   }
 }

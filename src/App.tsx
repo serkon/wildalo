@@ -1,25 +1,31 @@
 import React from 'react';
-import { ErrorBoundary } from 'src/components/error-boundary/ErrorBoundary';
+import { useDispatch, useSelector } from 'react-redux';
 
 import './App.scss';
+import { ErrorBoundary } from 'src/components/error-boundary/ErrorBoundary';
 import { Header } from 'src/components/header/Header';
 import { Card } from 'src/components/card/Card';
 import { Sorting } from 'src/components/sorting/Sorting';
 import { Filter } from 'src/components/filter/Filter';
-import { useDispatch, useSelector } from 'react-redux';
-import { filter_product_by_company_slug, ProductState } from 'src/store/reducers/ProductReducer';
+import { CombineType } from 'src/store/store';
+import { filter_product_by_company_slug, filter_product_by_tags } from 'src/store/reducers/ProductReducer';
 import { Company } from 'src/store/reducers/CompanyReducer';
 import { ProductList } from 'src/pages/home/content-area/ProductList';
+import { BasketList } from 'src/pages/home/basket-area/BasketList';
 
 function App(): JSX.Element {
-  const selector = useSelector((state: { products: ProductState, companies: Company[] }) => state);
+  const selector = useSelector((state: CombineType) => state);
   const dispatch = useDispatch();
-  const filterByTags = (e: any[]) => {
-    console.log(e);
+
+  const filterByTags = (tags: string[]) => {
+    console.log(tags);
+    dispatch(filter_product_by_tags(tags))
   }
+
   const filterByCompanies = (companies: Company[] = []) => {
     dispatch(filter_product_by_company_slug(companies))
   }
+
   return (
     <ErrorBoundary>
       <div className="app">
@@ -39,15 +45,17 @@ function App(): JSX.Element {
               <Card label={'Tags'}>
                 <Filter
                   placeholder={'Search tag'}
-                  data={['ali', 'veli']}
-                  onClick={(e) => filterByTags(e)}
+                  data={selector.products.tags}
+                  onClick={(tags: string[]) => filterByTags(tags)}
                 />
               </Card>
             </div>
             <div className="content-area col-xs-6">
-              <ProductList list={selector.products.filtered} />
+              <ProductList list={selector.products.filtered}/>
             </div>
-            <div className="basket-area col-xs-3">c</div>
+            <div className="basket-area col-xs-3">
+              <BasketList/>
+            </div>
           </div>
         </main>
       </div>
@@ -56,14 +64,3 @@ function App(): JSX.Element {
 }
 
 export default App;
-
-{
-  /*
-  <Link to="/">Home</Link>
-  <Suspense fallback={<div>Loading...</div>}>
-    <Switch>
-      <Route path="/detail:id">Detail</Route>
-    </Switch>
-  </Suspense>
-*/
-}
