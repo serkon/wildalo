@@ -1,0 +1,58 @@
+@import "~@logo-software/theme/base";
+
+.product-list {
+  .product-grid {
+    display: grid;
+    padding: 20px;
+    border-radius: 2px;
+    box-shadow: 0 4px 24px rgba(93, 62, 188, 0.04);
+    background-color: var(--white);
+    gap: var(--grid-gap);
+    grid-template-columns: repeat(4, 1fr);
+
+    .product-item {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+
+      .product-image {
+        padding: 16px;
+        height: 92px;
+        border: 1px solid #f3f0fe;
+        border-radius: 12px;
+        background-clip: content-box;
+        background-color: #c4c4c4;
+      }
+
+      .product-price {
+        margin-top: 8px;
+        color: var(--color);
+      }
+
+      .product-name {
+        display: flex;
+        flex-grow: 1;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      .product-add {
+        margin-top: 8px;
+        height: 22px;
+        background-color: var(--color);
+        color: var(--white);
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 20px;
+      }
+    }
+
+    @include smaller-than(lg) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
