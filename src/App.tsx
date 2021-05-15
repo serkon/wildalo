@@ -1,17 +1,24 @@
 import React from 'react';
+import { ErrorBoundary } from 'src/components/error-boundary/ErrorBoundary';
 
 import './App.scss';
-import { ErrorBoundary } from 'src/components/error-boundary/ErrorBoundary';
 import { Header } from 'src/components/header/Header';
 import { Card } from 'src/components/card/Card';
-import { Sorting } from 'src/components/filter-area/sorting/Sorting';
-import { Filter } from 'src/components/filter-area/filter/Filter';
+import { Sorting } from 'src/components/sorting/Sorting';
+import { Filter } from 'src/components/filter/Filter';
+import { useDispatch, useSelector } from 'react-redux';
+import { filter_product_by_company_slug, ProductState } from 'src/store/reducers/ProductReducer';
+import { Company } from 'src/store/reducers/CompanyReducer';
+import { ProductList } from 'src/pages/home/content-area/ProductList';
 
 function App(): JSX.Element {
-  // TODO: bu filter call edildiğinde reducer'a gidip state'i update edip güncel
-  // datayı Filter bileşenine verecek
-  const filterTag = (e: any[]) => {
+  const selector = useSelector((state: { products: ProductState, companies: Company[] }) => state);
+  const dispatch = useDispatch();
+  const filterByTags = (e: any[]) => {
     console.log(e);
+  }
+  const filterByCompanies = (companies: Company[] = []) => {
+    dispatch(filter_product_by_company_slug(companies))
   }
   return (
     <ErrorBoundary>
@@ -24,19 +31,22 @@ function App(): JSX.Element {
               <Card label={'Brands'}>
                 <Filter
                   placeholder={'Search brand'}
-                  data={[{yol: 'istanbul'}, {yol: 'ankara'}, {yol: 'corum'}]}
-                  path={'yol'}
+                  data={selector.companies}
+                  path={'name'}
+                  onClick={(company: Company[]) => filterByCompanies(company)}
                 />
               </Card>
               <Card label={'Tags'}>
                 <Filter
                   placeholder={'Search tag'}
                   data={['ali', 'veli']}
-                  onClick={(e) => filterTag(e)}
+                  onClick={(e) => filterByTags(e)}
                 />
               </Card>
             </div>
-            <div className="content-area col-xs-6">b</div>
+            <div className="content-area col-xs-6">
+              <ProductList list={selector.products.filtered} />
+            </div>
             <div className="basket-area col-xs-3">c</div>
           </div>
         </main>
