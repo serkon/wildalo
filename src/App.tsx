@@ -1,30 +1,52 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './App.scss';
 import { ErrorBoundary } from 'src/components/error-boundary/ErrorBoundary';
 import { Header } from 'src/components/header/Header';
 import { Card } from 'src/components/card/Card';
-import { Sorting } from 'src/components/sorting/Sorting';
+import { Sorting, SortingItem } from 'src/components/sorting/Sorting';
 import { Filter } from 'src/components/filter/Filter';
 import { CombineType } from 'src/store/store';
-import { filter_product_by_company_slug, filter_product_by_tags } from 'src/store/reducers/ProductReducer';
+import { filter_product_by_company_slug, filter_product_by_tags, Product } from 'src/store/reducers/ProductReducer';
 import { Company } from 'src/store/reducers/CompanyReducer';
 import { ProductList } from 'src/pages/home/content-area/ProductList';
 import { BasketList } from 'src/pages/home/basket-area/BasketList';
+import { setTitle } from 'src/index';
 
 function App(): JSX.Element {
+  setTitle('Serkan Konakcı - Getir.com CodingCase / 505 865 7075');
+  const mutableRefObject = useRef<React.ElementRef<typeof Sorting>>(null);
   const selector = useSelector((state: CombineType) => state);
   const dispatch = useDispatch();
+  const [products, setProducts] = useState([...selector.products.filtered]);
+  const sortingCases: SortingItem[] = [
+    {label: 'Price low to high', type: 'price', direction: 'asc'},
+    {label: 'Price high to low', type: 'price', direction: 'desc'},
+    {label: 'New to old', type: 'added', direction: 'asc'},
+    {label: 'Old to new', type: 'added', direction: 'desc'},
+  ];
 
   const filterByTags = (tags: string[]) => {
-    console.log(tags);
     dispatch(filter_product_by_tags(tags))
   }
 
   const filterByCompanies = (companies: Company[] = []) => {
     dispatch(filter_product_by_company_slug(companies))
   }
+
+  const onSorting = (sorting: Product[]) => {
+    setProducts([...sorting]);
+  }
+
+  const uncheck = () => {
+    mutableRefObject.current?.uncheck();
+  }
+
+  useEffect(() => {
+    uncheck();
+    setProducts([...selector.products.filtered]);
+  }, [selector.products.filtered]);
 
   return (
     <ErrorBoundary>
@@ -33,7 +55,9 @@ function App(): JSX.Element {
         <main className="container">
           <div className="row">
             <div className="filter-area col-xs-3">
-              <Card label={'Sort'}><Sorting/></Card>
+              <Card label={'Sort'}>
+                <Sorting onClick={onSorting} data={products} cases={sortingCases} ref={mutableRefObject}/>
+              </Card>
               <Card label={'Brands'}>
                 <Filter
                   placeholder={'Search brand'}
@@ -51,7 +75,7 @@ function App(): JSX.Element {
               </Card>
             </div>
             <div className="content-area col-xs-6">
-              <ProductList list={selector.products.filtered}/>
+              <ProductList list={products}/>
             </div>
             <div className="basket-area col-xs-3">
               <BasketList/>

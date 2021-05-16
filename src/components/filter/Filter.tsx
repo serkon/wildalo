@@ -48,7 +48,6 @@ export const Filter = (props: FilterProps): JSX.Element => {
   }
 
   useEffect(() => {
-    console.log('selected: ', selected);
     if (init) {
       props.onClick && props.onClick(selected);
     }

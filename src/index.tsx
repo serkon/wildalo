@@ -7,6 +7,17 @@ import App from './App';
 import { store } from 'src/store/store';
 import { Provider } from 'react-redux';
 
+export const setTitle = (title: string): void => {
+  React.useEffect(() => {
+    const prevTitle = document.title;
+    document.title = title;
+
+    return () => {
+      document.title = prevTitle;
+    };
+  }, []);
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
