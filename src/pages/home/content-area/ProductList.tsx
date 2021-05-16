@@ -48,18 +48,22 @@ export const ProductList = (props: Props): JSX.Element => {
         </div>
         <div className="found-count"><b>{props.list.length}</b> record(s) found</div>
       </div>
-      <div className="product-grid">
-        {
-          props.list.map((item, key) =>
-            <div className="product-item" key={key}>
-              <div className="product-image"/>
-              <div className="product-price">₺ {item.price}</div>
-              <div className={'product-name'}>{item.name}</div>
-              <button className="product-add" onClick={() => addToBasket(item)}>Add</button>
-            </div>,
-          )
-        }
-      </div>
+      {
+        props.list.length > 0 &&
+        <div className="product-area grid">
+          {
+            props.list.map((item, key) =>
+              <div className="product-item" key={key}>
+                <div className="product-image"/>
+                <div className="product-price">₺ {item.price}</div>
+                <div className={'product-name'}>{item.name}</div>
+                <button className="product-add" onClick={() => addToBasket(item)}>Add</button>
+              </div>,
+            )
+          },
+        </div>
+      }
+      {props.list.length == 0 && <div className="product-area">No data were found</div>}
     </div>
   )
 }

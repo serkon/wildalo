@@ -52,14 +52,19 @@
     }
   }
 
-  .product-grid {
-    display: grid;
+  .product-area {
     padding: 20px;
     border-radius: 2px;
     box-shadow: 0 4px 24px rgba(93, 62, 188, 0.04);
     background-color: var(--white);
-    gap: var(--grid-gap);
-    grid-template-columns: repeat(4, 1fr);
+    color: var(--font-600);
+    font-size: 14px;
+
+    &.grid {
+      display: grid;
+      gap: var(--grid-gap);
+      grid-template-columns: repeat(4, 1fr);
+    }
 
     .product-item {
       overflow-wrap: anywhere;
