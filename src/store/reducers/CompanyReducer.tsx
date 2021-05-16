@@ -1,4 +1,4 @@
-import { Reducer } from 'redux';
+import { AnyAction, Reducer } from 'redux';
 
 import data from '../companies.json';
 
@@ -16,17 +16,16 @@ export interface Company {
 export const CompanyReducer: Reducer = (state: Company[] = data, action) => {
   switch (action.type) {
   case 'FILTER_COMPANY_BY_SLUG': {
-    const matched = state.reduce((total: Company[], item: Company) => {
+    return state.reduce((total: Company[], item: Company) => {
       return [...total, ...action.payload.filter((pay: string) => item.slug === pay)];
     }, []);
-    return matched;
   }
   default :
     return state
   }
 }
 
-export const filter_by_slug = (payload: string[]) => {
+export const filter_by_slug = (payload: string[]): AnyAction => {
   return {
     type: 'FILTER_COMPANY_BY_SLUG',
     payload,
