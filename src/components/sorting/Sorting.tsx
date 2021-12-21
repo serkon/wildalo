@@ -27,26 +27,22 @@ export const Sorting = React.forwardRef<ImperativeHandle, SortingProps>(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [sortItem, setSortItem] = useState(items[0]);
 
-    const idGenerator = () => {
-      return '_' + Math.random().toString(36).substr(2, 9);
-    };
+    const idGenerator = () => '_' + Math.random().toString(36).substr(2, 9);
 
     const id = idGenerator();
 
     const onClick = (item: SortingItem) => {
       setSortItem(item);
-      props.onClick && props.onClick(sort(item))
-    }
+      props.onClick && props.onClick(sort(item));
+    };
 
     const sort = (item: SortingItem) => {
-      props.data.sort((a: { [x: string]: number; }, b: { [x: string]: number; }) => {
-        return a[item.type] - b[item.type];
-      })
+      props.data.sort((a: { [x: string]: number; }, b: { [x: string]: number; }) => a[item.type] - b[item.type]);
       if (item.direction === 'desc') {
         props.data.reverse();
       }
       return props.data;
-    }
+    };
 
     useEffect(() => {
       // console.log('sort efffecct');
@@ -56,7 +52,7 @@ export const Sorting = React.forwardRef<ImperativeHandle, SortingProps>(
     // with whatever you return from the callback passed
     // as the second argument
     useImperativeHandle(forwardedRef, () => ({
-      uncheck() {
+      uncheck () {
         if (inputRef.current?.name) {
           document.getElementsByName(inputRef.current?.name).forEach((item) => (item as HTMLInputElement).checked = false);
         }
@@ -72,6 +68,6 @@ export const Sorting = React.forwardRef<ImperativeHandle, SortingProps>(
           </li>,
         )}
       </ul>
-    )
+    );
   },
-)
+);

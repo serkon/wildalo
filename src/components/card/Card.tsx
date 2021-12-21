@@ -17,5 +17,5 @@ export const Card = (props: React.PropsWithChildren<Props>): JSX.Element => {
       <div className="label">{props.label}</div>
       <div className={classes.join(' ')}>{props.children}</div>
     </div>
-  )
-}
+  );
+};

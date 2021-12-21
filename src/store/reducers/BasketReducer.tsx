@@ -13,21 +13,19 @@ export interface BasketState {
 }
 
 const initialBasketState = {
-  list: [],
-  total: 0,
-}
+  'list': [],
+  'total': 0,
+};
 
 export const BasketReducer: Reducer = (state: BasketState = initialBasketState, action) => {
   const found: Basket | undefined = state.list.find(item => action.payload === item.product);
   const calculatePrice = () => {
-    const total: number = state.list.reduce((total: number, item) => {
-      return total + (item.product.price * item.count);
-    }, 0)
+    const total: number = state.list.reduce((total: number, item) => total + (item.product.price * item.count), 0);
     state.total = Number(total.toFixed(2));
-  }
+  };
   switch (action.type) {
   case 'ADD_TO_BASKET': {
-    (found) ? found.count = found.count + 1 : state.list.push({product: action.payload, count: 1});
+    (found) ? found.count = found.count + 1 : state.list.push({'product': action.payload, 'count': 1});
     calculatePrice();
     return {...state};
   }
@@ -54,25 +52,19 @@ export const BasketReducer: Reducer = (state: BasketState = initialBasketState, 
   default:
     return state;
   }
-}
+};
 
-export const add_to_basket = (payload: Product): AnyAction => {
-  return {
-    type: 'ADD_TO_BASKET',
+export const add_to_basket = (payload: Product): AnyAction => ({
+    'type': 'ADD_TO_BASKET',
     payload,
-  }
-}
+  });
 
-export const increment_basket_item = (payload: Product): AnyAction => {
-  return {
-    type: 'INCREMENT_BASKET_ITEM',
+export const increment_basket_item = (payload: Product): AnyAction => ({
+    'type': 'INCREMENT_BASKET_ITEM',
     payload,
-  }
-}
+  });
 
-export const decrement_basket_item = (payload: Product): AnyAction => {
-  return {
-    type: 'DECREMENT_BASKET_ITEM',
+export const decrement_basket_item = (payload: Product): AnyAction => ({
+    'type': 'DECREMENT_BASKET_ITEM',
     payload,
-  }
-}
+  });

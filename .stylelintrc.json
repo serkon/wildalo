@@ -12,6 +12,7 @@
     "**/*.html"
   ],
   "rules": {
+    "custom-property-no-missing-var-function": [true, { "ignoreProperties": ["transition", "transition-property"] }],
     "color-hex-length": "long",
     "declaration-block-no-redundant-longhand-properties": [
       true,
@@ -23,9 +24,7 @@
     ],
     "function-comma-space-after": "always",
     "declaration-block-no-duplicate-properties": null,
-    "comment-empty-line-before": [
-      "always"
-    ],
+    "comment-empty-line-before": "always",
     "at-rule-no-unknown": [
       true,
       {

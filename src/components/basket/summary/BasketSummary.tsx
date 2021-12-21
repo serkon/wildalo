@@ -10,5 +10,5 @@ export const BasketSummary = (): JSX.Element => {
       <span className="icon"/>
       <span className="price">₺{selector.basket.total}</span>
     </div>
-  )
-}
+  );
+};

@@ -29,5 +29,5 @@ export const BasketList = (): JSX.Element => {
         {(selector.basket.list.length) ? <div className="basket-total">₺{selector.basket.total}</div> : null}
       </Card>
     </>
-  )
-}
+  );
+};

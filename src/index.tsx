@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 
@@ -7,16 +7,17 @@ import App from './App';
 import { store } from 'src/store/store';
 import { Provider } from 'react-redux';
 
-export const setTitle = (title: string): void => {
-  React.useEffect(() => {
+export const useSetTitle = (title: string): void => {
+  useEffect(() => {
     const prevTitle = document.title;
     document.title = title;
+    console.log(prevTitle, '##', title);
 
     return () => {
       document.title = prevTitle;
     };
-  }, []);
-}
+  }, [title]);
+};
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,22 +1,3 @@
-$config: (
-  grid: (
-    gutter: 16px,
-  )
-);
-
-@import "~@logo-software/theme/style";
-
 .app {
   font-family: var(--font-family) !important;
-
-  main {
-    .filter-area {
-    }
-
-    .content-area {
-    }
-
-    .basket-area {
-    }
-  }
 }

@@ -18,9 +18,7 @@ export const Filter = (props: FilterProps): JSX.Element => {
   const [selected, setSelected] = useState<any[]>([]);
   const [init, setInit] = useState<boolean>(false);
 
-  const idGenerator =  () => {
-    return '_' + Math.random().toString(36).substr(2, 9);
-  };
+  const idGenerator = () => '_' + Math.random().toString(36).substr(2, 9);
 
   const filter = () => {
     const value = inputRef.current?.value;
@@ -31,7 +29,7 @@ export const Filter = (props: FilterProps): JSX.Element => {
         setFiltered(found);
       }
     }, debounce || 800);
-  }
+  };
 
   const pushSelected = (item: any) => {
     const foundItem = selected.find((s) => s === item);
@@ -41,17 +39,15 @@ export const Filter = (props: FilterProps): JSX.Element => {
       list.push(item as never);
     setSelected(list);
     setInit(true);
-  }
+  };
 
-  const isSelected = (item: any): boolean => {
-    return !!selected.find(s => item === s);
-  }
+  const isSelected = (item: any): boolean => !!selected.find(s => item === s);
 
   useEffect(() => {
     if (init) {
       props.onClick && props.onClick(selected);
     }
-  }, [selected])
+  }, [init, props, selected]);
 
   const id = idGenerator();
   return (
@@ -68,5 +64,5 @@ export const Filter = (props: FilterProps): JSX.Element => {
         }
       </ul>
     </>
-  )
-}
+  );
+};

@@ -16,18 +16,16 @@ export const ProductList = (props: Props): JSX.Element => {
 
   const addToBasket = (item: Product) => {
     dispatch(add_to_basket(item));
-  }
+  };
 
   const filterByItemType = (type: string) => {
     const found = selected.find(item => item === type);
     (!found) ? selected.push(type) : selected.includes(type) && selected.splice(selected.indexOf(type), 1);
     setSelected([...selected]);
     dispatch(filter_product_by_item_type(selected));
-  }
+  };
 
-  const isTypeSelected = (type: string) => {
-    return !!selected.find(item => item === type);
-  }
+  const isTypeSelected = (type: string) => !!selected.find(item => item === type);
 
   return (
     <div className="product-list">
@@ -65,5 +63,5 @@ export const ProductList = (props: Props): JSX.Element => {
       }
       {props.list.length == 0 && <div className="product-area">No data were found</div>}
     </div>
-  )
-}
+  );
+};
