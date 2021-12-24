@@ -6,24 +6,20 @@ module.exports = {
   },
   'root': true,
   'extends': [
+    'prettier',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
   ],
   'parser': '@typescript-eslint/parser',
-  'plugins': [
-    '@typescript-eslint',
-  ],
+  'plugins': ['@typescript-eslint', 'prettier'],
   'parserOptions': {
     'ecmaVersion': 13,
     'sourceType': 'module',
   },
   'settings': {
     'import/parsers': {
-      '@typescript-eslint/parser': [
-        '.ts',
-        '.tsx',
-      ],
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
     'import/resolver': {
       'typescript': {},
@@ -31,10 +27,7 @@ module.exports = {
   },
   'rules': {
     '@typescript-eslint/no-empty-interface': 0,
-    'comma-dangle': [
-      'error',
-      'always-multiline',
-    ],
+    'comma-dangle': ['error', 'always-multiline'],
     'prefer-destructuring': [
       'error',
       {
@@ -67,18 +60,28 @@ module.exports = {
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'eol-last': ['error', 'always'],
-    'no-multiple-empty-lines': ['error', { 'max': 1, 'maxEOF': 0, 'maxBOF': 0 }],
+    'no-multiple-empty-lines': [
+      'error',
+      { 'max': 1, 'maxEOF': 0, 'maxBOF': 0 },
+    ],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-restricted-imports': ['error', { 'patterns': ['../*'] }],
-    'lines-between-class-members': ['error', 'always', { 'exceptAfterSingleLine': true }],
+    'lines-between-class-members': [
+      'error',
+      'always',
+      { 'exceptAfterSingleLine': true },
+    ],
     'linebreak-style': 0,
     'arrow-body-style': ['error', 'as-needed'],
     'indent': 'off',
     'quotes': ['error', 'single', { 'allowTemplateLiterals': true }],
     'no-multi-spaces': 'error',
     'no-trailing-spaces': 'error',
-    'space-before-function-paren': ['error', { 'anonymous': 'always', 'named': 'always', 'asyncArrow': 'always' }],
+    'space-before-function-paren': [
+      'error',
+      { 'anonymous': 'always', 'named': 'always', 'asyncArrow': 'always' },
+    ],
     'padded-blocks': ['error', { 'classes': 'always', 'blocks': 'never' }],
     'padding-line-between-statements': [
       'warn',
@@ -89,6 +92,23 @@ module.exports = {
     'max-len': ['error', { 'code': 180, 'ignoreUrls': true }],
     'no-mixed-operators': 'error',
     'quote-props': ['error', 'always'],
+    'prettier/prettier': [
+      'error',
+      {
+        'singleQuote': true,
+        'quoteProps': 'preserve',
+        'trailingComma': 'all',
+        'semi': true,
+        'tabWidth': 2,
+        'useTabs': false,
+        'bracketSameLine': true,
+        'bracketSpacing': true,
+        'arrowParens': 'always',
+        'requirePragma': true,
+        'vueIndentScriptAndStyle': true,
+        'htmlWhitespaceSensitivity': 'strict',
+      },
+    ],
   },
   'overrides': [
     {

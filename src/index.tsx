@@ -6,6 +6,7 @@ import './index.scss';
 import App from './App';
 import { store } from 'src/store/store';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 export const useSetTitle = (title: string): void => {
   useEffect(() => {
@@ -21,10 +22,13 @@ export const useSetTitle = (title: string): void => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App/>
-    </Provider>
-  </React.StrictMode>, document.getElementById('root'),
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function
