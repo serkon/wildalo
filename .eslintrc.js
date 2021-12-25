@@ -12,7 +12,7 @@ module.exports = {
     'plugin:react-hooks/recommended',
   ],
   'parser': '@typescript-eslint/parser',
-  'plugins': ['@typescript-eslint', 'prettier'],
+  'plugins': ['@typescript-eslint', 'prettier', 'unused-imports'],
   'parserOptions': {
     'ecmaVersion': 13,
     'sourceType': 'module',
@@ -51,9 +51,6 @@ module.exports = {
         'allowParens': false,
       },
     ],
-
-    'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': ['warn'],
     'semi': ['error', 'always'],
     'semi-style': ['error', 'last'],
     'no-extra-semi': 'error',
@@ -108,6 +105,13 @@ module.exports = {
         'vueIndentScriptAndStyle': true,
         'htmlWhitespaceSensitivity': 'strict',
       },
+    ],
+    '@typescript-eslint/no-unused-vars': ['warn'],
+    'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+        'warn',
+        { 'vars': 'all', 'varsIgnorePattern': '^_', 'args': 'after-used', 'argsIgnorePattern': '^_' },
     ],
   },
   'overrides': [

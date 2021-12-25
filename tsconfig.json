@@ -2,11 +2,9 @@
   "extends": "./tsconfig.path.json",
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "sourceMap": true,
     "allowJs": true,
     "skipLibCheck": true,
@@ -24,14 +22,10 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
-    "typeRoots": [
-      "./types"
-    ],
+    "typeRoots": ["./types"],
     "rootDir": "src",
     "baseUrl": "./"
   },
-  "include": [
-    "src"
-  ],
+  "include": ["src"],
   "exclude": ["node_modules", "**/*.test.tsx"]
 }
