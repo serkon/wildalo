@@ -1,5 +1,3 @@
-import React from 'react';
-
 import './header.scss';
 import logo from 'src/assets/Logo.svg';
 import { BasketSummary } from 'src/components/basket/summary/BasketSummary';
