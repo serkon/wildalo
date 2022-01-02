@@ -52,7 +52,7 @@ export const Sorting = React.forwardRef<ImperativeHandle, SortingProps>(
     // with whatever you return from the callback passed
     // as the second argument
     useImperativeHandle(forwardedRef, () => ({
-      uncheck () {
+      uncheck() {
         if (inputRef.current?.name) {
           document.getElementsByName(inputRef.current?.name).forEach((item) => (item as HTMLInputElement).checked = false);
         }

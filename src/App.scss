@@ -1,3 +1,11 @@
-.app {
-  font-family: var(--font-family) !important;
+#root {
+  // font-family: "Berkshire Swash" !important;
+
+  main {
+    h2.page-banner {
+      height: 92px;
+      background-image: url("~/src/assets/images/hero/main-top.svg");
+      color: white;
+    }
+  }
 }

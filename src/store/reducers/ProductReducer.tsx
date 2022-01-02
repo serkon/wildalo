@@ -51,14 +51,17 @@ const initialState: ProductState = {
 
 const filterAll = (state: ProductState): Product[] => {
   let filtered = state.products;
+
   // Find Companies
   if (state.filter.companies.length > 0) {
     filtered = state.filter.companies.reduce((total: Product[], company: Company) => [...total, ...filtered.filter((item: Product) => item.manufacturer === company.slug)], []);
   }
+
   // Find Items
   if (state.filter.types.length > 0) {
     filtered = state.filter.types.reduce((total: Product[], type: string) => [...total, ...filtered.filter((item: Product) => item.itemType === type)], []);
   }
+
   // Find Tags
   if (state.filter.tags.length > 0) {
     filtered = state.filter.tags.reduce((total: Product[], type: string) => [...total, ...filtered.filter((item: Product) => item.tags.includes(type))], []);

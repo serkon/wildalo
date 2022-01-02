@@ -14,25 +14,17 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
     "source.fixAll.stylelint": true,
-    "source.fixAll": true,
+    "source.fixAll": true
   },
   "eslint.format.enable": true,
   "editor.formatOnSave": true,
   "eslint.enable": true,
   "eslint.run": "onType",
-  "eslint.validate": [
-    "vue",
-    "typescript",
-    "javascript",
-    "javascriptreact",
-    "typescriptreact",
-    "json",
-    "jsonc"
-  ],
+  "eslint.validate": ["vue", "typescript", "javascript", "javascriptreact", "typescriptreact", "json", "jsonc"],
   "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
   "workbench.editor.showIcons": true,
   "[typescriptreact]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[javascriptreact]": {
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
@@ -41,10 +33,10 @@
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
   },
   "[javascript]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[json]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[jsonc]": {
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
