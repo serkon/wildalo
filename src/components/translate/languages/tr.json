@@ -1,4 +1,18 @@
 {
-  "hello": "tr test",
-  "withParam": "Deneme {param}"
+  "hello": "en test",
+  "withParam": "Test {param}",
+  "common": {
+    "start": "KAYDET"
+  },
+  "main": {
+    "slogan": "New Etherium Game is Coming Soon!",
+    "hero": {
+      "header01": "Collect animal cards",
+      "header02": "Create herds",
+      "header03": "Fight!",
+      "description_first": "First 100 packages are at discount during pre-launch.",
+      "description_second": "Win 5 FREE cards by signing up!",
+      "slogan": "Sign up and buy now!"
+    }
+  }
 }

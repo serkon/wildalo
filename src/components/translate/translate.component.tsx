@@ -5,7 +5,7 @@ export const LanguageContext = React.createContext<{
   tChange: (language: string) => Promise<void>;
   t: (key: string, params?: any) => string;
 }>({
-  'tState': { 'language': 'en', 'content': {} },
+  'tState': { 'language': 'tr', 'content': {} },
   'tChange': () => new Promise((resolve) => resolve()),
   't': () => '',
 });

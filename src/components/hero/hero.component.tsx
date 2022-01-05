@@ -15,16 +15,16 @@ export const Hero = (): JSX.Element => {
       </aside>
       <aside className="hero-right-side">
         <Heading as="h2" size="2xl" color="custom.macaroni-and-cheese" className="hero-title">
-          <div>{t('hero.header01')}</div>
-          <div>{t('hero.header02')}</div>
-          <div>{t('hero.header03')}</div>
+          <div>{t('main.hero.header01')}</div>
+          <div>{t('main.hero.header02')}</div>
+          <div>{t('main.hero.header03')}</div>
         </Heading>
-        <Heading className="hero-description">First 100 packages are at discount during pre-launch.</Heading>
-        <Heading className="hero-description hero-slogan">Sign up and buy now!</Heading>
+        <Heading className="hero-description">{t('main.hero.description_first')}</Heading>
+        <Heading className="hero-description hero-slogan">{t('main.hero.slogan')}</Heading>
         <Button color="light" className="hero-sign">
-          START
+          {t('common.start')}
         </Button>
-        <Heading className="hero-description">Win 5 FREE cards by signing up!</Heading>
+        <Heading className="hero-description">{t('main.hero.description_second')}</Heading>
       </aside>
     </Container>
   );
