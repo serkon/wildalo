@@ -16,7 +16,7 @@ function App(): JSX.Element {
       <Suspense fallback={<div>Loading...!</div>}>
         <Header logo={logo}>test</Header>
         <main>
-          <Heading as="h2" size="lg" variant="center" isTruncated className="page-banner">
+          <Heading as="h3" size="lg" variant="center" isTruncated className="page-banner">
             New Etherium Game is Coming Soon!
           </Heading>
           <Hero />

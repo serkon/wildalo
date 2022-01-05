@@ -1,0 +1,67 @@
+.hero {
+  display: flex;
+  padding-top: 40px;
+
+  .hero-left-side {
+    display: flex;
+
+    .ac {
+      transition: all 0.2s;
+      box-shadow: 0 0 10px rgb(0 0 0 / 40%);
+
+      &:hover {
+        transform: scale(1.15) !important;
+        box-shadow: 0 0 40px rgb(0 0 0 / 40%);
+      }
+    }
+
+    .animal-first {
+      transform: scale(0.75) translateX(55px) !important;
+
+      &:hover {
+        transform: scale(0.85) translateX(55px) !important;
+      }
+    }
+
+    .animal-middle {
+      z-index: 1;
+    }
+
+    .animal-last {
+      transform: scale(0.75) translateX(-55px) !important;
+
+      &:hover {
+        transform: scale(0.85) translateX(-55px) !important;
+      }
+    }
+  }
+
+  .hero-right-side {
+    text-align: center;
+
+    .hero-title {
+      padding-bottom: 38px;
+      line-height: 65px;
+      text-align: center;
+    }
+
+    .hero-description {
+      color: white;
+      font-family: var(--font-family-ubuntu);
+      font-size: 24px;
+      line-height: 38px;
+      text-align: center;
+      text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
+    }
+
+    .hero-slogan {
+      padding-top: 46px;
+      padding-bottom: 28px;
+    }
+
+    .hero-sign {
+      margin-bottom: 25px;
+      width: 168px;
+    }
+  }
+}

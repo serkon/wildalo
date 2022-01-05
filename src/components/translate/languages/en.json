@@ -1,4 +1,9 @@
 {
   "hello": "en test",
-  "withParam": "Test {param}"
+  "withParam": "Test {param}",
+  "hero": {
+    "header01": "Collect animal cards",
+    "header02": "Create herds",
+    "header03": "Fight!"
+  }
 }

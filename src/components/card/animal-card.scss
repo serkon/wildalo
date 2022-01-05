@@ -1,17 +1,66 @@
 .animal-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 24px;
-  width: 274px;
-  height: 484px;
-  border: 1px solid red;
+  width: 270px;
+  height: 480px;
 
-  .animal-level {
+  .level {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 72px;
+    height: 48px;
+    background-image: url("./images/common/level-background.svg");
 
+    .level-title {
+      color: #9ba2a0;
+      font-size: 14px;
+      letter-spacing: 2px;
+      line-height: normal;
+    }
+
+    .level-value {
+      color: #30332e;
+      font-size: 28px;
+      line-height: 100%;
+    }
   }
 
   .animal-name {
     overflow: hidden;
-    border: 1px solid red;
     border-radius: 12px;
+    color: white;
+    font-family: var(--font-family-title);
+    font-size: 24px;
+  }
+
+  .animal-background {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+
+    &.card-type-1 {
+      background-image: url("./images/common/animal-card-bg-01.png");
+    }
+
+    &.card-type-2 {
+      background-image: url("./images/common/animal-card-bg-02.png");
+    }
+
+    &.card-type-3 {
+      background-image: url("./images/common/animal-card-bg-03.png");
+    }
+  }
+
+  .animal-picture {
+    position: relative;
+    z-index: -2;
+    width: 100%;
+    height: 184px;
   }
 
   .content {
