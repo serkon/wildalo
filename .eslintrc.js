@@ -89,6 +89,7 @@ module.exports = {
         'comma-dangle': ['error', 'never'],
         'semi': ['error', 'never'],
         'quotes': ['error', 'double'],
+        'max-len': ['error', { 'code': 80, 'ignoreStrings': true, 'ignoreRegExpLiterals': true, 'ignoreTemplateLiterals': true }],
       },
     },
   ],
