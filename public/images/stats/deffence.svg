@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>defence_icon</title>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="card_exotic" transform="translate(-51.000000, -328.000000)" fill="#738D99" fill-rule="nonzero">
+            <g id="Combined-Shape" transform="translate(49.000000, 326.000000)">
+                <path d="M11.5,2.001 L11.5003218,22.0001554 C8.90624489,20.7330747 5.81929138,19.1478996 3.80387667,17.2171913 C2.64750685,16.0902313 2.00335772,14.6101449 2,13.0723539 L2,13.0723539 L2,3.70527498 L11.5,2.001 Z M12.5,2.001 L22,3.70527498 L22,13.0723539 C22.0050131,14.6115855 21.3596941,16.0943599 20.196094,17.2171913 C18.1809354,19.1476542 15.0945104,20.7326718 12.5006379,21.9996723 L12.5,2.001 Z"></path>
+            </g>
+        </g>
+    </g>
+</svg>

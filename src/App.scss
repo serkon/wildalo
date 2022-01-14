@@ -7,5 +7,17 @@
       background-image: url("~/src/assets/images/hero/main-top.svg");
       color: white;
     }
+
+    .section-01 {
+      padding: 50px 0;
+
+      h1 {
+        margin-bottom: 64px;
+      }
+
+      p {
+        padding-bottom: 36px;
+      }
+    }
   }
 }

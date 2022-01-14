@@ -4,12 +4,15 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ChakraProvider } from '@chakra-ui/react';
+import { Routes, Route } from 'react-router-dom';
 
 import './index.scss';
 import theme from './theme';
 import App from './App';
 import { store } from 'src/store/store';
 import { Language } from 'src/components/translate/translate.component';
+import { HomePage } from 'src/pages/home/home.page';
+import { Outlet } from 'react-router';
 
 export const useSetTitle = (title: string): void => {
   useEffect(() => {
@@ -34,7 +37,12 @@ ReactDOM.render(
       <Provider store={store}>
         <ChakraProvider theme={theme}>
           <Language>
-            <App />
+            <Routes>
+              <Route path="/" element={<App />}>
+                <Route path="home" element={<HomePage />} />
+              </Route>
+            </Routes>
+            <Outlet />
           </Language>
         </ChakraProvider>
       </Provider>

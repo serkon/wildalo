@@ -1,5 +1,7 @@
 import { Suspense } from 'react';
-import { Heading } from '@chakra-ui/react';
+import { Heading, Text, Container } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { ErrorBoundary } from 'src/components/error-boundary/ErrorBoundary';
 import { Header } from './components/header/header.component';
@@ -22,6 +24,18 @@ function App(): JSX.Element {
             {t('main.slogan')}
           </Heading>
           <Hero />
+          <section className="section-01">
+            <Container maxW="container.md" className="hero" flexDirection="column" textAlign="center">
+              <Heading as="h1" color="white">
+                {t('main.section.one.header')}
+              </Heading>
+              <Text textAlign="center">{t('main.section.one.description')}</Text>
+              <Link to="/home" color="white">
+                {t('main.section.one.link')}
+              </Link>
+              <Outlet />
+            </Container>
+          </section>
         </main>
       </Suspense>
     </ErrorBoundary>

@@ -57,7 +57,7 @@ export class Language extends React.Component<Props, State> {
    * @param path - String path of the target property
    */
   static getObjectPathValue(value: any, path: string) {
-    console.log('getObject: ', value, path);
+    // console.log('getObject: ', value, path);
     let data = value;
     if (path) {
       path = path.toString();
