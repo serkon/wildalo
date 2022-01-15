@@ -1,0 +1,37 @@
+.footer {
+  height: 233px;
+  background-image: url(./footer-background.svg);
+  background-repeat: repeat-x;
+  background-position: center;
+  background-size: contain;
+
+  .link-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 124px;
+    grid-row-gap: 7px;
+    padding-left: 124px;
+    font-size: 14px;
+    color: #f7f7f7;
+  }
+
+  .socials {
+    display: grid;
+    grid-template-columns: repeat(6, 36px);
+    grid-column-gap: 8px;
+    grid-row-gap: 16px;
+    justify-content: end;
+    text-align: end;
+    flex-grow: 1;
+
+    .social {
+      width: 24px;
+      height: 24px;
+      background-color: white;
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+      margin: 0;
+    }
+  }
+}

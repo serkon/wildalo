@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom';
 
 import { ErrorBoundary } from 'src/components/error-boundary/ErrorBoundary';
 import { Header } from './components/header/header.component';
+import { Footer } from './components/footer/footer.component';
 import { useTranslate } from './components/translate/translate.component';
 import { useSetTitle } from 'src/index';
 import { Hero } from './components/hero/hero.component';
@@ -18,7 +19,7 @@ function App(): JSX.Element {
   return (
     <ErrorBoundary>
       <Suspense fallback={<div>Loading...!</div>}>
-        <Header logo={logo}>test</Header>
+        <Header logo={logo} />
         <main>
           <Heading as="h3" size="lg" variant="center" isTruncated className="page-banner">
             {t('main.slogan')}
@@ -37,6 +38,7 @@ function App(): JSX.Element {
             </Container>
           </section>
         </main>
+        <Footer logo={logo} className="footer" />
       </Suspense>
     </ErrorBoundary>
   );

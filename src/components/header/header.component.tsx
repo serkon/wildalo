@@ -11,7 +11,7 @@ interface Props {
 }
 
 const items = [
-  { 'title': 'common.how_to_play', 'to': '' },
+  { 'title': 'common.how_to_play_big', 'to': '' },
   { 'title': 'common.whitepaper', 'to': '' },
 ];
 

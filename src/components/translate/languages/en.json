@@ -3,8 +3,29 @@
   "withParam": "Test {param}",
   "common": {
     "start": "FREE TO START",
-    "how_to_play": "HOW TO PLAY",
-    "whitepaper": "WHITEPAPER"
+    "how_to_play_big": "HOW TO PLAY",
+    "how_to_play_camel": "How to Play",
+    "whitepaper": "WHITEPAPER",
+    "terms_and_conditions": "Terms & Conditions"
+  },
+  "links": {
+    "about_us": "About Us",
+    "contact_us": "Contact Us",
+    "faqs": "FAQs",
+    "privacy_policy": "Privacy Policy",
+    "how_to_play": "How to Play",
+    "whitepaper": "Whitepaper"
+  },
+  "social": {
+    "facebook": "facebook",
+    "twitter": "twitter",
+    "reddit": "reddit",
+    "discord": "discord",
+    "youtube": "youtube",
+    "linkedin": "linkedin",
+    "instagram": "instagram",
+    "medium": "medium",
+    "telegram": "telegram"
   },
   "animals": {
     "AMERICAN_BISON": "American Bison",
