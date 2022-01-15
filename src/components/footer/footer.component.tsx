@@ -26,11 +26,11 @@ const socials = [
   { 'title': 'social.twitter', 'to': 'https://twitter.com/wildalogame' },
   { 'title': 'social.reddit', 'to': 'https://www.reddit.com/r/wildalo/' },
   { 'title': 'social.discord', 'to': 'https://discord.com/channels/920134929583603714/920134930284044359' },
-  { 'title': 'social.youtube', 'to': 'https://trello.com/' },
+  { 'title': 'social.youtube', 'to': 'https://www.youtube.com/channel/UCeqL4KyprLNMKwFQueOdsIw' },
   { 'title': 'social.linkedin', 'to': 'https://www.linkedin.com/in/wildalo-game-a23921229/' },
   { 'title': 'social.instagram', 'to': 'https://www.instagram.com/wildalogame/' },
   { 'title': 'social.medium', 'to': 'https://medium.com/@wildalogame' },
-  { 'title': 'social.telegram', 'to': 'https://web.telegram.org/z/' },
+  { 'title': 'social.telegram', 'to': 'https://t.me/+jO3E4SQjH6U2MmEx' },
 ];
 
 export const Footer = (props: Props): JSX.Element => {

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="92px" height="3852px" viewBox="0 0 92 3852" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Rectangle</title>
+    <defs>
+        <linearGradient x1="50%" y1="7.01108955%" x2="50%" y2="99.5000653%" id="linearGradient-1">
+            <stop stop-color="#030B0F" offset="0%"></stop>
+            <stop stop-color="#1E5E6E" offset="11.3626097%"></stop>
+            <stop stop-color="#1E6E53" offset="19.6418025%"></stop>
+            <stop stop-color="#030B0F" offset="25.1532987%"></stop>
+            <stop stop-color="#051012" offset="64.6973092%"></stop>
+            <stop stop-color="#1E5E6E" offset="85.8449241%"></stop>
+            <stop stop-color="#1E6E53" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="UI-Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Landing-Page" transform="translate(0.000000, -89.000000)" fill="url(#linearGradient-1)">
+            <rect id="Rectangle" x="0" y="89" width="92" height="3852"></rect>
+        </g>
+    </g>
+</svg>

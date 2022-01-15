@@ -1,4 +1,4 @@
-import { Container, Heading } from '@chakra-ui/react';
+import { Container, Heading, Button, Box } from '@chakra-ui/react';
 
 import { AnimalCard } from 'src/components/card/animal-card.component';
 import { useTranslate } from 'src/components/translate/translate.component';
@@ -40,6 +40,10 @@ const animals: AnimalDetail[] = [
 
 export const Hero = (): JSX.Element => {
   const { t } = useTranslate();
+
+  const redirect = (path: string) => {
+    window.open(path, '_blank');
+  };
   return (
     <Container maxW="container.xl" className="hero">
       <aside className="hero-left-side">
@@ -55,6 +59,14 @@ export const Hero = (): JSX.Element => {
           </Heading>
         </Heading>
         <Heading className="hero-description">{t('main.hero.description_first')}</Heading>
+        <Box paddingTop="30" justifyContent="center">
+          <Button bg="custom.macaroni-and-cheese" color="black" onClick={() => redirect('https://discord.com/channels/920134929583603714/920134930284044359')}>
+            {t('main.hero.join_discord')}
+          </Button>
+          <Button bg="custom.macaroni-and-cheese" color="black" marginLeft="24px" onClick={() => redirect('https://t.me/+jO3E4SQjH6U2MmEx')}>
+            {t('main.hero.join_telegram')}
+          </Button>
+        </Box>
       </aside>
     </Container>
   );

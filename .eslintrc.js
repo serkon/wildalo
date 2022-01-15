@@ -74,7 +74,7 @@ module.exports = {
     'padded-blocks': ['error', 'never'],
     'padding-line-between-statements': ['warn', { 'blankLine': 'always', 'prev': '*', 'next': 'function' }, { 'blankLine': 'always', 'prev': 'function', 'next': '*' }],
     'arrow-spacing': ['error', { 'before': true, 'after': true }],
-    'max-len': ['error', { 'code': 180, 'ignoreUrls': true }],
+    'max-len': ['error', { 'code': 180, 'ignoreUrls': true, 'ignoreStrings': true, 'ignoreTrailingComments': true, 'ignoreTemplateLiterals': true }],
     'no-mixed-operators': 'error',
     'quote-props': ['error', 'always'],
     '@typescript-eslint/no-unused-vars': ['warn'],
