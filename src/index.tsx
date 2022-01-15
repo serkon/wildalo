@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Outlet } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Routes, Route } from 'react-router-dom';
 
 import './index.scss';
 import theme from './theme';
-import App from './App';
 import { store } from 'src/store/store';
 import { Language } from 'src/components/translate/translate.component';
-import { HomePage } from 'src/pages/home/home.page';
-import { Outlet } from 'react-router';
+import App from './App';
+import { FAQPage } from 'src/pages/faq/faq.page';
+import { HomePage } from './pages/home/home.page';
+import { Navigate } from 'react-router-dom';
 
 export const useSetTitle = (title: string): void => {
   useEffect(() => {
@@ -39,8 +40,10 @@ ReactDOM.render(
           <Language>
             <Routes>
               <Route path="/" element={<App />}>
-                <Route path="home" element={<HomePage />} />
+                <Route path="" element={<HomePage />} />
+                <Route path="faq" element={<FAQPage />} />
               </Route>
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
             <Outlet />
           </Language>

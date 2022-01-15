@@ -2,6 +2,7 @@ import { Container, Flex, Center, Image, Button, Stack } from '@chakra-ui/react'
 import { useMQReal } from 'src/theme/util/media-query';
 
 import { useTranslate } from 'src/components/translate/translate.component';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   left?: JSX.Element;
@@ -11,16 +12,18 @@ interface Props {
 }
 
 const items = [
-  { 'title': 'common.how_to_play_big', 'to': '' },
-  { 'title': 'common.whitepaper', 'to': '' },
+  { 'title': 'links.home', 'to': '/' },
+  { 'title': 'links.how_to_play', 'to': 'faq' },
+  { 'title': 'links.whitepaper', 'to': 'whitepaper' },
 ];
 
 const DesktopMenu = () => {
   const { t } = useTranslate();
+  const navigate = useNavigate();
   return (
     <Stack direction="row" spacing={[0, 4, 8, 20]} flex="1" justifyContent="flex-end" alignItems="center">
       {items.map((item: { title: string; to: string }) => (
-        <Button color="white" variant="ghost">
+        <Button color="white" variant="ghost" onClick={() => navigate(item.to)}>
           {t(item.title)}
         </Button>
       ))}

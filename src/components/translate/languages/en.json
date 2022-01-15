@@ -2,19 +2,17 @@
   "hello": "en test",
   "withParam": "Test {param}",
   "common": {
-    "start": "FREE TO START",
-    "how_to_play_big": "HOW TO PLAY",
-    "how_to_play_camel": "How to Play",
-    "whitepaper": "WHITEPAPER",
-    "terms_and_conditions": "Terms & Conditions"
+    "start": "FREE TO START"
   },
   "links": {
+    "home": "Home",
     "about_us": "About Us",
     "contact_us": "Contact Us",
     "faqs": "FAQs",
     "privacy_policy": "Privacy Policy",
     "how_to_play": "How to Play",
-    "whitepaper": "Whitepaper"
+    "whitepaper": "Whitepaper",
+    "terms_and_conditions": "Terms & Conditions"
   },
   "social": {
     "facebook": "facebook",
