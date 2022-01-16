@@ -9,7 +9,7 @@ import { useSetTitle } from 'src/index';
 import logo from './assets/logo.png';
 
 function App(): JSX.Element {
-  useSetTitle('App');
+  useSetTitle('Wildalo');
   const { t } = useTranslate();
 
   return (
