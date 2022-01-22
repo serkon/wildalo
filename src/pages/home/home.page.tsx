@@ -31,7 +31,7 @@ export const HomePage = () => {
 
   return (
     <>
-      <Heading as="h3" size={isLarge ? 'lg' : 'md'} variant="center" isTruncated className="page-banner">
+      <Heading as="h3" size={isLarge ? 'lg' : 'sm'} variant="center" isTruncated className="page-banner">
         {t('main.slogan')}
       </Heading>
       <Hero />

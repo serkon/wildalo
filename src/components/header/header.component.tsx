@@ -16,7 +16,7 @@ const Links = () => {
     <React.Fragment>
       {items.map((item: { title: string; to: string }, key: number) => (
         <Button color="white" variant="ghost" onClick={() => navigate(item.to)} key={key}>
-          {t(item.title)}
+          {t(item.title).toUpperCase()}
         </Button>
       ))}
     </React.Fragment>
@@ -52,6 +52,7 @@ export function Header(props: { logo: string }) {
                 <Avatar
                   size={'sm'}
                   src={'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'}
+                  visibility="hidden"
                 />
               </MenuButton>
               <MenuList>
