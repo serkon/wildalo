@@ -1,8 +1,8 @@
-import { Container, Flex, Center, Image, Stack, Tooltip, Box } from '@chakra-ui/react';
+import { Container, Flex, Center, Image, Stack, Tooltip, Box, Button } from '@chakra-ui/react';
 import { useTranslate } from 'src/components/translate/translate.component';
-import { Link } from 'react-router-dom';
 
 import './footer.component.scss';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   left?: JSX.Element;
@@ -13,12 +13,13 @@ interface Props {
 }
 
 const items = [
-  { 'title': 'links.how_to_play', 'to': '' },
-  { 'title': 'links.whitepaper', 'to': '' },
+  { 'title': 'links.how_to_play', 'to': 'faq' },
+  { 'title': 'links.terms_and_conditions', 'to': 'terms-and-conditions.pdf', 'external': true },
+  { 'title': 'links.whitepaper', 'to': 'whitepaper.pdf', 'external': true },
+  { 'title': 'links.privacy_policy', 'to': 'privacy-and-policy.pdf', 'external': true },
   // { 'title': 'links.about_us', 'to': '' },
   // { 'title': 'links.contact_us', 'to': '' },
   // { 'title': 'links.faqs', 'to': '' },
-  // { 'title': 'links.privacy_policy', 'to': '' },
 ];
 
 const socials = [
@@ -33,12 +34,22 @@ const socials = [
   // { 'title': 'social.medium', 'to': 'https://medium.com/@wildalogame' },
 ];
 
+interface FooterLink {
+  title: string;
+  to: string;
+  external?: boolean;
+}
+
 export const Footer = (props: Props): JSX.Element => {
   const socialLink = (d: string) => ({
     'WebkitMaskImage': `url(/images/socials/${t(d)}.svg)`,
     'maskImage': `url(/images/socials/${t(d)}.svg)`,
   });
   const { t } = useTranslate();
+  const navigate = useNavigate();
+  const direction = (item: FooterLink) => {
+    item.external ? window.open(item.to, '_blank') : navigate(item.to);
+  };
   return (
     <>
       <Center as="footer" className={props.className}>
@@ -47,9 +58,9 @@ export const Footer = (props: Props): JSX.Element => {
             <Image srcSet={props.logo} objectFit="contain" maxW={{ 'base': '50%', 'md': '170px' }} />
             <Box className="link-container" ml={[0, 124]} mt={[10, 0]}>
               {items.map((item: { title: string; to: string }, key: number) => (
-                <Link to={item.to} key={key}>
+                <Button color="white" variant="link" onClick={() => direction(item)} key={key} justifyContent="flex-start">
                   {t(item.title)}
-                </Link>
+                </Button>
               ))}
             </Box>
             <Stack className="socials" mt={[16, 0]} justifyContent={{ 'base': 'space-between', 'md': 'end' }} width={{ 'base': '100%', 'md': 'auto' }}>
