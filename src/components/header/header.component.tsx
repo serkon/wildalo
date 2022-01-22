@@ -3,19 +3,28 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
 import { useTranslate } from 'src/components/translate/translate.component';
 import React from 'react';
-const items = [
+
+interface HeaderLink {
+  title: string;
+  to: string;
+  external?: boolean;
+}
+const items: HeaderLink[] = [
   { 'title': 'links.home', 'to': '/' },
   { 'title': 'links.how_to_play', 'to': 'faq' },
-  { 'title': 'links.whitepaper', 'to': 'whitepaper' },
+  { 'title': 'links.whitepaper', 'to': '/whitepaper.pdf', 'external': true },
 ];
 
 const Links = () => {
   const { t } = useTranslate();
   const navigate = useNavigate();
+  const direction = (item: HeaderLink) => {
+    item.external ? window.open(item.to, '_blank') : navigate(item.to);
+  };
   return (
     <React.Fragment>
       {items.map((item: { title: string; to: string }, key: number) => (
-        <Button color="white" variant="ghost" onClick={() => navigate(item.to)} key={key}>
+        <Button color="white" variant="ghost" onClick={() => direction(item)} key={key}>
           {t(item.title).toUpperCase()}
         </Button>
       ))}
