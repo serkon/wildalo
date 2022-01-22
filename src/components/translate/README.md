@@ -14,7 +14,7 @@ React'ın en tepesine `Language` class'ına ait tag'i eklemeniz gerekir. Daha do
 ### 2. Adım
 Kullanmak istediğiniz yere context ekleyerek dil değişim işlemlerini yapabilirsiniz. 3 adet değer dönüyor.
 
-- t: Translate fonksiyonu: 2 adet parametre alıyor: key ve param. Dil dosyası içerisindeki key'e bakar ve parametre varsa günceller. Örneğin: `t{'hello', {count: 2}}`
+- t: Translate fonksiyonu: 2 adet parametre alıyor: key ve param. Dil dosyası içerisindeki key'e bakar ve parametre varsa günceller. Örneğin: `t('hello', {count: 2})`
 - tChange: Dil değiştirmeye yarar. Örneğin: `tChange('tr')`
 - tState: Dil ile ilgili değerleri döner. Örneğin: `{language: 'tr', content: {hello: 'Merhaba, count {param}'}}`
 

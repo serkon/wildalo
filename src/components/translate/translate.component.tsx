@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 export const LanguageContext = React.createContext<{
   tState: State;
   tChange: (language: string) => Promise<void>;
   t: (key: string, params?: any) => string;
 }>({
-  'tState': { 'language': 'tr', 'content': {} },
+  'tState': { 'language': 'tr', 'content': {}, 'status': false },
   'tChange': () => new Promise((resolve) => resolve()),
   't': () => '',
 });
@@ -15,22 +15,34 @@ interface Props {}
 interface State {
   language: string;
   content: { [key: string]: string };
+  status: boolean;
 }
 
 export class Language extends React.Component<Props, State> {
   content: { [key: string]: string } = {};
   static contextType = LanguageContext; // alternatif: LanguageContext.contextType = SampleContext;
-  state = { 'language': 'en', 'content': {} };
+  state: State = { 'language': 'en', 'content': {}, 'status': false };
 
   componentDidMount() {
     this.changeLanguage();
   }
 
   changeLanguage = async (language = 'en') => {
-    const content = await import(`./languages/${language}.json`);
-    this.setState({ language, content }, () => {
-      console.log(this.state);
-    });
+    let content: any;
+
+    this.setState(
+      // previous, props of the state also accessible in function parameter:
+      // `(previousState, props) => ({status: false})`
+      () => ({ 'status': false }),
+      async () => {
+        content = await import(`./languages/${language}.json`);
+        this.setState({ language, content, 'status': true }, () => ({
+          language,
+          content,
+          'status': true,
+        }));
+      },
+    );
   };
 
   translate = (key: string, params?: any) => {
@@ -76,7 +88,7 @@ export class Language extends React.Component<Props, State> {
           'tChange': (language: string) => this.changeLanguage(language),
           't': this.translate,
         }}>
-        {this.props.children}
+        <Suspense fallback={<div>{this.translate('loading')}</div>}>{this.state.status && <>{this.props.children}</>}</Suspense>
       </LanguageContext.Provider>
     );
   }
