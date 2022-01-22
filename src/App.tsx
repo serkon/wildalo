@@ -5,11 +5,12 @@ import { ErrorBoundary } from 'src/components/error-boundary/ErrorBoundary';
 import { Header } from './components/header/header.component';
 import { Footer } from './components/footer/footer.component';
 import { useTranslate } from './components/translate/translate.component';
-import { useSetTitle } from 'src/index';
+import { useMobile, useSetTitle } from 'src/index';
 import logo from './assets/logo.png';
 
 function App(): JSX.Element {
   useSetTitle('Wildalo');
+  useMobile();
   const { t } = useTranslate();
 
   return (

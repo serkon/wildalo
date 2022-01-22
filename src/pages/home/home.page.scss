@@ -2,12 +2,12 @@
   // font-family: "Berkshire Swash" !important;
 
   main {
-    text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
-
     .page-banner {
       height: 92px;
       background-image: url("~/src/assets/images/hero/main-top.svg");
       color: white;
+      font-weight: 200;
+      letter-spacing: 0.5px;
     }
 
     section.one {
@@ -34,6 +34,7 @@
       background-repeat: no-repeat;
       background-position: top;
       background-size: cover;
+      text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
 
       .title {
         position: absolute;
@@ -76,11 +77,11 @@
       justify-content: flex-end;
       margin-top: 96px;
       margin-bottom: 196px;
-      height: 400px;
+      padding: 4rem 0;
       background-color: white;
 
-      h2,
-      p {
+      h3 {
+        margin-bottom: 1rem;
         color: #021425;
       }
 
@@ -94,6 +95,29 @@
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
+      }
+    }
+  }
+
+  &.mobile {
+    section.second {
+      .title {
+        right: 0;
+        width: 100%;
+      }
+
+      .description {
+        width: 100%;
+      }
+
+      .stone {
+        right: 0;
+      }
+    }
+
+    section.third {
+      .leaf {
+        right: 10px;
       }
     }
   }

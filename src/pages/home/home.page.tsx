@@ -4,32 +4,34 @@ import { Link } from 'react-router-dom';
 import { Hero } from './hero/hero.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import './home.page.scss';
+import { useMQReal } from 'src/theme/util/media-query';
 
 const roadmap = [
   {
-    'title': 'Q1',
-    'description': 'Development & Community building, TGE',
-  },
-  {
     'title': 'Q2',
-    'description': 'Herd Fights begin',
+    'description': ['TGE & Community Building', 'Herd Fights Begin'],
   },
   {
     'title': 'Q3',
-    'description': 'Fall Wildlings Editions (+X new wildlings), League/Tournament',
+    'description': ['New Fall Wildlings', 'Ranger Leaderboard & Tournaments', 'NFT sales in Wildalo Marketplace'],
   },
   {
     'title': 'Q4',
-    'description': 'Winter Wildlings Editions (+Y new wildlings), Wildalo Homesteads',
+    'description': ['New Winter Wildlings', 'Wildalo Homesteads'],
+  },
+  {
+    'title': 'H1’23',
+    'description': ['New Spring Wildlings', 'Consumables', 'Ranger Guilds'],
   },
 ];
 
 export const HomePage = () => {
   const { t } = useTranslate();
+  const isLarge = useMQReal('md');
 
   return (
     <>
-      <Heading as="h3" size="lg" variant="center" isTruncated className="page-banner">
+      <Heading as="h3" size={isLarge ? 'lg' : 'md'} variant="center" isTruncated className="page-banner">
         {t('main.slogan')}
       </Heading>
       <Hero />
@@ -58,13 +60,17 @@ export const HomePage = () => {
       </section>
       <section className="third">
         <Container maxW="container.lg" display="flex" flexDirection="column" textAlign="left" alignItems="flex-end">
-          <Grid templateColumns="repeat(4, 1fr)" gap={10} width="100%">
+          <Grid templateColumns={{ 'base': 'repeat(1, 1fr)', 'md': 'repeat(4, 1fr)' }} gap={10} padding={{ 'base': 4, 'md': 0 }} width="100%">
             {roadmap.map((item, key) => (
               <GridItem key={key} className="prop">
-                <Heading as="h3" size="xl" h="20" isTruncated className="title">
+                <Heading as="h3" size="xl" isTruncated className="title">
                   {item.title}
                 </Heading>
-                <p>{item.description}</p>
+                <ul>
+                  {item.description.map((des: string, key: number) => (
+                    <li key={key}>{des}d</li>
+                  ))}
+                </ul>
               </GridItem>
             ))}
           </Grid>

@@ -3,35 +3,41 @@
   padding-top: 40px;
 
   .hero-left-side {
+    position: relative;
     display: flex;
+    min-height: 480px;
+    width: 100%;
 
     .ac {
-      transition: all 0.2s;
+      position: absolute;
+      flex-shrink: 0;
       box-shadow: 0 0 10px rgb(0 0 0 / 40%);
+      transition: all 0.2s;
 
       &:hover {
-        transform: scale(1.15) !important;
+        transform: scale(1.1) !important;
         box-shadow: 0 0 40px rgb(0 0 0 / 40%);
       }
     }
 
     .animal-first {
-      transform: scale(0.75) translateX(55px) !important;
+      left: 10px;
 
       &:hover {
-        transform: scale(0.85) translateX(55px) !important;
+        transform: scale(0.85) !important;
       }
     }
 
     .animal-middle {
+      left: calc(50% - 135px);
       z-index: 1;
     }
 
     .animal-last {
-      transform: scale(0.75) translateX(-55px) !important;
+      right: 10px;
 
       &:hover {
-        transform: scale(0.85) translateX(-55px) !important;
+        transform: scale(0.85) !important;
       }
     }
   }
@@ -41,7 +47,6 @@
 
     .hero-title {
       padding-top: 64px;
-      padding-bottom: 36px;
       line-height: 65px;
       text-align: center;
     }
@@ -63,6 +68,21 @@
     .hero-sign {
       margin-bottom: 25px;
       width: 168px;
+    }
+  }
+
+  &.mobile {
+    flex-direction: column;
+    align-items: center;
+
+    .hero-left-side {
+      .animal-first {
+        left: -32px;
+      }
+
+      .animal-last {
+        right: -32px;
+      }
     }
   }
 }

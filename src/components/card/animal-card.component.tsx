@@ -29,7 +29,7 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>): JSX.Element =
   };
   return (
     <>
-      <Box {...props} className={`animal-card ${props.className}`} style={scale}>
+      <Box {...props} className={`animal-card ${props.className}`} style={scale ? scale : {}}>
         <div className="level">
           <span className="level-title">{t('level')}</span> <span className="level-value">{data.level}</span>
         </div>

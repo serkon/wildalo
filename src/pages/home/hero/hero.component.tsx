@@ -3,7 +3,8 @@ import { Container, Heading, Button, Box } from '@chakra-ui/react';
 import { AnimalCard } from 'src/components/card/animal-card.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { AnimalDetail, AnimalType, Region } from 'src/components/card/animal.dto';
-import './hero.scss';
+import { useMQReal } from 'src/theme/util/media-query';
+import './hero.component.scss';
 
 const animals: AnimalDetail[] = [
   {
@@ -40,23 +41,24 @@ const animals: AnimalDetail[] = [
 
 export const Hero = (): JSX.Element => {
   const { t } = useTranslate();
+  const isDesktop = useMQReal('md');
 
   const redirect = (path: string) => {
     window.open(path, '_blank');
   };
   return (
-    <Container maxW="container.xl" className="hero">
-      <aside className="hero-left-side">
+    <Container maxW="container.xl" className={`hero ${isDesktop ? 'desktop' : 'mobile'}`}>
+      <Box className={`hero-left-side`}>
         <AnimalCard data={animals[0]} scale={0.75} translateX="135px" className="animal-first ac" />
         <AnimalCard data={animals[1]} className="ac animal-middle" />
         <AnimalCard data={animals[2]} scale={0.75} className="animal-last ac" />
-      </aside>
+      </Box>
       <aside className="hero-right-side">
         <Heading as="h2" size="2xl" color="custom.macaroni-and-cheese" className="hero-title">
           <div>{t('main.hero.header01')}</div>
-          <Heading as="h2" size="4xl">
-            {t('main.hero.header02')}
-          </Heading>
+        </Heading>
+        <Heading as="h2" size="4xl" color="custom.macaroni-and-cheese" paddingBottom={9}>
+          {t('main.hero.header02')}
         </Heading>
         <Heading className="hero-description">{t('main.hero.description_first')}</Heading>
         <Box paddingTop="30" justifyContent="center">
