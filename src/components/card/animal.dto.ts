@@ -11,7 +11,7 @@ export enum AnimalName {
 }
 
 export enum Region {
-  NORT_AMERICA='NORT_AMERICA',
+  NORTH_AMERICA='NORTH_AMERICA',
   SOUTH_AMERICA='SOUTH_AMERICA',
   AFRICA='AFRICA',
   EUROPE='EUROPE',
@@ -33,10 +33,14 @@ export enum PrimaryStat {
 export enum SecondaryStats {
   ATTACK_BUFF='attackBuff',
   ATTACK_DEBUFF='attackDebuff',
-  DAMMAGE_REFLECTION='dammageReflection',
+  DAMAGE_REFLECTION='damageReflection',
   POISON='poison',
-  DEFFENCE_BUFF='deffenceBuff',
-  HEAL_BUFF='healBuff'
+  DEFENSE_BUFF='defenseBuff',
+  DEFENSE_DEBUFF='defenseDebuff',
+  HEAL_BUFF='healBuff',
+  SPEED_BUFF='speedBuff',
+  SPEED_DEBUFF='speedDebuff',
+  LIFE_STEAL='lifeSteal',
 }
 
 export type PrimaryKeys = Array<keyof PrimaryStat>;
@@ -54,14 +58,3 @@ export interface Animal {
 export interface AnimalDetail extends Animal {
   description?: string;
 }
-
-export const animal: AnimalDetail = {
-  'id': 'abcd-123d-232d-ed213',
-  'type': AnimalType.EXOTIC,
-  'name': AnimalName.MUSTANG,
-  'level': 2,
-  'region': Region.NORT_AMERICA,
-  'primaryStats': {'attack': 2},
-  'secondaryStats': {'attackBuff': 2},
-  'description': 'Lorem ipsum dolar sitamet',
-};

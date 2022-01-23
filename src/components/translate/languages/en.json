@@ -28,7 +28,11 @@
   "animals": {
     "AMERICAN_BISON": "American Bison",
     "BLACK_BEAR": "Black Bear",
-    "GREAT_WHITE_SHARK": "Great White Shark"
+    "GREAT_WHITE_SHARK": "Great White Shark",
+    "BLACK_MAMBA": "Black Mamba",
+    "GRAY_WHALE": "Gray Whale",
+    "OSPREY": "Osprey",
+    "MUSTANG": "Mustang"
   },
   "main": {
     "slogan": "New NFT trading card game coming soon!",

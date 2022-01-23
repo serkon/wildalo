@@ -68,7 +68,7 @@ export const HomePage = () => {
                 </Heading>
                 <ul>
                   {item.description.map((des: string, key: number) => (
-                    <li key={key}>{des}d</li>
+                    <li key={key}>{des}</li>
                   ))}
                 </ul>
               </GridItem>

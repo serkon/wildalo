@@ -24,7 +24,7 @@
       left: 10px;
 
       &:hover {
-        transform: scale(0.85) !important;
+        transform: scale(0.8) !important;
       }
     }
 
@@ -37,7 +37,7 @@
       right: 10px;
 
       &:hover {
-        transform: scale(0.85) !important;
+        transform: scale(0.8) !important;
       }
     }
   }
@@ -78,6 +78,14 @@
     .hero-left-side {
       .animal-first {
         left: -32px;
+      }
+
+      .animal-middle {
+        transform: scale(0.85) !important;
+
+        &:hover {
+          transform: scale(0.95) !important;
+        }
       }
 
       .animal-last {

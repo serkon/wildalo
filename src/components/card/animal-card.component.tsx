@@ -19,7 +19,7 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>): JSX.Element =
   const { t } = useTranslate();
   const { data } = props;
   const animalPicture = {
-    'backgroundImage': `url(/images/animals/${data.name}.svg)`,
+    'backgroundImage': `url(/images/animals/${data.name}.jpeg)`,
   };
   const regionPicture = {
     'backgroundImage': `url(/images/regions/${data.region}.svg)`,
@@ -38,9 +38,9 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>): JSX.Element =
         <div className="animal-picture" style={animalPicture}></div>
         <div className="region" style={regionPicture}></div>
         <div className="stats">
-          <Grid templateColumns="repeat(2, 1fr)" gap={2}>
+          <Grid templateColumns="repeat(2, 1fr)" gridColumnGap={4} gridRowGap={2}>
             {Object.keys(data.primaryStats).map((item, key) => (
-              <GridItem w="20" h="6" key={key} className="prop">
+              <GridItem w="24" h="6" key={key} className="prop">
                 <img src={`./images/stats/${item}.svg`} />
                 <span className="item-value">{(data.primaryStats as any)[item]}</span>
               </GridItem>
