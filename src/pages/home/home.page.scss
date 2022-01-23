@@ -80,7 +80,23 @@
       padding: 4rem 0;
       background-color: white;
 
-      h3 {
+      .title {
+        position: absolute;
+        top: -96px;
+        right: 156px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 512px;
+        height: 165px;
+        background-image: url(./images/section-third.svg);
+        background-repeat: no-repeat;
+        background-position: -10% 50%;
+        background-size: contain;
+        color: white;
+      }
+
+      .quarter {
         margin-bottom: 1rem;
         color: #021425;
       }
@@ -116,6 +132,11 @@
     }
 
     section.third {
+      .title {
+        right: 8px;
+        width: 95%;
+      }
+
       .leaf {
         right: 10px;
       }

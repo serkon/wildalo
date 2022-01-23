@@ -60,10 +60,13 @@ export const HomePage = () => {
       </section>
       <section className="third">
         <Container maxW="container.lg" display="flex" flexDirection="column" textAlign="left" alignItems="flex-end">
+          <Heading as="h3" size="xl" variant="center" isTruncated className="title">
+            Do Good!
+          </Heading>
           <Grid templateColumns={{ 'base': 'repeat(1, 1fr)', 'md': 'repeat(4, 1fr)' }} gap={10} padding={{ 'base': 4, 'md': 0 }} width="100%">
             {roadmap.map((item, key) => (
               <GridItem key={key} className="prop">
-                <Heading as="h3" size="xl" isTruncated className="title">
+                <Heading as="h3" size="xl" isTruncated className="quarter">
                   {item.title}
                 </Heading>
                 <ul>
