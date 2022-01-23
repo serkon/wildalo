@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { Hero } from './hero/hero.component';
 import { useTranslate } from 'src/components/translate/translate.component';
-import './home.page.scss';
 import { useMQReal } from 'src/theme/util/media-query';
+import './home.page.scss';
 
 const roadmap = [
   {

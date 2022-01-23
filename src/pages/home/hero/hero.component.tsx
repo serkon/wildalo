@@ -21,7 +21,7 @@ const animals: AnimalDetail[] = [
     'id': '529da4c9-b340-4828-94ad-c9f613998070',
     'type': AnimalType.EXOTIC,
     'name': 'MUSTANG',
-    'level': 3,
+    'level': 1,
     'region': Region.NORTH_AMERICA,
     'primaryStats': { 'heal': 260, 'attack': 40, 'speed': 75, 'deffence': 50, 'weight': 600, 'lifetime': 19 },
     'secondaryStats': { 'healBuff': 20, 'speedBuff': 20 },
