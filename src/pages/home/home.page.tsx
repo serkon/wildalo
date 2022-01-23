@@ -49,19 +49,16 @@ export const HomePage = () => {
       <section className="second">
         <Container maxW="container.lg" display="flex" flexDirection="column" textAlign="right" alignItems="flex-end">
           <Heading as="h3" size="xl" variant="center" isTruncated className="title">
-            Wild Animal World
+            {t('main.section.second.wild_animal_world')}
           </Heading>
-          <div className="description">
-            Wildalo is a wild world filled with amazing animals also known as wildlings . Wildalo players, aka Rangers, collect these wildlings to grow them (upgrade their levels),
-            form herds with them and fight their herds with other herds to earn in game currency.
-          </div>
+          <div className="description">{t('main.section.second.description')}</div>
           <div className="stone"></div>
         </Container>
       </section>
       <section className="third">
         <Container maxW="container.lg" display="flex" flexDirection="column" textAlign="left" alignItems="flex-end">
           <Heading as="h3" size="xl" variant="center" isTruncated className="title">
-            Do Good!
+            {t('main.section.third.roadmap')}
           </Heading>
           <Grid templateColumns={{ 'base': 'repeat(1, 1fr)', 'md': 'repeat(4, 1fr)' }} gap={10} padding={{ 'base': 4, 'md': 0 }} width="100%">
             {roadmap.map((item, key) => (

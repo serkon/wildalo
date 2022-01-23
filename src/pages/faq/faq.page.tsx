@@ -2,6 +2,7 @@ import { Accordion, AccordionItem, AccordionButton, AccordionPanel, Box, Contain
 import { MinusIcon, AddIcon } from '@chakra-ui/icons';
 
 import { useTranslate } from 'src/components/translate/translate.component';
+import { useMQReal } from 'src/theme/util/media-query';
 import './faq.page.scss';
 
 const faqs = [
@@ -34,9 +35,11 @@ const faqs = [
 
 export const FAQPage = () => {
   const { t } = useTranslate();
+  const isLarge = useMQReal('md');
+
   return (
     <>
-      <Heading as="h3" size="lg" variant="center" isTruncated className="page-banner">
+      <Heading as="h3" size={isLarge ? 'lg' : 'sm'} variant="center" isTruncated className="page-banner">
         {t('main.slogan')}
       </Heading>
       <Container maxW="container.md">

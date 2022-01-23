@@ -44,6 +44,13 @@
         "header": "What is Wildalo?",
         "description": "Collect and grow rare animal cards, form your herds, fight with other players and sell your cards to other traders. Powered by Avalanche blockchain.",
         "link": "HOW TO PLAY"
+      },
+      "second": {
+        "wild_animal_world": "Wild Animal World",
+        "description": "Wildalo is a wild world filled with amazing animals also known as wildlings . Wildalo players, aka Rangers, collect these wildlings to grow them (upgrade their levels), form herds with them and fight their herds with other herds to earn in game currency."
+      },
+      "third": {
+        "roadmap": "Roadmap"
       }
     }
   }
