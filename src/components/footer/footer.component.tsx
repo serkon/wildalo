@@ -23,7 +23,7 @@ const items = [
 ];
 
 const socials = [
-  { 'title': 'social.discord', 'to': 'https://discord.com/channels/920134929583603714/920134930284044359' },
+  { 'title': 'social.discord', 'to': 'https://discord.gg/Vypt9GUjKh' },
   { 'title': 'social.telegram', 'to': 'https://t.me/+jO3E4SQjH6U2MmEx' },
   { 'title': 'social.twitter', 'to': 'https://twitter.com/wildalogame' },
   { 'title': 'social.facebook', 'to': 'https://www.facebook.com/wildalogame' },
