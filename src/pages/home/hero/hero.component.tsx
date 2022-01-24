@@ -102,7 +102,7 @@ export const Hero = (): JSX.Element => {
         </Heading>
         <Heading className="hero-description">{t('main.hero.description_first')}</Heading>
         <Box paddingTop="30" justifyContent="center">
-          <Button bg="custom.macaroni-and-cheese" color="black" onClick={() => redirect('https://discord.com/channels/920134929583603714/920134930284044359')}>
+          <Button bg="custom.macaroni-and-cheese" color="black" onClick={() => redirect('https://discord.gg/Vypt9GUjKh')}>
             {t('main.hero.join_discord')}
           </Button>
           <Button bg="custom.macaroni-and-cheese" color="black" marginLeft="24px" onClick={() => redirect('https://t.me/+jO3E4SQjH6U2MmEx')}>
