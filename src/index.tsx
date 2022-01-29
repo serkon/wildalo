@@ -10,6 +10,7 @@ import App from './App';
 import theme from './theme';
 import { store } from 'src/store/store';
 import { Language } from 'src/components/translate/translate.component';
+import { ScrollTo } from 'src/hooks/scroll.hook';
 import { FAQPage } from 'src/pages/faq/faq.page';
 import { HomePage } from './pages/home/home.page';
 import { useMQReal } from './theme/util/media-query';
@@ -43,6 +44,7 @@ export const useMobile = () => {
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
+      <ScrollTo />
       <Provider store={store}>
         <ChakraProvider theme={theme}>
           <Language>
