@@ -12,8 +12,10 @@ import { store } from 'src/store/store';
 import { Language } from 'src/components/translate/translate.component';
 import { ScrollTo } from 'src/hooks/scroll.hook';
 import { FAQPage } from 'src/pages/faq/faq.page';
-import { HomePage } from './pages/home/home.page';
-import { useMQReal } from './theme/util/media-query';
+import { HomePage } from 'src/pages/home/home.page';
+import { DashboardPage } from 'src/pages/dashboard/dashboard.page';
+import { PageNotFound } from 'src/pages/http/not-found.page';
+import { useMQReal } from 'src/theme/util/media-query';
 
 export const useSetTitle = (title: string): void => {
   useEffect(() => {
@@ -29,7 +31,8 @@ export const useSetTitle = (title: string): void => {
 const root: HTMLDivElement | null = document.getElementById('root') as HTMLDivElement;
 export const useProcess = () => {
   useEffect(() => {
-    console.log('process.env:', process.env);
+    const p = process.env;
+    console.log('process.env:', p);
   });
 };
 
@@ -52,7 +55,9 @@ ReactDOM.render(
               <Route path="/" element={<App />}>
                 <Route path="" element={<HomePage />} />
                 <Route path="faq" element={<FAQPage />} />
+                <Route path="dashboard" element={<DashboardPage />} />
               </Route>
+              <Route path="*" element={<PageNotFound />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
             <Outlet />
