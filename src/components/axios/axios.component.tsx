@@ -18,15 +18,6 @@ export const api = axios.create({
     'Timeout': 20000,
     'Expires': '0',
     'WithCredentials': true,
-    'Serkon': 1,
-    // 'User-Agent': 'react-boilerplate',
-    // 'Authorization': 'token ' + process.env.REACT_APP_GITHUB_TOKEN,
-    // 'Upgrade-Insecure-Requests': '1',
-    // 'If-Modified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT',
-    // 'If-None-Match': '"5d0f3e3-2"',
-    // 'If-Unmodified-Since': 'Thu, 01 Jun 1970 00:00:00 GMT',
-    // 'If-Match': '"5d0f3e3-2"',
-    // 'If-Range': '"5d0f3e3-2"',
   },
 });
 
@@ -48,27 +39,21 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const res = error.response;
-    const req = error.config;
-    console.log('error:', error);
-    if (res.status === 401 && res._retry) {
-      console.log('401');
-      const refreshToken = window.localStorage.getItem(AuthorizationHeader.AccessToken);
+    if (res.status === 401 && !error.config.headers['RefreshToken']) {
+      error.config.headers['RefreshToken'] = true;
+      const refreshToken = window.localStorage.getItem(AuthorizationHeader.RefreshToken);
       try {
-        const response: Response<AuthorizationResponse> = await api.post('/oauth/token', {
-          'grant_type': 'refresh_token',
-          'refresh_token': refreshToken,
-          // 'client_id': process.env.REACT_APP_GITHUB_CLIENT_ID,
-          // 'client_secret': process.env.REACT_APP_GITHUB_CLIENT_SECRET,
-          // 'redirect_uri': process.env.REACT_APP_GITHUB_REDIRECT_URI,
+        const response: Response<RefreshTokenResponse> = await api.post('/refresh', {
+          refreshToken,
         });
-        window.localStorage.setItem(AuthorizationHeader.AccessToken, response.data.token);
-        window.localStorage.setItem(AuthorizationHeader.RefreshToken, response.data.refreshToken);
-        api.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
-        req.headers['Authorization'] = 'Bearer ' + response.data.token;
+        window.localStorage.setItem(AuthorizationHeader.AccessToken, response.data[AuthorizationHeader.AccessToken] as string);
+        // api.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.accessToken;
+        error.config.headers['Authorization'] = 'Bearer ' + response.data[AuthorizationHeader.AccessToken];
+        error.config.headers['RefreshToken'] = false;
       } catch (error) {
         window.location.href = '/login';
       }
-      return api(req);
+      return api(error.config);
     }
     console.error('Looks like there was a problem. Status Code: ' + res.status);
     return Promise.reject(error);
@@ -87,7 +72,7 @@ export interface Request<T> {
   sort?: { field: string; order: string }[];
 }
 
-export interface AuthorizationResponse {
-  refreshToken: string;
-  token: string;
+export interface RefreshTokenResponse {
+  [AuthorizationHeader.AccessToken]: string;
+  status: string;
 }

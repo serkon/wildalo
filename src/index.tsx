@@ -16,6 +16,7 @@ import { HomePage } from 'src/pages/home/home.page';
 import { DashboardPage } from 'src/pages/dashboard/dashboard.page';
 import { PageNotFound } from 'src/pages/http/not-found.page';
 import { useMQReal } from 'src/theme/util/media-query';
+import RegisterPage from './pages/user/register.page';
 
 export const useSetTitle = (title: string): void => {
   useEffect(() => {
@@ -56,6 +57,7 @@ ReactDOM.render(
                 <Route path="" element={<HomePage />} />
                 <Route path="faq" element={<FAQPage />} />
                 <Route path="dashboard" element={<DashboardPage />} />
+                <Route path="register" element={<RegisterPage />} />
               </Route>
               <Route path="*" element={<PageNotFound />} />
               <Route path="*" element={<Navigate to="/" />} />

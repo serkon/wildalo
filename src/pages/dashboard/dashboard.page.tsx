@@ -28,8 +28,8 @@ export const DashboardPage = () => {
 
   const login = async () => {
     const response = await api.post('/login', {
-      'email': 'john@doe.com',
-      'password': 'test',
+      'email': 'a@a.com',
+      'password': '123456',
     });
     window.localStorage.setItem(AuthorizationHeader.AccessToken, response.data.data.accessToken);
     window.localStorage.setItem(AuthorizationHeader.RefreshToken, response.data.data.refreshToken);
