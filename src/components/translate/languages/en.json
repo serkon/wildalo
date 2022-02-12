@@ -6,13 +6,16 @@
   },
   "links": {
     "home": "Home",
-    "about_us": "About Us",
-    "contact_us": "Contact Us",
-    "faqs": "FAQs",
-    "privacy_policy": "Privacy Policy",
-    "how_to_play": "How to Play",
+    "marketplace": "Marketplace",
+    "game": "Game",
+    "guide": "Guide",
     "whitepaper": "Whitepaper",
-    "terms_and_conditions": "Terms & Conditions"
+    "fight": "Fight",
+    "dashboard": "Dashboard",
+    "wildlings_and_herds": "Wildlings & Herds",
+    "my_profile": "My Profile",
+    "how_to_play": "How to Play",
+    "faqs": "FAQs"
   },
   "social": {
     "facebook": "facebook",
@@ -57,5 +60,24 @@
         "roadmap": "Roadmap"
       }
     }
+  },
+  "dashboard": {
+    "my_wildlings": "My Wildlings",
+    "fight_overview": "Fight Overview",
+    "my_herds": "My Herds",
+    "active": "Active",
+    "start_new": "Start New"
+  },
+  "footer": {
+    "services": "Services",
+    "about": "About",
+    "help": "Help",
+    "about_us": "About Us",
+    "contact_us": "Contact Us",
+    "team": "Team",
+    "privacy_policy": "Privacy Policy",
+    "terms_and_conditions": "Terms & Conditions",
+    "ready_to_get_started": "Ready to get started?",
+    "start_winning": "Start Winning"
   }
 }

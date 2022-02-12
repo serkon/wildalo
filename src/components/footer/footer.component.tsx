@@ -14,9 +14,9 @@ interface Props {
 
 const items = [
   { 'title': 'links.how_to_play', 'to': 'faq' },
-  { 'title': 'links.terms_and_conditions', 'to': 'terms-and-conditions.pdf', 'external': true },
+  { 'title': 'footer.terms_and_conditions', 'to': 'terms-and-conditions.pdf', 'external': true },
   { 'title': 'links.whitepaper', 'to': 'whitepaper.pdf', 'external': true },
-  { 'title': 'links.privacy_policy', 'to': 'privacy-and-policy.pdf', 'external': true },
+  { 'title': 'footer.privacy_policy', 'to': 'privacy-and-policy.pdf', 'external': true },
   // { 'title': 'links.about_us', 'to': '' },
   // { 'title': 'links.contact_us', 'to': '' },
   // { 'title': 'links.faqs', 'to': '' },

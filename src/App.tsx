@@ -6,7 +6,7 @@ import { Header } from './components/header/header.component';
 import { Footer } from './components/footer/footer.component';
 import { useTranslate } from './components/translate/translate.component';
 import { useMobile, useProcess, useSetTitle } from 'src/index';
-import logo from './assets/logo.png';
+import logo from './assets/logo.svg';
 
 function App(): JSX.Element {
   useSetTitle('Wildalo');

@@ -1,9 +1,10 @@
 import React from 'react';
-import { Image, Box, Flex, Avatar, HStack, IconButton, Button, Menu, MenuButton, MenuList, MenuItem, MenuDivider, useDisclosure, Stack, Container } from '@chakra-ui/react';
+import { Image, Box, Flex, HStack, IconButton, useDisclosure, Stack, Container, Link } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { useNavigate } from 'react-router-dom';
 
 import { useTranslate } from 'src/components/translate/translate.component';
+import { NavLink } from 'react-router-dom';
+import { UserMenu } from 'src/pages/user/user.menu';
 
 interface HeaderLink {
   title: string;
@@ -12,22 +13,20 @@ interface HeaderLink {
 }
 const items: HeaderLink[] = [
   { 'title': 'links.home', 'to': '/' },
-  { 'title': 'links.how_to_play', 'to': 'faq' },
+  { 'title': 'links.marketplace', 'to': 'faq' },
+  { 'title': 'links.game', 'to': 'game' },
+  { 'title': 'links.guide', 'to': 'guide' },
   { 'title': 'links.whitepaper', 'to': '/whitepaper.pdf', 'external': true },
 ];
 
 const Links = () => {
   const { t } = useTranslate();
-  const navigate = useNavigate();
-  const direction = (item: HeaderLink) => {
-    item.external ? window.open(item.to, '_blank') : navigate(item.to);
-  };
   return (
     <React.Fragment>
       {items.map((item: { title: string; to: string }, key: number) => (
-        <Button color="white" variant="ghost" onClick={() => direction(item)} key={key}>
-          {t(item.title).toUpperCase()}
-        </Button>
+        <Link as={NavLink} to={item.to} color="#87afa8" variant="header" key={key}>
+          {t(item.title)}
+        </Link>
       ))}
     </React.Fragment>
   );
@@ -37,8 +36,8 @@ export function Header(props: { logo: string }) {
 
   return (
     <>
-      <Container maxW="container.xl" as="header" background="custom.header">
-        <Flex height={90} width="full" alignItems={'center'} justifyContent={'space-between'}>
+      <Container maxW="container.xxl" as="header" background="custom.header">
+        <Flex height={70} width="full" alignItems={'center'} justifyContent={{ 'base': 'space-between', 'md': 'flex-end' }}>
           <IconButton
             color="white"
             variant="ghost"
@@ -48,30 +47,16 @@ export function Header(props: { logo: string }) {
             display={{ 'md': 'none' }}
             onClick={isOpen ? onClose : onOpen}
           />
-          <HStack spacing={8} alignItems={'center'}>
+          <HStack spacing={8} alignItems={'center'} flexGrow={{ 'base': '0', 'md': '1' }}>
             <Box>
               <Image srcSet={props.logo} objectFit="contain" maxW="170px" />
             </Box>
           </HStack>
-          <HStack as={'nav'} spacing={8} display={{ 'base': 'none', 'md': 'flex' }}>
+          <HStack as={'nav'} spacing={{ 'md': 6, 'lg': '44px' }} alignItems={'flex-end'} display={{ 'base': 'none', 'md': 'flex' }} padding={{ 'md': 6, 'lg': '44px' }}>
             <Links />
           </HStack>
-          <Flex alignItems={'center'} display={{ 'base': 'flex', 'md': 'none' }}>
-            <Menu>
-              <MenuButton as={Button} rounded={'full'} variant={'link'} cursor={'pointer'} minW={0}>
-                <Avatar
-                  size={'sm'}
-                  src={'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'}
-                  visibility="hidden"
-                />
-              </MenuButton>
-              <MenuList>
-                <MenuItem>Link 1</MenuItem>
-                <MenuItem>Link 2</MenuItem>
-                <MenuDivider />
-                <MenuItem>Link 3</MenuItem>
-              </MenuList>
-            </Menu>
+          <Flex alignItems={'center'} display={{ 'base': 'flex' }}>
+            <UserMenu />
           </Flex>
         </Flex>
 

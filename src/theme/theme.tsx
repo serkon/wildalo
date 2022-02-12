@@ -1,6 +1,7 @@
 import { Button } from './components/button';
 import { Box } from './components/box';
 import { Heading } from './components/heading';
+import { Link } from './components/link';
 import { fonts } from './fonts';
 import { colors } from './colors';
 
@@ -11,6 +12,7 @@ export default {
     Button,
     Box,
     Heading,
+    Link,
   },
   'config': {
     // 'cssVarPrefix': 'serkon',
