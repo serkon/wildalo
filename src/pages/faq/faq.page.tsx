@@ -10,7 +10,11 @@ const faqs = [
     'title': 'Ecosystem',
     'description': `Wildalo is a wild nature world filled with amazing animals also known as wildlings. Wildalo players, also known as Rangers, collect these wildlings to grow them, form herds with them and fight their herds with other herds.`,
   },
-  { 'title': 'Connection & Currencies', 'description': 'Everyone with a digital wallet (Metamask) can join the ecosystem and be a ranger. There are two currencies in the Wildalo system: FODR (In-game currency) and WARC (Wildalo Ranger Token, game’s governance token). Wildalo uses the Avalanche network for transactions. Players can buy WARC by exchanging AVAX with WARC. FODR is earned by rangers in the game.' },
+  {
+    'title': 'Connection & Currencies',
+    'description':
+      'Everyone with a digital wallet (Metamask) can join the ecosystem and be a ranger. There are two currencies in the Wildalo system: FODR (In-game currency) and WARC (Wildalo Ranger Token, game’s governance token). Wildalo uses the Avalanche network for transactions. Players can buy WARC by exchanging AVAX with WARC. FODR is earned by rangers in the game.',
+  },
   {
     'title': 'Wildlings',
     'description': `Wildlings are valuable NFTs minted with unique stats. Each wildling has six primary stats: Attack, Defense, Speed, Heal, Weight and Lifetime. As well as, four secondary stats: Attack buff, Defense buff, Damage reflection and Poison. Each wildling type has one of the three rarity levels: Common, Rare or Exotic.`,
@@ -33,7 +37,7 @@ const faqs = [
   },
 ];
 
-export const FAQPage = () => {
+export const PageFaq = () => {
   const { t } = useTranslate();
   const isLarge = useMQReal('md');
 

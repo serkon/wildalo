@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Outlet, Routes, Route, Navigate } from 'react-router-dom';
@@ -10,40 +10,14 @@ import App from './App';
 import theme from './theme';
 import { store } from 'src/store/store';
 import { Language } from 'src/components/translate/translate.component';
-import { ScrollTo } from 'src/hooks/scroll.hook';
-import { FAQPage } from 'src/pages/faq/faq.page';
-import { HomePage } from 'src/pages/home/home.page';
-import { DashboardPage } from 'src/pages/dashboard/dashboard.page';
+import { ScrollTo } from 'src/hooks';
+import { PageFaq } from 'src/pages/faq/faq.page';
+import { PageHome } from 'src/pages/home/home.page';
+import { PageDashboard } from 'src/pages/dashboard/dashboard.page';
 import { PageNotFound } from 'src/pages/http/not-found.page';
-import { useMQReal } from 'src/theme/util/media-query';
-import RegisterPage from './pages/user/register.page';
-
-export const useSetTitle = (title: string): void => {
-  useEffect(() => {
-    const prevTitle = document.title;
-    document.title = title;
-
-    return () => {
-      document.title = prevTitle;
-    };
-  }, [title]);
-};
+import { PageRegister } from 'src/pages/user/register.page';
 
 const root: HTMLDivElement | null = document.getElementById('root') as HTMLDivElement;
-export const useProcess = () => {
-  useEffect(() => {
-    const p = process.env;
-    console.log('process.env:', p);
-  });
-};
-
-export const useMobile = () => {
-  const isDesktop = useMQReal('md');
-
-  useEffect(() => {
-    !isDesktop ? root?.classList.add('mobile') : root?.classList.remove('mobile');
-  });
-};
 
 ReactDOM.render(
   <React.StrictMode>
@@ -54,10 +28,10 @@ ReactDOM.render(
           <Language>
             <Routes>
               <Route path="/" element={<App />}>
-                <Route path="" element={<HomePage />} />
-                <Route path="faq" element={<FAQPage />} />
-                <Route path="dashboard" element={<DashboardPage />} />
-                <Route path="register" element={<RegisterPage />} />
+                <Route path="" element={<PageHome />} />
+                <Route path="faq" element={<PageFaq />} />
+                <Route path="dashboard" element={<PageDashboard />} />
+                <Route path="register" element={<PageRegister />} />
               </Route>
               <Route path="*" element={<PageNotFound />} />
               <Route path="*" element={<Navigate to="/" />} />

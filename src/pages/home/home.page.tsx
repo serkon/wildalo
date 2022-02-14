@@ -25,7 +25,7 @@ const roadmap = [
   },
 ];
 
-export const HomePage = () => {
+export const PageHome = () => {
   const { t } = useTranslate();
   const isLarge = useMQReal('md');
 

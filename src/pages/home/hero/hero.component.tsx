@@ -2,7 +2,7 @@ import { Container, Heading, Button, Box } from '@chakra-ui/react';
 
 import { AnimalCard } from 'src/components/card/animal-card.component';
 import { useTranslate } from 'src/components/translate/translate.component';
-import { AnimalDetail, AnimalType, Region } from 'src/components/card/animal.dto';
+import { AnimalDetail, AnimalType, Region } from 'src/dtos';
 import { useMQReal } from 'src/theme/util/media-query';
 import './hero.component.scss';
 

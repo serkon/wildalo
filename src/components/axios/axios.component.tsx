@@ -40,16 +40,20 @@ api.interceptors.response.use(
   async (error) => {
     const res = error.response;
     if (res.status === 401 && !error.config.headers['RefreshToken']) {
-      error.config.headers['RefreshToken'] = true;
-      const refreshToken = window.localStorage.getItem(AuthorizationHeader.RefreshToken);
+      api.defaults.headers.common['RefreshToken'] = true;
       try {
-        const response: Response<RefreshTokenResponse> = await api.post('/refresh', {
-          refreshToken,
-        });
-        window.localStorage.setItem(AuthorizationHeader.AccessToken, response.data[AuthorizationHeader.AccessToken] as string);
-        // api.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.accessToken;
-        error.config.headers['Authorization'] = 'Bearer ' + response.data[AuthorizationHeader.AccessToken];
-        error.config.headers['RefreshToken'] = false;
+        const refreshToken = window.localStorage.getItem(AuthorizationHeader.RefreshToken);
+        if (refreshToken) {
+          const refreshResponse: Response<RefreshTokenResponse> = await api.post('/refresh', {
+            refreshToken,
+          });
+          window.localStorage.setItem(AuthorizationHeader.AccessToken, refreshResponse.data[AuthorizationHeader.AccessToken] as string);
+          // api.defaults.headers.common['Authorization'] = 'Bearer ' + refreshResponse.data.accessToken;
+          error.config.headers['Authorization'] = 'Bearer ' + refreshResponse.data[AuthorizationHeader.AccessToken];
+          error.config.headers['RefreshToken'] = false;
+        } else {
+          throw new Error('No refresh token');
+        }
       } catch (error) {
         window.location.href = '/login';
       }

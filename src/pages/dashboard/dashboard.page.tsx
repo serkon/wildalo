@@ -1,5 +1,5 @@
-import { Button, Container, Heading, Input } from '@chakra-ui/react';
 import React from 'react';
+import { Button, Container, Heading, Input } from '@chakra-ui/react';
 import { useEffect } from 'react';
 
 import { api, AuthorizationHeader, Response } from 'src/components/axios/axios.component';
@@ -9,7 +9,7 @@ import './dashboard.page.scss';
 export interface User {
   name: string;
 }
-export const DashboardPage = () => {
+export const PageDashboard = () => {
   const { t } = useTranslate();
   const [user, setUser] = React.useState<User | null>(null);
 
@@ -28,8 +28,10 @@ export const DashboardPage = () => {
 
   const login = async () => {
     const response = await api.post('/login', {
-      'email': 'a@a.com',
-      'password': '123456',
+      'data': {
+        'email': 'john@doe.com',
+        'password': '1234567',
+      },
     });
     window.localStorage.setItem(AuthorizationHeader.AccessToken, response.data.data.accessToken);
     window.localStorage.setItem(AuthorizationHeader.RefreshToken, response.data.data.refreshToken);

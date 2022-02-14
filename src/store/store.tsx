@@ -8,6 +8,7 @@ const combine = combineReducers({
   'products': ProductReducer,
   'companies': CompanyReducer,
   'basket': BasketReducer,
+  // 'user': UserReducer,
 });
 export type CombineType = ReturnType<typeof combine>;
 export const store = createStore<CombineType, Action, never, never>(combine);
