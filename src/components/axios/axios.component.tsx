@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export enum AuthorizationHeader {
   Bearer = 'Bearer',
@@ -44,12 +44,12 @@ api.interceptors.response.use(
       try {
         const refreshToken = window.localStorage.getItem(AuthorizationHeader.RefreshToken);
         if (refreshToken) {
-          const refreshResponse: Response<RefreshTokenResponse> = await api.post('/refresh', {
+          const refreshResponse: AxiosResponse<Response<RefreshTokenResponse>> = await api.post('/refresh', {
             refreshToken,
           });
-          window.localStorage.setItem(AuthorizationHeader.AccessToken, refreshResponse.data[AuthorizationHeader.AccessToken] as string);
+          window.localStorage.setItem(AuthorizationHeader.AccessToken, refreshResponse.data.data[AuthorizationHeader.AccessToken] as string);
           // api.defaults.headers.common['Authorization'] = 'Bearer ' + refreshResponse.data.accessToken;
-          error.config.headers['Authorization'] = 'Bearer ' + refreshResponse.data[AuthorizationHeader.AccessToken];
+          error.config.headers['Authorization'] = 'Bearer ' + refreshResponse.data.data[AuthorizationHeader.AccessToken];
           error.config.headers['RefreshToken'] = false;
         } else {
           throw new Error('No refresh token');
@@ -79,4 +79,15 @@ export interface Request<T> {
 export interface RefreshTokenResponse {
   [AuthorizationHeader.AccessToken]: string;
   status: string;
+}
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  accessToken: string;
+  refreshToken: string;
+  refreshExpire: string | null;
+  time: number | undefined;
 }
