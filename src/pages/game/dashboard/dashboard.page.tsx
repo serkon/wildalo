@@ -7,6 +7,7 @@ import { useTranslate } from 'src/components/translate/translate.component';
 import { Page } from 'src/components/page/page.component';
 import { MyWildlings } from './my-wildling/my-wildling.component';
 import './dashboard.page.scss';
+import { MyHerds } from './my-herds/my-herds.component';
 
 export interface User {
   name: string;
@@ -64,8 +65,7 @@ export const PageDashboard = () => {
             <Text mt={4}>3</Text>
           </GridItem>
           <GridItem bg="#09241F" colSpan={2} p={8} borderRadius="14px">
-            <Heading fontSize="xl">{t('dashboard.my_herds')}</Heading>
-            <Text mt={4}>4</Text>
+            <MyHerds />
           </GridItem>
         </Grid>
         <div>{t('main.dashboard')}</div>

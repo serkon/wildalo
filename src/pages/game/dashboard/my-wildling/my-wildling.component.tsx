@@ -1,5 +1,6 @@
 import { Heading, Flex, Button, HStack, Text } from '@chakra-ui/react';
-import { Triad } from 'src/components/animal/triad/triad.component';
+
+import { Triad } from 'src/components/triad/triad.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 
 export const MyWildlings = () => {

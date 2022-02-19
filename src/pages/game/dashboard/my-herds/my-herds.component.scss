@@ -1,0 +1,37 @@
+.my-herds {
+  display: flex;
+  flex-direction: column;
+
+  .content {
+    position: relative;
+    margin: 0 auto;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: -46px;
+      margin-top: 12px;
+      width: 36px;
+      height: 36px;
+      background-image: url(~/public/images/page/dashboard/quote-left.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: -46px;
+      bottom: 96px;
+      margin-top: 12px;
+      width: 36px;
+      height: 36px;
+      background-image: url(~/public/images/page/dashboard/quote-right.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      transform: rotate(180deg);
+    }
+  }
+}

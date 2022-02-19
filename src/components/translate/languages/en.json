@@ -8,12 +8,15 @@
     "Claimable": "Claimable",
     "TOTAL": "TOTAL",
     "Total": "Total",
+    "Idle": "Idle",
     "more_details": "More details",
     "LEVEL": "LEVEL",
     "my_profile": "My Profile",
     "Fight": "Fight",
     "buy_more": "Buy more",
-    "see_all": "See All"
+    "see_all": "See All",
+    "create_new": "Create New",
+    "wins": "wins"
   },
   "links": {
     "home": "Home",
@@ -123,11 +126,12 @@
   },
   "dashboard": {
     "my_wildlings": "My Wildlings",
-    "fight_overview": "Fight Overview",
     "my_herds": "My Herds",
+    "fight_overview": "Fight Overview",
     "active": "Active",
     "start_new": "Start New",
-    "FODR": "FODR"
+    "most_successfull": "Most Successfull",
+    "wacky_racers": "Wacky Racers"
   },
   "footer": {
     "services": "Services",
