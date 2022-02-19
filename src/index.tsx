@@ -13,9 +13,10 @@ import { Language } from 'src/components/translate/translate.component';
 import { ScrollTo } from 'src/hooks';
 import { PageFaq } from 'src/pages/faq/faq.page';
 import { PageHome } from 'src/pages/home/home.page';
-import { PageDashboard } from 'src/pages/dashboard/dashboard.page';
+import { PageDashboard } from 'src/pages/game/dashboard/dashboard.page';
 import { PageNotFound } from 'src/pages/http/not-found.page';
 import { PageRegister } from 'src/pages/user/register.page';
+import { PageGame } from 'src/pages/game/game.page';
 
 const root: HTMLDivElement | null = document.getElementById('root') as HTMLDivElement;
 
@@ -30,7 +31,9 @@ ReactDOM.render(
               <Route path="/" element={<App />}>
                 <Route path="" element={<PageHome />} />
                 <Route path="faq" element={<PageFaq />} />
-                <Route path="dashboard" element={<PageDashboard />} />
+                <Route path="game" element={<PageGame />}>
+                  <Route path="dashboard" element={<PageDashboard />} />
+                </Route>
                 <Route path="register" element={<PageRegister />} />
               </Route>
               <Route path="*" element={<PageNotFound />} />

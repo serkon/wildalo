@@ -1,6 +1,6 @@
 import { Container, Heading, Button, Box } from '@chakra-ui/react';
 
-import { AnimalCard } from 'src/components/card/animal-card.component';
+import { AnimalOldCard } from 'src/components/card/animal-card.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { AnimalDetail, AnimalType, Region } from 'src/dtos';
 import { useMQReal } from 'src/theme/util/media-query';
@@ -89,9 +89,9 @@ export const Hero = (): JSX.Element => {
   return (
     <Container maxW="container.xl" className={`hero ${isDesktop ? 'desktop' : 'mobile'}`}>
       <Box className={`hero-left-side`}>
-        <AnimalCard data={animals[0]} scale={0.75} translateX="135px" className="animal-first ac" />
-        <AnimalCard data={animals[1]} className="ac animal-middle" />
-        <AnimalCard data={animals[2]} scale={0.75} className="animal-last ac" />
+        <AnimalOldCard data={animals[0]} scale={0.75} translateX="135px" className="animal-first ac" />
+        <AnimalOldCard data={animals[1]} className="ac animal-middle" />
+        <AnimalOldCard data={animals[2]} scale={0.75} className="animal-last ac" />
       </Box>
       <aside className="hero-right-side">
         <Heading as="h2" size="2xl" color="custom.macaroni-and-cheese" className="hero-title">

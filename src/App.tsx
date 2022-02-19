@@ -17,7 +17,7 @@ function App(): JSX.Element {
     <ErrorBoundary>
       <Suspense fallback={<div>{t('loading')}</div>}>
         <Header logo={logo} />
-        <main style={{ 'flexGrow': 1 }}>
+        <main>
           <Outlet />
         </main>
         <Footer logo={logo} className="footer" />

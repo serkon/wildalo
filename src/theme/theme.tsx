@@ -20,7 +20,6 @@ export default {
   'styles': {
     'global': {
       'body': {},
-
       // styles for the `a`
       'a': {
         'color': 'white',

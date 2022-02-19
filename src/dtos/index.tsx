@@ -73,10 +73,9 @@ export interface Metamask {
   warcBalance: string;
 }
 
-export interface WildUser extends User {
+export interface Ranger extends User {
   claimableWarcBalance: string;
   claimableFodrBalance: string;
-  imageId: string;
   metamask?: Metamask;
 }
 

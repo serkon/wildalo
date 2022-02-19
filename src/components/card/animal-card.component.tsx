@@ -14,7 +14,7 @@ interface Props {
 }
 
 // sample 1
-export const AnimalCard = (props: React.PropsWithChildren<Props>): JSX.Element => {
+export const AnimalOldCard = (props: React.PropsWithChildren<Props>): JSX.Element => {
   const { t } = useTranslate();
   const { data } = props;
   const animalPicture = {

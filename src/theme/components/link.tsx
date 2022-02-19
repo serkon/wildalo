@@ -8,7 +8,7 @@ export const Link = {
   },
   'variants': {
     'header': {
-      'color': ' #87AFA8',
+      'color': '#87AFA8',
       'fontWeight': 'light',
       'fontSize': '15px',
       '_hover': {

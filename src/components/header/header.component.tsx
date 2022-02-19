@@ -1,9 +1,9 @@
 import React from 'react';
 import { Image, Box, Flex, HStack, IconButton, useDisclosure, Stack, Container, Link } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { NavLink } from 'react-router-dom';
 
 import { useTranslate } from 'src/components/translate/translate.component';
-import { NavLink } from 'react-router-dom';
 import { UserMenu } from 'src/pages/user/user.menu';
 
 interface HeaderLink {
@@ -59,7 +59,6 @@ export function Header(props: { logo: string }) {
             <UserMenu />
           </Flex>
         </Flex>
-
         {isOpen ? (
           <Box pb={4} display={{ 'md': 'none' }}>
             <Stack as={'nav'} spacing={4}>

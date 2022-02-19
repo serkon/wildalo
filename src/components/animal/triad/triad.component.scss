@@ -1,0 +1,87 @@
+.triad {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+
+  .triad-left-side {
+    position: relative;
+    display: flex;
+    min-height: 190px;
+    max-width: 336px;
+    width: 100%;
+
+    .ac {
+      position: absolute;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .animal-first {
+      left: 0;
+      transform: translateX(-20px);
+
+      .name {
+        transform: scale(1.2);
+      }
+
+      &:hover {
+        // z-index: 2;
+        transform: translateX(-20px) scale(1.1) !important;
+
+        .layout {
+          transform: scale(0.8) !important;
+        }
+      }
+    }
+
+    .animal-middle {
+      left: calc(50% - 80px);
+      z-index: 1;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    .animal-last {
+      right: 0;
+      transform: translateX(20px);
+
+      .name {
+        transform: scale(1.2);
+      }
+
+      &:hover {
+        // z-index: 2;
+        transform: translateX(20px) scale(1.1) !important;
+
+        .layout {
+          transform: scale(0.8) !important;
+        }
+      }
+    }
+  }
+
+  &.mobile {
+    flex-direction: column;
+    align-items: center;
+
+    .triad-left-side {
+      .animal-first {
+        left: -32px;
+      }
+
+      .animal-middle {
+        transform: scale(0.85) !important;
+
+        &:hover {
+          transform: scale(0.95) !important;
+        }
+      }
+
+      .animal-last {
+        right: -32px;
+      }
+    }
+  }
+}
