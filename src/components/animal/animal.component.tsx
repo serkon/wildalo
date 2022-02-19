@@ -1,6 +1,7 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react';
+
 import { useTranslate } from 'src/components/translate/translate.component';
-import { Animal, AnimalDetail } from 'src/dtos';
+import { Animal, AnimalDetail } from './animal.dto';
 import './animal.component.scss';
 
 interface Props {

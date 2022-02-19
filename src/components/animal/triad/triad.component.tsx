@@ -1,10 +1,9 @@
-import { useEffect } from 'react';
-import { Animal } from 'src/dtos';
+import React, { useEffect } from 'react';
+import { Animal } from 'src/components/animal/animal.dto';
 import { api } from 'src/components/axios/axios.component';
 import { AnimalCard } from 'src/components/animal/animal.component';
 import { Box, Container } from '@chakra-ui/react';
 import { useMQReal } from 'src/theme/util/media-query';
-import React from 'react';
 import './triad.component.scss';
 
 const requestTriad = async (): Promise<Animal[]> => {
