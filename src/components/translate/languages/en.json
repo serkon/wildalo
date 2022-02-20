@@ -16,7 +16,8 @@
     "buy_more": "Buy more",
     "see_all": "See All",
     "create_new": "Create New",
-    "wins": "wins"
+    "wins": "wins",
+    "Active": "Active"
   },
   "links": {
     "home": "Home",
@@ -128,10 +129,10 @@
     "my_wildlings": "My Wildlings",
     "my_herds": "My Herds",
     "fight_overview": "Fight Overview",
-    "active": "Active",
     "start_new": "Start New",
     "most_successfull": "Most Successfull",
-    "wacky_racers": "Wacky Racers"
+    "wacky_racers": "Wacky Racers",
+    "Remaining": "Remaining"
   },
   "footer": {
     "services": "Services",

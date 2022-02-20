@@ -8,6 +8,7 @@ import { Page } from 'src/components/page/page.component';
 import { MyWildlings } from './my-wildling/my-wildling.component';
 import './dashboard.page.scss';
 import { MyHerds } from './my-herds/my-herds.component';
+import { Overview } from './fight-overview/fight-overview.page';
 
 export interface User {
   name: string;
@@ -55,10 +56,7 @@ export const PageDashboard = () => {
             <MyWildlings />
           </GridItem>
           <GridItem bg="#09241F" colSpan={2} rowSpan={2} p={8} borderRadius="14px">
-            <Heading color="white" fontSize={'16px'}>
-              {t('dashboard.fight_overview')}
-            </Heading>
-            <Text mt={4}>2</Text>
+            <Overview />
           </GridItem>
           <GridItem bg="#09241F" rowSpan={2} p={8} borderRadius="14px">
             <Heading fontSize="xl">{t('dashboard.my_herds')}</Heading>

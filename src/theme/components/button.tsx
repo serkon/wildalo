@@ -6,6 +6,10 @@ export const Button = {
     '_hover': {
       'textDecorarion': 'none',
     },
+    '_disabled': {
+      'opacity': 0.5,
+      'backgroundColor': 'interit',
+    },
   },
   'variants': {
     'ghost': {
@@ -52,6 +56,9 @@ export const Button = {
       'lineHeight': '16px',
       '_hover': {
         'bg': 'rgba(255, 198, 51, 0.8)',
+        '_disabled': {
+          'backgroundColor': '#FFC633',
+        },
       },
     },
 

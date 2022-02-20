@@ -33,7 +33,8 @@ export class Language extends React.Component<Props, State> {
     this.setState(
       // previous, props of the state also accessible in function parameter:
       // `(previousState, props) => ({status: false})`
-      () => ({ 'status': false }),
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      (_previousState, _props) => ({ 'status': false }),
       async () => {
         content = await import(`./languages/${language}.json`);
         this.setState({ language, content, 'status': true }, () => ({
