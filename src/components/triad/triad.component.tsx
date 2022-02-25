@@ -8,7 +8,7 @@ import { useMQReal } from 'src/theme/util/media-query';
 import './triad.component.scss';
 
 const requestTriad = async (): Promise<Animal[]> => {
-  const response = await api.get('/animal/my/triad');
+  const response = await api.get('/my/animal/triad');
   return response.data.data;
 };
 
