@@ -23,7 +23,7 @@ export enum Region {
 
 export enum PrimaryStat {
   ATTACK_POWER = 'attackPower',
-  DEFENCE = 'defence',
+  DEFENSE = 'defense',
   SPEED = 'speed',
   HEAL_POINT = 'healPoint',
   WEIGHT = 'weight',

@@ -1,38 +1,21 @@
-import React, { useEffect } from 'react';
 import { Box, Container } from '@chakra-ui/react';
 
 import { Animal } from 'src/components/animal/animal.dto';
-import { api } from 'src/components/axios/axios.component';
 import { AnimalCard } from 'src/components/animal/animal.component';
 import { useMQReal } from 'src/theme/util/media-query';
 import './triad.component.scss';
 
-const requestTriad = async (): Promise<Animal[]> => {
-  const response = await api.get('/my/animal/triad');
-  return response.data.data;
-};
-
-export const Triad = () => {
+export const Triad = ({ data }: { data: Animal[] | undefined }) => {
   const isDesktop = useMQReal('md');
-  const [animals, setAnimals] = React.useState<Animal[]>([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await requestTriad();
-      setAnimals(response);
-    }
-
-    fetchData();
-  }, []);
 
   return (
     <>
       <Container maxW="container.xl" className={`triad ${isDesktop ? 'desktop' : 'mobile'}`}>
-        {animals.length > 0 && (
+        {data && data.length > 0 && (
           <Box className={`triad-left-side`}>
-            <AnimalCard data={animals[0]} scale={0.8} className="animal-first ac" />
-            <AnimalCard data={animals[1]} scale={1} className="ac animal-middle" />
-            <AnimalCard data={animals[2]} scale={0.8} className="animal-last ac" />
+            <AnimalCard data={data[0]} scale={0.8} className="animal-first ac" />
+            <AnimalCard data={data[1]} scale={1} className="ac animal-middle" />
+            <AnimalCard data={data[2]} scale={0.8} className="animal-last ac" />
           </Box>
         )}
       </Container>

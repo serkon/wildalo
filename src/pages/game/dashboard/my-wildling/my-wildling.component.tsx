@@ -1,10 +1,34 @@
+import React, { useEffect } from 'react';
 import { Heading, Flex, Button, HStack, Text } from '@chakra-ui/react';
 
+import { api, HttpResponse } from 'src/components/axios/axios.component';
 import { Triad } from 'src/components/triad/triad.component';
 import { useTranslate } from 'src/components/translate/translate.component';
+import { Animal } from 'src/components/animal/animal.dto';
+import { AxiosResponse } from 'axios';
+
+const requestTriad = async (): Promise<HttpResponse<Animal[]>> => {
+  const response: AxiosResponse<HttpResponse<Animal[]>> = await api.post('/my/animal/list', {
+    'paging': {
+      'current': 1,
+      'limit': 4,
+    },
+  });
+  return response.data;
+};
 
 export const MyWildlings = () => {
   const { t } = useTranslate();
+  const [animals, setAnimals] = React.useState<HttpResponse<Animal[]> | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await requestTriad();
+      setAnimals(response);
+    }
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -16,12 +40,12 @@ export const MyWildlings = () => {
           </Text>
           <Flex alignItems={'center'} justifyContent={'center'} width="44px" height="44px" borderRadius="50%" border="1px solid #2A5950" backgroundColor="#0B2F28">
             <Text fontWeight={'bold'} fontSize="24px" lineHeight="28px" marginLeft="-1px" letterSpacing="-1px">
-              23
+              {(animals?.paging && animals?.paging?.total) || 0}
             </Text>
           </Flex>
         </HStack>
       </Flex>
-      <Triad />
+      <Triad data={animals?.data} />
       <Flex justifyContent={'space-between'} pt="3">
         <Button variant="ghost" fontWeight="bold">
           {t('common.buy_more')}
