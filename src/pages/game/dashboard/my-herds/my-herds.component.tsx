@@ -33,7 +33,7 @@ export const MyHerds = () => {
           </HStack>
         </HStack>
       </Flex>
-      <Box textAlign={'center'} py="54px" className="content">
+      <Box textAlign={'center'} py="44px" className="content">
         <Text color="rgba(255, 255, 255, 0.4)" fontSize={'15px'} lineHeight="18px" mb={2}>
           {t('dashboard.most_successfull')}
         </Text>
