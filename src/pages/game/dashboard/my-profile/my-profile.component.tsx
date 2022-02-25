@@ -1,4 +1,4 @@
-import { Avatar, Box, Link, Flex, Divider, HStack, Heading } from '@chakra-ui/react';
+import { Avatar, Box, Link, Flex, Divider, HStack, Heading, Button, Image } from '@chakra-ui/react';
 import { AxiosResponse } from 'axios';
 import React from 'react';
 import { useEffect } from 'react';
@@ -40,31 +40,51 @@ export const MyProfile = () => {
           <Divider borderBottomWidth={'1px'} borderColor="rgba(42, 89, 80, 0.6);" my="16px" />
           <Box direction={'column'} px={4} py={7}>
             <Heading fontSize={'16px'}>{t('dashboard.Balance_Summary')}</Heading>
-            <Flex direction={'column'} marginTop="37px" textAlign="left">
+            <Flex direction={'column'} marginTop="24px" textAlign="left" fontWeight="400">
               <Box color="rgba(255,255,255,0.4)" fontSize="20px" fontWeight="500" lineHeight="23px">
                 {t('common.FODR')}
               </Box>
-              <HStack color="white" justifyContent="space-between" marginTop="24px" fontSize="13px" lineHeight="15px">
-                <Box fontWeight="500">{t('common.Claimable')}</Box>
-                <Box fontWeight="400">1233</Box>
+              <HStack color="white" marginTop="20px" alignItems={'baseline'} lineHeight="normal">
+                <Box fontSize="13px" flexGrow={1}>
+                  {t('common.TOTAL')}
+                </Box>
+                <Image src="/images/gems/FODR.svg" width="32px"></Image>
+                <Box fontSize="48px">42</Box>
               </HStack>
-              <HStack color="white" justifyContent="space-between" marginTop="24px" fontWeight="600" lineHeight="15px">
-                <Box fontSize="13px">{t('common.TOTAL')}</Box>
-                <Box fontSize="16px">42</Box>
+              <HStack color="white" justifyContent="space-between" marginTop="14px">
+                <Box fontSize="14px" flexGrow={1}>
+                  {t('common.Claimable')}
+                </Box>
+                <Box fontSize="14px" lineHeight="16px">
+                  1233
+                </Box>
+                <Button variant={'ghost'} paddingRight="0">
+                  {t('common.claim')}
+                </Button>
               </HStack>
             </Flex>
             <Divider marginTop="24px" borderBottomWidth={'1px'} borderColor="rgba(42, 89, 80, 0.6);" />
-            <Flex direction={'column'} marginTop="23px" textAlign="left">
+            <Flex direction={'column'} marginTop="24px" textAlign="left" fontWeight="400">
               <Box color="rgba(255,255,255,0.4)" fontSize="20px" fontWeight="500" lineHeight="23px">
                 {t('common.WARC')}
               </Box>
-              <HStack color="white" justifyContent="space-between" marginTop="24px" fontSize="13px" lineHeight="15px">
-                <Box fontWeight="500">{t('common.Claimable')}</Box>
-                <Box fontWeight="400">0</Box>
+              <HStack color="white" marginTop="20px" alignItems={'baseline'} lineHeight="normal">
+                <Box fontSize="13px" flexGrow={1}>
+                  {t('common.TOTAL')}
+                </Box>
+                <Image src="/images/gems/WARC.svg" width="32px"></Image>
+                <Box fontSize="48px">50</Box>
               </HStack>
-              <HStack color="white" justifyContent="space-between" marginTop="24px" fontWeight="600" lineHeight="15px">
-                <Box fontSize="13px">{t('common.TOTAL')}</Box>
-                <Box fontSize="16px">50</Box>
+              <HStack color="white" justifyContent="space-between" marginTop="14px">
+                <Box fontSize="14px" flexGrow={1}>
+                  {t('common.Claimable')}
+                </Box>
+                <Box fontSize="14px" lineHeight="16px">
+                  1233
+                </Box>
+                <Button variant={'ghost'} paddingRight="0">
+                  {t('common.claim')}
+                </Button>
               </HStack>
             </Flex>
           </Box>
