@@ -2,7 +2,7 @@ import React from 'react';
 import { AxiosResponse } from 'axios';
 import { Button, Grid, GridItem, Input } from '@chakra-ui/react';
 
-import { api, AuthorizationHeader, LoginResponse, Response } from 'src/components/axios/axios.component';
+import { api, AuthorizationHeader, LoginResponse, HttpResponse } from 'src/components/axios/axios.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { Page } from 'src/components/page/page.component';
 import { MyWildlings } from './my-wildling/my-wildling.component';
@@ -18,7 +18,7 @@ export const PageDashboard = () => {
   const { t } = useTranslate();
   const [user] = React.useState<User | null>(null);
   const login = async () => {
-    const response: AxiosResponse<Response<LoginResponse>> = await api.post('/login', {
+    const response: AxiosResponse<HttpResponse<LoginResponse>> = await api.post('/login', {
       'data': {
         'email': 'john@doe.com',
         'password': '1234567',
@@ -44,7 +44,7 @@ export const PageDashboard = () => {
           <GridItem bg="#09241F" colSpan={2} rowSpan={2} p={8} borderRadius="14px">
             <MyFights />
           </GridItem>
-          <GridItem bg="#09241F" rowSpan={2} p={3} borderRadius="14px" use>
+          <GridItem bg="#09241F" rowSpan={2} p={3} borderRadius="14px">
             <MyProfile />
           </GridItem>
           <GridItem bg="#09241F" colSpan={2} p={8} borderRadius="14px">

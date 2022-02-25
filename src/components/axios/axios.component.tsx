@@ -44,7 +44,7 @@ api.interceptors.response.use(
       try {
         const refreshToken = window.localStorage.getItem(AuthorizationHeader.RefreshToken);
         if (refreshToken) {
-          const refreshResponse: AxiosResponse<Response<RefreshTokenResponse>> = await api.post('/refresh', {
+          const refreshResponse: AxiosResponse<HttpResponse<RefreshTokenResponse>> = await api.post('/refresh', {
             refreshToken,
           });
           window.localStorage.setItem(AuthorizationHeader.AccessToken, refreshResponse.data.data[AuthorizationHeader.AccessToken] as string);
@@ -64,13 +64,13 @@ api.interceptors.response.use(
   },
 );
 
-export interface Response<T> {
+export interface HttpResponse<T> {
   data: T;
   paging?: { current: number; limit: number; total: number };
   errorCode?: string;
 }
 
-export interface Request<T> {
+export interface HttpRequest<T> {
   data: T;
   paging?: { current: number; limit: number };
   sort?: { field: string; order: string }[];

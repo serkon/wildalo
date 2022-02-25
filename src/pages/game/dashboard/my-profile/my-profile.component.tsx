@@ -4,7 +4,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { api, Response } from 'src/components/axios/axios.component';
+import { api, HttpResponse } from 'src/components/axios/axios.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { Ranger } from 'src/pages/user/user.dto';
 import './my-profile.component.scss';
@@ -15,7 +15,7 @@ export const MyProfile = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const response: AxiosResponse<Response<Ranger>> = await api.get('/my/profile');
+      const response: AxiosResponse<HttpResponse<Ranger>> = await api.get('/my/profile');
       const { data } = response;
       setRanger(data.data);
     }
@@ -72,7 +72,7 @@ export const MyProfile = () => {
                 <Box fontSize="13px" flexGrow={1}>
                   {t('common.TOTAL')}
                 </Box>
-                <Image src="/images/gems/WARC.svg" width="32px"></Image>
+                <Image src="/images/gems/FODR.svg" width="32px"></Image>
                 <Box fontSize="48px">50</Box>
               </HStack>
               <HStack color="white" justifyContent="space-between" marginTop="14px">
