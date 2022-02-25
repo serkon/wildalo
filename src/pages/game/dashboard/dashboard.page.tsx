@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { AxiosResponse } from 'axios';
-import { Button, Grid, GridItem, Heading, Input, Text } from '@chakra-ui/react';
+import { Button, Grid, GridItem, Input } from '@chakra-ui/react';
 
 import { api, AuthorizationHeader, LoginResponse, Response } from 'src/components/axios/axios.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { Page } from 'src/components/page/page.component';
 import { MyWildlings } from './my-wildling/my-wildling.component';
-import './dashboard.page.scss';
 import { MyHerds } from './my-herds/my-herds.component';
-import { Overview } from './fight-overview/fight-overview.page';
+import { MyFights } from './my-fights/my-fights.page';
+import { MyProfile } from './my-profile/my-profile.component';
+import './dashboard.page.scss';
 
 export interface User {
   name: string;
@@ -16,21 +17,6 @@ export interface User {
 export const PageDashboard = () => {
   const { t } = useTranslate();
   const [user] = React.useState<User | null>(null);
-
-  useEffect(() => {
-    async function fetchData() {
-      // You can await here
-      const response: AxiosResponse<Response<LoginResponse>> = await login();
-      console.log(response);
-      const { data } = response;
-      console.log(data);
-      // setUser(data);
-      // ...
-    }
-
-    fetchData();
-  }, []); // Or [] if effect doesn't need props or state
-
   const login = async () => {
     const response: AxiosResponse<Response<LoginResponse>> = await api.post('/login', {
       'data': {
@@ -56,11 +42,10 @@ export const PageDashboard = () => {
             <MyWildlings />
           </GridItem>
           <GridItem bg="#09241F" colSpan={2} rowSpan={2} p={8} borderRadius="14px">
-            <Overview />
+            <MyFights />
           </GridItem>
-          <GridItem bg="#09241F" rowSpan={2} p={8} borderRadius="14px">
-            <Heading fontSize="xl">{t('dashboard.my_herds')}</Heading>
-            <Text mt={4}>3</Text>
+          <GridItem bg="#09241F" rowSpan={2} p={3} borderRadius="14px" use>
+            <MyProfile />
           </GridItem>
           <GridItem bg="#09241F" colSpan={2} p={8} borderRadius="14px">
             <MyHerds />
