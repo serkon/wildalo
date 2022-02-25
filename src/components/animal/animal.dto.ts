@@ -22,12 +22,12 @@ export enum Region {
 }
 
 export enum PrimaryStat {
-  ATTACK = 'attack',
-  DEFFENCE = 'deffence',
+  ATTACK_POWER = 'attackPower',
+  DEFENCE = 'defence',
   SPEED = 'speed',
-  HEAL = 'heal',
+  HEAL_POINT = 'healPoint',
   WEIGHT = 'weight',
-  LIFETIME = 'lifetime',
+  LIFE_SPAN = 'lifeSpan',
 }
 
 export enum SecondaryStats {
@@ -46,7 +46,7 @@ export enum SecondaryStats {
 export type PrimaryKeys = Array<keyof PrimaryStat>;
 
 export interface Animal {
-  id: string;
+  _id: string;
   type: AnimalType;
   name: string;
   level: number;
