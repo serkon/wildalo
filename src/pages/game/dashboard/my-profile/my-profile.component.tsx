@@ -72,7 +72,7 @@ export const MyProfile = () => {
                 <Box fontSize="13px" flexGrow={1}>
                   {t('common.TOTAL')}
                 </Box>
-                <Image src="/images/gems/FODR.svg" width="32px"></Image>
+                <Image src="/images/gems/WARC.svg" width="32px"></Image>
                 <Box fontSize="48px">50</Box>
               </HStack>
               <HStack color="white" justifyContent="space-between" marginTop="14px">

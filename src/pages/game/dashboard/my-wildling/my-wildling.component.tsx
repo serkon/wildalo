@@ -10,8 +10,8 @@ import { AxiosResponse } from 'axios';
 const requestTriad = async (): Promise<HttpResponse<Animal[]>> => {
   const response: AxiosResponse<HttpResponse<Animal[]>> = await api.post('/my/animal/list', {
     'paging': {
-      'current': 1,
-      'limit': 4,
+      'current': 0,
+      'limit': 3,
     },
   });
   return response.data;
