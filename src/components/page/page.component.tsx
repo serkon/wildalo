@@ -26,7 +26,7 @@ const Links = () => {
   return (
     <React.Fragment>
       {items.map((item: { title: string; to: string }, key: number) => (
-        <Link as={NavLink} to={item.to} color="header" variant="header" key={key} fontWeight="400">
+        <Link as={NavLink} to={item.to} variant="header" key={key} fontWeight="400">
           {t(item.title)}
         </Link>
       ))}
