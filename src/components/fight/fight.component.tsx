@@ -11,7 +11,7 @@ interface FightDetail {
 
 export const Fight = (props: FightDetail) => {
   const [color, setColor] = React.useState({ 'state': false });
-  const api = process.env.REACT_APP_API_URL;
+  const env = process.env.REACT_APP_API_URL;
 
   const changeTextColor = (status: boolean) => {
     setColor({ 'state': status });
@@ -21,7 +21,7 @@ export const Fight = (props: FightDetail) => {
     <>
       <Flex justifyContent={'space-between'} className="fight">
         <HStack>
-          <Avatar margin="0" width="36px" height={'36px'} src={`${api}/uploads/${props.detail.fighters[0].imageId}.jpeg`} />
+          <Avatar margin="0" width="36px" height={'36px'} src={`${env}/uploads/${props.detail.fighters[0].imageId}.jpeg`} />
           <Stack className="fighter">
             <Text className="ranger">{props.detail.fighters[0].username}</Text>
             <Text className="herd">{props.detail.fighters[0].herdname}</Text>
@@ -31,7 +31,7 @@ export const Fight = (props: FightDetail) => {
           <Image src="/images/common/vs.svg"></Image>
         </Center>
         <HStack>
-          <Avatar margin="0" width="36px" height={'36px'} src={`${api}/uploads/${props.detail.fighters[1].imageId}.jpeg`} />
+          <Avatar margin="0" width="36px" height={'36px'} src={`${env}/uploads/${props.detail.fighters[1].imageId}.jpeg`} />
           <Stack className="fighter">
             <Text className="ranger">{props.detail.fighters[1].username}</Text>
             <Text className="herd">{props.detail.fighters[1].herdname}</Text>
