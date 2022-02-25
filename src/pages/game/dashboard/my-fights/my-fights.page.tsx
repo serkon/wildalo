@@ -1,18 +1,19 @@
-import { Heading, Flex, HStack, Text, Button, Box, Badge } from '@chakra-ui/react';
+import { Heading, Flex, HStack, Text, Button, Box, Badge, Stack } from '@chakra-ui/react';
 import { AxiosResponse } from 'axios';
 import React, { useEffect } from 'react';
 import { api } from 'src/components/axios/axios.component';
+import { ChartPie } from 'src/components/chart/pie/pie.component';
 import { Fight } from 'src/components/fight/fight.component';
 import { FightOverview } from 'src/components/fight/fight.dto';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 
 const requestFightsOverview = async (): Promise<AxiosResponse<FightOverview>> => {
-  const response = await api.get('/animal/my/overview');
+  const response = await api.get('/my/animal/fights');
   return response.data;
 };
 
-export const Overview = () => {
+export const MyFights = () => {
   const { t } = useTranslate();
   const [res, setResponse] = React.useState<FightOverview>();
 
@@ -50,6 +51,15 @@ export const Overview = () => {
           </Badge>
         </HStack>
       </Button>
+      <ChartPie data="66" description="Fight Win Rate" width="207px" height="207px" style={{ 'marginTop': '67px' }}></ChartPie>
+      <Stack alignItems={'center'}>
+        <Box fontWeight={500} fontSize={'19px'} lineHeight="27px">
+          {res?.winScore} / {res?.totalScore}
+        </Box>
+        <Box fontSize={'10px'} marginTop="-2px!important" lineHeight="14px" opacity={0.3}>
+          {t('dashboard.Total_Fights')}
+        </Box>
+      </Stack>
     </div>
   );
 };
