@@ -17,7 +17,8 @@
     "see_all": "See All",
     "create_new": "Create New",
     "wins": "wins",
-    "Active": "Active"
+    "Active": "Active",
+    "Edit_Profile": "Edit Profile"
   },
   "links": {
     "home": "Home",
@@ -132,7 +133,9 @@
     "start_new": "Start New",
     "most_successfull": "Most Successfull",
     "wacky_racers": "Wacky Racers",
-    "Remaining": "Remaining"
+    "Remaining": "Remaining",
+    "Total_Fights": "Total Fights",
+    "Balance_Summary": "Balance Summary"
   },
   "footer": {
     "services": "Services",
