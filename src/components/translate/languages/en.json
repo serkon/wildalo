@@ -19,7 +19,8 @@
     "wins": "wins",
     "Active": "Active",
     "Edit_Profile": "Edit Profile",
-    "claim": "claim"
+    "claim": "claim",
+    "no_winner_herd": "No Winner Herd Yet"
   },
   "links": {
     "home": "Home",
@@ -136,7 +137,11 @@
     "wacky_racers": "Wacky Racers",
     "Remaining": "Remaining",
     "Total_Fights": "Total Fights",
-    "Balance_Summary": "Balance Summary"
+    "Balance_Summary": "Balance Summary",
+    "no_wilding": "You don't have a wildling",
+    "no_herd": "You haven't formed any herd yet",
+    "no_fights": "You don't have an ongoing fight right now",
+    "Buy_wildings": "Buy wildlings"
   },
   "footer": {
     "services": "Services",
