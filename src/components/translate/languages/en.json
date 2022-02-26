@@ -19,8 +19,7 @@
     "wins": "wins",
     "Active": "Active",
     "Edit_Profile": "Edit Profile",
-    "claim": "claim",
-    "no_winner_herd": "No Winner Herd Yet"
+    "claim": "claim"
   },
   "links": {
     "home": "Home",
@@ -139,7 +138,9 @@
     "Total_Fights": "Total Fights",
     "Balance_Summary": "Balance Summary",
     "no_wilding": "You don't have a wildling",
-    "no_herd": "You haven't formed any herd yet",
+    "no_herd_found": "You haven't formed any herd yet",
+    "no_herd_found_action": "Buy wildings to create a herd",
+    "no_winner_herd": "No Winner Herd Yet",
     "no_fights": "You don't have an ongoing fight right now",
     "Buy_wildings": "Buy wildlings"
   },

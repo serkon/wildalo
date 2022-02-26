@@ -3,9 +3,11 @@ import { Box, Container } from '@chakra-ui/react';
 import { Animal } from 'src/components/animal/animal.dto';
 import { AnimalCard } from 'src/components/animal/animal.component';
 import { useMQReal } from 'src/theme/util/media-query';
+import { useTranslate } from 'src/components/translate/translate.component';
 import './triad.component.scss';
 
 export const Triad = ({ data }: { data: Animal[] | undefined }) => {
+  const { t } = useTranslate();
   const isDesktop = useMQReal('md');
 
   return (
@@ -19,7 +21,7 @@ export const Triad = ({ data }: { data: Animal[] | undefined }) => {
           </Box>
         ) : (
           <Box opacity={0.6} width="32" textAlign={'center'} lineHeight={'25px'} margin={14} marginBottom="20" fontSize="18px">
-            You don't have a wildling
+            {t('dashboard.no_wilding')}
           </Box>
         )}
       </Container>
