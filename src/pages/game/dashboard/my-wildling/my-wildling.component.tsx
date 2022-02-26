@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Heading, Flex, Button, HStack, Text } from '@chakra-ui/react';
+import { Heading, Flex, Button, HStack, Text, Box } from '@chakra-ui/react';
 
 import { api, HttpResponse } from 'src/components/axios/axios.component';
 import { Triad } from 'src/components/triad/triad.component';
@@ -7,11 +7,11 @@ import { useTranslate } from 'src/components/translate/translate.component';
 import { Animal } from 'src/components/animal/animal.dto';
 import { AxiosResponse } from 'axios';
 
-const requestTriad = async (): Promise<HttpResponse<Animal[]>> => {
+const getAnimals = async (): Promise<HttpResponse<Animal[]>> => {
   const response: AxiosResponse<HttpResponse<Animal[]>> = await api.post('/my/animal/list', {
     'paging': {
       'current': 0,
-      'limit': 3,
+      'limit': -1,
     },
   });
   return response.data;
@@ -23,7 +23,7 @@ export const MyWildlings = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await requestTriad();
+      const response = await getAnimals();
       setAnimals(response);
     }
 
@@ -46,14 +46,22 @@ export const MyWildlings = () => {
         </HStack>
       </Flex>
       <Triad data={animals?.data} />
-      <Flex justifyContent={'space-between'} pt="3">
-        <Button variant="ghost" fontWeight="bold">
-          {t('common.buy_more')}
-        </Button>
-        <Button variant="outline" fontWeight="bold">
-          {t('common.see_all')}
-        </Button>
-      </Flex>
+      {animals && animals.data.length > 0 ? (
+        <Flex justifyContent={'space-between'} pt="3">
+          <Button variant="ghost" fontWeight="bold">
+            {t('common.buy_more')}
+          </Button>
+          <Button variant="outline" fontWeight="bold">
+            {t('common.see_all')}
+          </Button>
+        </Flex>
+      ) : (
+        <Box textAlign={'center'}>
+          <Button variant="primary" width={'70%'} margin="auto">
+            {t('dashboard.Buy_wildings')}
+          </Button>
+        </Box>
+      )}
     </>
   );
 };
