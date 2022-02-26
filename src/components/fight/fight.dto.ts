@@ -21,11 +21,23 @@ export interface FightOverview {
   treshold: number;
 }
 
+/**
+ * Herd DTOS
+ */
+
+export enum HerdStatus {
+  FIGHTING = 'FIGHTING',
+  IDLE = 'IDLE',
+  DEAD = 'DEAD',
+}
+
 export interface Herd {
-  id: string;
-  cards: Array<Animal>;
+  _id: string;
+  name: string;
   win: number;
   lost: number;
-  name: string;
-  status: 'fighting' | 'idle' | 'dead';
+  status: HerdStatus;
+  cards: Array<Animal>;
+  leve: number;
+  bonus: boolean;
 }
