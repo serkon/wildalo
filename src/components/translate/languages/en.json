@@ -137,11 +137,11 @@
     "Remaining": "Remaining",
     "Total_Fights": "Total Fights",
     "Balance_Summary": "Balance Summary",
-    "no_wilding": "You don't have a wildling",
+    "no_wilding_found": "You don't have a wildling",
     "no_herd_found": "You haven't formed any herd yet",
     "no_herd_found_action": "Buy wildings to create a herd",
     "no_winner_herd": "No Winner Herd Yet",
-    "no_fights": "You don't have an ongoing fight right now",
+    "no_fights_found": "You don't have an ongoing fight right now",
     "Buy_wildings": "Buy wildlings"
   },
   "footer": {

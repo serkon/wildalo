@@ -21,7 +21,7 @@ export const Triad = ({ data }: { data: Animal[] | undefined }) => {
           </Box>
         ) : (
           <Box opacity={0.6} width="32" textAlign={'center'} lineHeight={'25px'} margin={14} marginBottom="20" fontSize="18px">
-            {t('dashboard.no_wilding')}
+            {t('dashboard.no_wilding_found')}
           </Box>
         )}
       </Container>
