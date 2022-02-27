@@ -17,11 +17,13 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 const countCircle = (element: HTMLDivElement, counter = 100) => {
   let i = 0;
   const time = 750;
-  const intervalTime = Math.abs(time / counter);
+  counter = Math.floor(counter);
+  const intervalTime = Math.abs(time / (counter > 0 ? counter : 1));
   const timerID = setInterval(() => {
-    i++;
-    element.innerHTML = i.toString();
-    if (i === Math.floor(counter)) {
+    if (i !== Math.floor(counter)) {
+      i++;
+      element.innerHTML = i.toString();
+    } else {
       element.innerHTML = counter.toString();
       clearInterval(timerID);
     }
