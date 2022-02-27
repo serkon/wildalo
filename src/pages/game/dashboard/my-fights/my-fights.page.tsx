@@ -29,7 +29,9 @@ export const MyFights = () => {
   return (
     <div className="my-herds">
       <Flex justifyContent={'space-between'} marginBottom={3}>
-        <Heading fontSize={'16px'}>{t('dashboard.fight_overview')}</Heading>
+        <Heading fontSize={'16px'} alignItems="center" display={'flex'}>
+          {t('dashboard.fight_overview')}
+        </Heading>
         <HStack>
           <Text color="rgbae(255, 255, 255, 0.4)" fontSize={16} fontWeight={'500'}>
             {t('common.Active')}
@@ -41,8 +43,15 @@ export const MyFights = () => {
           </Flex>
         </HStack>
       </Flex>
-      {res && res.fights.map((_item, key) => <Fight key={key} detail={_item} />)}
-      <Button variant={'primary'} mt="12" disabled={res && res.fights.length >= 3}>
+      {res && res.fights.length > 0 ? (
+        res.fights.map((_item, key) => <Fight key={key} detail={_item} />)
+      ) : (
+        <Box opacity={0.6} width="56" textAlign={'center'} lineHeight={'25px'} mx="auto" marginTop="14" marginBottom="8" fontSize="18px">
+          {t('dashboard.no_fights_found')}
+        </Box>
+      )}
+      {/* TODO: Store'da adamın hiç herds'i yoksa disable et kontrolü ekle */}
+      <Button variant={'primary'} mt="34px" disabled={res && res.fights.length >= 3}>
         {t('dashboard.start_new')}!
         <HStack position={'absolute'} right={'16px'} fontSize="12px" fontWeight={'bold'}>
           <Box>{t('dashboard.Remaining')}</Box>
@@ -51,7 +60,7 @@ export const MyFights = () => {
           </Badge>
         </HStack>
       </Button>
-      <ChartPie data="66" description="Fight Win Rate" width="207px" height="207px" style={{ 'marginTop': '67px' }}></ChartPie>
+      <ChartPie data={res ? (res?.winScore * 100) / res?.totalScore : 0} description="Fight Win Rate" width="207px" height="207px" style={{ 'marginTop': '67px' }}></ChartPie>
       <Stack alignItems={'center'}>
         <Box fontWeight={500} fontSize={'19px'} lineHeight="27px">
           {res?.winScore} / {res?.totalScore}
