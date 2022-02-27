@@ -10,10 +10,8 @@
     cursor: pointer;
   }
 
-  &:last-of-type {
-    + hr {
-      display: none;
-    }
+  + hr:last-of-type {
+    display: none;
   }
 
   .fighter {
