@@ -11,7 +11,7 @@ const getAnimals = async (): Promise<HttpResponse<Animal[]>> => {
   const response: AxiosResponse<HttpResponse<Animal[]>> = await api.post('/my/animal/list', {
     'paging': {
       'current': 0,
-      'limit': -1,
+      'limit': 3,
     },
   });
   return response.data;
@@ -33,7 +33,9 @@ export const MyWildlings = () => {
   return (
     <>
       <Flex justifyContent={'space-between'}>
-        <Heading fontSize={'16px'}>{t('dashboard.my_wildlings')}</Heading>
+        <Heading fontSize={'16px'} alignItems="center" display={'flex'}>
+          {t('dashboard.my_wildlings')}
+        </Heading>
         <HStack>
           <Text color="rgba(255, 255, 255, 0.4)" fontSize={16} fontWeight={'500'}>
             {t('common.Total')}
