@@ -4,12 +4,12 @@ import { Heading, Flex, Button, HStack, Text, Box, Image } from '@chakra-ui/reac
 import { AxiosResponse } from 'axios';
 
 import { HttpResponse, api } from 'src/components/axios/axios.component';
-import { Herd, HerdStatus } from 'src/components/fight/fight.dto';
+import { Herd, HerdState } from 'src/components/fight/fight.dto';
 import { useTranslate } from 'src/components/translate/translate.component';
 import './my-herds.component.scss';
 
 const getHerds = async (): Promise<HttpResponse<Herd[]>> => {
-  const response: AxiosResponse<HttpResponse<Herd[]>> = await api.get('/my/herd/list');
+  const response: AxiosResponse<HttpResponse<Herd[]>> = await api.post('/my/herd/list');
   return response.data;
 };
 
@@ -28,7 +28,7 @@ export const MyHerds = () => {
       const findWinner: Herd | null =
         (response.data.length > 0 &&
           response.data.reduce((previous: Herd, herd: Herd) => {
-            if (herd.status === HerdStatus.IDLE) {
+            if (herd.state === HerdState.IDLE) {
               setIdle(++count);
             }
             return previous.win > herd.win ? previous : herd;

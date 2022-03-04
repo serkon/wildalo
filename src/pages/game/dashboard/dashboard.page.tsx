@@ -30,7 +30,7 @@ export const PageDashboard = () => {
   };
 
   const admin = async () => {
-    const response = await api.get('/admin');
+    const response = await api.post('/admin');
     console.log(response);
   };
 

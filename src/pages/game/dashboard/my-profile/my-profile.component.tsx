@@ -11,11 +11,10 @@ import './my-profile.component.scss';
 
 export const MyProfile = () => {
   const [ranger, setRanger] = React.useState<Ranger | null>(null);
-  const env = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     async function fetchData() {
-      const response: AxiosResponse<HttpResponse<Ranger>> = await api.get('/my/profile');
+      const response: AxiosResponse<HttpResponse<Ranger>> = await api.post('/my/profile');
       const { data } = response;
       setRanger(data.data);
     }
@@ -29,7 +28,7 @@ export const MyProfile = () => {
       {ranger && (
         <>
           <Flex justifyContent={'center'} alignItems="center" padding="16px 18px" direction={'column'} position="relative">
-            <Avatar margin="0" width="128px" height={'128px'} src={`${env}/uploads/${ranger?.image}.jpeg`} />
+            <Avatar margin="0" width="128px" height={'128px'} src={`${process.env.REACT_APP_PUBLIC_URL}/uploads/${ranger?.imageId}.jpeg`} />
             <Box fontSize={16} fontWeight={700} mt={8}>
               {ranger?.username}
             </Box>

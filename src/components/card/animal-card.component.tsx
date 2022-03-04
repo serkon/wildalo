@@ -18,10 +18,10 @@ export const AnimalOldCard = (props: React.PropsWithChildren<Props>): JSX.Elemen
   const { t } = useTranslate();
   const { data } = props;
   const animalPicture = {
-    'backgroundImage': `url(/images/animals/${data.name}.jpeg)`,
+    'backgroundImage': `url(${process.env.REACT_APP_PUBLIC_URL}/images/animals/${data.name}.jpeg)`,
   };
   const regionPicture = {
-    'backgroundImage': `url(/images/regions/${data.region}.svg)`,
+    'backgroundImage': `url(${process.env.REACT_APP_PUBLIC_URL}/images/regions/${data.region}.svg)`,
   };
   const scale = {
     'transform': `scale(${props.scale || 1}`,
@@ -33,7 +33,7 @@ export const AnimalOldCard = (props: React.PropsWithChildren<Props>): JSX.Elemen
           <span className="level-title">{t('level')}</span> <span className="level-value">{data.level}</span>
         </div>
         <h2 className="animal-name">{t(`animals.${data.name}`)}</h2>
-        <div className={`animal-background card-type-${data.type.toLowerCase()}`}></div>
+        <div className={`animal-background card-type-${data.rarity.toLowerCase()}`}></div>
         <div className="animal-picture" style={animalPicture}></div>
         <div className="region" style={regionPicture}></div>
         <div className="stats">

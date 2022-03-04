@@ -1,4 +1,6 @@
 {
+  "workbench.colorTheme": "Default Light+",
+  "workbench.iconTheme": "helium-icon-theme",
   "git.autofetch": true,
   "security.workspace.trust.untrustedFiles": "newWindow",
   "workbench.list.smoothScrolling": true,
@@ -58,7 +60,9 @@
       "source.fixAll.stylelint": true
     }
   },
-  "workbench.colorTheme": "Default Light+",
   "editor.suggestSelection": "first",
-  "workbench.iconTheme": "helium-icon-theme"
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "javascript": "javascriptreact"
+  }
 }

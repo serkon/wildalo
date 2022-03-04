@@ -1,13 +1,80 @@
-export enum AnimalType {
+export enum AnimalRarity {
   COMMON = 'COMMON',
   RARE = 'RARE',
   EXOTIC = 'EXOTIC',
 }
 
 export enum AnimalName {
+  BLACK_BEAR = 'BLACK_BEAR',
+  RACCOON = 'RACCOON',
   MUSTANG = 'MUSTANG',
-  PENGUIN = 'PENGUIN',
+  AMERICAN_BISON = 'AMERICAN_BISON',
+  MOUNTAIN_LION = 'MOUNTAIN_LION',
+  HUMMINGBIRD = 'HUMMINGBIRD',
   BALD_EAGLE = 'BALD_EAGLE',
+  GREAT_WHITE_SHARK = 'GREAT_WHITE_SHARK',
+  ALLIGATOR = 'ALLIGATOR',
+  GRAY_WHALE = 'GRAY_WHALE',
+  GALAPAGOS_TORTOISE = 'GALAPAGOS_TORTOISE',
+  TOUCAN = 'TOUCAN',
+  BOA_SNAKE = 'BOA_SNAKE',
+  ARMADILLO = 'ARMADILLO',
+  LLAMA = 'LLAMA',
+  CAPYBARA = 'CAPYBARA',
+  PIRANHA = 'PIRANHA',
+  TAPIR = 'TAPIR',
+  GIANT_ANTEATER = 'GIANT_ANTEATER',
+  OCELOT = 'OCELOT',
+  WILD_BOAR = 'WILD_BOAR',
+  LEMMING = 'LEMMING',
+  REINDEER = 'REINDEER',
+  BROWN_BEAR = 'BROWN_BEAR',
+  GOLDEN_EAGLE = 'GOLDEN_EAGLE',
+  HEDGEHOG = 'HEDGEHOG',
+  GRASS_SNAKE = 'GRASS_SNAKE',
+  ATLANTIC_SALMON = 'ATLANTIC_SALMON',
+  OSPREY = 'OSPREY',
+  GRAY_WOLF = 'GRAY_WOLF',
+  AARDVARK = 'AARDVARK',
+  CHEETAH = 'CHEETAH',
+  SPOTTED_HYENA = 'SPOTTED_HYENA',
+  HIPPOPOTAMUS = 'HIPPOPOTAMUS',
+  BLACK_RHINOCEROS = 'BLACK_RHINOCEROS',
+  FOREST_ELEPHANT = 'FOREST_ELEPHANT',
+  NILE_CROCODILE = 'NILE_CROCODILE',
+  BLACK_MAMBA = 'BLACK_MAMBA',
+  BARBARY_MACAQUE = 'BARBARY_MACAQUE',
+  GIRAFFE = 'GIRAFFE',
+  PANGOLINS = 'PANGOLINS',
+  BAIKAL_SEAL = 'BAIKAL_SEAL',
+  GIANT_PANDA = 'GIANT_PANDA',
+  MONGOLIAN_GAZELLE = 'MONGOLIAN_GAZELLE',
+  ASIAN_ELEPHANT = 'ASIAN_ELEPHANT',
+  SUMATRAN_ORANGUTAN = 'SUMATRAN_ORANGUTAN',
+  MANDARIN_DUCK = 'MANDARIN_DUCK',
+  KINGFISHER = 'KINGFISHER',
+  KING_COBRA = 'KING_COBRA',
+  HIMALAYAN_MARMOT = 'HIMALAYAN_MARMOT',
+  TASMANIAN_DEVIL = 'TASMANIAN_DEVIL',
+  PLATYPUS = 'PLATYPUS',
+  KANGAROO = 'KANGAROO',
+  WALLABY = 'WALLABY',
+  MALLEEFOWL = 'MALLEEFOWL',
+  DEATH_ADDER = 'DEATH_ADDER',
+  FRUIT_BAT = 'FRUIT_BAT',
+  PELICAN = 'PELICAN',
+  TREE_FROG = 'TREE_FROG',
+  KOALA = 'KOALA',
+  KILLER_WHALE = 'KILLER_WHALE',
+  ELEPHANT_SEAL = 'ELEPHANT_SEAL',
+  EMPEROR_PENGUIN = 'EMPEROR_PENGUIN',
+  MACARONI_PENGUIN = 'MACARONI_PENGUIN',
+  FUR_SEAL = 'FUR_SEAL',
+  SOUTH_POLAR_SKUA = 'SOUTH_POLAR_SKUA',
+  WANDERING_ALBATROSS = 'WANDERING_ALBATROSS',
+  GENTOO_PENGUIN = 'GENTOO_PENGUIN',
+  SNOW_PETREL = 'SNOW_PETREL',
+  LEOPARD_SEAL = 'LEOPARD_SEAL',
 }
 
 export enum Region {
@@ -30,7 +97,7 @@ export enum PrimaryStat {
   LIFE_SPAN = 'lifeSpan',
 }
 
-export enum SecondaryStats {
+export enum SecondaryStat {
   ATTACK_BUFF = 'attackBuff',
   ATTACK_DEBUFF = 'attackDebuff',
   DAMAGE_REFLECTION = 'damageReflection',
@@ -47,14 +114,25 @@ export type PrimaryKeys = Array<keyof PrimaryStat>;
 
 export interface Animal {
   _id: string;
-  type: AnimalType;
+  free: boolean;
+  rarity: AnimalRarity;
   name: string;
   level: number;
   region: Region;
   primaryStats: { [key in PrimaryStat]?: number };
-  secondaryStats: { [key in SecondaryStats]?: number };
+  secondaryStats: { [key in SecondaryStat]?: number };
+  auction?: Auction;
+  herdId?: string;
 }
 
 export interface AnimalDetail extends Animal {
   description?: string;
+}
+
+/**
+ * Auction
+ */
+export interface Auction {
+  _id: string;
+  remainingTime: number;
 }

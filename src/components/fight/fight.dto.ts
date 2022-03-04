@@ -1,34 +1,53 @@
-import { Animal } from 'src/components/animal/animal.dto';
+import { Animal, Region, SecondaryStat } from 'src/components/animal/animal.dto';
 
+/**
+ * Fight DTOS
+ */
 export interface Fighter {
-  id: string;
+  _id: string;
   imageId: string;
   username: string;
   herdname: string;
 }
 
 export interface Fight {
-  id: string;
+  _id: string;
   fighters: Fighter[];
-  elapsedTime: number;
+  remainingTime: number; //remaining time milisecond
 }
 
-export interface FightOverview {
-  id: string;
+export interface FightsOverview {
   fights: Fight[];
   winScore: number;
   totalScore: number;
   treshold: number;
 }
 
+export interface FightDetail {
+  _id: string;
+}
+
 /**
  * Herd DTOS
  */
-
-export enum HerdStatus {
+export enum HerdState {
   FIGHTING = 'FIGHTING',
   IDLE = 'IDLE',
   DEAD = 'DEAD',
+}
+
+export interface HomesteadBonus {
+  type: SecondaryStat;
+  value: number;
+  region: Region;
+  animalCount: number;
+}
+
+export interface OtherBonus {
+  type: SecondaryStat;
+  value: number;
+  region: Region;
+  animalCount: number;
 }
 
 export interface Herd {
@@ -36,8 +55,23 @@ export interface Herd {
   name: string;
   win: number;
   lost: number;
-  status: HerdStatus;
-  cards: Array<Animal>;
-  leve: number;
-  bonus: boolean;
+  state: HerdState;
+  animals?: { position: number; animal: Animal }[];
+  bonus: Array<HomesteadBonus | OtherBonus>;
+  level: number;
+}
+
+export interface HerdRequest {
+  animals?: { position: number; _id: Animal['_id'] }[];
+  name: string;
+}
+
+export type HerdCreateRequest = HerdRequest;
+
+export interface HerdUpdateRequest extends HerdRequest {
+  _id: string;
+}
+
+export interface HerdDeteleRequest {
+  _id: string;
 }

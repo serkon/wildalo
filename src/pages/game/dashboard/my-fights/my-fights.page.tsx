@@ -4,22 +4,22 @@ import React, { useEffect } from 'react';
 import { api } from 'src/components/axios/axios.component';
 import { ChartPie } from 'src/components/chart/pie/pie.component';
 import { Fight } from 'src/components/fight/fight.component';
-import { FightOverview } from 'src/components/fight/fight.dto';
+import { FightsOverview } from 'src/components/fight/fight.dto';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 
-const requestFightsOverview = async (): Promise<AxiosResponse<FightOverview>> => {
-  const response = await api.get('/my/animal/fights');
+const requestFightsOverview = async (): Promise<AxiosResponse<FightsOverview>> => {
+  const response = await api.post('/my/animal/fights');
   return response.data;
 };
 
 export const MyFights = () => {
   const { t } = useTranslate();
-  const [res, setResponse] = React.useState<FightOverview>();
+  const [res, setResponse] = React.useState<FightsOverview>();
 
   useEffect(() => {
     async function fetchData() {
-      const response: AxiosResponse<FightOverview> = await requestFightsOverview();
+      const response: AxiosResponse<FightsOverview> = await requestFightsOverview();
       setResponse(response.data);
     }
 

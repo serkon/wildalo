@@ -2,14 +2,15 @@ import { Container, Heading, Button, Box } from '@chakra-ui/react';
 
 import { AnimalOldCard } from 'src/components/card/animal-card.component';
 import { useTranslate } from 'src/components/translate/translate.component';
-import { AnimalDetail, AnimalType, Region } from 'src/components/animal/animal.dto';
+import { AnimalDetail, AnimalRarity, Region } from 'src/components/animal/animal.dto';
 import { useMQReal } from 'src/theme/util/media-query';
 import './hero.component.scss';
 
 const animals: AnimalDetail[] = [
   {
     '_id': '529da4c9-b340-4828-94ad-c9f613998070',
-    'type': AnimalType.RARE,
+    'free': false,
+    'rarity': AnimalRarity.RARE,
     'name': 'BLACK_MAMBA',
     'level': 3,
     'region': Region.AFRICA,
@@ -19,7 +20,8 @@ const animals: AnimalDetail[] = [
   },
   {
     '_id': '529da4c9-b340-4828-94ad-c9f613998070',
-    'type': AnimalType.EXOTIC,
+    'free': false,
+    'rarity': AnimalRarity.EXOTIC,
     'name': 'MUSTANG',
     'level': 1,
     'region': Region.NORTH_AMERICA,
@@ -29,7 +31,8 @@ const animals: AnimalDetail[] = [
   },
   {
     '_id': '529da4c9-b340-4828-94ad-c9f613998070',
-    'type': AnimalType.COMMON,
+    'free': true,
+    'rarity': AnimalRarity.COMMON,
     'name': 'OSPREY',
     'level': 8,
     'region': Region.EUROPE,
@@ -39,7 +42,8 @@ const animals: AnimalDetail[] = [
   },
   {
     '_id': '529da4c9-b340-4828-94ad-c9f613998070',
-    'type': AnimalType.EXOTIC,
+    'free': true,
+    'rarity': AnimalRarity.EXOTIC,
     'name': 'GRAY_WHALE',
     'level': 1,
     'region': Region.NORTH_AMERICA,
@@ -49,7 +53,8 @@ const animals: AnimalDetail[] = [
   },
   {
     '_id': '529da4c9-b340-4828-94ad-c9f613998070',
-    'type': AnimalType.COMMON,
+    'free': true,
+    'rarity': AnimalRarity.COMMON,
     'name': 'AMERICAN_BISON',
     'level': 1,
     'region': Region.NORTH_AMERICA,
@@ -59,7 +64,8 @@ const animals: AnimalDetail[] = [
   },
   {
     '_id': '3502ee1b-6cad-46ff-92f1-23b838033ef9',
-    'type': AnimalType.RARE,
+    'free': true,
+    'rarity': AnimalRarity.RARE,
     'name': 'BLACK_BEAR',
     'level': 3,
     'region': Region.AFRICA,
@@ -69,7 +75,8 @@ const animals: AnimalDetail[] = [
   },
   {
     '_id': 'de99cb6b-de50-4352-9b3e-45da2e87a5b0',
-    'type': AnimalType.EXOTIC,
+    'free': true,
+    'rarity': AnimalRarity.EXOTIC,
     'name': 'GREAT_WHITE_SHARK',
     'level': 5,
     'region': Region.EUROPE,
