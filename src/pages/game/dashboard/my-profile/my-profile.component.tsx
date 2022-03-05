@@ -23,6 +23,7 @@ export const MyProfile = () => {
   }, []); // Or [] if effect doesn't need props or state
 
   const { t } = useTranslate();
+
   return (
     <>
       {ranger && (
@@ -37,7 +38,7 @@ export const MyProfile = () => {
             </Link>
           </Flex>
           <Divider borderBottomWidth={'1px'} borderColor="rgba(42, 89, 80, 0.6);" my="16px" />
-          <Box direction={'column'} px={4} py={7}>
+          <Box px={4} py={7}>
             <Heading fontSize={'16px'}>{t('dashboard.Balance_Summary')}</Heading>
             <Flex direction={'column'} marginTop="24px" textAlign="left" fontWeight="400">
               <Box color="rgba(255,255,255,0.4)" fontSize="20px" fontWeight="500" lineHeight="23px">
@@ -55,7 +56,7 @@ export const MyProfile = () => {
                   {t('common.Claimable')}
                 </Box>
                 <Box fontSize="14px" lineHeight="16px">
-                  1233
+                  {ranger.claimableFodrBalance}
                 </Box>
                 <Button variant={'ghost'} paddingRight="0">
                   {t('common.claim')}
@@ -79,7 +80,7 @@ export const MyProfile = () => {
                   {t('common.Claimable')}
                 </Box>
                 <Box fontSize="14px" lineHeight="16px">
-                  1233
+                  {ranger.claimableWarcBalance}
                 </Box>
                 <Button variant={'ghost'} paddingRight="0">
                   {t('common.claim')}

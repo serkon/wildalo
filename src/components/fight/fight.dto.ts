@@ -13,7 +13,7 @@ export interface Fighter {
 export interface Fight {
   _id: string;
   fighters: Fighter[];
-  remainingTime: number; //remaining time milisecond
+  remainingTime: number; // remaining time milisecond
 }
 
 export interface FightsOverview {

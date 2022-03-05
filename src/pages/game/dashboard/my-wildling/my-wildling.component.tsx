@@ -9,11 +9,12 @@ import { AxiosResponse } from 'axios';
 
 const getAnimals = async (): Promise<HttpResponse<Animal[]>> => {
   const response: AxiosResponse<HttpResponse<Animal[]>> = await api.post('/my/animal/list', {
-    'paging': {
-      'current': 0,
-      'limit': 3,
+    paging: {
+      current: 0,
+      limit: 3,
     },
   });
+
   return response.data;
 };
 

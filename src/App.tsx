@@ -13,6 +13,7 @@ function App(): JSX.Element {
   useMobile();
   useProcess();
   const { t } = useTranslate();
+
   return (
     <ErrorBoundary>
       <Suspense fallback={<div>{t('loading')}</div>}>

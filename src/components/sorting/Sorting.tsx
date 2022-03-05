@@ -41,6 +41,7 @@ export const Sorting = React.forwardRef<ImperativeHandle, SortingProps>(
       if (item.direction === 'desc') {
         props.data.reverse();
       }
+
       return props.data;
     };
 

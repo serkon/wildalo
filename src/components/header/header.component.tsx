@@ -12,15 +12,16 @@ interface HeaderLink {
   external?: boolean;
 }
 const items: HeaderLink[] = [
-  { 'title': 'links.home', 'to': '/' },
-  { 'title': 'links.marketplace', 'to': 'faq' },
-  { 'title': 'links.game', 'to': 'game' },
-  { 'title': 'links.guide', 'to': 'guide' },
-  { 'title': 'links.whitepaper', 'to': '/whitepaper.pdf', 'external': true },
+  { title: 'links.home', to: '/' },
+  { title: 'links.marketplace', to: 'faq' },
+  { title: 'links.game', to: 'game' },
+  { title: 'links.guide', to: 'guide' },
+  { title: 'links.whitepaper', to: '/whitepaper.pdf', external: true },
 ];
 
 const Links = () => {
   const { t } = useTranslate();
+
   return (
     <React.Fragment>
       {items.map((item: { title: string; to: string }, key: number) => (
@@ -37,30 +38,30 @@ export function Header(props: { logo: string }) {
   return (
     <>
       <Container maxW="container.xxl" as="header" background="custom.header">
-        <Flex height={70} width="full" alignItems={'center'} justifyContent={{ 'base': 'space-between', 'md': 'flex-end' }}>
+        <Flex height={70} width="full" alignItems={'center'} justifyContent={{ base: 'space-between', md: 'flex-end' }}>
           <IconButton
             color="white"
             variant="ghost"
             size={'md'}
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
             aria-label={'Open Menu'}
-            display={{ 'md': 'none' }}
+            display={{ md: 'none' }}
             onClick={isOpen ? onClose : onOpen}
           />
-          <HStack spacing={8} alignItems={'center'} flexGrow={{ 'base': '0', 'md': '1' }}>
+          <HStack spacing={8} alignItems={'center'} flexGrow={{ base: '0', md: '1' }}>
             <Box>
               <Image srcSet={props.logo} objectFit="contain" maxW="170px" />
             </Box>
           </HStack>
-          <HStack as={'nav'} spacing={{ 'md': 6, 'lg': '44px' }} alignItems={'flex-end'} display={{ 'base': 'none', 'md': 'flex' }} padding={{ 'md': 6, 'lg': '44px' }}>
+          <HStack as={'nav'} spacing={{ md: 6, lg: '44px' }} alignItems={'flex-end'} display={{ base: 'none', md: 'flex' }} padding={{ md: 6, lg: '44px' }}>
             <Links />
           </HStack>
-          <Flex alignItems={'center'} display={{ 'base': 'flex' }}>
+          <Flex alignItems={'center'} display={{ base: 'flex' }}>
             <UserMenu />
           </Flex>
         </Flex>
         {isOpen ? (
-          <Box pb={4} display={{ 'md': 'none' }}>
+          <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
               <Links />
             </Stack>

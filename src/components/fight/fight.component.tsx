@@ -10,9 +10,9 @@ interface FightDetail {
 }
 
 export const Fight = (props: FightDetail) => {
-  const [color, setColor] = React.useState({ 'state': false });
+  const [color, setColor] = React.useState({ state: false });
   const changeTextColor = (status: boolean) => {
-    setColor({ 'state': status });
+    setColor({ state: status });
   };
 
   return (

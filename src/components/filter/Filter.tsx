@@ -50,6 +50,7 @@ export const Filter = (props: FilterProps): JSX.Element => {
   }, [init, props, selected]);
 
   const id = idGenerator();
+
   return (
     <>
       <input ref={inputRef} onChange={filter} className="filter" placeholder={placeholder}/>

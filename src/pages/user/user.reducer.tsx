@@ -35,17 +35,18 @@ const getTags = (): string[] => {
     });
   };
   products.forEach((product: Product) => addTagExist(product.tags));
+
   return tagList;
 };
 
 const initialState: ProductState = {
   products,
-  'filtered': products,
-  'tags': getTags(),
-  'filter': {
-    'companies': [],
-    'types': [],
-    'tags': [],
+  filtered: products,
+  tags: getTags(),
+  filter: {
+    companies: [],
+    types: [],
+    tags: [],
   },
 };
 
@@ -66,6 +67,7 @@ const filterAll = (state: ProductState): Product[] => {
   if (state.filter.tags.length > 0) {
     filtered = state.filter.tags.reduce((total: Product[], type: string) => [...total, ...filtered.filter((item: Product) => item.tags.includes(type))], []);
   }
+
   return filtered;
 };
 
@@ -74,16 +76,19 @@ export const ProductReducer: Reducer = (state: ProductState = initialState, acti
     case 'FILTER_PRODUCT_BY_COMPANY_SLUG': {
       state.filter.companies = action.payload;
       const filtered = filterAll(state);
+
       return { ...state, filtered };
     }
     case 'FILTER_PRODUCT_BY_ITEM_TYPE': {
       state.filter.types = action.payload;
       const filtered = filterAll(state);
+
       return { ...state, filtered };
     }
     case 'FILTER_PRODUCT_BY_TAGS': {
       state.filter.tags = action.payload;
       const filtered = filterAll(state);
+
       return { ...state, filtered };
     }
     default:
@@ -92,16 +97,16 @@ export const ProductReducer: Reducer = (state: ProductState = initialState, acti
 };
 
 export const filter_product_by_company_slug = (payload: Company[]): { type: string; payload: Company[] } => ({
-  'type': 'FILTER_PRODUCT_BY_COMPANY_SLUG',
+  type: 'FILTER_PRODUCT_BY_COMPANY_SLUG',
   payload,
 });
 
 export const filter_product_by_item_type = (payload: string[]): { type: string; payload: string[] } => ({
-  'type': 'FILTER_PRODUCT_BY_ITEM_TYPE',
+  type: 'FILTER_PRODUCT_BY_ITEM_TYPE',
   payload,
 });
 
 export const filter_product_by_tags = (payload: string[]): { type: string; payload: string[] } => ({
-  'type': 'FILTER_PRODUCT_BY_TAGS',
+  type: 'FILTER_PRODUCT_BY_TAGS',
   payload,
 });

@@ -5,8 +5,9 @@ import { useMQReal } from 'src/theme/util/media-query';
 export const ScrollTo = ({ position = 0 }: { position?: number }): null => {
   const location = useLocation();
   useEffect(() => {
-    window.scrollTo({ 'top': 0, 'behavior': 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location, position]);
+
   return null;
 };
 
@@ -14,6 +15,7 @@ export const useSetTitle = (title: string): void => {
   useEffect(() => {
     const prevTitle = document.title;
     document.title = title;
+
     return () => {
       document.title = prevTitle;
     };
@@ -44,6 +46,7 @@ export const useStateWithCallback = <T>(initialState: T): [state: T, setState: (
       callbackRef.current = undefined;
     }
   }, [state]);
+
   return [state, handleSetState];
 };
 
@@ -60,5 +63,6 @@ export const useScheduleNextRenderCallback = () => {
   const schedule = useCallback((fn: ScheduledCallback) => {
     ref.current = fn;
   }, []);
+
   return schedule;
 };

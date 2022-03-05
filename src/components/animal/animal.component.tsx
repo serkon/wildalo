@@ -14,7 +14,7 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
   const { t } = useTranslate();
   const { data } = props;
   const regionPicture = {
-    'backgroundImage': `url(/images/regions/${data.region}.svg)`,
+    backgroundImage: `url(/images/regions/${data.region}.svg)`,
   };
   const style: { transform?: string } = {};
 
@@ -26,9 +26,9 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
     <>
       <Box {...props} className={`animal ${props.className}`}>
         <div className="layout" style={style}>
-          <div className="overflow" style={{ 'backgroundImage': `url(/images/animals/${data.name}.jpeg)` }}></div>
+          <div className="overflow" style={{ backgroundImage: `url(/images/animals/${data.name}.jpeg)` }}></div>
           <div className={`rarity-line ${data.rarity.toLowerCase()}`}></div>
-          <div className="level" style={{ 'backgroundImage': `url(/images/level/level-${props.data.level}.svg)` }}></div>
+          <div className="level" style={{ backgroundImage: `url(/images/level/level-${props.data.level}.svg)` }}></div>
           <div className={`rarity ${data.rarity.toLowerCase()}`}></div>
           <div className="region" style={regionPicture}></div>
           <div className="name">{t(`animals.${data.name}`)}</div>

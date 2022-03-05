@@ -15,15 +15,15 @@ export interface Company {
 
 export const CompanyReducer: Reducer = (state: Company[] = data, action) => {
   switch (action.type) {
-  case 'FILTER_COMPANY_BY_SLUG': {
-    return state.reduce((total: Company[], item: Company) => [...total, ...action.payload.filter((pay: string) => item.slug === pay)], []);
-  }
-  default :
-    return state;
+    case 'FILTER_COMPANY_BY_SLUG': {
+      return state.reduce((total: Company[], item: Company) => [...total, ...action.payload.filter((pay: string) => item.slug === pay)], []);
+    }
+    default :
+      return state;
   }
 };
 
 export const filter_by_slug = (payload: string[]): AnyAction => ({
-    'type': 'FILTER_COMPANY_BY_SLUG',
-    payload,
-  });
+  type: 'FILTER_COMPANY_BY_SLUG',
+  payload,
+});

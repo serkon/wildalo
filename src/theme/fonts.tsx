@@ -5,6 +5,6 @@ import '@fontsource/saira';
 
 // https://chakra-ui.com/guides/recipes/using-fonts
 export const fonts = {
-  'heading': 'Roboto',
-  'body': 'Roboto',
+  heading: 'Roboto',
+  body: 'Roboto',
 };

@@ -10,16 +10,16 @@ export enum AuthorizationHeader {
 const env = process.env.REACT_APP_API_URL;
 
 export const api = axios.create({
-  'baseURL': env,
-  'headers': {
-    'Accept': 'application/json',
+  baseURL: env,
+  headers: {
+    Accept: 'application/json',
     'Content-Type': 'application/json',
     'Accept-Language': 'en-US,en;q=0.9',
     'Cache-Control': 'no-cache',
-    'Pragma': 'no-cache',
-    'Timeout': 20000,
-    'Expires': '0',
-    'WithCredentials': true,
+    Pragma: 'no-cache',
+    Timeout: 20000,
+    Expires: '0',
+    WithCredentials: true,
   },
 });
 
@@ -30,6 +30,7 @@ api.interceptors.request.use(
     if (token) {
       response.headers['Authorization'] = 'Bearer ' + token;
     }
+
     return response;
   },
   (error) => {
@@ -50,6 +51,7 @@ api.interceptors.response.use(
             refreshToken,
           });
           window.localStorage.setItem(AuthorizationHeader.AccessToken, refreshResponse.data.data[AuthorizationHeader.AccessToken] as string);
+
           // api.defaults.headers.common['Authorization'] = 'Bearer ' + refreshResponse.data.accessToken;
           error.config.headers['Authorization'] = 'Bearer ' + refreshResponse.data.data[AuthorizationHeader.AccessToken];
           error.config.headers['RefreshToken'] = false;
@@ -59,9 +61,11 @@ api.interceptors.response.use(
       } catch (error) {
         window.location.href = '/login';
       }
+
       return api(error.config);
     }
     console.error('Looks like there was a problem. Status Code: ' + res.status);
+
     return Promise.reject(error);
   },
 );

@@ -8,20 +8,20 @@ import './home.page.scss';
 
 const roadmap = [
   {
-    'title': 'Q2',
-    'description': ['TGE & Community Building', 'Herd Fights Begin'],
+    title: 'Q2',
+    description: ['TGE & Community Building', 'Herd Fights Begin'],
   },
   {
-    'title': 'Q3',
-    'description': ['New Fall Wildlings', 'Ranger Leaderboard & Tournaments', 'NFT sales in Wildalo Marketplace'],
+    title: 'Q3',
+    description: ['New Fall Wildlings', 'Ranger Leaderboard & Tournaments', 'NFT sales in Wildalo Marketplace'],
   },
   {
-    'title': 'Q4',
-    'description': ['New Winter Wildlings', 'Wildalo Homesteads'],
+    title: 'Q4',
+    description: ['New Winter Wildlings', 'Wildalo Homesteads'],
   },
   {
-    'title': 'H1’23',
-    'description': ['New Spring Wildlings', 'Consumables', 'Ranger Guilds'],
+    title: 'H1’23',
+    description: ['New Spring Wildlings', 'Consumables', 'Ranger Guilds'],
   },
 ];
 
@@ -60,7 +60,7 @@ export const PageHome = () => {
           <Heading as="h3" size="xl" variant="center" isTruncated className="title">
             {t('main.section.third.roadmap')}
           </Heading>
-          <Grid templateColumns={{ 'base': 'repeat(1, 1fr)', 'md': 'repeat(4, 1fr)' }} gap={10} padding={{ 'base': 4, 'md': 0 }} width="100%">
+          <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(4, 1fr)' }} gap={10} padding={{ base: 4, md: 0 }} width="100%">
             {roadmap.map((item, key) => (
               <GridItem key={key} className="prop">
                 <Heading as="h3" size="xl" isTruncated className="quarter">

@@ -13,12 +13,14 @@ const validateUserName = (value: string) => {
   } else if (value.length < 3) {
     error = '😱 Your name is too short!';
   }
+
   return error;
 };
 
 const PageRegister = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { t } = useTranslate();
+
   return (
     <>
       <Heading as="h3" size="lg" variant="center" isTruncated className="page-banner">
@@ -26,7 +28,7 @@ const PageRegister = () => {
       </Heading>
       <Container maxWidth="container.xl" className="dashboard-page">
         <Formik
-          initialValues={{ 'email': 'john1@doe.com', 'password': '1234567', 'username': 'srknc', 'files': [] }}
+          initialValues={{ email: 'john1@doe.com', password: '1234567', username: 'srknc', files: [] }}
           validate={(values) => {
             const errors: User | Record<string, string> = {};
             Object.entries(values).map(([, value]) => {
@@ -39,6 +41,7 @@ const PageRegister = () => {
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
               errors.email = 'Invalid email address';
             }
+
             return errors;
           }}
           onSubmit={(values, { setSubmitting }) => {
@@ -66,6 +69,7 @@ const PageRegister = () => {
                     setSubmitting(false);
                   });
               }
+
               /**
                api
                 .post('/register', values)

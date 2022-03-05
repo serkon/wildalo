@@ -10,6 +10,7 @@ import './my-herds.component.scss';
 
 const getHerds = async (): Promise<HttpResponse<Herd[]>> => {
   const response: AxiosResponse<HttpResponse<Herd[]>> = await api.post('/my/herd/list');
+
   return response.data;
 };
 
@@ -31,6 +32,7 @@ export const MyHerds = () => {
             if (herd.state === HerdState.IDLE) {
               setIdle(++count);
             }
+
             return previous.win > herd.win ? previous : herd;
           })) ||
         null;

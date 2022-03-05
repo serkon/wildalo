@@ -19,13 +19,14 @@ export const PageDashboard = () => {
   const [user] = React.useState<User | null>(null);
   const login = async () => {
     const response: AxiosResponse<HttpResponse<LoginResponse>> = await api.post('/login', {
-      'data': {
-        'email': 'john@doe.com',
-        'password': '1234567',
+      data: {
+        email: 'john@doe.com',
+        password: '1234567',
       },
     });
     window.localStorage.setItem(AuthorizationHeader.AccessToken, (response.data.data as LoginResponse).accessToken);
     window.localStorage.setItem(AuthorizationHeader.RefreshToken, (response.data.data as LoginResponse).refreshToken);
+
     return response;
   };
 

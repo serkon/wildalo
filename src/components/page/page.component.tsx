@@ -15,14 +15,15 @@ interface Link {
   external?: boolean;
 }
 export const items: Link[] = [
-  { 'title': 'links.dashboard', 'to': '/game/dashboard' },
-  { 'title': 'links.wildlings_and_herds', 'to': '/game/wildlings' },
-  { 'title': 'links.fight', 'to': '/game/fight' },
-  { 'title': 'links.my_profile', 'to': '/user/profile' },
+  { title: 'links.dashboard', to: '/game/dashboard' },
+  { title: 'links.wildlings_and_herds', to: '/game/wildlings' },
+  { title: 'links.fight', to: '/game/fight' },
+  { title: 'links.my_profile', to: '/user/profile' },
 ];
 
 const Links = () => {
   const { t } = useTranslate();
+
   return (
     <React.Fragment>
       {items.map((item: { title: string; to: string }, key: number) => (
@@ -43,7 +44,7 @@ export const Page = (props: Props) => {
       <Heading as="h3" size="lg" isTruncated className="page-title" fontSize="132px" position="absolute" marginLeft="-9px" zIndex={-1}>
         {t(title)}
       </Heading>
-      <HStack as={'nav'} spacing={{ 'base': 3, 'md': 6, 'lg': 12 }} alignItems={'flex-end'} display={{ 'base': 'none', 'xs': 'flex' }} padding="48px 0">
+      <HStack as={'nav'} spacing={{ base: 3, md: 6, lg: 12 }} alignItems={'flex-end'} display={{ base: 'none', xs: 'flex' }} padding="48px 0">
         <Links />
       </HStack>
       {props.children}

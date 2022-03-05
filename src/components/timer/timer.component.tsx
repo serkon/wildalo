@@ -20,8 +20,8 @@ interface Props {
 
 const formatNumber = (num: any) =>
   num.toLocaleString('en-US', {
-    'minimumIntegerDigits': 2,
-    'useGrouping': false,
+    minimumIntegerDigits: 2,
+    useGrouping: false,
   });
 
 /**
@@ -39,12 +39,12 @@ const formatNumber = (num: any) =>
  */
 export const Timer = (props: Props) => {
   const [time, setTime] = useStateWithCallback<State>({
-    'days': formatNumber(0),
-    'hours': formatNumber(0),
-    'minutes': formatNumber(0),
-    'seconds': formatNumber(0),
-    'ms': formatNumber(0),
-    'elapsed': null,
+    days: formatNumber(0),
+    hours: formatNumber(0),
+    minutes: formatNumber(0),
+    seconds: formatNumber(0),
+    ms: formatNumber(0),
+    elapsed: null,
   });
   const givenTime = new Date(props.date);
   const nowTime = new Date();
@@ -58,6 +58,7 @@ export const Timer = (props: Props) => {
     const minutes = formatNumber(Math.floor(hoursms / (60 * 1000)));
     const minutesms = ms % (60 * 1000);
     const seconds = formatNumber(Math.floor(minutesms / 1000));
+
     return { days, hours, minutes, seconds, ms };
   };
 
@@ -77,9 +78,10 @@ export const Timer = (props: Props) => {
           clear(interval);
         } else {
           variable.ms -= 1000;
+
           // Created custom hook to set state with callback. This is a workaround for the problem of setState not working with useCallback.
           setTime(
-            { ...calculate(variable.ms), 'elapsed': `${formatNumber(variable.hours)}:${formatNumber(variable.minutes)}:${formatNumber(variable.seconds)}` },
+            { ...calculate(variable.ms), elapsed: `${formatNumber(variable.hours)}:${formatNumber(variable.minutes)}:${formatNumber(variable.seconds)}` },
             (_state: typeof time) => {
               props.onChange && props.onChange(_state);
             },
@@ -87,6 +89,7 @@ export const Timer = (props: Props) => {
         }
       }, 1000);
     }
+
     return () => clear(interval);
   }, []);
 
@@ -114,5 +117,5 @@ export const Timer = (props: Props) => {
 };
 
 Timer.defaultProps = {
-  'day': false,
+  day: false,
 };

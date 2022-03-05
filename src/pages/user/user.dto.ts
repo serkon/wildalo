@@ -22,6 +22,6 @@ export interface User {
   password: string;
   email: string;
   role?: string;
-  imageId: string; //random generated avatar1, avatar2*
+  imageId: string; // random generated avatar1, avatar2*
   walletAddress: string;
 }

@@ -29,6 +29,7 @@ const countCircle = (element: HTMLDivElement, counter = 100) => {
     }
   }, intervalTime);
 };
+
 // <NEWPROPS extends Props & React.HTMLAttributes<HTMLDivElement>> ya da <NEWPROPS extends Props>
 export const ChartPie = <NEWPROPS extends Props>({
   data = 0,
@@ -61,7 +62,7 @@ export const ChartPie = <NEWPROPS extends Props>({
             <stop offset="100%" stopColor={endColor} stopOpacity={endOpacity}></stop>
           </linearGradient>
         </defs>
-        <path className="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" style={{ 'stroke': borderColor }} />
+        <path className="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" style={{ stroke: borderColor }} />
         <path className="circle" strokeDasharray={`${data}, 100`} stroke="url(#gradient)" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
       </svg>
       <div className="title">
