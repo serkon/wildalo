@@ -30,7 +30,7 @@ export class Language extends React.Component<Props, State> {
     this.changeLanguage();
   }
 
-  changeLanguage = async(language = 'en') => {
+  changeLanguage = async (language = 'en') => {
     let content: any;
 
     this.setState(
@@ -39,7 +39,7 @@ export class Language extends React.Component<Props, State> {
       // `(previousState, props) => ({status: false})`
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       (_previousState, _props) => ({ status: false }),
-      async() => {
+      async () => {
         content = await import(`./languages/${language}.json`);
         this.setState({ language, content, status: true }, () => ({
           language,
@@ -53,6 +53,7 @@ export class Language extends React.Component<Props, State> {
   translate = (key: string, params?: any) => {
     let text = Language.getObjectPathValue(this.state.content, key) || key;
     const type = params !== null && typeof params !== 'undefined' ? params.constructor.name : null;
+
     if (type === 'Array') {
       params.forEach((param: any, paramIndex: number) => {
         text = text.replace(new RegExp(`{${paramIndex}}`, 'g'), param);
@@ -77,6 +78,7 @@ export class Language extends React.Component<Props, State> {
   static getObjectPathValue(value: any, path: string) {
     // console.log('getObject: ', value, path);
     let data = value;
+
     if (path) {
       path = path.toString();
       path.split('.').forEach((val: any) => {

@@ -22,7 +22,6 @@ const items = [
   // { 'title': 'links.contact_us', 'to': '' },
   // { 'title': 'links.faqs', 'to': '' },
 ];
-
 const socials = [
   { title: 'social.discord', to: 'https://discord.gg/Vypt9GUjKh' },
   { title: 'social.telegram', to: 'https://t.me/+jO3E4SQjH6U2MmEx' },

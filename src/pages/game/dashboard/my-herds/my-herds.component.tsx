@@ -8,7 +8,7 @@ import { Herd, HerdState } from 'src/components/fight/fight.dto';
 import { useTranslate } from 'src/components/translate/translate.component';
 import './my-herds.component.scss';
 
-const getHerds = async(): Promise<HttpResponse<Herd[]>> => {
+const getHerds = async (): Promise<HttpResponse<Herd[]>> => {
   const response: AxiosResponse<HttpResponse<Herd[]>> = await api.post('/my/herd/list');
 
   return response.data;
@@ -24,6 +24,7 @@ export const MyHerds = () => {
     async function fetchData() {
       let count = 0;
       const response = await getHerds();
+
       setHerds(response.data);
 
       const findWinner: Herd | null =
@@ -36,6 +37,7 @@ export const MyHerds = () => {
             return previous.win > herd.win ? previous : herd;
           })) ||
         null;
+
       setWinner(findWinner);
     }
 

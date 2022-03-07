@@ -8,6 +8,7 @@ import { User } from './user.dto';
 
 const validateUserName = (value: string) => {
   let error;
+
   if (!value) {
     error = 'Name is required';
   } else if (value.length < 3) {
@@ -16,7 +17,6 @@ const validateUserName = (value: string) => {
 
   return error;
 };
-
 const PageRegister = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { t } = useTranslate();
@@ -31,6 +31,7 @@ const PageRegister = () => {
           initialValues={{ email: 'john1@doe.com', password: '1234567', username: 'srknc', files: [] }}
           validate={(values) => {
             const errors: User | Record<string, string> = {};
+
             Object.entries(values).map(([, value]) => {
               if (typeof value !== 'object') {
                 value = value.trim();
@@ -51,6 +52,7 @@ const PageRegister = () => {
               alert(JSON.stringify(values, null, 2));
               if (inputRef.current?.files?.length) {
                 const formData = new FormData();
+
                 formData.append('email', values.email);
                 formData.append('password', values.password);
                 formData.append('username', values.username);

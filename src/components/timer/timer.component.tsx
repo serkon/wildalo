@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import { useStateWithCallback } from 'src/hooks';
 
 interface State {
-  'days': number;
-  'hours': number;
-  'minutes': number;
-  'seconds': number;
-  'ms': number;
-  'elapsed': string | null;
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+  ms: number;
+  elapsed: string | null;
 }
 
 interface Props {
@@ -49,7 +49,6 @@ export const Timer = (props: Props) => {
   const givenTime = new Date(props.date);
   const nowTime = new Date();
   const diffTime = givenTime.getTime() - nowTime.getTime();
-
   const calculate = (ms: number) => {
     const days = formatNumber(Math.floor(ms / (24 * 60 * 60 * 1000)));
     const daysms = ms % (24 * 60 * 60 * 1000);
@@ -61,18 +60,20 @@ export const Timer = (props: Props) => {
 
     return { days, hours, minutes, seconds, ms };
   };
-
   const clear = (interval: NodeJS.Timer) => {
     clearInterval(interval);
     props.onComplete && props.onComplete(time);
     console.log('clear me');
   };
+
   useEffect(() => {
     let interval: NodeJS.Timer;
+
     if (diffTime < 0) {
       props.onComplete && props.onComplete(time);
     } else {
       const variable = calculate(diffTime);
+
       interval = setInterval(() => {
         if (variable.ms - 1000 <= 0) {
           clear(interval);

@@ -10,10 +10,12 @@ import './my-profile.component.scss';
 
 export const MyProfile = () => {
   const [ranger, setRanger] = React.useState<Ranger | null>(null);
+
   useEffect(() => {
     async function fetchData() {
       const response: AxiosResponse<HttpResponse<Ranger>> = await api.post('/my/profile');
       const { data } = response;
+
       setRanger(data.data);
     }
 

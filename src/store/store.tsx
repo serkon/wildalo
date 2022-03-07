@@ -16,6 +16,7 @@ const rootReducer = combineReducers({
   basket: BasketReducer,
   user: UserReducer,
 });
+
 export type RootState = ReturnType<typeof rootReducer>;
 export const store:CombinedState<any> = createStore<RootState, Action<any>, never, never>(rootReducer);
 export type DispatchType = typeof store.dispatch;

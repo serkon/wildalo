@@ -4,6 +4,7 @@ import { useMQReal } from 'src/theme/util/media-query';
 
 export const ScrollTo = ({ position = 0 }: { position?: number }): null => {
   const location = useLocation();
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location, position]);
@@ -14,6 +15,7 @@ export const ScrollTo = ({ position = 0 }: { position?: number }): null => {
 export const useSetTitle = (title: string): void => {
   useEffect(() => {
     const prevTitle = document.title;
+
     document.title = title;
 
     return () => {
@@ -27,6 +29,7 @@ export const useProcess = () => process.env;
 export const useMobile = () => {
   const isDesktop = useMQReal('md');
   const root: HTMLDivElement | null = document.getElementById('root') as HTMLDivElement;
+
   useEffect(() => {
     !isDesktop ? root?.classList.add('mobile') : root?.classList.remove('mobile');
   });
@@ -40,6 +43,7 @@ export const useStateWithCallback = <T>(initialState: T): [state: T, setState: (
     callbackRef.current = callback;
     setState(updatedState);
   };
+
   useEffect(() => {
     if (typeof callbackRef.current === 'function') {
       callbackRef.current(state);
@@ -54,6 +58,7 @@ export const useStateWithCallback = <T>(initialState: T): [state: T, setState: (
 type ScheduledCallback = () => void;
 export const useScheduleNextRenderCallback = () => {
   const ref = useRef<ScheduledCallback>();
+
   useEffect(() => {
     if (ref.current !== undefined) {
       ref.current();

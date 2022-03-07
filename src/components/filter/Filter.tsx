@@ -17,30 +17,29 @@ export const Filter = (props: FilterProps): JSX.Element => {
   const [filtered, setFiltered] = useState(data || []);
   const [selected, setSelected] = useState<any[]>([]);
   const [init, setInit] = useState<boolean>(false);
-
   const idGenerator = () => '_' + Math.random().toString(36).substr(2, 9);
-
   const filter = () => {
     const value = inputRef.current?.value;
+
     window.clearTimeout(timeout);
     timeout = window.setTimeout(() => {
       if (typeof (value) === 'string' && value?.length >= 0) {
         const found = data?.filter((item) => (path ? item[path] : item).toLowerCase().includes(value.toLowerCase())) || [];
+
         setFiltered(found);
       }
     }, debounce || 800);
   };
-
   const pushSelected = (item: any) => {
     const foundItem = selected.find((s) => s === item);
     let list = [...selected];
+
     (foundItem) ?
       list = list.filter((s) => s !== foundItem) :
       list.push(item as never);
     setSelected(list);
     setInit(true);
   };
-
   const isSelected = (item: any): boolean => !!selected.find(s => item === s);
 
   useEffect(() => {

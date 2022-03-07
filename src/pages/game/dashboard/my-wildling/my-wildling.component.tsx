@@ -7,7 +7,7 @@ import { useTranslate } from 'src/components/translate/translate.component';
 import { Animal } from 'src/components/animal/animal.dto';
 import { AxiosResponse } from 'axios';
 
-const getAnimals = async(): Promise<HttpResponse<Animal[]>> => {
+const getAnimals = async (): Promise<HttpResponse<Animal[]>> => {
   const response: AxiosResponse<HttpResponse<Animal[]>> = await api.post('/my/animal/list', {
     paging: {
       current: 0,
@@ -25,6 +25,7 @@ export const MyWildlings = () => {
   useEffect(() => {
     async function fetchData() {
       const response = await getAnimals();
+
       setAnimals(response);
     }
 

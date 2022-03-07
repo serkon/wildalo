@@ -26,6 +26,7 @@ export const api = axios.create({
 api.interceptors.request.use(
   (response: AxiosRequestConfig<any>) => {
     const token = window.localStorage.getItem(AuthorizationHeader.AccessToken);
+
     response.headers = { ...response.headers };
     if (token) {
       response.headers['Authorization'] = 'Bearer ' + token;
@@ -40,16 +41,19 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => response,
-  async(error) => {
+  async (error) => {
     const res = error.response;
+
     if (res.status === 401 && !error.config.headers['RefreshToken']) {
       api.defaults.headers.common['RefreshToken'] = true;
       try {
         const refreshToken = window.localStorage.getItem(AuthorizationHeader.RefreshToken);
+
         if (refreshToken) {
           const refreshResponse: AxiosResponse<HttpResponse<RefreshTokenResponse>> = await api.post('/refresh', {
             refreshToken,
           });
+
           window.localStorage.setItem(AuthorizationHeader.AccessToken, refreshResponse.data.data[AuthorizationHeader.AccessToken] as string);
 
           // api.defaults.headers.common['Authorization'] = 'Bearer ' + refreshResponse.data.accessToken;

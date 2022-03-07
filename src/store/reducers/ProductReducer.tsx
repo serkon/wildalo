@@ -34,11 +34,11 @@ const getTags = (): string[] => {
       }
     });
   };
+
   products.forEach((product: Product) => addTagExist(product.tags));
 
   return tagList;
 };
-
 const initialState: ProductState = {
   products,
   filtered: products,
@@ -49,7 +49,6 @@ const initialState: ProductState = {
     tags: [],
   },
 };
-
 const filterAll = (state: ProductState): Product[] => {
   let filtered = state.products;
 

@@ -5,30 +5,16 @@ module.exports = {
     node: true,
   },
   root: true,
-  extends: ['prettier', 'eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react-hooks/recommended', 'plugin:react/recommended', 'plugin:react/jsx-runtime'],
+  extends: ['prettier', 'eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react-hooks/recommended'],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'prettier', 'unused-imports', 'react-hooks', 'react'],
+  plugins: ['@typescript-eslint', 'prettier', 'unused-imports'],
   parserOptions: {
     ecmaVersion: 13,
     sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true, // Allows for the parsing of JSX
-      tsx: true, // Allows for the parsing of TSX ???
-    },
   },
   settings: {
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
-      react: {
-        createClass: 'createReactClass', // Regex for Component Factory to use,
-        // default to "createReactClass"
-        pragma: 'React', // Pragma to use, default to "React"
-        fragment: 'Fragment', // Fragment to use (may be a property of <pragma>), default to "Fragment"
-        version: 'detect', // React version. "detect" automatically picks the version you have installed.
-        // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
-        // It will default to "latest" and warn if missing, and to "detect" in the future
-        flowVersion: '0.53', // Flow version
-      },
     },
     'import/resolver': {
       typescript: {},
@@ -73,7 +59,7 @@ module.exports = {
     'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
     'linebreak-style': 0,
     'arrow-body-style': ['error', 'as-needed'],
-    indent: [2, 2, { SwitchCase: 1 }],
+    indent: 'off',
     quotes: ['error', 'single', { allowTemplateLiterals: true }],
     'no-multi-spaces': 'error',
     'no-trailing-spaces': 'error',
@@ -85,65 +71,17 @@ module.exports = {
         asyncArrow: 'always',
       },
     ],
-    'space-before-blocks': ['error', { functions: 'always', keywords: 'always', classes: 'always' }],
-    'padded-blocks': ['error', { classes: 'always', blocks: 'never' }],
-    'padding-line-between-statements': [
-      'error',
-      { blankLine: 'always', prev: '*', next: 'function' },
-      { blankLine: 'always', prev: 'function', next: '*' },
-      { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
-      { blankLine: 'never', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var'] },
-    ],
+    'padded-blocks': ['error', 'never'],
+    'padding-line-between-statements': ['warn', { blankLine: 'always', prev: '*', next: 'function' }, { blankLine: 'always', prev: 'function', next: '*' }],
     'arrow-spacing': ['error', { before: true, after: true }],
     'max-len': ['error', { code: 180, ignoreUrls: true, ignoreStrings: true, ignoreTrailingComments: true, ignoreTemplateLiterals: true }],
 
-    // 'no-mixed-operators': 'error',
-    'quote-props': ['error', 'as-needed'],
+    // 'no-mixed-operators': ['error', { 'allowSamePrecedence': true }],
+    'quote-props': ['error', 'always'],
     '@typescript-eslint/no-unused-vars': ['warn'],
     'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': ['warn', { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' }],
-    'jsx-quotes': ['error', 'prefer-double'],
-    'lines-around-comment': [
-      'error',
-      {
-        beforeBlockComment: true,
-        beforeLineComment: true,
-        allowBlockStart: true,
-        allowBlockEnd: false,
-        allowObjectStart: true,
-        allowObjectEnd: false,
-        allowArrayStart: true,
-        allowArrayEnd: false,
-      },
-    ],
-    'spaced-comment': [
-      'error',
-      'always',
-      {
-        line: {
-          markers: ['/'],
-          exceptions: ['-', '+'],
-        },
-        block: {
-          markers: ['!'],
-          exceptions: ['*'],
-          balanced: true,
-        },
-      },
-    ],
-    'newline-before-return': 'error',
-    'react/jsx-tag-spacing': ['error', { beforeSelfClosing: 'always' }],
-    'react/jsx-closing-tag-location': 'error',
-    'react/display-name': 'off',
-    'react/jsx-closing-bracket-location': [1, 'tag-aligned'],
-    'react/self-closing-comp': [
-      'error',
-      {
-        component: true,
-        html: true,
-      },
-    ],
   },
   overrides: [
     {
@@ -152,7 +90,6 @@ module.exports = {
         'comma-dangle': ['error', 'never'],
         semi: ['error', 'never'],
         quotes: ['error', 'double'],
-        'quote-props': ['error', 'consistent'],
         'max-len': ['error', { code: 80, ignoreStrings: true, ignoreRegExpLiterals: true, ignoreTemplateLiterals: true }],
       },
     },

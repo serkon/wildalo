@@ -21,8 +21,10 @@ export const BasketReducer: Reducer = (state: BasketState = initialBasketState, 
   const found: Basket | undefined = state.list.find(item => action.payload === item.product);
   const calculatePrice = () => {
     const total: number = state.list.reduce((total: number, item) => total + (item.product.price * item.count), 0);
+
     state.total = Number(total.toFixed(2));
   };
+
   switch (action.type) {
     case 'ADD_TO_BASKET': {
       (found) ? found.count = found.count + 1 : state.list.push({product: action.payload, count: 1});

@@ -7,6 +7,7 @@ export function useMQReal(breakpoint: BreakPoint) {
 
   useEffect(() => {
     const media = window.matchMedia(`(min-width: ${theme.breakpoints[breakpoint]})`);
+
     setMatches(media.matches);
     media.onchange = (e: MediaQueryListEvent) => {
       setMatches(e.matches);

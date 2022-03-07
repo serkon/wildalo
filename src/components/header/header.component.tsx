@@ -18,7 +18,6 @@ const items: HeaderLink[] = [
   { title: 'links.guide', to: 'guide' },
   { title: 'links.whitepaper', to: '/whitepaper.pdf', external: true },
 ];
-
 const Links = () => {
   const { t } = useTranslate();
 
@@ -32,6 +31,7 @@ const Links = () => {
     </React.Fragment>
   );
 };
+
 export function Header(props: { logo: string }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 

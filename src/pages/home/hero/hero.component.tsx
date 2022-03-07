@@ -89,7 +89,6 @@ const animals: AnimalDetail[] = [
 export const Hero = (): JSX.Element => {
   const { t } = useTranslate();
   const isDesktop = useMQReal('md');
-
   const redirect = (path: string) => {
     window.open(path, '_blank');
   };

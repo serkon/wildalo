@@ -8,7 +8,7 @@ import { FightsOverview } from 'src/components/fight/fight.dto';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 
-const requestFightsOverview = async(): Promise<AxiosResponse<FightsOverview>> => {
+const requestFightsOverview = async (): Promise<AxiosResponse<FightsOverview>> => {
   const response = await api.post('/my/animal/fights');
 
   return response.data;
@@ -21,6 +21,7 @@ export const MyFights = () => {
   useEffect(() => {
     async function fetchData() {
       const response: AxiosResponse<FightsOverview> = await requestFightsOverview();
+
       setResponse(response.data);
     }
 
