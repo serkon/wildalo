@@ -40,7 +40,7 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => response,
-  async (error) => {
+  async(error) => {
     const res = error.response;
     if (res.status === 401 && !error.config.headers['RefreshToken']) {
       api.defaults.headers.common['RefreshToken'] = true;

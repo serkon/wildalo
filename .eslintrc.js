@@ -5,7 +5,7 @@ module.exports = {
     node: true,
   },
   root: true,
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react-hooks/recommended'],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react-hooks/recommended', 'plugin:react/recommended', 'plugin:react/jsx-runtime'],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'unused-imports'],
   parserOptions: {
@@ -72,7 +72,7 @@ module.exports = {
       {
         anonymous: 'never',
         named: 'never',
-        asyncArrow: 'always',
+        asyncArrow: 'never',
       },
     ],
     'space-before-blocks': ['error', { functions: 'always', keywords: 'always', classes: 'always' }],
@@ -116,6 +116,14 @@ module.exports = {
       },
     ],
     'newline-before-return': 'error',
+    'react/jsx-tag-spacing': ['error', { beforeSelfClosing: 'always' }],
+    'react/jsx-closing-tag-location': 'error',
+    'react/display-name': 'off',
+    'react/jsx-closing-bracket-location': [1, 'tag-aligned'],
+    'react/self-closing-comp': ['error', {
+      component: true,
+      html: true,
+    }],
   },
   overrides: [
     {

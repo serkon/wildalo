@@ -73,7 +73,8 @@ export const UserMenu = () => {
           cursor={'pointer'}
           minW={0}
           _focus={{ boxShadow: '0 0 0 4px rgba(255, 255, 225, 0.1)' }}
-          _hover={{ boxShadow: '0 0 0 4px rgba(255, 255, 225, 0.1)' }}>
+          _hover={{ boxShadow: '0 0 0 4px rgba(255, 255, 225, 0.1)' }}
+        >
           <HStack spacing="7" backgroundColor="#0B2F28" borderColor="rgba(255,255,255,0.3)" borderWidth="1px" borderStyle="solid" borderRadius="24px">
             <Avatar
               margin="4px"
@@ -106,7 +107,8 @@ export const UserMenu = () => {
         color="white"
         padding="0 15px"
         marginLeft="10px"
-        display={{ base: 'none', lg: 'flex' }}>
+        display={{ base: 'none', lg: 'flex' }}
+      >
         <Box fontSize="14px" fontWeight="700">
           {t('common.Fight')}
         </Box>

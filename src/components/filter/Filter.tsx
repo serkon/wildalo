@@ -53,12 +53,12 @@ export const Filter = (props: FilterProps): JSX.Element => {
 
   return (
     <>
-      <input ref={inputRef} onChange={filter} className="filter" placeholder={placeholder}/>
+      <input ref={inputRef} onChange={filter} className="filter" placeholder={placeholder} />
       <ul className="filter-list">
         {
           filtered?.map((item, key) =>
             <li key={key}>
-              <input id={`${key}-${id}`} type="checkbox" onChange={() => pushSelected(item)} checked={isSelected(item)}/>
+              <input id={`${key}-${id}`} type="checkbox" onChange={() => pushSelected(item)} checked={isSelected(item)} />
               <label htmlFor={`${key}-${id}`}>{path ? item[path] : item}</label>
             </li>,
           )

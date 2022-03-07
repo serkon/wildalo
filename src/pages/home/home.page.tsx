@@ -52,7 +52,7 @@ export const PageHome = () => {
             {t('main.section.second.wild_animal_world')}
           </Heading>
           <div className="description">{t('main.section.second.description')}</div>
-          <div className="stone"></div>
+          <div className="stone" />
         </Container>
       </section>
       <section className="third">
@@ -74,7 +74,7 @@ export const PageHome = () => {
               </GridItem>
             ))}
           </Grid>
-          <div className="leaf"></div>
+          <div className="leaf" />
         </Container>
       </section>
     </>

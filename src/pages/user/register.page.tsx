@@ -84,7 +84,8 @@ const PageRegister = () => {
                 });
                */
             }, 200);
-          }}>
+          }}
+        >
           {({ isSubmitting }) => (
             <>
               {JSON.stringify(isSubmitting)}

@@ -34,9 +34,9 @@ export const AnimalOldCard = (props: React.PropsWithChildren<Props>): JSX.Elemen
           <span className="level-title">{t('level')}</span> <span className="level-value">{data.level}</span>
         </div>
         <h2 className="animal-name">{t(`animals.${data.name}`)}</h2>
-        <div className={`animal-background card-type-${data.rarity.toLowerCase()}`}></div>
-        <div className="animal-picture" style={animalPicture}></div>
-        <div className="region" style={regionPicture}></div>
+        <div className={`animal-background card-type-${data.rarity.toLowerCase()}`} />
+        <div className="animal-picture" style={animalPicture} />
+        <div className="region" style={regionPicture} />
         <div className="stats">
           <Grid templateColumns="repeat(2, 1fr)" gridColumnGap={4} gridRowGap={2}>
             {Object.keys(data.primaryStats).map((item, key) => (

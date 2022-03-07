@@ -69,7 +69,7 @@ export const Footer = (props: Props): JSX.Element => {
             <Stack className="socials" mt={[16, 0]} justifyContent={{ base: 'space-between', md: 'end' }} width={{ base: '100%', md: 'auto' }}>
               {socials.map((social: { title: string; to: string }, key: number) => (
                 <Tooltip label={t(social.title)} aria-label="A tooltip" key={key}>
-                  <a href={`${social.to}`} target="_blank" style={socialLink(social.title)} className="social" color="white"></a>
+                  <a href={`${social.to}`} target="_blank" style={socialLink(social.title)} className="social" color="white" rel="noreferrer" />
                 </Tooltip>
               ))}
             </Stack>

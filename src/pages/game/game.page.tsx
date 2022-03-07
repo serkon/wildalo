@@ -11,7 +11,7 @@ export const PageGame = () => {
 
   return (
     <>
-      <Outlet></Outlet>
+      <Outlet />
     </>
   );
 };

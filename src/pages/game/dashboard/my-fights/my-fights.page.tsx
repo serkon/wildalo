@@ -8,7 +8,7 @@ import { FightsOverview } from 'src/components/fight/fight.dto';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 
-const requestFightsOverview = async (): Promise<AxiosResponse<FightsOverview>> => {
+const requestFightsOverview = async(): Promise<AxiosResponse<FightsOverview>> => {
   const response = await api.post('/my/animal/fights');
 
   return response.data;
@@ -61,7 +61,7 @@ export const MyFights = () => {
           </Badge>
         </HStack>
       </Button>
-      <ChartPie data={res ? (res?.winScore * 100) / res?.totalScore : 0} description="Fight Win Rate" width="207px" height="207px" style={{ marginTop: '67px' }}></ChartPie>
+      <ChartPie data={res ? (res?.winScore * 100) / res?.totalScore : 0} description="Fight Win Rate" width="207px" height="207px" style={{ marginTop: '67px' }} />
       <Stack alignItems={'center'}>
         <Box fontWeight={500} fontSize={'19px'} lineHeight="27px">
           {res?.winScore} / {res?.totalScore}

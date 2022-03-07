@@ -8,7 +8,7 @@ import { Herd, HerdState } from 'src/components/fight/fight.dto';
 import { useTranslate } from 'src/components/translate/translate.component';
 import './my-herds.component.scss';
 
-const getHerds = async (): Promise<HttpResponse<Herd[]>> => {
+const getHerds = async(): Promise<HttpResponse<Herd[]>> => {
   const response: AxiosResponse<HttpResponse<Herd[]>> = await api.post('/my/herd/list');
 
   return response.data;
@@ -79,7 +79,7 @@ export const MyHerds = () => {
               {(winner && winner.name) || t('common.no_winner_herd')}
             </Text>
             <HStack justifyContent={'center'}>
-              <Image src="/images/page/dashboard/trophy.svg"></Image>
+              <Image src="/images/page/dashboard/trophy.svg" />
               <Text fontSize={'46px'} lineHeight="54px">
                 {winner ? winner.win : 0}
               </Text>

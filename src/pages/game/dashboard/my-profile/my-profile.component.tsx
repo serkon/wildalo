@@ -1,8 +1,7 @@
-import { Avatar, Box, Link, Flex, Divider, HStack, Heading, Button, Image } from '@chakra-ui/react';
-import { AxiosResponse } from 'axios';
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { AxiosResponse } from 'axios';
+import { Avatar, Box, Link, Flex, Divider, HStack, Heading, Button, Image } from '@chakra-ui/react';
 
 import { api, HttpResponse } from 'src/components/axios/axios.component';
 import { useTranslate } from 'src/components/translate/translate.component';
@@ -11,7 +10,6 @@ import './my-profile.component.scss';
 
 export const MyProfile = () => {
   const [ranger, setRanger] = React.useState<Ranger | null>(null);
-
   useEffect(() => {
     async function fetchData() {
       const response: AxiosResponse<HttpResponse<Ranger>> = await api.post('/my/profile');
@@ -48,7 +46,7 @@ export const MyProfile = () => {
                 <Box fontSize="13px" flexGrow={1}>
                   {t('common.TOTAL')}
                 </Box>
-                <Image src="/images/gems/FODR.svg" width="32px"></Image>
+                <Image src="/images/gems/FODR.svg" width="32px" />
                 <Box fontSize="48px">42</Box>
               </HStack>
               <HStack color="white" justifyContent="space-between" marginTop="14px">
@@ -72,7 +70,7 @@ export const MyProfile = () => {
                 <Box fontSize="13px" flexGrow={1}>
                   {t('common.TOTAL')}
                 </Box>
-                <Image src="/images/gems/WARC.svg" width="32px"></Image>
+                <Image src="/images/gems/WARC.svg" width="32px" />
                 <Box fontSize="48px">50</Box>
               </HStack>
               <HStack color="white" justifyContent="space-between" marginTop="14px">

@@ -1,6 +1,8 @@
 import React, { Component, ErrorInfo } from 'react';
 
-interface Props {}
+interface Props {
+  children?: React.ReactNode;
+}
 
 interface State {
   error: Error | null;

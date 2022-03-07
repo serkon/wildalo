@@ -54,12 +54,12 @@ export const ChartPie = <NEWPROPS extends Props>({
 
   return (
     <div className="pie-chart" {...props}>
-      <div className="dot"></div>
+      <div className="dot" />
       <svg viewBox="0 0 36 36" className="circular-chart orange" width={width} height={height}>
         <defs>
           <linearGradient id="gradient">
-            <stop offset="0" stopColor={startColor} stopOpacity={startOpacity}></stop>
-            <stop offset="100%" stopColor={endColor} stopOpacity={endOpacity}></stop>
+            <stop offset="0" stopColor={startColor} stopOpacity={startOpacity} />
+            <stop offset="100%" stopColor={endColor} stopOpacity={endOpacity} />
           </linearGradient>
         </defs>
         <path className="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" style={{ stroke: borderColor }} />

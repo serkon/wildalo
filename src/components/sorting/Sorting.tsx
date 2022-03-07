@@ -64,7 +64,7 @@ export const Sorting = React.forwardRef<ImperativeHandle, SortingProps>(
       <ul className="sorting-list">{
         items.map((item, key) =>
           <li key={key}>
-            <input id={`${key}-${id}`} type="radio" name={id} onClick={() => onClick(item)} ref={inputRef}/>
+            <input id={`${key}-${id}`} type="radio" name={id} onClick={() => onClick(item)} ref={inputRef} />
             <label htmlFor={`${key}-${id}`}>{item.label}</label>
           </li>,
         )}

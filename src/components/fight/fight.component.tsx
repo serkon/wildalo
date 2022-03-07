@@ -26,7 +26,7 @@ export const Fight = (props: FightDetail) => {
           </Stack>
         </HStack>
         <Center>
-          <Image src="/images/common/vs.svg"></Image>
+          <Image src="/images/common/vs.svg" />
         </Center>
         <HStack>
           <Avatar margin="0" width="36px" height={'36px'} src={`${process.env.REACT_APP_PUBLIC_URL}/uploads/${props.detail.fighters[1].imageId}.jpeg`} />
@@ -39,10 +39,11 @@ export const Fight = (props: FightDetail) => {
           <Timer
             date={new Date(props.detail.remainingTime)}
             onChange={(state) => changeTextColor(Number(state.hours) === 0 && Number(state.minutes) <= 50)}
-            onComplete={() => (changeTextColor(true), console.log('asd'))}></Timer>
+            onComplete={() => (changeTextColor(true), console.log('asd'))}
+          />
         </Stack>
       </Flex>
-      <Divider borderColor={'rgb(42 89 80 / 60%)'}></Divider>
+      <Divider borderColor={'rgb(42 89 80 / 60%)'} />
     </>
   );
 };

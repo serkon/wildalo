@@ -1,28 +1,22 @@
-import { AnyAction, Reducer } from 'redux';
-import { User } from 'src/pages/user/user.dto';
+import { Ranger } from 'src/pages/user/user.dto';
+import { Action } from 'src/store/store';
 
-export interface Company {
-  'slug': string;
-  'name': string;
-  'address': string;
-  'city': string;
-  'state': string;
-  'zip': string;
-  'account': number,
-  'contact': string;
-}
-
-export const UserReducer: Reducer = (state: User[], action) => {
+export const UserReducer = (state: Ranger | null = null, action: Action<Ranger>): Ranger | null => {
   switch (action.type) {
     case 'SET_USER': {
-      return action.payload;
+      return { ...state, ... action.payload};
     }
     default :
       return state;
   }
 };
 
-export const setUser = (payload: string[]): AnyAction => ({
+export const setUser = (payload: Ranger): Action<Ranger> => ({
+  type: 'SET_USER',
+  payload,
+});
+
+export const updateUser = (payload: Partial<Record<keyof Ranger, any>>): Action<Partial<Record<keyof Ranger, any>>> => ({
   type: 'SET_USER',
   payload,
 });

@@ -10,7 +10,9 @@ export const LanguageContext = React.createContext<{
       t: () => '',
     });
 
-interface Props {}
+interface Props {
+  children?: React.ReactNode;
+}
 
 interface State {
   language: string;
@@ -28,7 +30,7 @@ export class Language extends React.Component<Props, State> {
     this.changeLanguage();
   }
 
-  changeLanguage = async (language = 'en') => {
+  changeLanguage = async(language = 'en') => {
     let content: any;
 
     this.setState(
@@ -37,7 +39,7 @@ export class Language extends React.Component<Props, State> {
       // `(previousState, props) => ({status: false})`
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       (_previousState, _props) => ({ status: false }),
-      async () => {
+      async() => {
         content = await import(`./languages/${language}.json`);
         this.setState({ language, content, status: true }, () => ({
           language,
@@ -92,7 +94,8 @@ export class Language extends React.Component<Props, State> {
           tState: this.state,
           tChange: (language: string) => this.changeLanguage(language),
           t: this.translate,
-        }}>
+        }}
+      >
         <Suspense fallback={<div>{this.translate('loading')}</div>}>{this.state.status && <>{this.props.children}</>}</Suspense>
       </LanguageContext.Provider>
     );
