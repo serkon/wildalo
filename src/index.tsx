@@ -4,6 +4,10 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Outlet, Routes, Route, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ChakraProvider } from '@chakra-ui/react';
+import '@fontsource/ubuntu';
+import '@fontsource/berkshire-swash';
+import '@fontsource/roboto';
+import '@fontsource/saira';
 
 import './index.scss';
 import App from './App';
