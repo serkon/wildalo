@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react';
+import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { ErrorBoundary } from 'src/components/error-boundary/ErrorBoundary';
@@ -7,40 +7,30 @@ import { Footer } from './components/footer/footer.component';
 import { useTranslate } from './components/translate/translate.component';
 import logo from './assets/logo.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { AxiosResponse } from 'axios';
-import { HttpResponse, api } from './components/axios/axios.component';
 import { Ranger } from './pages/user/user.dto';
-import { RootState, DispatchType } from './store/store';
+import { DispatchType, RootState } from './store/store';
 import { setUser } from './store/reducers/UserReducer';
 import { Button } from '@chakra-ui/react';
+import { useApi, useMobile, useProcess, useSetTitle } from './hooks';
 
 function App(): JSX.Element {
   const { t } = useTranslate();
-
-  useSelector<RootState>((state: RootState): Ranger | null => state.user);
   const dispatch = useDispatch<DispatchType>();
+  const selector = useSelector<RootState>((state: RootState): Ranger | null => state.user);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response: AxiosResponse<HttpResponse<Ranger>> = await api.post('/my/profile');
-      const { data } = response;
+  useApi({ url: '/my/profile' }, (data) => dispatch(setUser(data.data)));
+  selector;
 
-      dispatch(setUser(data.data));
-    }
-
-    fetchData();
-  }, [dispatch]); // Or [] if effect doesn't need props or state
-
-  // useSetTitle('Wildalo');
-  // useMobile();
-  // useProcess();
+  useSetTitle('Wildalo');
+  useMobile();
+  useProcess();
 
   return (
     <ErrorBoundary>
       <Suspense fallback={<div>{t('loading')}</div>}>
         <Header logo={logo} />
         <main>
-          <Button>asd</Button>
+          <Button>ddd</Button>
           <Outlet />
         </main>
         <Footer logo={logo} className="footer" />

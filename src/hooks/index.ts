@@ -1,6 +1,8 @@
 import { useLocation } from 'react-router-dom';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { AxiosRequestConfig } from 'axios';
 import { useMQReal } from 'src/theme/util/media-query';
+import { api } from 'src/components/axios/axios.component';
 
 export const ScrollTo = ({ position = 0 }: { position?: number }): null => {
   const location = useLocation();
@@ -70,4 +72,43 @@ export const useScheduleNextRenderCallback = () => {
   }, []);
 
   return schedule;
+};
+
+/**
+ * Fetch Hook
+ */
+export interface UseFetch {
+  isLoading: boolean;
+  isError: boolean;
+  data: any;
+}
+
+export const useApi = (params: AxiosRequestConfig, callback?: (data: any) => void): UseFetch => {
+  const [data, setData] = useState(null);
+  const [fetch] = useState({ ...{ url: '', method: 'POST' }, ...params } as AxiosRequestConfig);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsError(false);
+      setIsLoading(true);
+
+      console.log('fetchData', fetch);
+      try {
+        const result = await api(fetch);
+
+        setData(result.data);
+        callback && callback(result.data);
+      } catch (error) {
+        setIsError(true);
+      }
+
+      setIsLoading(false);
+    };
+
+    fetchData();
+  }, [fetch]);
+
+  return { data, isLoading, isError };
 };
