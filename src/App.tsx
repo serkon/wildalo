@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Ranger } from './pages/user/user.dto';
 import { DispatchType, RootState } from './store/store';
 import { setUser } from './store/reducers/UserReducer';
-import { Button } from '@chakra-ui/react';
 import { useApi, useMobile, useProcess, useSetTitle } from './hooks';
 
 function App(): JSX.Element {
@@ -30,7 +29,6 @@ function App(): JSX.Element {
       <Suspense fallback={<div>{t('loading')}</div>}>
         <Header logo={logo} />
         <main>
-          <Button>ddd</Button>
           <Outlet />
         </main>
         <Footer logo={logo} className="footer" />

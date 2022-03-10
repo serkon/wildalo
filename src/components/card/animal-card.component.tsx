@@ -18,10 +18,10 @@ export const AnimalOldCard = (props: React.PropsWithChildren<Props>): JSX.Elemen
   const { t } = useTranslate();
   const { data } = props;
   const animalPicture = {
-    backgroundImage: `url(${process.env.REACT_APP_PUBLIC_URL}/images/animals/${data.name}.jpeg)`,
+    backgroundImage: `url(/images/animals/${data.name}.jpeg)`,
   };
   const regionPicture = {
-    backgroundImage: `url(${process.env.REACT_APP_PUBLIC_URL}/images/regions/${data.region}.svg)`,
+    backgroundImage: `url(/images/regions/${data.region}.svg)`,
   };
   const scale = {
     transform: `scale(${props.scale || 1}`,

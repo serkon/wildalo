@@ -39,12 +39,11 @@ export const PageDashboard = () => {
   };
   const dispatch = useDispatch();
   const update = () => {
-    dispatch(updateUser({username: 'John'}));
+    dispatch(updateUser({ username: 'John' }));
   };
 
   return (
     <>
-      <Button onClick={update}>update</Button>
       <Page title="Dashboard">
         <Grid templateRows="repeat(2, auto)" templateColumns="repeat(5, auto)" gap={5} color="white">
           <GridItem bg="#09241F" colSpan={2} p={8} borderRadius="14px">
@@ -60,20 +59,23 @@ export const PageDashboard = () => {
             <MyHerds />
           </GridItem>
         </Grid>
-        <div>{t('main.dashboard')}</div>
-        <p>{JSON.stringify(user)}</p>
-        <Button onClick={login} paddingRight="2">
-          login
-        </Button>
-        <Button onClick={admin} paddingRight="2">
-          admin
-        </Button>
-        <Input placeholder="Username" paddingRight="2" name="username" />
-        <Input placeholder="Email" paddingRight="2" name="email" />
-        <Input placeholder="Password" paddingRight="2" name="email" />
-        <Button onClick={admin} paddingRight="2">
-          save
-        </Button>
+        <div style={{ display: 'none' }}>
+          <div>{t('main.dashboard')}</div>
+          <p>{JSON.stringify(user)}</p>
+          <Button onClick={update}>update</Button>
+          <Button onClick={login} paddingRight="2">
+            login
+          </Button>
+          <Button onClick={admin} paddingRight="2">
+            admin
+          </Button>
+          <Input placeholder="Username" paddingRight="2" name="username" />
+          <Input placeholder="Email" paddingRight="2" name="email" />
+          <Input placeholder="Password" paddingRight="2" name="email" />
+          <Button onClick={admin} paddingRight="2">
+            save
+          </Button>
+        </div>
       </Page>
     </>
   );

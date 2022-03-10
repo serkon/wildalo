@@ -17,6 +17,9 @@ const requestFightsOverview = async (): Promise<AxiosResponse<FightsOverview>> =
 export const MyFights = () => {
   const { t } = useTranslate();
   const [res, setResponse] = React.useState<FightsOverview>();
+  const getFodr = () => {
+    window.checkPermissionToAccessAccounts();
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -53,7 +56,7 @@ export const MyFights = () => {
         </Box>
       )}
       {/* TODO: Store'da adamın hiç herds'i yoksa disable et kontrolü ekle */}
-      <Button variant={'primary'} mt="34px" disabled={res && res.fights.length >= 3}>
+      <Button variant={'primary'} mt="34px" disabled={res && res.fights.length >= 3} onClick={getFodr}>
         {t('dashboard.start_new')}!
         <HStack position={'absolute'} right={'16px'} fontSize="12px" fontWeight={'bold'}>
           <Box>{t('dashboard.Remaining')}</Box>
