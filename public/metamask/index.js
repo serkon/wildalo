@@ -103,18 +103,24 @@ window.getSelectedAddress = async function () {
   var result = await metamaskContractAdaptor.getSelectedAddress();
 
   console.log('getSelectedAddress : ' + result);
+
+  return result;
 };
 
 window.getFordBudget = async function () {
   var result = await metamaskContractAdaptor.getFordBudget();
 
   console.log('getFordBudget : ' + result);
+
+  return result;
 };
 
 window.getWarcBudget = async function () {
   var result = await metamaskContractAdaptor.getWarcBudget();
 
   console.log('getWarcBudget : ' + result);
+
+  return result;
 };
 
 // Not: test kodu.

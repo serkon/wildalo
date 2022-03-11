@@ -18,7 +18,14 @@ export const MyFights = () => {
   const { t } = useTranslate();
   const [res, setResponse] = React.useState<FightsOverview>();
   const getFodr = () => {
+    window.checkMetamask();
     window.checkPermissionToAccessAccounts();
+    window.sign();
+    window.checkConnection();
+    window.getSelectedChainId();
+    window.getSelectedAddress();
+    window.upgradeCard();
+    window.createAuction();
   };
 
   useEffect(() => {

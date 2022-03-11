@@ -1,5 +1,5 @@
 /*
-const getMetamaskInformation = async () => {
+  const getMetamaskInformation = async () => {
   const provider = await new web3.providers.HttpProvider('http://localhost:8545');
   const web3Instance = new web3(provider);
   const accounts = await web3Instance.eth.getAccounts();
@@ -36,14 +36,50 @@ const provider = await new web3.providers.HttpProvider('http://localhost:8545');
 const web3Instance = new web3(provider);
  */
 
+import { Metamask } from './user.dto';
+
 export const ethereum = async (): Promise<boolean> => {
   if (window.ethereum) {
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-    // window.web3 = new Web3(window.ethereum);
+    console.log(accounts);
 
     return true;
   }
 
   return false;
 };
+
+export default class MetamaskAdapter {
+  public static async isExtentionEnable() {
+    return await window.checkMetamask();
+  }
+
+  public static async isConnected() {
+    return await window.checkConnection();
+  }
+
+  public static async checkConnection() {
+    return window.checkConnection();
+  }
+
+  public static async getFordBudget() {
+    return await window.getFordBudget();
+  }
+
+  public static async getWarcBudget() {
+    return await window.getWarcBudget();
+  }
+
+  public static async getWalletAddress() {
+    return await window.getSelectedAddress();
+  }
+
+  public async info(): Promise<Metamask> {
+    const fodrBalance = await MetamaskAdapter.getFordBudget();
+    const warcBalance = await MetamaskAdapter.getWarcBudget();
+    const walletAddress = await MetamaskAdapter.getWalletAddress();
+
+    return { fodrBalance, warcBalance, walletAddress };
+  }
+}

@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { ErrorBoundary } from 'src/components/error-boundary/ErrorBoundary';
@@ -11,6 +11,8 @@ import { Ranger } from './pages/user/user.dto';
 import { DispatchType, RootState } from './store/store';
 import { setUser } from './store/reducers/UserReducer';
 import { useApi, useMobile, useProcess, useSetTitle } from './hooks';
+import Metamask from './pages/user/metamask.service';
+import { Button } from '@chakra-ui/react';
 
 function App(): JSX.Element {
   const { t } = useTranslate();
@@ -24,10 +26,15 @@ function App(): JSX.Element {
   useMobile();
   useProcess();
 
+  useEffect(() => {
+    Metamask.isExtentionEnable();
+  }, []);
+
   return (
     <ErrorBoundary>
       <Suspense fallback={<div>{t('loading')}</div>}>
         <Header logo={logo} />
+        <Button onClick={() => Metamask.isConnected()}>asd</Button>
         <main>
           <Outlet />
         </main>

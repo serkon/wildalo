@@ -86,7 +86,7 @@ module.exports = {
       },
     ],
     'space-before-blocks': ['error', { functions: 'always', keywords: 'always', classes: 'always' }],
-    'padded-blocks': ['error', { classes: 'always', blocks: 'never' }],
+    'padded-blocks': ['error', { classes: 'never', blocks: 'never' }],
     'padding-line-between-statements': [
       'error',
       { blankLine: 'always', prev: '*', next: 'function' },
@@ -107,8 +107,8 @@ module.exports = {
     'lines-around-comment': [
       'error',
       {
-        beforeBlockComment: true,
-        beforeLineComment: true,
+        beforeBlockComment: false,
+        beforeLineComment: false,
         allowBlockStart: true,
         allowBlockEnd: false,
         allowObjectStart: true,

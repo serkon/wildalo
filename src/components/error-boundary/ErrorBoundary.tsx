@@ -10,7 +10,6 @@ interface State {
 }
 
 export class ErrorBoundary extends Component<Props, State> {
-
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -47,11 +46,9 @@ export class ErrorBoundary extends Component<Props, State> {
     // Normally, just render children
     return <>{this.props.children}</>;
   }
-
 }
 
 export class BuggyCounter extends React.Component {
-
   state: Readonly<{ counter: number }>;
 
   constructor(props: Props) {
@@ -74,5 +71,4 @@ export class BuggyCounter extends React.Component {
 
     return <h1 onClick={this.handleClick}>{this.state.counter}</h1>;
   }
-
 }

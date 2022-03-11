@@ -1,14 +1,10 @@
 import React, { Suspense } from 'react';
 
-export const LanguageContext = React.createContext<{
-  tState: State;
-  tChange: (language: string) => Promise<void>;
-  t: (key: string, params?: any) => string;
-    }>({
-      tState: { language: 'tr', content: {}, status: false },
-      tChange: () => new Promise((resolve) => resolve()),
-      t: () => '',
-    });
+export const LanguageContext = React.createContext<{ tState: State; tChange: (language: string) => Promise<void>; t: (key: string, params?: any) => string }>({
+  tState: { language: 'tr', content: {}, status: false },
+  tChange: () => new Promise((resolve) => resolve()),
+  t: () => '',
+});
 
 interface Props {
   children?: React.ReactNode;
@@ -21,7 +17,6 @@ interface State {
 }
 
 export class Language extends React.Component<Props, State> {
-
   content: { [key: string]: string } = {};
   static contextType = LanguageContext; // alternatif: LanguageContext.contextType = SampleContext;
   state: State = { language: 'en', content: {}, status: false };
@@ -34,7 +29,6 @@ export class Language extends React.Component<Props, State> {
     let content: any;
 
     this.setState(
-
       // previous, props of the state also accessible in function parameter:
       // `(previousState, props) => ({status: false})`
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -96,13 +90,11 @@ export class Language extends React.Component<Props, State> {
           tState: this.state,
           tChange: (language: string) => this.changeLanguage(language),
           t: this.translate,
-        }}
-      >
+        }}>
         <Suspense fallback={<div>{this.translate('loading')}</div>}>{this.state.status && <>{this.props.children}</>}</Suspense>
       </LanguageContext.Provider>
     );
   }
-
 }
 
 export const useTranslate = () => React.useContext(LanguageContext);
