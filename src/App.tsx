@@ -1,24 +1,55 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Box } from '@chakra-ui/react';
 
+import { DispatchType, RootState } from './store/store';
 import { ErrorBoundary } from 'src/components/error-boundary/ErrorBoundary';
-import { Header } from './components/header/header.component';
-import { Footer } from './components/footer/footer.component';
-import { useTranslate } from './components/translate/translate.component';
-import { useMobile, useProcess, useSetTitle } from 'src/index';
-import logo from './assets/logo.png';
+import { useMobile, useProcess, useSetTitle } from './hooks';
+import { Header } from 'src/components/header/header.component';
+import { Footer } from 'src/components/footer/footer.component';
+import { useTranslate } from 'src/components/translate/translate.component';
+
+import logo from './assets/logo.svg';
 
 function App(): JSX.Element {
+  const { t } = useTranslate();
+  const dispatch = useDispatch<DispatchType>();
+  const selector = useSelector<RootState>((state: RootState): RootState => state) as RootState;
+
+  // useApi({ url: '/my/profile' }, (data: HttpResponse<Ranger>) => dispatch(set_ranger(data.data)));
+  dispatch;
+  selector;
+
   useSetTitle('Wildalo');
   useMobile();
   useProcess();
-  const { t } = useTranslate();
+
+  useEffect(() => {
+    const getMetamask = async (): Promise<void> => {
+      // const metamaskReducerState: MetamaskReducerState = await MetamaskHandler.init();
+      // console.log(metamaskReducerState);
+      // dispatch(set_metamask(metamaskReducerState));
+    };
+    // MetamaskHandler.getUserInfo();
+
+    getMetamask();
+    // dispatch(set_extension_status(Wildapter.checkMetamask()));
+  }, []);
 
   return (
     <ErrorBoundary>
       <Suspense fallback={<div>{t('loading')}</div>}>
         <Header logo={logo} />
-        <main style={{ 'flexGrow': 1 }}>
+        <Box color={'white'}>{JSON.stringify(selector.metamask)}</Box>
+        {false && (
+          <Box color={'white'}>
+            <pre style={{ width: '600px', height: '330px', overflowWrap: 'break-word', whiteSpace: 'pre-wrap' }}>
+              <code>{JSON.stringify(selector)}</code>
+            </pre>
+          </Box>
+        )}
+        <main>
           <Outlet />
         </main>
         <Footer logo={logo} className="footer" />
@@ -27,4 +58,5 @@ function App(): JSX.Element {
   );
 }
 
+// export default connect()(App);
 export default App;

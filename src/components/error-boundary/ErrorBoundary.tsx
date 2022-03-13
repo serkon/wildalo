@@ -1,6 +1,8 @@
 import React, { Component, ErrorInfo } from 'react';
 
-interface Props {}
+interface Props {
+  children?: React.ReactNode;
+}
 
 interface State {
   error: Error | null;
@@ -11,8 +13,8 @@ export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      'error': null,
-      'errorInfo': null,
+      error: null,
+      errorInfo: null,
     };
   }
 
@@ -32,7 +34,7 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <div>
           <h2>Something went wrong.</h2>
-          <details style={{ 'whiteSpace': 'pre-wrap' }}>
+          <details style={{ whiteSpace: 'pre-wrap' }}>
             {this.state.error && this.state.error.toString()}
             <br />
             {this.state.errorInfo.componentStack}
@@ -51,13 +53,13 @@ export class BuggyCounter extends React.Component {
 
   constructor(props: Props) {
     super(props);
-    this.state = { 'counter': 0 };
+    this.state = { counter: 0 };
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(): void {
     this.setState(({ counter }: Readonly<{ counter: number }>) => ({
-      'counter': counter + 1,
+      counter: counter + 1,
     }));
   }
 
@@ -66,6 +68,7 @@ export class BuggyCounter extends React.Component {
       // Simulate a JS error
       throw new Error('I crashed!');
     }
+
     return <h1 onClick={this.handleClick}>{this.state.counter}</h1>;
   }
 }

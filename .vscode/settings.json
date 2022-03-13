@@ -1,4 +1,6 @@
 {
+  "workbench.colorTheme": "Default Light+",
+  "workbench.iconTheme": "helium-icon-theme",
   "git.autofetch": true,
   "security.workspace.trust.untrustedFiles": "newWindow",
   "workbench.list.smoothScrolling": true,
@@ -21,16 +23,16 @@
   "eslint.enable": true,
   "eslint.run": "onType",
   "eslint.validate": ["vue", "typescript", "javascript", "javascriptreact", "typescriptreact", "json", "jsonc"],
-  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "workbench.editor.showIcons": true,
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[javascriptreact]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[typescript]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -39,10 +41,10 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[jsonc]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[vue]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true,
       "source.fixAll.stylelint": true
@@ -58,7 +60,11 @@
       "source.fixAll.stylelint": true
     }
   },
-  "workbench.colorTheme": "Default Light+",
   "editor.suggestSelection": "first",
-  "workbench.iconTheme": "helium-icon-theme"
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "javascript": "javascriptreact"
+  },
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
 }

@@ -3,31 +3,31 @@ import { Link } from 'react-router-dom';
 
 import { Hero } from './hero/hero.component';
 import { useTranslate } from 'src/components/translate/translate.component';
-import { useMQReal } from 'src/theme/util/media-query';
+import { useMediaQuery } from 'src/theme/util/media-query';
 import './home.page.scss';
 
 const roadmap = [
   {
-    'title': 'Q2',
-    'description': ['TGE & Community Building', 'Herd Fights Begin'],
+    title: 'Q2',
+    description: ['TGE & Community Building', 'Herd Fights Begin'],
   },
   {
-    'title': 'Q3',
-    'description': ['New Fall Wildlings', 'Ranger Leaderboard & Tournaments', 'NFT sales in Wildalo Marketplace'],
+    title: 'Q3',
+    description: ['New Fall Wildlings', 'Ranger Leaderboard & Tournaments', 'NFT sales in Wildalo Marketplace'],
   },
   {
-    'title': 'Q4',
-    'description': ['New Winter Wildlings', 'Wildalo Homesteads'],
+    title: 'Q4',
+    description: ['New Winter Wildlings', 'Wildalo Homesteads'],
   },
   {
-    'title': 'H1’23',
-    'description': ['New Spring Wildlings', 'Consumables', 'Ranger Guilds'],
+    title: 'H1’23',
+    description: ['New Spring Wildlings', 'Consumables', 'Ranger Guilds'],
   },
 ];
 
-export const HomePage = () => {
+export const PageHome = () => {
   const { t } = useTranslate();
-  const isLarge = useMQReal('md');
+  const isLarge = useMediaQuery('md');
 
   return (
     <>
@@ -52,7 +52,7 @@ export const HomePage = () => {
             {t('main.section.second.wild_animal_world')}
           </Heading>
           <div className="description">{t('main.section.second.description')}</div>
-          <div className="stone"></div>
+          <div className="stone" />
         </Container>
       </section>
       <section className="third">
@@ -60,7 +60,7 @@ export const HomePage = () => {
           <Heading as="h3" size="xl" variant="center" isTruncated className="title">
             {t('main.section.third.roadmap')}
           </Heading>
-          <Grid templateColumns={{ 'base': 'repeat(1, 1fr)', 'md': 'repeat(4, 1fr)' }} gap={10} padding={{ 'base': 4, 'md': 0 }} width="100%">
+          <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(4, 1fr)' }} gap={10} padding={{ base: 4, md: 0 }} width="100%">
             {roadmap.map((item, key) => (
               <GridItem key={key} className="prop">
                 <Heading as="h3" size="xl" isTruncated className="quarter">
@@ -74,7 +74,7 @@ export const HomePage = () => {
               </GridItem>
             ))}
           </Grid>
-          <div className="leaf"></div>
+          <div className="leaf" />
         </Container>
       </section>
     </>
