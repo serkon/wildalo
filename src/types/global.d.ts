@@ -6,18 +6,6 @@ export declare global {
     getVersion: () => any;
     ethereum;
     web3;
-    wildalo: any;
-    checkMetamask: () => any;
-    checkConnection: () => any;
-    getFordBudget: () => any;
-    getWarcBudget: () => any;
-    getSelectedAddress: () => any;
-    checkNetwork: () => any;
-    checkPermissionToAccessAccounts: () => any;
-    sign: () => any;
-    getSelectedChainId: () => any;
-    getSelectedAddress: () => any;
-    upgradeCard: () => any;
-    createAuction: () => any;
+    wildapter: MetamaskContractAdaptor;
   }
 }

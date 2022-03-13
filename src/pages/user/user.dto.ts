@@ -19,7 +19,7 @@ export interface Ranger extends Omit<User, 'password'> {
 export interface User {
   _id: string;
   username: string;
-  password: string;
+  password?: string;
   email: string;
   role?: string;
   imageId: string; // random generated avatar1, avatar2*

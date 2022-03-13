@@ -2,7 +2,7 @@ import { Accordion, AccordionItem, AccordionButton, AccordionPanel, Box, Contain
 import { MinusIcon, AddIcon } from '@chakra-ui/icons';
 
 import { useTranslate } from 'src/components/translate/translate.component';
-import { useMQReal } from 'src/theme/util/media-query';
+import { useMediaQuery } from 'src/theme/util/media-query';
 import './faq.page.scss';
 
 const faqs = [
@@ -39,7 +39,7 @@ const faqs = [
 
 export const PageFaq = () => {
   const { t } = useTranslate();
-  const isLarge = useMQReal('md');
+  const isLarge = useMediaQuery('md');
 
   return (
     <>

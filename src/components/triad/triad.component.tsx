@@ -2,13 +2,13 @@ import { Box, Container } from '@chakra-ui/react';
 
 import { Animal } from 'src/components/animal/animal.dto';
 import { AnimalCard } from 'src/components/animal/animal.component';
-import { useMQReal } from 'src/theme/util/media-query';
+import { useMediaQuery } from 'src/theme/util/media-query';
 import { useTranslate } from 'src/components/translate/translate.component';
 import './triad.component.scss';
 
 export const Triad = ({ data }: { data: Animal[] | undefined }) => {
   const { t } = useTranslate();
-  const isDesktop = useMQReal('md');
+  const isDesktop = useMediaQuery('md');
 
   return (
     <>

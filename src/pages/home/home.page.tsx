@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Hero } from './hero/hero.component';
 import { useTranslate } from 'src/components/translate/translate.component';
-import { useMQReal } from 'src/theme/util/media-query';
+import { useMediaQuery } from 'src/theme/util/media-query';
 import './home.page.scss';
 
 const roadmap = [
@@ -27,7 +27,7 @@ const roadmap = [
 
 export const PageHome = () => {
   const { t } = useTranslate();
-  const isLarge = useMQReal('md');
+  const isLarge = useMediaQuery('md');
 
   return (
     <>

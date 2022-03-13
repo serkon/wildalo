@@ -10,8 +10,7 @@ import { MyHerds } from './my-herds/my-herds.component';
 import { MyFights } from './my-fights/my-fights.page';
 import { MyProfile } from './my-profile/my-profile.component';
 import './dashboard.page.scss';
-import { useDispatch } from 'react-redux';
-import { updateUser } from 'src/store/reducers/UserReducer';
+import { MetamaskComponent } from 'src/components/metamask/metamask.component';
 
 export interface User {
   name: string;
@@ -37,13 +36,14 @@ export const PageDashboard = () => {
 
     console.log(response);
   };
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const update = () => {
-    dispatch(updateUser({ username: 'John' }));
+    // dispatch(updateUser({ username: 'John' }));
   };
 
   return (
     <>
+      <MetamaskComponent />
       <Page title="Dashboard">
         <Grid templateRows="repeat(2, auto)" templateColumns="repeat(5, auto)" gap={5} color="white">
           <GridItem bg="#09241F" colSpan={2} p={8} borderRadius="14px">

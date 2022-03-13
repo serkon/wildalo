@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { AxiosRequestConfig } from 'axios';
-import { useMQReal } from 'src/theme/util/media-query';
+import { useMediaQuery } from 'src/theme/util/media-query';
 import { api } from 'src/components/axios/axios.component';
 
 export const ScrollTo = ({ position = 0 }: { position?: number }): null => {
@@ -29,7 +29,7 @@ export const useSetTitle = (title: string): void => {
 export const useProcess = () => process.env;
 
 export const useMobile = () => {
-  const isDesktop = useMQReal('md');
+  const isDesktop = useMediaQuery('md');
   const root: HTMLDivElement | null = document.getElementById('root') as HTMLDivElement;
 
   useEffect(() => {
@@ -93,8 +93,6 @@ export const useApi = (params: AxiosRequestConfig, callback?: (data: any) => voi
     const fetchData = async () => {
       setIsError(false);
       setIsLoading(true);
-
-      console.log('fetchData', fetch);
       try {
         const result = await api(fetch);
 
@@ -103,7 +101,6 @@ export const useApi = (params: AxiosRequestConfig, callback?: (data: any) => voi
       } catch (error) {
         setIsError(true);
       }
-
       setIsLoading(false);
     };
 

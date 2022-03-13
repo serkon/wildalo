@@ -3,7 +3,7 @@ import { Container, Heading, Button, Box } from '@chakra-ui/react';
 import { AnimalOldCard } from 'src/components/card/animal-card.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { AnimalDetail, AnimalRarity, Region } from 'src/components/animal/animal.dto';
-import { useMQReal } from 'src/theme/util/media-query';
+import { useMediaQuery } from 'src/theme/util/media-query';
 import './hero.component.scss';
 
 const animals: AnimalDetail[] = [
@@ -88,7 +88,7 @@ const animals: AnimalDetail[] = [
 
 export const Hero = (): JSX.Element => {
   const { t } = useTranslate();
-  const isDesktop = useMQReal('md');
+  const isDesktop = useMediaQuery('md');
   const redirect = (path: string) => {
     window.open(path, '_blank');
   };

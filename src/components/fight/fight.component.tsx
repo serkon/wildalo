@@ -39,7 +39,7 @@ export const Fight = (props: FightDetail) => {
           <Timer
             date={new Date(props.detail.remainingTime)}
             onChange={(state) => changeTextColor(Number(state.hours) === 0 && Number(state.minutes) <= 50)}
-            onComplete={() => (changeTextColor(true), console.log('asd'))}
+            onComplete={() => (changeTextColor(true), console.log(''))}
           />
         </Stack>
       </Flex>

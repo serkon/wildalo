@@ -1,25 +1,24 @@
 import { Suspense, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-
-import { ErrorBoundary } from 'src/components/error-boundary/ErrorBoundary';
-import { Header } from './components/header/header.component';
-import { Footer } from './components/footer/footer.component';
-import { useTranslate } from './components/translate/translate.component';
-import logo from './assets/logo.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { Ranger } from './pages/user/user.dto';
+import { Box } from '@chakra-ui/react';
+
 import { DispatchType, RootState } from './store/store';
-import { setUser } from './store/reducers/UserReducer';
-import { useApi, useMobile, useProcess, useSetTitle } from './hooks';
-import Metamask from './pages/user/metamask.service';
-import { Button } from '@chakra-ui/react';
+import { ErrorBoundary } from 'src/components/error-boundary/ErrorBoundary';
+import { useMobile, useProcess, useSetTitle } from './hooks';
+import { Header } from 'src/components/header/header.component';
+import { Footer } from 'src/components/footer/footer.component';
+import { useTranslate } from 'src/components/translate/translate.component';
+
+import logo from './assets/logo.svg';
 
 function App(): JSX.Element {
   const { t } = useTranslate();
   const dispatch = useDispatch<DispatchType>();
-  const selector = useSelector<RootState>((state: RootState): Ranger | null => state.user);
+  const selector = useSelector<RootState>((state: RootState): RootState => state) as RootState;
 
-  useApi({ url: '/my/profile' }, (data) => dispatch(setUser(data.data)));
+  // useApi({ url: '/my/profile' }, (data: HttpResponse<Ranger>) => dispatch(set_ranger(data.data)));
+  dispatch;
   selector;
 
   useSetTitle('Wildalo');
@@ -27,14 +26,29 @@ function App(): JSX.Element {
   useProcess();
 
   useEffect(() => {
-    Metamask.isExtentionEnable();
+    const getMetamask = async (): Promise<void> => {
+      // const metamaskReducerState: MetamaskReducerState = await MetamaskHandler.init();
+      // console.log(metamaskReducerState);
+      // dispatch(set_metamask(metamaskReducerState));
+    };
+    // MetamaskHandler.getUserInfo();
+
+    getMetamask();
+    // dispatch(set_extension_status(Wildapter.checkMetamask()));
   }, []);
 
   return (
     <ErrorBoundary>
       <Suspense fallback={<div>{t('loading')}</div>}>
         <Header logo={logo} />
-        <Button onClick={() => Metamask.isConnected()}>asd</Button>
+        <Box color={'white'}>{JSON.stringify(selector.metamask)}</Box>
+        {false && (
+          <Box color={'white'}>
+            <pre style={{ width: '600px', height: '330px', overflowWrap: 'break-word', whiteSpace: 'pre-wrap' }}>
+              <code>{JSON.stringify(selector)}</code>
+            </pre>
+          </Box>
+        )}
         <main>
           <Outlet />
         </main>

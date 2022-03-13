@@ -18,14 +18,14 @@ export const MyFights = () => {
   const { t } = useTranslate();
   const [res, setResponse] = React.useState<FightsOverview>();
   const getFodr = () => {
-    window.checkMetamask();
-    window.checkPermissionToAccessAccounts();
-    window.sign();
-    window.checkConnection();
-    window.getSelectedChainId();
-    window.getSelectedAddress();
-    window.upgradeCard();
-    window.createAuction();
+    window.wildapter.checkMetamask();
+    window.wildapter.checkPermissionToAccessAccounts();
+    window.wildapter.sign();
+    window.wildapter.checkConnection();
+    window.wildapter.getSelectedChainId();
+    window.wildapter.getSelectedAddress();
+    window.wildapter.upgradeCard();
+    window.wildapter.createAuction();
   };
 
   useEffect(() => {
