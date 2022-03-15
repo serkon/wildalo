@@ -74,51 +74,42 @@ export class MetamaskContractAdaptor extends EventEmitter implements MetamaskCon
 
   public checkMetamask(): boolean {
     const self = this as MetamaskContractAdaptor;
-
     if ('undefined' === typeof self.provider) {
       self.emit(MetamaskAdapterEnums.NOT_FOUND_METAMASK);
-
       return false;
     }
-
     if (self.provider.isConnected == false || self.provider.isMetaMask == false) {
       self.emit(MetamaskAdapterEnums.NOT_FOUND_METAMASK);
-
       return false;
     }
-
     if (self.isFoundMetamask == false) {
       self.isFoundMetamask = true;
       self.emit(MetamaskAdapterEnums.FOUND_METAMASK);
     }
-
     return true;
   }
 
   public checkNetwork(): boolean {
     const self = this as MetamaskContractAdaptor;
-
     if (self.provider.chainId != self.targetChainId) {
       self.emit(MetamaskAdapterEnums.WRONG_NETWORK);
-
       return false;
     }
-
     return true;
   }
 
   public async checkPermissionToAccessAccounts(): Promise<boolean> {
     const self = this as MetamaskContractAdaptor;
-
     return new Promise((resolve, _reject) => {
       self.provider
         .request({ method: 'eth_requestAccounts' })
-        .then(resolve(true))
+        .then(() => {
+          resolve(true);
+        })
         .catch((error: { code: string }) => {
           if (error.code == MetamaskAdapterEnums.ERROR_CODES.METHOD_CANCELLED) {
             self.emit(MetamaskAdapterEnums.METHOD_CANCELLED, 'checkPermissionToAccessAccounts');
           }
-
           if (error.code == MetamaskAdapterEnums.ERROR_CODES.ALREADY_METHOD_TRIGGERED) {
             self.emit(MetamaskAdapterEnums.ALREADY_METHOD_TRIGGERED, 'checkPermissionToAccessAccounts');
           }
@@ -133,24 +124,11 @@ export class MetamaskContractAdaptor extends EventEmitter implements MetamaskCon
   // ##################################################################################
 
   public async checkConnection(): Promise<boolean> {
-    if (!(await this.checkMetamask())) {
-      return false;
-    }
-
-    if (!(await this.checkNetwork())) {
-      return false;
-    }
-
-    if (!(await this.checkPermissionToAccessAccounts())) {
-      return false;
-    }
-
-    return true;
+    return (await this.checkMetamask()) && (await this.checkNetwork()) && (await this.checkPermissionToAccessAccounts());
   }
 
   public async enablePermissionToAccessAccounts(): Promise<boolean> {
     const self = this as MetamaskContractAdaptor;
-
     return new Promise((resolve, _reject) => {
       self.provider
         .request({
@@ -159,7 +137,6 @@ export class MetamaskContractAdaptor extends EventEmitter implements MetamaskCon
         })
         .then((permissions: any[]) => {
           const accountsPermission = permissions.find((permission: { parentCapability: string }) => permission.parentCapability === 'eth_accounts');
-
           if (accountsPermission) {
             self.emit(MetamaskAdapterEnums.ENABLED_PERMISSION_TO_ACCESS_ACCOUNTS);
             resolve(true);
@@ -169,11 +146,9 @@ export class MetamaskContractAdaptor extends EventEmitter implements MetamaskCon
           if (error.code == MetamaskAdapterEnums.ERROR_CODES.METHOD_CANCELLED) {
             self.emit(MetamaskAdapterEnums.METHOD_CANCELLED, 'enablePermissionToAccessAccounts');
           }
-
           if (error.code == MetamaskAdapterEnums.ERROR_CODES.ALREADY_METHOD_TRIGGERED) {
             self.emit(MetamaskAdapterEnums.ALREADY_METHOD_TRIGGERED, 'enablePermissionToAccessAccounts');
           }
-
           self.emit(MetamaskAdapterEnums.HAS_NOT_PERMISSION_TO_ACCESS_ACCOUNTS);
           resolve(false);
         });
@@ -183,7 +158,6 @@ export class MetamaskContractAdaptor extends EventEmitter implements MetamaskCon
   public async sign(message: string, password: string): Promise<string | null> {
     const checkResult = await this.checkConnection();
     const getSelectedAddress = await this.getSelectedAddress();
-
     if (checkResult) {
       return new Promise((resolve, reject) => {
         this.web3.eth.personal.sign(message, getSelectedAddress as string, password, (error: Error, signature: string): void => {
@@ -194,18 +168,15 @@ export class MetamaskContractAdaptor extends EventEmitter implements MetamaskCon
         });
       });
     }
-
     return null;
   }
 
   public async getSelectedAddress(): Promise<string | null> {
     const accounts = await this.provider.request({ method: 'eth_requestAccounts' });
     console.log(accounts);
-
     if (accounts && accounts.length) {
       return accounts[0];
     }
-
     return null;
   }
 
@@ -215,42 +186,29 @@ export class MetamaskContractAdaptor extends EventEmitter implements MetamaskCon
 
   public async getFordBudget(): Promise<string | null> {
     const checkResult = await this.checkConnection();
-
     if (!checkResult) {
       return null;
     }
-
     return '250000000000000';
   }
 
   public async getWarcBudget(): Promise<string | null> {
     const checkResult = await this.checkConnection();
-
     if (!checkResult) {
       return null;
     }
-
     return '120000000000000';
   }
 
   private async sendContractMethod(contract: Contract, method: string, ...args: any[]): Promise<string | boolean> {
     const checkResult = await this.checkConnection();
-
     if (checkResult) {
       const from = await this.getSelectedAddress();
-
       return new Promise((resolve, reject) => {
-        contract.methods[method](...args).send(
-          {
-            from,
-          },
-          (error: Error, transactionHash: string) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(transactionHash);
-          },
-        );
+        contract.methods[method](...args).send({ from }, (error: Error, transactionHash: string) => {
+          error && reject(error);
+          resolve(transactionHash);
+        });
       });
     }
 
@@ -259,7 +217,6 @@ export class MetamaskContractAdaptor extends EventEmitter implements MetamaskCon
 
   private async callContractMethod(contract: Contract, method: string, ...args: any[]): Promise<string | boolean> {
     const checkResult = await this.checkConnection();
-
     if (checkResult) {
       return new Promise((resolve, reject) => {
         contract.methods[method](...args).call((error: Error, result: any) => {
@@ -270,7 +227,6 @@ export class MetamaskContractAdaptor extends EventEmitter implements MetamaskCon
         });
       });
     }
-
     return checkResult;
   }
 
