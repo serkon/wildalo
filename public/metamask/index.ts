@@ -129,7 +129,9 @@ export class MetamaskContractAdaptor extends EventEmitter implements MetamaskCon
       return false;
     }
 
-    if (!(await this.checkPermissionToAccessAccounts())) {
+    const check = await this.checkPermissionToAccessAccounts();
+    console.log('######### Network: ', check);
+    if (!check) {
       return false;
     }
 

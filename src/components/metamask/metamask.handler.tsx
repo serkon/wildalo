@@ -30,6 +30,7 @@ class MetamaskHandler {
       console.log('Metamask not connected');
       this.setUserMetamaskData(null);
     }
+
     return status;
   }
 
@@ -47,10 +48,10 @@ class MetamaskHandler {
       const isConnected = await this.checkConnection();
       if (isConnected) {
         this.setUserMetamaskData(await this.getUserInfo());
-        return false;
+        return true; // if metamask is connected
       }
     }
-    return true;
+    return false; // if metamask is not connected or not found in browser or extension
 
     // const state = {
     //   extension: Wildapter.checkMetamask(),

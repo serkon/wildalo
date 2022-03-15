@@ -1,7 +1,7 @@
 import { CombinedState, combineReducers, createStore } from 'redux';
 
-import { RangerReducer } from './reducers/RangerReducer';
 import { MetamaskReducer } from './reducers/MetamaskReducer';
+import { RangerReducer } from './reducers/RangerReducer';
 
 export interface Action<T> {
   type: string;
