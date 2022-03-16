@@ -26,15 +26,10 @@ function App(): JSX.Element {
   useProcess();
 
   useEffect(() => {
-    const getMetamask = async (): Promise<void> => {
-      // const metamaskReducerState: MetamaskReducerState = await MetamaskHandler.init();
-      // console.log(metamaskReducerState);
-      // dispatch(set_metamask(metamaskReducerState));
+    const initMetaMask = async (): Promise<void> => {
+      // await MetaMaskHandler.init();
     };
-    // MetamaskHandler.getUserInfo();
-
-    getMetamask();
-    // dispatch(set_extension_status(Wildapter.checkMetamask()));
+    initMetaMask();
   }, []);
 
   return (

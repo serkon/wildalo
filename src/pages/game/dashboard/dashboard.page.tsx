@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AxiosResponse } from 'axios';
 import { Button, Grid, GridItem, Input } from '@chakra-ui/react';
 
 import { api, AuthorizationHeader, LoginResponse, HttpResponse } from 'src/components/axios/axios.component';
 import { useTranslate } from 'src/components/translate/translate.component';
+import { Wildapter } from 'src/components/metamask/adaptor';
+import { MetaMaskHandler } from 'src/components/metamask/metamask.handler';
 import { Page } from 'src/components/page/page.component';
 import { MyWildlings } from './my-wildling/my-wildling.component';
 import { MyHerds } from './my-herds/my-herds.component';
 import { MyFights } from './my-fights/my-fights.page';
 import { MyProfile } from './my-profile/my-profile.component';
+import { MetaMaskComponent } from 'src/components/metamask/metamask.component';
 import './dashboard.page.scss';
-import { MetamaskComponent } from 'src/components/metamask/metamask.component';
 
 export interface User {
   name: string;
@@ -41,9 +43,17 @@ export const PageDashboard = () => {
     // dispatch(updateUser({ username: 'John' }));
   };
 
+  const disconnect = () => {
+    MetaMaskHandler.disconnect();
+  };
+
+  useEffect(() => console.log('MEtamask Component'));
+
   return (
     <>
-      <MetamaskComponent />
+      <MetaMaskComponent />
+      <Button onClick={() => console.log(Wildapter.checkPermissionToAccessAccounts())}>check</Button>
+      <Button onClick={() => disconnect()}>disconnect</Button>
       <Page title="Dashboard">
         <Grid templateRows="repeat(2, auto)" templateColumns="repeat(5, auto)" gap={5} color="white">
           <GridItem bg="#09241F" colSpan={2} p={8} borderRadius="14px">

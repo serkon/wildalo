@@ -160,6 +160,7 @@
     "modal": {
       "header_extension": "Please install Metamask",
       "header_connected": "Wallet not connected to the Avalanche network",
+      "header_permission": "You have to give access to the extension",
       "content": "Metamask is a browser extension that allows you to interact with the Ethereum blockchain. In order to play the game, your <span class='metamask-bold'>Metamask extension must be installed</span> and the avalanche network must be set.",
       "install_metamask": "Install Metamask",
       "Need_further_help": "Need further help?",

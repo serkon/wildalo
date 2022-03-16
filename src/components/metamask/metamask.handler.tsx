@@ -1,108 +1,163 @@
-import { Metamask } from 'src/pages/user/user.dto';
-import { Wildapter, MetamaskAdapterEnums } from './adaptor';
-import { set_connected_status, set_extension_status, set_user_metamask_data } from 'src/store/reducers/MetamaskReducer';
+import { MetaMaskAdapterEnums, Wildapter } from './adaptor';
+import {
+  set_metamask_network_status,
+  set_metamask_extension_status,
+  set_metamask_permission_status,
+  set_metamask_fodr_balance,
+  set_metamask_warc_balance,
+  set_metamask_wallet_address,
+} from 'src/store/reducers/MetamaskReducer';
 import { store } from 'src/store/store';
 
-class MetamaskHandler {
-  instance!: MetamaskHandler;
+class MetaMaskHandler {
+  instance!: MetaMaskHandler;
   constructor() {
-    console.log('MetamaskHandler Registered');
-    if (this.instance instanceof MetamaskHandler) {
-      console.log('MetamaskHandler instanceof MetamaskHandler');
+    console.log('MetaMaskHandler Registered');
+    if (this.instance instanceof MetaMaskHandler) {
+      console.log('MetaMaskHandler instanceof MetaMaskHandler');
       return this.instance;
     }
+    // TODO: window.ethereum.enable();
+    this.registerEvents();
     this.instance = this;
   }
 
   public checkExtension() {
-    const status = Wildapter.checkMetamask();
-    this.setExtension(status);
+    const status = Wildapter.checkMetaMask();
+    this.setMetaMaskExtension(status);
     if (!status) {
-      this.setConnected(false);
+      this.setMetaMaskNetwork(false);
     }
     return status;
   }
 
-  public async checkConnection() {
-    const status = await Wildapter.checkConnection();
-    this.setConnected(status);
-    if (!status) {
-      console.log('Metamask not connected');
-      this.setUserMetamaskData(null);
-    }
-
+  public checkNetwork() {
+    const status = Wildapter.checkNetwork();
+    this.setMetaMaskNetwork(status);
     return status;
   }
 
-  public async getUserInfo(): Promise<Metamask | null> {
-    const fodrBalance = await Wildapter.getFordBudget();
-    const warcBalance = await Wildapter.getWarcBudget();
-    const walletAddress = await Wildapter.getSelectedAddress();
-    const status = fodrBalance && warcBalance && walletAddress ? { fodrBalance, warcBalance, walletAddress } : null;
+  public async checkPermission() {
+    let status = false;
+    try {
+      const account = await window.ethereum.request({ method: 'eth_accounts' });
+      status = account.length > 0;
+      this.setMetaMaskWalletAddress(status ? account[0] : null);
+    } catch (error) {
+      console.error('check permission error: ', error);
+      this.setMetaMaskWalletAddress(null);
+      debugger;
+      status = false;
+    }
+    this.setMetaMaskPermission(status);
     return status;
+  }
+
+  public async checkBalance(): Promise<void> {
+    this.setMetaMaskFodrBalance(await Wildapter.getFordBudget());
+    this.setMetaMaskWarcBalance(await Wildapter.getWarcBudget());
   }
 
   public async init(): Promise<boolean> {
-    const isExtension = this.checkExtension();
-    if (isExtension) {
-      const isConnected = await this.checkConnection();
-      if (isConnected) {
-        this.setUserMetamaskData(await this.getUserInfo());
-        return true; // if metamask is connected
-      }
-    }
-    return false; // if metamask is not connected or not found in browser or extension
-
-    // const state = {
-    //   extension: Wildapter.checkMetamask(),
-    //   connected: await Wildapter.checkConnection(),
-    //   data: await this.getUserInfo(),
-    // };
-    // return state;
+    const permission = await this.checkPermission();
+    const extension = await this.checkExtension();
+    const network = await this.checkNetwork();
+    const task = [extension, network, permission];
+    const status = task.filter((item) => item === false).length <= 0;
+    this.checkBalance();
+    return status;
   }
 
-  public setConnected(status: boolean) {
-    store.dispatch(set_connected_status(status));
+  reset() {
+    store.dispatch(set_metamask_extension_status(false));
+    store.dispatch(set_metamask_network_status(false));
+    store.dispatch(set_metamask_permission_status(false));
+    store.dispatch(set_metamask_fodr_balance(null));
+    store.dispatch(set_metamask_warc_balance(null));
+    store.dispatch(set_metamask_wallet_address(null));
   }
 
-  public setExtension(status: boolean) {
-    store.dispatch(set_extension_status(status));
+  async disconnect() {
+    const accounts = await Wildapter.provider
+      .request({
+        method: 'wallet_requestPermissions',
+        params: [
+          {
+            eth_accounts: {},
+          },
+        ],
+      })
+      .then(() =>
+        Wildapter.provider.request({
+          method: 'eth_requestAccounts',
+        }),
+      )
+      .catch((e: any) => console.log('disconnect error: ', e));
+    console.log('accounts: ', accounts);
   }
 
-  public setUserMetamaskData(data: Metamask | null) {
-    store.dispatch(set_user_metamask_data(data));
+  public setMetaMaskExtension(status: boolean) {
+    store.dispatch(set_metamask_extension_status(status));
+  }
+
+  public setMetaMaskNetwork(status: boolean) {
+    store.dispatch(set_metamask_network_status(status));
+  }
+
+  public setMetaMaskPermission(status: boolean) {
+    store.dispatch(set_metamask_permission_status(status));
+  }
+
+  public setMetaMaskFodrBalance(data: string | null) {
+    store.dispatch(set_metamask_fodr_balance(data));
+  }
+
+  public setMetaMaskWarcBalance(data: string | null) {
+    store.dispatch(set_metamask_warc_balance(data));
+  }
+
+  public setMetaMaskWalletAddress(data: string | null) {
+    store.dispatch(set_metamask_wallet_address(data));
   }
 
   public registerEvents() {
-    setTimeout(() => {
-      Wildapter.on(MetamaskAdapterEnums.FOUND_METAMASK, () => {
-        console.log('Metamask found');
-        this.setExtension(true);
-      });
+    Wildapter.on(MetaMaskAdapterEnums.FOUND_METAMASK, () => {
+      // this.setExtension(true);
+      console.log('event: FOUND_METAMASK');
+      // this.init();
+    });
 
-      Wildapter.on(MetamaskAdapterEnums.CONNECTED, async (connection: { chainId: string }) => {
-        this.setConnected(connection.chainId === process.env.REACT_APP_CHAIN_ID);
-        this.setUserMetamaskData(await this.getUserInfo());
-      });
+    Wildapter.on(MetaMaskAdapterEnums.CONNECTED, async (connection: { chainId: string }) => {
+      // this.setNetwork(connection.chainId === process.env.REACT_APP_CHAIN_ID);
+      // this.setUserMetaMaskData(await this.getUserInfo());
+      console.log('event: CONNECTED: ', connection);
+      this.init();
+    });
 
-      Wildapter.on(MetamaskAdapterEnums.CHAIN_CHANGED, async (chainId: string) => {
-        const status = chainId === process.env.REACT_APP_CHAIN_ID;
-        this.setConnected(status);
-        this.setUserMetamaskData(await this.getUserInfo());
-      });
+    Wildapter.on(MetaMaskAdapterEnums.CHAIN_CHANGED, async (chainId: string) => {
+      // this.setNetwork(chainId === process.env.REACT_APP_CHAIN_ID);
+      // this.setUserMetaMaskData(await this.getUserInfo());
+      console.log('event: CHAIN_CHANGED: ', chainId);
+      this.init();
+    });
 
-      Wildapter.on(MetamaskAdapterEnums.ACCOUNTS_CHANGED, async (account: string) => {
-        this.setUserMetamaskData(await this.getUserInfo());
-        console.log(account);
-      });
+    Wildapter.on(MetaMaskAdapterEnums.ACCOUNTS_CHANGED, async (account: string[]) => {
+      // this.setUserMetaMaskData(await this.getUserInfo());
+      console.log('event: ACCOUNTS_CHANGED ', account);
+      this.init();
+      // this.init();
+    });
 
-      Wildapter.on(MetamaskAdapterEnums.DISCONNECTED, (error) => {
-        console.log(MetamaskAdapterEnums.DISCONNECTED + ' event triggered. Error: ', error);
-      });
-    }, 0);
+    Wildapter.on(MetaMaskAdapterEnums.DISCONNECTED, (error) => {
+      console.log('event: DISCONNECTED ', JSON.stringify(error));
+    });
+
+    const handler = (error: any) => console.log('tribe gel:', error);
+    window.ethereum.on('message', handler);
   }
 }
 
-const mh = new MetamaskHandler();
+const mh = new MetaMaskHandler();
 
-export { mh as MetamaskHandler };
+export { mh as MetaMaskHandler };
+window.wildapter = Wildapter;

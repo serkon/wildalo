@@ -6,14 +6,15 @@ import { useSize } from 'src/theme/util/media-query';
 import './metamask.component.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/store/store';
-import { MetamaskHandler } from './metamask.handler';
+import { MetaMaskHandler } from './metamask.handler';
 
-export const MetamaskComponent = () => {
+export const MetaMaskComponent = () => {
   const { t } = useTranslate();
   const size = useSize();
   const selector = useSelector<RootState>((state: RootState): RootState => state) as RootState;
   const [extension, setExtension] = useState(false);
-  const [connected, setConnected] = useState(false);
+  const [network, setNetwork] = useState(false);
+  const [permission, setPermission] = useState(false);
   const [isInit, setInit] = useState(false);
   const { onClose } = useDisclosure({
     onOpen: () => {
@@ -21,7 +22,8 @@ export const MetamaskComponent = () => {
     },
     onClose: () => {
       setExtension(true);
-      setConnected(true);
+      setNetwork(true);
+      setPermission(true);
     },
   });
   const modalBodyRef = useCallback((node: HTMLDivElement) => {
@@ -33,26 +35,30 @@ export const MetamaskComponent = () => {
   }, [selector.metamask.extension]);
 
   useLayoutEffect(() => {
-    setConnected(selector.metamask.connected);
-  }, [selector.metamask.connected]);
+    setNetwork(selector.metamask.network);
+  }, [selector.metamask.network]);
+
+  useLayoutEffect(() => {
+    setPermission(selector.metamask.permission);
+  }, [selector.metamask.permission]);
 
   useEffect(() => {
     const init = async () => {
-      const success = await MetamaskHandler.init();
-      console.log('isinit: ', success);
-      setInit(true);
+      const success = await MetaMaskHandler.init();
+      setInit(success);
     };
     init();
   }, []);
 
   return (
     <>
-      <Modal blockScrollOnMount={false} isOpen={isInit && !(extension && connected)} onClose={onClose} isCentered size={size}>
+      <Modal blockScrollOnMount={false} isOpen={isInit && !(extension && network && permission)} onClose={onClose} isCentered size={size}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px) hue-rotate(10deg)" />
         <ModalContent>
           <ModalHeader>
             {!extension && t('metamask.modal.header_extension')}
-            {extension && !connected && t('metamask.modal.header_connected')}
+            {extension && !network && t('metamask.modal.header_connected')}
+            {extension && network && !permission && t('metamask.modal.header_permission')}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody ref={modalBodyRef} />

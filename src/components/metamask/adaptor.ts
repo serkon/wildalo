@@ -2,11 +2,11 @@ import Web3 from 'web3';
 import { Contract } from 'web3-eth-contract';
 import { EventEmitter } from 'eventemitter3';
 
-export interface MetamaskContractAdaptorInterface {
+export interface MetaMaskContractAdaptorInterface {
   on: (event: string, listener: (...args: any[]) => void) => void;
   off: (event: string, listener: (...args: any[]) => void) => void;
   emit: (event: string, ...args: any[]) => boolean;
-  checkMetamask: () => boolean;
+  checkMetaMask: () => boolean;
   checkNetwork: () => boolean;
   checkPermissionToAccessAccounts: () => Promise<boolean>;
   checkConnection: () => Promise<boolean>;
@@ -16,10 +16,10 @@ export interface MetamaskContractAdaptorInterface {
   getSelectedAddress: () => Promise<string | null>;
 }
 
-export class MetamaskAdapterEnums {
-  static FOUND_METAMASK = 'foundMetamask';
+export class MetaMaskAdapterEnums {
+  static FOUND_METAMASK = 'foundMetaMask';
   static UNLOCKED_ACCOUNT = 'unlockedAccount';
-  static NOT_FOUND_METAMASK = 'notFoundMetamask';
+  static NOT_FOUND_METAMASK = 'notFoundMetaMask';
   static NOT_UNLOCKED_ACCOUNT = 'notUnlockedAccount';
   static ENABLED_PERMISSION_TO_ACCESS_ACCOUNTS = 'enabledPermissionToAccessAccounts';
   static HAS_NOT_PERMISSION_TO_ACCESS_ACCOUNTS = 'hasNotPermissionToAccessAccounts';
@@ -27,7 +27,7 @@ export class MetamaskAdapterEnums {
   static ACCOUNTS_CHANGED = 'accountsChanged';
   static CHAIN_CHANGED = 'chainChanged';
   static CONNECTED = 'connected';
-  static DISCONNECTED = 'disconnected';
+  static DISCONNECTED = 'disconnect';
   static ALREADY_METHOD_TRIGGERED = 'alreadyMethodTriggered';
   static METHOD_CANCELLED = 'methodCancelled';
   static ERROR_CODES = {
@@ -36,11 +36,11 @@ export class MetamaskAdapterEnums {
   };
 }
 
-export class MetamaskContractAdaptor extends EventEmitter implements MetamaskContractAdaptorInterface {
-  private provider: any;
-  private web3: Web3;
-  private wildaloContract: Contract;
-  private isFoundMetamask = false;
+export class MetaMaskContractAdaptor extends EventEmitter implements MetaMaskContractAdaptorInterface {
+  public provider: any;
+  private web3!: Web3;
+  private wildaloContract!: Contract;
+  private isFoundMetaMask = false;
   static on: any;
   // private warcContract: Contract;
   // private fodrContract: Contract;
@@ -51,55 +51,66 @@ export class MetamaskContractAdaptor extends EventEmitter implements MetamaskCon
     if (!window) {
       throw Error('Window required.');
     }
-    this.provider = (window as any).ethereum;
-    this.web3 = new Web3(this.provider);
+    this.initialize(wildaloContractAddress, wildaloContractJson);
+  }
+
+  public async initialize(wildaloContractAddress: string, wildaloContractJson: any) {
+    this.provider = window.ethereum;
+    this.web3 = await new Web3(this.provider);
     this.wildaloContract = new this.web3.eth.Contract(wildaloContractJson, wildaloContractAddress);
+    this.registerEvents();
     // this.warcContract = new this.web3.eth.Contract(WarcContractJson, WarcContractAddress);
     // this.fodrContract = new this.web3.eth.Contract(FodrContractJson, FodrContractAddress);
+  }
+
+  public registerEvents() {
     if (this.provider) {
       this.provider.on('accountsChanged', (accounts: any) => {
-        this.emit(MetamaskAdapterEnums.ACCOUNTS_CHANGED, accounts);
+        this.emit(MetaMaskAdapterEnums.ACCOUNTS_CHANGED, accounts);
       });
       this.provider.on('chainChanged', (chainId: any) => {
-        this.emit(MetamaskAdapterEnums.CHAIN_CHANGED, chainId);
+        this.emit(MetaMaskAdapterEnums.CHAIN_CHANGED, chainId);
       });
       this.provider.on('connect', (cnnectInfo: any) => {
-        this.emit(MetamaskAdapterEnums.CONNECTED, cnnectInfo);
+        this.emit(MetaMaskAdapterEnums.CONNECTED, cnnectInfo);
       });
       this.provider.on('disconnected', (error: any) => {
-        this.emit(MetamaskAdapterEnums.DISCONNECTED, error);
+        this.emit(MetaMaskAdapterEnums.DISCONNECTED, error);
+      });
+      this.provider.on('disconnect', (error: any) => {
+        this.emit(MetaMaskAdapterEnums.DISCONNECTED, error);
       });
     }
   }
 
-  public checkMetamask(): boolean {
-    const self = this as MetamaskContractAdaptor;
+  public checkMetaMask(): boolean {
+    const self = this as MetaMaskContractAdaptor;
     if ('undefined' === typeof self.provider) {
-      self.emit(MetamaskAdapterEnums.NOT_FOUND_METAMASK);
+      self.emit(MetaMaskAdapterEnums.NOT_FOUND_METAMASK);
       return false;
     }
     if (self.provider.isConnected == false || self.provider.isMetaMask == false) {
-      self.emit(MetamaskAdapterEnums.NOT_FOUND_METAMASK);
+      self.emit(MetaMaskAdapterEnums.NOT_FOUND_METAMASK);
       return false;
     }
-    if (self.isFoundMetamask == false) {
-      self.isFoundMetamask = true;
-      self.emit(MetamaskAdapterEnums.FOUND_METAMASK);
+    if (self.isFoundMetaMask == false) {
+      self.isFoundMetaMask = true;
+      self.emit(MetaMaskAdapterEnums.FOUND_METAMASK);
     }
     return true;
   }
 
   public checkNetwork(): boolean {
-    const self = this as MetamaskContractAdaptor;
+    const self = this as MetaMaskContractAdaptor;
     if (self.provider.chainId != self.targetChainId) {
-      self.emit(MetamaskAdapterEnums.WRONG_NETWORK);
+      self.emit(MetaMaskAdapterEnums.WRONG_NETWORK);
       return false;
     }
     return true;
   }
 
   public async checkPermissionToAccessAccounts(): Promise<boolean> {
-    const self = this as MetamaskContractAdaptor;
+    const self = this as MetaMaskContractAdaptor;
     return new Promise((resolve, _reject) => {
       self.provider
         .request({ method: 'eth_requestAccounts' })
@@ -107,13 +118,13 @@ export class MetamaskContractAdaptor extends EventEmitter implements MetamaskCon
           resolve(true);
         })
         .catch((error: { code: string }) => {
-          if (error.code == MetamaskAdapterEnums.ERROR_CODES.METHOD_CANCELLED) {
-            self.emit(MetamaskAdapterEnums.METHOD_CANCELLED, 'checkPermissionToAccessAccounts');
+          if (error.code == MetaMaskAdapterEnums.ERROR_CODES.METHOD_CANCELLED) {
+            self.emit(MetaMaskAdapterEnums.METHOD_CANCELLED, 'checkPermissionToAccessAccounts');
           }
-          if (error.code == MetamaskAdapterEnums.ERROR_CODES.ALREADY_METHOD_TRIGGERED) {
-            self.emit(MetamaskAdapterEnums.ALREADY_METHOD_TRIGGERED, 'checkPermissionToAccessAccounts');
+          if (error.code == MetaMaskAdapterEnums.ERROR_CODES.ALREADY_METHOD_TRIGGERED) {
+            self.emit(MetaMaskAdapterEnums.ALREADY_METHOD_TRIGGERED, 'checkPermissionToAccessAccounts');
           }
-          self.emit(MetamaskAdapterEnums.HAS_NOT_PERMISSION_TO_ACCESS_ACCOUNTS);
+          self.emit(MetaMaskAdapterEnums.HAS_NOT_PERMISSION_TO_ACCESS_ACCOUNTS);
           resolve(false);
         });
     });
@@ -124,11 +135,12 @@ export class MetamaskContractAdaptor extends EventEmitter implements MetamaskCon
   // ##################################################################################
 
   public async checkConnection(): Promise<boolean> {
-    return (await this.checkMetamask()) && (await this.checkNetwork()) && (await this.checkPermissionToAccessAccounts());
+    return (await this.checkMetaMask()) && (await this.checkNetwork()) && (await this.checkPermissionToAccessAccounts());
   }
 
   public async enablePermissionToAccessAccounts(): Promise<boolean> {
-    const self = this as MetamaskContractAdaptor;
+    console.log(this);
+    const self = this as MetaMaskContractAdaptor;
     return new Promise((resolve, _reject) => {
       self.provider
         .request({
@@ -138,18 +150,18 @@ export class MetamaskContractAdaptor extends EventEmitter implements MetamaskCon
         .then((permissions: any[]) => {
           const accountsPermission = permissions.find((permission: { parentCapability: string }) => permission.parentCapability === 'eth_accounts');
           if (accountsPermission) {
-            self.emit(MetamaskAdapterEnums.ENABLED_PERMISSION_TO_ACCESS_ACCOUNTS);
+            self.emit(MetaMaskAdapterEnums.ENABLED_PERMISSION_TO_ACCESS_ACCOUNTS);
             resolve(true);
           }
         })
         .catch((error: { code: string }) => {
-          if (error.code == MetamaskAdapterEnums.ERROR_CODES.METHOD_CANCELLED) {
-            self.emit(MetamaskAdapterEnums.METHOD_CANCELLED, 'enablePermissionToAccessAccounts');
+          if (error.code == MetaMaskAdapterEnums.ERROR_CODES.METHOD_CANCELLED) {
+            self.emit(MetaMaskAdapterEnums.METHOD_CANCELLED, 'enablePermissionToAccessAccounts');
           }
-          if (error.code == MetamaskAdapterEnums.ERROR_CODES.ALREADY_METHOD_TRIGGERED) {
-            self.emit(MetamaskAdapterEnums.ALREADY_METHOD_TRIGGERED, 'enablePermissionToAccessAccounts');
+          if (error.code == MetaMaskAdapterEnums.ERROR_CODES.ALREADY_METHOD_TRIGGERED) {
+            self.emit(MetaMaskAdapterEnums.ALREADY_METHOD_TRIGGERED, 'enablePermissionToAccessAccounts');
           }
-          self.emit(MetamaskAdapterEnums.HAS_NOT_PERMISSION_TO_ACCESS_ACCOUNTS);
+          self.emit(MetaMaskAdapterEnums.HAS_NOT_PERMISSION_TO_ACCESS_ACCOUNTS);
           resolve(false);
         });
     });
@@ -260,7 +272,7 @@ export class MetamaskContractAdaptor extends EventEmitter implements MetamaskCon
   }
 }
 
-export const Wildapter: MetamaskContractAdaptor = new MetamaskContractAdaptor('0xa869', '0x4860F3f0217D738A3cfF28C5E6e10C977ca8e35d', [
+export const Wildapter: MetaMaskContractAdaptor = new MetaMaskContractAdaptor('0xa869', '0x4860F3f0217D738A3cfF28C5E6e10C977ca8e35d', [
   {
     constant: false,
     inputs: [

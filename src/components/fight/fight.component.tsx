@@ -36,11 +36,10 @@ export const Fight = (props: FightDetail) => {
           </Stack>
         </HStack>
         <Stack className="timer" alignItems={'center'} justifyContent={'center'} color={color.state ? '#D19863' : '#77D163'}>
-          <Timer
-            date={new Date(props.detail.remainingTime)}
-            onChange={(state) => changeTextColor(Number(state.hours) === 0 && Number(state.minutes) <= 50)}
-            onComplete={() => (changeTextColor(true), console.log(''))}
-          />
+          <Timer date={new Date(props.detail.remainingTime)} onChange={(state) => changeTextColor(Number(state.hours) === 0 && Number(state.minutes) <= 50)} />
+          {
+            // onComplete={() => (changeTextColor(true), console.log(''))}
+          }
         </Stack>
       </Flex>
       <Divider borderColor={'rgb(42 89 80 / 60%)'} />

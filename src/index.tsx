@@ -21,9 +21,7 @@ import { PageDashboard } from 'src/pages/game/dashboard/dashboard.page';
 import { PageNotFound } from 'src/pages/http/not-found.page';
 import { PageRegister } from 'src/pages/user/register.page';
 import { PageGame } from 'src/pages/game/game.page';
-import { MetamaskHandler } from './components/metamask/metamask.handler';
 
-MetamaskHandler.registerEvents();
 const root: HTMLDivElement | null = document.getElementById('root') as HTMLDivElement;
 
 ReactDOM.render(
