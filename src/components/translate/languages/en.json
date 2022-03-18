@@ -158,15 +158,24 @@
   },
   "metamask": {
     "modal": {
-      "header_extension": "Please install Metamask",
-      "header_connected": "Wallet not connected to the Avalanche network",
-      "header_permission": "You have to give access to the extension",
-      "content": "Metamask is a browser extension that allows you to interact with the Ethereum blockchain. In order to play the game, your <span class='metamask-bold'>Metamask extension must be installed</span> and the avalanche network must be set.",
-      "install_metamask": "Install Metamask",
-      "Need_further_help": "Need further help?",
-      "how_setup": "How do I set up MetaMask on Avalanche?",
-      "join_discord": "Join our Discord Server",
-      "join_telegram": "Join our Telegram Group"
+      "download_metamask": "Download Metamask",
+      "help_title": "Need furher help?",
+      "help_content": "[\"How do I set up MetaMask on Avalanche?\",\"Join our Discord Server\",\"Join our Telegram Group\",\"Download Metamask\"]",
+      "extension": {
+        "header": "Please install Metamask",
+        "content": "In order to play the game, your <span class='metamask-bold'>Metamask plugin must be installed</span> and the avalanche network must be set.",
+        "button": "Download Metamask"
+      },
+      "network": {
+        "header": "Wrong network selected in your wallet!",
+        "content": "<span class='metamask-bold'>Please change to Avalanche network to continue!</span> If you need help you can use the <a href='' class='chakra-link'>Metamask setup guide</a> on Avalanche.",
+        "button": "Try to Reconnect"
+      },
+      "permission": {
+        "header": "Wallet not connected",
+        "content": "<span class='metamask-bold'>Please connect your Metamask wallet to play.</span> Kindly mind that Avalanche Network needs to be selected to continue as well.",
+        "button": "Connect Now"
+      }
     }
   }
 }

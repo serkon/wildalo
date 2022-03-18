@@ -10,16 +10,16 @@ import {
 import { store } from 'src/store/store';
 
 class MetaMaskHandler {
-  instance!: MetaMaskHandler;
+  static instance: MetaMaskHandler;
   constructor() {
-    console.log('MetaMaskHandler Registered');
-    if (this.instance instanceof MetaMaskHandler) {
+    if (MetaMaskHandler.instance instanceof MetaMaskHandler) {
       console.log('MetaMaskHandler instanceof MetaMaskHandler');
-      return this.instance;
+      return MetaMaskHandler.instance;
     }
     // TODO: window.ethereum.enable();
     this.registerEvents();
-    this.instance = this;
+    console.log('MetaMaskHandler Registered');
+    MetaMaskHandler.instance = this;
   }
 
   public checkExtension() {
@@ -27,6 +27,8 @@ class MetaMaskHandler {
     this.setMetaMaskExtension(status);
     if (!status) {
       this.setMetaMaskNetwork(false);
+      this.setMetaMaskPermission(false);
+      this.checkBalance();
     }
     return status;
   }
@@ -40,13 +42,12 @@ class MetaMaskHandler {
   public async checkPermission() {
     let status = false;
     try {
-      const account = await window.ethereum.request({ method: 'eth_accounts' });
+      const account = await Wildapter.provider.request({ method: 'eth_accounts' });
       status = account.length > 0;
       this.setMetaMaskWalletAddress(status ? account[0] : null);
     } catch (error) {
-      console.error('check permission error: ', error);
+      console.log('check permission error: ', error);
       this.setMetaMaskWalletAddress(null);
-      debugger;
       status = false;
     }
     this.setMetaMaskPermission(status);
@@ -59,18 +60,21 @@ class MetaMaskHandler {
   }
 
   public async init(): Promise<boolean> {
-    const permission = await this.checkPermission();
+    let status = false;
     const extension = await this.checkExtension();
-    const network = await this.checkNetwork();
-    const task = [extension, network, permission];
-    const status = task.filter((item) => item === false).length <= 0;
-    this.checkBalance();
+    if (extension) {
+      const permission = await this.checkPermission();
+      const network = await this.checkNetwork();
+      const task = [extension, network, permission];
+      status = task.filter((item) => item === false).length <= 0;
+      this.checkBalance();
+    }
     return status;
   }
 
   reset() {
-    store.dispatch(set_metamask_extension_status(false));
-    store.dispatch(set_metamask_network_status(false));
+    // store.dispatch(set_metamask_extension_status(false));
+    // store.dispatch(set_metamask_network_status(false));
     store.dispatch(set_metamask_permission_status(false));
     store.dispatch(set_metamask_fodr_balance(null));
     store.dispatch(set_metamask_warc_balance(null));
@@ -153,11 +157,12 @@ class MetaMaskHandler {
     });
 
     const handler = (error: any) => console.log('tribe gel:', error);
-    window.ethereum.on('message', handler);
+    Wildapter.on('message', handler);
   }
 }
 
 const mh = new MetaMaskHandler();
+mh;
 
-export { mh as MetaMaskHandler };
+export { MetaMaskHandler };
 window.wildapter = Wildapter;

@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { AxiosResponse } from 'axios';
 import { Button, Grid, GridItem, Input } from '@chakra-ui/react';
 
 import { api, AuthorizationHeader, LoginResponse, HttpResponse } from 'src/components/axios/axios.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { Wildapter } from 'src/components/metamask/adaptor';
-import { MetaMaskHandler } from 'src/components/metamask/metamask.handler';
 import { Page } from 'src/components/page/page.component';
 import { MyWildlings } from './my-wildling/my-wildling.component';
 import { MyHerds } from './my-herds/my-herds.component';
@@ -44,10 +43,8 @@ export const PageDashboard = () => {
   };
 
   const disconnect = () => {
-    MetaMaskHandler.disconnect();
+    // MetaMaskHandler.disconnect();
   };
-
-  useEffect(() => console.log('MEtamask Component'));
 
   return (
     <>
