@@ -99,22 +99,22 @@ export const MetaMaskComponent = () => {
           <ModalHeader className="header">{t(`metamask.modal.${!extension ? 'extension' : !permission ? 'permission' : !network ? 'network' : ''}.header`)}</ModalHeader>
           <ModalCloseButton className="close" />
           <ModalBody className="body">
-            {!extension && <Box className={`metamask-logo`} />}
-            <Box display={'flex'}>
+            {!extension && <Box className={`metamask-logo`} alignSelf="center" />}
+            <Box display={'flex'} alignItems={!extension ? 'center' : 'flex-start'} flexDirection={!extension ? 'column' : 'row'}>
               <Box>
                 <Box className={`content${extension ? ' content-left' : ''}`} ref={modalBodyRef} />
-                {extension && (
+                {extension && !permission && (
                   <Button variant={'primary'} onClick={direction}>
-                    {t(`metamask.modal.${!permission ? 'permission' : !network ? 'network' : ''}.button`)}
+                    {t(`metamask.modal.permission.button`)}
                   </Button>
                 )}
               </Box>
-              {!permission && <Box className={`metamask-permission`} />}
-              {permission && !network && <Box className={`metamask-network`} />}
+              {extension && !permission && <Box className={`metamask-permission`} />}
+              {extension && permission && !network && <Box className={`metamask-network`} />}
             </Box>
             {!extension && (
-              <Button variant={'primary'} onClick={direction}>
-                {t(`metamask.modal.button`)}
+              <Button variant={'primary'} onClick={direction} margin="auto">
+                {t(`metamask.modal.extension.button`)}
               </Button>
             )}
             <Box className="help">
