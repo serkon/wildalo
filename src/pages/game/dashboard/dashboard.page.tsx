@@ -4,7 +4,6 @@ import { Button, Grid, GridItem, Input } from '@chakra-ui/react';
 
 import { api, AuthorizationHeader, LoginResponse, HttpResponse } from 'src/components/axios/axios.component';
 import { useTranslate } from 'src/components/translate/translate.component';
-import { Wildapter } from 'src/components/metamask/adaptor';
 import { Page } from 'src/components/page/page.component';
 import { MyWildlings } from './my-wildling/my-wildling.component';
 import { MyHerds } from './my-herds/my-herds.component';
@@ -42,15 +41,9 @@ export const PageDashboard = () => {
     // dispatch(updateUser({ username: 'John' }));
   };
 
-  const disconnect = () => {
-    // MetaMaskHandler.disconnect();
-  };
-
   return (
     <>
       <MetaMaskComponent />
-      <Button onClick={() => console.log(Wildapter.checkPermissionToAccessAccounts())}>check</Button>
-      <Button onClick={() => disconnect()}>disconnect</Button>
       <Page title="Dashboard">
         <Grid templateRows="repeat(2, auto)" templateColumns="repeat(5, auto)" gap={5} color="white">
           <GridItem bg="#09241F" colSpan={2} p={8} borderRadius="14px">

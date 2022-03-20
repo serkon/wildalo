@@ -1,18 +1,19 @@
+import React from 'react';
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Box, Link } from '@chakra-ui/react';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useSize } from 'src/theme/util/media-query';
-import './metamask.component.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/store/store';
 import { MetaMaskHandler } from './metamask.handler';
-import React from 'react';
+import './metamask.component.scss';
 
 interface Link {
   to: string;
   external?: boolean;
 }
+
 const items: Link[] = [
   { to: 'https://support.avax.network/en/articles/4626956-how-do-i-set-up-metamask-on-avalanche', external: true },
   { to: 'https://discord.gg/Vypt9GUjKh', external: true },
@@ -22,7 +23,6 @@ const items: Link[] = [
 const Links = () => {
   const { t } = useTranslate();
   const links = JSON.parse(t('metamask.modal.help_content'));
-
   return (
     <React.Fragment>
       <ul className="help-content">
@@ -82,10 +82,11 @@ export const MetaMaskComponent = () => {
 
   useEffect(() => {
     const init = async () => {
-      await createMetaMask().init();
+      const status = await createMetaMask().init();
+      !status && console.log('TODO: Disconnect logged in user');
       setInit(true);
     };
-    !isInit && createMetaMask() && console.log('MetaMaskComponent');
+    !isInit && createMetaMask();
 
     init();
   }, []);

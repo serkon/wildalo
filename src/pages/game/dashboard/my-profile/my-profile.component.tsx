@@ -1,26 +1,29 @@
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { AxiosResponse } from 'axios';
+import { RootState } from 'src/store/store';
+import { useSelector } from 'react-redux';
 import { Avatar, Box, Link, Flex, Divider, HStack, Heading, Button, Image } from '@chakra-ui/react';
 
-import { api, HttpResponse } from 'src/components/axios/axios.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { Ranger } from 'src/pages/user/user.dto';
 import './my-profile.component.scss';
 
 export const MyProfile = () => {
   const [ranger, setRanger] = React.useState<Ranger | null>(null);
+  const [metamask, setMetamask] = React.useState<{ fodrBalance: number; warcBalance: number }>({
+    fodrBalance: 0,
+    warcBalance: 0,
+  });
+  const store = useSelector((state: RootState) => state);
 
   useEffect(() => {
-    async function fetchData() {
-      const response: AxiosResponse<HttpResponse<Ranger>> = await api.post('/my/profile');
-      const { data } = response;
+    setRanger(store.ranger.data);
+  }, [store.ranger.data]);
 
-      setRanger(data.data);
-    }
-
-    fetchData();
-  }, []); // Or [] if effect doesn't need props or state
+  useEffect(() => {
+    const { fodrBalance, warcBalance } = store.metamask;
+    setMetamask({ fodrBalance: Number(BigInt(fodrBalance)) / Math.pow(10, 12), warcBalance: Number(BigInt(warcBalance)) / Math.pow(10, 12) });
+  }, [store.metamask.fodrBalance, store.metamask.warcBalance]);
 
   const { t } = useTranslate();
 
@@ -49,7 +52,7 @@ export const MyProfile = () => {
                   {t('common.TOTAL')}
                 </Box>
                 <Image src="/images/gems/FODR.svg" width="32px" />
-                <Box fontSize="48px">42</Box>
+                <Box fontSize="48px">{metamask.fodrBalance}</Box>
               </HStack>
               <HStack color="white" justifyContent="space-between" marginTop="14px">
                 <Box fontSize="14px" flexGrow={1}>
@@ -73,7 +76,7 @@ export const MyProfile = () => {
                   {t('common.TOTAL')}
                 </Box>
                 <Image src="/images/gems/WARC.svg" width="32px" />
-                <Box fontSize="48px">50</Box>
+                <Box fontSize="48px">{metamask.warcBalance}</Box>
               </HStack>
               <HStack color="white" justifyContent="space-between" marginTop="14px">
                 <Box fontSize="14px" flexGrow={1}>

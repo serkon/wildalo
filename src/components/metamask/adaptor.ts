@@ -139,7 +139,6 @@ export class MetaMaskContractAdaptor extends EventEmitter implements MetaMaskCon
   }
 
   public async enablePermissionToAccessAccounts(): Promise<boolean> {
-    console.log(this);
     const self = this as MetaMaskContractAdaptor;
     return new Promise((resolve, _reject) => {
       self.provider
@@ -196,20 +195,20 @@ export class MetaMaskContractAdaptor extends EventEmitter implements MetaMaskCon
     return this.provider.chainId;
   }
 
-  public async getFordBudget(): Promise<string | null> {
+  public async getFordBudget(): Promise<number> {
     const checkResult = await this.checkConnection();
     if (!checkResult) {
-      return null;
+      return 0;
     }
-    return '250000000000000';
+    return 250000000000000;
   }
 
-  public async getWarcBudget(): Promise<string | null> {
+  public async getWarcBudget(): Promise<number> {
     const checkResult = await this.checkConnection();
     if (!checkResult) {
-      return null;
+      return 0;
     }
-    return '120000000000000';
+    return 120000000000000;
   }
 
   private async sendContractMethod(contract: Contract, method: string, ...args: any[]): Promise<string | boolean> {

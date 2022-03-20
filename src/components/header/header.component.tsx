@@ -32,7 +32,7 @@ const Links = () => {
   );
 };
 
-export function Header(props: { logo: string }) {
+export function Header({ logo = '' }: { logo: string }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -50,7 +50,7 @@ export function Header(props: { logo: string }) {
           />
           <HStack spacing={8} alignItems={'center'} flexGrow={{ base: '0', md: '1' }}>
             <Box>
-              <Image srcSet={props.logo} objectFit="contain" maxW="170px" />
+              <Image srcSet={logo} objectFit="contain" maxW="170px" />
             </Box>
           </HStack>
           <HStack as={'nav'} spacing={{ md: 6, lg: '44px' }} alignItems={'flex-end'} display={{ base: 'none', md: 'flex' }} padding={{ md: 6, lg: '44px' }}>

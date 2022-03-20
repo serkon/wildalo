@@ -5,6 +5,7 @@ import { Action } from 'src/store/store';
 export enum RangerEnum {
   SET_RANGER = 'SET_RANGER',
   UPDATE_RANGER = 'UPDATE_RANGER',
+  SET_USER_LOGIN = 'SET_USER_LOGIN',
 }
 
 export interface RangerReducerState {
@@ -22,6 +23,9 @@ export const RangerReducer: Reducer = (state: RangerReducerState = init, action)
     case RangerEnum.SET_RANGER: {
       return { ...state, data: action.payload };
     }
+    case RangerEnum.SET_USER_LOGIN: {
+      return { ...state, login: action.payload };
+    }
     case RangerEnum.UPDATE_RANGER: {
       return { ...state, data: { ...state.data, ...action.payload } };
     }
@@ -32,6 +36,11 @@ export const RangerReducer: Reducer = (state: RangerReducerState = init, action)
 
 export const set_ranger = (payload: Ranger): AnyAction => ({
   type: RangerEnum.SET_RANGER,
+  payload,
+});
+
+export const set_user_login = (payload: boolean): AnyAction => ({
+  type: RangerEnum.SET_USER_LOGIN,
   payload,
 });
 

@@ -1,6 +1,7 @@
 import { CombinedState, combineReducers, createStore } from 'redux';
 
 import { MetamaskReducer } from './reducers/MetamaskReducer';
+import { LayoutReducer } from './reducers/LayoutReducer';
 import { RangerReducer } from './reducers/RangerReducer';
 
 export interface Action<T> {
@@ -10,8 +11,8 @@ export interface Action<T> {
 
 const rootReducer = combineReducers({
   // products: ProductReducer,
-  // companies: CompanyReducer,
   // basket: BasketReducer,
+  layout: LayoutReducer,
   metamask: MetamaskReducer,
   ranger: RangerReducer,
 });

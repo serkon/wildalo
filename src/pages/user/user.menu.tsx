@@ -1,8 +1,21 @@
 import { Menu, MenuButton, Button, HStack, Avatar, Stack, Box, MenuList, Divider } from '@chakra-ui/react';
+import { useState } from 'react';
+import { useStore } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { HttpResponse } from 'src/components/axios/axios.component';
+import { FightsOverview } from 'src/components/fight/fight.dto';
 import { useTranslate } from 'src/components/translate/translate.component';
+import { useApi } from 'src/hooks';
+import { set_ranger } from 'src/store/reducers/RangerReducer';
+import { Ranger } from './user.dto';
 
 export const UserProfile = () => {
   const { t } = useTranslate();
+  const store = useStore().getState();
+  const { dispatch } = useStore();
+
+  // const { _data, _isLoading, _isError } = useApi({ url: '/my/profile' }, (data: HttpResponse<Ranger>) => dispatch(set_ranger(data.data)), store.metamask.status);
+  useApi({ url: '/my/info' }, (data: HttpResponse<Ranger>) => dispatch(set_ranger(data.data)), store.metamask.status);
 
   return (
     <>
@@ -13,11 +26,11 @@ export const UserProfile = () => {
           </Box>
           <HStack color="white" justifyContent="space-between" marginTop="14px!important" fontSize="13px" lineHeight="15px">
             <Box fontWeight="500">{t('common.Claimable')}</Box>
-            <Box fontWeight="400">1233</Box>
+            <Box fontWeight="400">{store.ranger.data && store.ranger.data.claimableFodrBalance}</Box>
           </HStack>
           <HStack color="white" justifyContent="space-between" marginTop="14px" fontWeight="600" lineHeight="15px">
             <Box fontSize="13px">{t('common.TOTAL')}</Box>
-            <Box fontSize="16px">42</Box>
+            <Box fontSize="16px">{Number(BigInt(store.metamask.fodrBalance)) / Math.pow(10, 12)}</Box>
           </HStack>
         </Stack>
         <Stack marginTop="23px" textAlign="left">
@@ -26,11 +39,11 @@ export const UserProfile = () => {
           </Box>
           <HStack color="white" justifyContent="space-between" marginTop="14px!important" fontSize="13px" lineHeight="15px">
             <Box fontWeight="500">{t('common.Claimable')}</Box>
-            <Box fontWeight="400">0</Box>
+            <Box fontWeight="400">{store.ranger.data && store.ranger.data.claimableWarcBalance}</Box>
           </HStack>
           <HStack color="white" justifyContent="space-between" marginTop="14px" fontWeight="600" lineHeight="15px">
             <Box fontSize="13px">{t('common.TOTAL')}</Box>
-            <Box fontSize="16px">50</Box>
+            <Box fontSize="16px">{Number(BigInt(store.metamask.warcBalance)) / Math.pow(10, 12)}</Box>
           </HStack>
         </Stack>
         <Button variant="outline" mt={'30px'} mb={'24px'}>
@@ -46,10 +59,10 @@ export const UserProfile = () => {
         />
         <HStack color="white">
           <Box fontSize={13} fontWeight={700}>
-            Showranger
+            {store.ranger.data && store.ranger.data.name}
           </Box>
           <Box fontSize={11} fontWeight={700} backgroundColor="#615A48" padding="2px 4px" borderRadius="2px" boxShadow="0px 1px 0px #211F18;">
-            {t('common.LEVEL')} 2
+            {t('common.LEVEL')} {store.ranger.data && store.ranger.data.level}
           </Box>
         </HStack>
         <Button variant="outline" mt={'20px !important'}>
@@ -62,60 +75,106 @@ export const UserProfile = () => {
 
 export const UserMenu = () => {
   const { t } = useTranslate();
+  const store = useStore().getState();
+  const navigate = useNavigate();
+  const startPlayHandler = () => {
+    // window.location.reload();
+    navigate('/game/dashboard');
+  };
+  const [state, setState] = useState<FightsOverview>({
+    fights: [],
+    winScore: 0,
+    totalScore: 0,
+    treshold: 0,
+  });
+
+  const reload = () => {
+    window.location.reload();
+  };
+
+  useApi(
+    { url: '/my/animal/fights' },
+    (data: HttpResponse<FightsOverview>) => {
+      setState(data.data);
+    },
+    store.metamask.status,
+  );
 
   return (
     <>
-      <Menu flip={true}>
-        <MenuButton
-          as={Button}
-          rounded={'full'}
-          variant={'link'}
-          cursor={'pointer'}
-          minW={0}
-          _focus={{ boxShadow: '0 0 0 4px rgba(255, 255, 225, 0.1)' }}
-          _hover={{ boxShadow: '0 0 0 4px rgba(255, 255, 225, 0.1)' }}
-        >
-          <HStack spacing="7" backgroundColor="#0B2F28" borderColor="rgba(255,255,255,0.3)" borderWidth="1px" borderStyle="solid" borderRadius="24px">
-            <Avatar
-              margin="4px"
-              size={'sm'}
-              src={'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'}
-            />
-            <Stack spacing="0" alignItems="end" paddingRight="21px" display={{ base: 'none', md: 'flex' }}>
-              <Box color="white" fontSize="12px" marginBottom="0.5">
-                ShowRanger
-              </Box>
-              <HStack spacing="1">
-                <img src="/images/common/fodr.svg" />
-                <Box color="white" fontSize="15px">
-                  456.23
-                </Box>
+      {store.layout.play && store.metamask.status && (
+        <>
+          <Menu flip={true}>
+            <MenuButton
+              as={Button}
+              rounded={'full'}
+              variant={'link'}
+              cursor={'pointer'}
+              minW={0}
+              _focus={{ boxShadow: '0 0 0 4px rgba(255, 255, 225, 0.1)' }}
+              _hover={{ boxShadow: '0 0 0 4px rgba(255, 255, 225, 0.1)' }}>
+              <HStack spacing="7" backgroundColor="#0B2F28" borderColor="rgba(255,255,255,0.3)" borderWidth="1px" borderStyle="solid" borderRadius="24px">
+                <Avatar
+                  margin="4px"
+                  size={'sm'}
+                  src={'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'}
+                />
+                <Stack spacing="0" alignItems="end" paddingRight="21px" display={{ base: 'none', md: 'flex' }}>
+                  <Box color="white" fontSize="12px" marginBottom="0.5">
+                    ShowRanger
+                  </Box>
+                  <HStack spacing="1">
+                    <img src="/images/common/fodr.svg" />
+                    <Box color="white" fontSize="15px">
+                      456.23
+                    </Box>
+                  </HStack>
+                </Stack>
               </HStack>
-            </Stack>
+            </MenuButton>
+            <MenuList
+              backgroundColor="#0B2F28"
+              borderRadius="14px"
+              border="1px solid rgba(255,255,255,0.2)"
+              boxShadow="0px 0px 10px rgba(0, 0, 0, 0.4);"
+              textAlign="center"
+              zIndex={2}>
+              <UserProfile />
+            </MenuList>
+          </Menu>
+          <HStack
+            as={Button}
+            variant="ghost"
+            border="1px solid #FFC633"
+            borderRadius="22px"
+            height="42px"
+            color="white"
+            padding="0 15px"
+            marginLeft="10px"
+            display={{ base: 'none', lg: 'flex' }}>
+            <Box fontSize="14px" fontWeight="700">
+              {t('common.Fight')}
+            </Box>
+            <Box fontSize="11px" fontWeight="800" borderRadius="50%" bg="#FB3535" width="16px" height="16px" alignItems="center" justifyContent="center" display="flex">
+              {state.fights.length}
+            </Box>
           </HStack>
-        </MenuButton>
-        <MenuList backgroundColor="#0B2F28" borderRadius="14px" border="1px solid rgba(255,255,255,0.2)" boxShadow="0px 0px 10px rgba(0, 0, 0, 0.4);" textAlign="center" zIndex={2}>
-          <UserProfile />
-        </MenuList>
-      </Menu>
-      <HStack
-        as={Button}
-        variant="ghost"
-        border="1px solid #FFC633"
-        borderRadius="22px"
-        height="42px"
-        color="white"
-        padding="0 15px"
-        marginLeft="10px"
-        display={{ base: 'none', lg: 'flex' }}
-      >
-        <Box fontSize="14px" fontWeight="700">
-          {t('common.Fight')}
-        </Box>
-        <Box fontSize="11px" fontWeight="800" borderRadius="50%" bg="#FB3535" width="16px" height="16px" alignItems="center" justifyContent="center" display="flex">
-          2
-        </Box>
-      </HStack>
+        </>
+      )}
+      {!store.layout.play && (
+        <>
+          <Button variant={'primary'} onClick={startPlayHandler}>
+            {t('common.Start_Playing_Now')}
+          </Button>
+        </>
+      )}
+      {store.layout.play && !store.metamask.status && (
+        <>
+          <Button variant={'primary'} onClick={reload}>
+            {t('common.Connect')}
+          </Button>
+        </>
+      )}
     </>
   );
 };

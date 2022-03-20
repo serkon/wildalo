@@ -19,7 +19,9 @@
     "wins": "wins",
     "Active": "Active",
     "Edit_Profile": "Edit Profile",
-    "claim": "claim"
+    "claim": "claim",
+    "Start_Playing_Now": "Start Playing Now",
+    "Connect": "Connect"
   },
   "links": {
     "home": "Home",

@@ -83,7 +83,7 @@ export interface UseFetch {
   data: any;
 }
 
-export const useApi = (params: AxiosRequestConfig, callback?: (data: any) => void): UseFetch => {
+export const useApi = (params: AxiosRequestConfig, callback?: (data: any) => void, watch: any = null): UseFetch => {
   const [data, setData] = useState(null);
   const [fetch] = useState({ ...{ url: '', method: 'POST' }, ...params } as AxiosRequestConfig);
   const [isLoading, setIsLoading] = useState(false);
@@ -95,7 +95,6 @@ export const useApi = (params: AxiosRequestConfig, callback?: (data: any) => voi
       setIsLoading(true);
       try {
         const result = await api(fetch);
-
         setData(result.data);
         callback && callback(result.data);
       } catch (error) {
@@ -105,7 +104,7 @@ export const useApi = (params: AxiosRequestConfig, callback?: (data: any) => voi
     };
 
     fetchData();
-  }, [fetch]);
+  }, [watch, fetch]);
 
   return { data, isLoading, isError };
 };
