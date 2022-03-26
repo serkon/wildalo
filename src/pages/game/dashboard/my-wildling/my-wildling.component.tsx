@@ -6,6 +6,7 @@ import { Triad } from 'src/components/triad/triad.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { Animal } from 'src/components/animal/animal.dto';
 import { AxiosResponse } from 'axios';
+import { useStore } from 'react-redux';
 
 const getAnimals = async (): Promise<HttpResponse<Animal[]>> => {
   const response: AxiosResponse<HttpResponse<Animal[]>> = await api.post('/my/animal/list', {
@@ -21,6 +22,7 @@ const getAnimals = async (): Promise<HttpResponse<Animal[]>> => {
 export const MyWildlings = () => {
   const { t } = useTranslate();
   const [animals, setAnimals] = React.useState<HttpResponse<Animal[]> | null>(null);
+  const store = useStore().getState();
 
   useEffect(() => {
     async function fetchData() {
@@ -29,7 +31,7 @@ export const MyWildlings = () => {
       setAnimals(response);
     }
 
-    fetchData();
+    store.metamask.status && fetchData();
   }, []);
 
   return (

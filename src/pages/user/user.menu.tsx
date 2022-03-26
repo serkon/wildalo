@@ -102,7 +102,7 @@ export const UserMenu = () => {
 
   return (
     <>
-      {store.layout.play && store.metamask.status && (
+      {store.layout.play && store.metamask.status && store.ranger.data && (
         <>
           <Menu flip={true}>
             <MenuButton
@@ -114,19 +114,15 @@ export const UserMenu = () => {
               _focus={{ boxShadow: '0 0 0 4px rgba(255, 255, 225, 0.1)' }}
               _hover={{ boxShadow: '0 0 0 4px rgba(255, 255, 225, 0.1)' }}>
               <HStack spacing="7" backgroundColor="#0B2F28" borderColor="rgba(255,255,255,0.3)" borderWidth="1px" borderStyle="solid" borderRadius="24px">
-                <Avatar
-                  margin="4px"
-                  size={'sm'}
-                  src={'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'}
-                />
+                <Avatar margin="4px" size={'sm'} src={`${store.ranger.data && process.env.REACT_APP_PUBLIC_URL}/uploads/${store.ranger.data?.imageId}.jpeg`} />
                 <Stack spacing="0" alignItems="end" paddingRight="21px" display={{ base: 'none', md: 'flex' }}>
                   <Box color="white" fontSize="12px" marginBottom="0.5">
-                    ShowRanger
+                    {store.ranger.data.username}
                   </Box>
                   <HStack spacing="1">
                     <img src="/images/common/fodr.svg" />
                     <Box color="white" fontSize="15px">
-                      456.23
+                      {store.ranger.data.claimableFodrBalance}
                     </Box>
                   </HStack>
                 </Stack>
@@ -168,7 +164,7 @@ export const UserMenu = () => {
           </Button>
         </>
       )}
-      {store.layout.play && !store.metamask.status && (
+      {((store.layout.play && !store.ranger.data) || (store.layout.play && !store.metamask.status)) && (
         <>
           <Button variant={'primary'} onClick={reload}>
             {t('common.Connect')}

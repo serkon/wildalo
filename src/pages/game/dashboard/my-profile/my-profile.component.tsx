@@ -29,16 +29,22 @@ export const MyProfile = () => {
 
   return (
     <>
-      {ranger && (
+      {
         <>
           <Flex justifyContent={'center'} alignItems="center" padding="16px 18px" direction={'column'} position="relative">
-            <Avatar margin="0" width="128px" height={'128px'} src={`${process.env.REACT_APP_PUBLIC_URL}/uploads/${ranger?.imageId}.jpeg`} />
+            <Avatar margin="0" width="128px" height={'128px'} src={`${ranger && process.env.REACT_APP_PUBLIC_URL}/uploads/${ranger?.imageId}.jpeg`} />
             <Box fontSize={16} fontWeight={700} mt={8}>
               {ranger?.username}
             </Box>
-            <Link as={NavLink} to={'user/profile'} variant="header" fontWeight="400" fontSize={'13px'} lineHeight="100%">
-              {t('common.Edit_Profile')}
-            </Link>
+            {(ranger && (
+              <Link as={NavLink} to={'user/profile'} variant="header" fontWeight="400" fontSize={'13px'} lineHeight="100%">
+                {t('common.Edit_Profile')}
+              </Link>
+            )) ?? (
+              <Box fontWeight="400" fontSize={'13px'} lineHeight="100%" color={'#87AFA8'}>
+                {t('common.Edit_Profile')}
+              </Box>
+            )}
           </Flex>
           <Divider borderBottomWidth={'1px'} borderColor="rgba(42, 89, 80, 0.6);" my="16px" />
           <Box px={4} py={7}>
@@ -59,7 +65,7 @@ export const MyProfile = () => {
                   {t('common.Claimable')}
                 </Box>
                 <Box fontSize="14px" lineHeight="16px">
-                  {ranger.claimableFodrBalance}
+                  {ranger?.claimableFodrBalance}
                 </Box>
                 <Button variant={'ghost'} paddingRight="0">
                   {t('common.claim')}
@@ -83,7 +89,7 @@ export const MyProfile = () => {
                   {t('common.Claimable')}
                 </Box>
                 <Box fontSize="14px" lineHeight="16px">
-                  {ranger.claimableWarcBalance}
+                  {ranger?.claimableWarcBalance}
                 </Box>
                 <Button variant={'ghost'} paddingRight="0">
                   {t('common.claim')}
@@ -92,7 +98,7 @@ export const MyProfile = () => {
             </Flex>
           </Box>
         </>
-      )}
+      }
     </>
   );
 };

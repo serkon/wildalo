@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { Heading, Flex, Button, HStack, Text, Box, Image } from '@chakra-ui/react';
 import { AxiosResponse } from 'axios';
+import { useStore } from 'react-redux';
 
 import { HttpResponse, api } from 'src/components/axios/axios.component';
 import { Herd, HerdState } from 'src/components/fight/fight.dto';
@@ -19,26 +20,27 @@ export const MyHerds = () => {
   const [herds, setHerds] = React.useState<Herd[] | null>(null);
   const [idle, setIdle] = React.useState(0);
   const [winner, setWinner] = React.useState<Herd | null>(null);
+  const store = useStore().getState();
 
   useEffect(() => {
     async function fetchData() {
       let count = 0;
-      const response = await getHerds();
+      const fetch = async () => {
+        const response = await getHerds();
+        setHerds(response.data);
+        const findWinner: Herd | null =
+          (response.data.length > 0 &&
+            response.data.reduce((previous: Herd, herd: Herd) => {
+              if (herd.state === HerdState.IDLE) {
+                setIdle(++count);
+              }
 
-      setHerds(response.data);
-
-      const findWinner: Herd | null =
-        (response.data.length > 0 &&
-          response.data.reduce((previous: Herd, herd: Herd) => {
-            if (herd.state === HerdState.IDLE) {
-              setIdle(++count);
-            }
-
-            return previous.win > herd.win ? previous : herd;
-          })) ||
-        null;
-
-      setWinner(findWinner);
+              return previous.win > herd.win ? previous : herd;
+            })) ||
+          null;
+        setWinner(findWinner);
+      };
+      store.metamask.status && fetch();
     }
 
     fetchData();
@@ -78,10 +80,10 @@ export const MyHerds = () => {
               {t('dashboard.most_successfull')}
             </Text>
             <Text fontSize={'29px'} lineHeight="34px" mb={0.5}>
-              {(winner && winner.name) || t('common.no_winner_herd')}
+              {(winner && winner.name) || t('dashboard.no_winner_herd')}
             </Text>
             <HStack justifyContent={'center'}>
-              <Image src="/images/page/dashboard/trophy.svg" />
+              <Image src="/images/pages/game/dashboard/trophy.svg" />
               <Text fontSize={'46px'} lineHeight="54px">
                 {winner ? winner.win : 0}
               </Text>

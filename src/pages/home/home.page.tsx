@@ -31,7 +31,7 @@ export const PageHome = () => {
 
   return (
     <>
-      <Heading as="h3" size={isLarge ? 'lg' : 'sm'} variant="center" isTruncated className="page-banner">
+      <Heading as="h3" size={isLarge ? 'lg' : 'sm'} variant="center" isTruncated className="page-banner" alignItems={'center'} display={'flex'} justifyContent={'center'}>
         {t('main.slogan')}
       </Heading>
       <Hero />

@@ -1,6 +1,7 @@
 import { Heading, Flex, HStack, Text, Button, Box, Badge, Stack } from '@chakra-ui/react';
 import { AxiosResponse } from 'axios';
 import React, { useEffect } from 'react';
+import { useStore } from 'react-redux';
 import { api } from 'src/components/axios/axios.component';
 import { ChartPie } from 'src/components/chart/pie/pie.component';
 import { Fight } from 'src/components/fight/fight.component';
@@ -17,25 +18,20 @@ const requestFightsOverview = async (): Promise<AxiosResponse<FightsOverview>> =
 export const MyFights = () => {
   const { t } = useTranslate();
   const [res, setResponse] = React.useState<FightsOverview>();
-  const getFodr = () => {
-    window.wildapter.checkMetamask();
-    window.wildapter.checkPermissionToAccessAccounts();
-    window.wildapter.sign();
-    window.wildapter.checkConnection();
-    window.wildapter.getSelectedChainId();
-    window.wildapter.getSelectedAddress();
-    window.wildapter.upgradeCard();
-    window.wildapter.createAuction();
+  const store = useStore().getState();
+  const getNew = () => {
+    console.log('get new');
   };
 
   useEffect(() => {
     async function fetchData() {
       const response: AxiosResponse<FightsOverview> = await requestFightsOverview();
-
       setResponse(response.data);
     }
 
-    fetchData();
+    if (store.metamask.status) {
+      fetchData();
+    }
   }, []);
 
   return (
@@ -63,7 +59,7 @@ export const MyFights = () => {
         </Box>
       )}
       {/* TODO: Store'da adamın hiç herds'i yoksa disable et kontrolü ekle */}
-      <Button variant={'primary'} mt="34px" disabled={res && res.fights.length >= 3} onClick={getFodr}>
+      <Button variant={'primary'} mt="34px" disabled={!store.metamask.status || (res && res.fights.length >= 3)} onClick={getNew}>
         {t('dashboard.start_new')}!
         <HStack position={'absolute'} right={'16px'} fontSize="12px" fontWeight={'bold'}>
           <Box>{t('dashboard.Remaining')}</Box>
@@ -75,7 +71,7 @@ export const MyFights = () => {
       <ChartPie data={res ? (res?.winScore * 100) / res?.totalScore : 0} description="Fight Win Rate" width="207px" height="207px" style={{ marginTop: '67px' }} />
       <Stack alignItems={'center'}>
         <Box fontWeight={500} fontSize={'19px'} lineHeight="27px">
-          {res?.winScore} / {res?.totalScore}
+          {res?.winScore ?? 0} / {res?.totalScore ?? 0}
         </Box>
         <Box fontSize={'10px'} marginTop="-2px!important" lineHeight="14px" opacity={0.3}>
           {t('dashboard.Total_Fights')}
