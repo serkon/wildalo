@@ -6,7 +6,8 @@ import { Triad } from 'src/components/triad/triad.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { Animal } from 'src/components/animal/animal.dto';
 import { AxiosResponse } from 'axios';
-import { useStore } from 'react-redux';
+import { RootState } from 'src/store/store';
+import { useSelector } from 'react-redux';
 
 const getAnimals = async (): Promise<HttpResponse<Animal[]>> => {
   const response: AxiosResponse<HttpResponse<Animal[]>> = await api.post('/my/animal/list', {
@@ -22,7 +23,7 @@ const getAnimals = async (): Promise<HttpResponse<Animal[]>> => {
 export const MyWildlings = () => {
   const { t } = useTranslate();
   const [animals, setAnimals] = React.useState<HttpResponse<Animal[]> | null>(null);
-  const store = useStore().getState();
+  const store = useSelector<RootState>((state: RootState): RootState => state) as RootState;
 
   useEffect(() => {
     async function fetchData() {
@@ -32,7 +33,7 @@ export const MyWildlings = () => {
     }
 
     store.metamask.status && fetchData();
-  }, []);
+  }, [store.metamask.status]);
 
   return (
     <>

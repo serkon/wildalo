@@ -1,13 +1,14 @@
 import { Heading, Flex, HStack, Text, Button, Box, Badge, Stack } from '@chakra-ui/react';
 import { AxiosResponse } from 'axios';
 import React, { useEffect } from 'react';
-import { useStore } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { api } from 'src/components/axios/axios.component';
 import { ChartPie } from 'src/components/chart/pie/pie.component';
 import { Fight } from 'src/components/fight/fight.component';
 import { FightsOverview } from 'src/components/fight/fight.dto';
 
 import { useTranslate } from 'src/components/translate/translate.component';
+import { RootState } from 'src/store/store';
 
 const requestFightsOverview = async (): Promise<AxiosResponse<FightsOverview>> => {
   const response = await api.post('/my/animal/fights');
@@ -18,7 +19,7 @@ const requestFightsOverview = async (): Promise<AxiosResponse<FightsOverview>> =
 export const MyFights = () => {
   const { t } = useTranslate();
   const [res, setResponse] = React.useState<FightsOverview>();
-  const store = useStore().getState();
+  const store = useSelector<RootState>((state: RootState): RootState => state) as RootState;
   const getNew = () => {
     console.log('get new');
   };
@@ -32,7 +33,7 @@ export const MyFights = () => {
     if (store.metamask.status) {
       fetchData();
     }
-  }, []);
+  }, [store.metamask.status]);
 
   return (
     <div className="my-herds">

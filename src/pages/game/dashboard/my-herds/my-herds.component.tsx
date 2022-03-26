@@ -2,12 +2,13 @@ import React from 'react';
 import { useEffect } from 'react';
 import { Heading, Flex, Button, HStack, Text, Box, Image } from '@chakra-ui/react';
 import { AxiosResponse } from 'axios';
-import { useStore } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { HttpResponse, api } from 'src/components/axios/axios.component';
 import { Herd, HerdState } from 'src/components/fight/fight.dto';
 import { useTranslate } from 'src/components/translate/translate.component';
 import './my-herds.component.scss';
+import { RootState } from 'src/store/store';
 
 const getHerds = async (): Promise<HttpResponse<Herd[]>> => {
   const response: AxiosResponse<HttpResponse<Herd[]>> = await api.post('/my/herd/list');
@@ -20,7 +21,7 @@ export const MyHerds = () => {
   const [herds, setHerds] = React.useState<Herd[] | null>(null);
   const [idle, setIdle] = React.useState(0);
   const [winner, setWinner] = React.useState<Herd | null>(null);
-  const store = useStore().getState();
+  const store = useSelector<RootState>((state: RootState): RootState => state) as RootState;
 
   useEffect(() => {
     async function fetchData() {
@@ -44,7 +45,7 @@ export const MyHerds = () => {
     }
 
     fetchData();
-  }, []);
+  }, [store.metamask.status]);
 
   return (
     <div className="my-herds">
