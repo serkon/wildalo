@@ -12,10 +12,6 @@ import { Ranger } from './user.dto';
 export const UserProfile = () => {
   const { t } = useTranslate();
   const store = useStore().getState();
-  const { dispatch } = useStore();
-
-  // const { _data, _isLoading, _isError } = useApi({ url: '/my/profile' }, (data: HttpResponse<Ranger>) => dispatch(set_ranger(data.data)), store.metamask.status);
-  useApi({ url: '/my/info' }, (data: HttpResponse<Ranger>) => dispatch(set_ranger(data.data)), store.metamask.status);
 
   return (
     <>
@@ -52,11 +48,7 @@ export const UserProfile = () => {
       </Box>
       <Divider />
       <Stack justifyContent={'center'} alignItems="center" padding="28px 18px 16px 18px">
-        <Avatar
-          margin="4px"
-          size={'lg'}
-          src={'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'}
-        />
+        <Avatar margin="4px" size={'lg'} src={`${store.ranger.data && process.env.REACT_APP_PUBLIC_URL}/uploads/${store.ranger.data?.imageId}.jpeg`} />
         <HStack color="white">
           <Box fontSize={13} fontWeight={700}>
             {store.ranger.data && store.ranger.data.name}
@@ -76,6 +68,7 @@ export const UserProfile = () => {
 export const UserMenu = () => {
   const { t } = useTranslate();
   const store = useStore().getState();
+  const { dispatch } = useStore();
   const navigate = useNavigate();
   const startPlayHandler = () => {
     // window.location.reload();
@@ -96,6 +89,17 @@ export const UserMenu = () => {
     { url: '/my/animal/fights' },
     (data: HttpResponse<FightsOverview>) => {
       setState(data.data);
+      console.log(store);
+    },
+    store.metamask.status,
+  );
+
+  // const { _data, _isLoading, _isError } = useApi({ url: '/my/profile' }, (data: HttpResponse<Ranger>) => dispatch(set_ranger(data.data)), store.metamask.status);
+  useApi(
+    { url: '/my/info' },
+    (data: HttpResponse<Ranger>) => {
+      console.log(data);
+      dispatch(set_ranger(data.data));
     },
     store.metamask.status,
   );
