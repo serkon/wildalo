@@ -92,15 +92,15 @@ export const UserMenu = () => {
       console.log(store);
     },
     store.metamask.status,
+    store.metamask.status,
   );
 
-  // const { _data, _isLoading, _isError } = useApi({ url: '/my/profile' }, (data: HttpResponse<Ranger>) => dispatch(set_ranger(data.data)), store.metamask.status);
   useApi(
     { url: '/my/info' },
     (data: HttpResponse<Ranger>) => {
-      console.log(data);
       dispatch(set_ranger(data.data));
     },
+    store.metamask.status,
     store.metamask.status,
   );
 
