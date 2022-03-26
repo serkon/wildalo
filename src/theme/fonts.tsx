@@ -1,4 +1,4 @@
 export const fonts = {
-  heading: 'Roboto',
+  heading: 'Roboto Slab',
   body: 'Roboto',
 };

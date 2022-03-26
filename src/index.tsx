@@ -7,6 +7,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import '@fontsource/ubuntu';
 import '@fontsource/berkshire-swash';
 import '@fontsource/roboto';
+import '@fontsource/roboto-slab';
 import '@fontsource/saira';
 
 import './index.scss';

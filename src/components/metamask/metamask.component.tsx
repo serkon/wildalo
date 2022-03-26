@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'src/store/store';
 import { MetaMaskHandler } from './metamask.handler';
 import './metamask.component.scss';
+import { useNavigate } from 'react-router-dom';
 
 interface Link {
   to: string;
@@ -46,6 +47,7 @@ export const MetaMaskComponent = () => {
   const [network, setNetwork] = useState(false);
   const [permission, setPermission] = useState(false);
   const [isInit, setInit] = useState(false);
+  const navigate = useNavigate();
   const { onClose } = useDisclosure({
     onOpen: () => {
       // setExtension(true);
@@ -63,7 +65,7 @@ export const MetaMaskComponent = () => {
     [extension, network, permission, t],
   );
   const direction = () => {
-    window.open(items[3].to, '_blank');
+    window.open('https://metatask.io/', '_blank');
   };
 
   useLayoutEffect(() => {
@@ -97,7 +99,7 @@ export const MetaMaskComponent = () => {
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px) hue-rotate(10deg)" />
         <ModalContent bgColor={'#0B2F28'} className="metamask-modal-content">
           <ModalHeader className="header">{t(`metamask.modal.${!extension ? 'extension' : !permission ? 'permission' : !network ? 'network' : ''}.header`)}</ModalHeader>
-          <ModalCloseButton className="close" />
+          <ModalCloseButton className="close" onClick={() => navigate('/')} />
           <ModalBody className="body">
             {!extension && <Box className={`metamask-logo`} alignSelf="center" />}
             <Box display={'flex'} alignItems={!extension ? 'center' : 'flex-start'} flexDirection={!extension ? 'column' : 'row'}>

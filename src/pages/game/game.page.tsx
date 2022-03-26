@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { set_layout_play_button } from 'src/store/reducers/LayoutReducer';
+import { GameHero } from './hero/hero.page';
 
 export const PageGame = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export const PageGame = () => {
 
   return (
     <>
+      <GameHero />
       <Outlet />
     </>
   );
