@@ -7,10 +7,6 @@ import './hero.page.scss';
 export const GameHero = () => {
   const { t } = useTranslate();
   const [isOpen, setOpen] = useState(false);
-  const setCookie = () => {
-    window.localStorage.setItem('game-hero-closed', 'true');
-  };
-
   const onToggle = () => {
     setOpen(!isOpen);
     window.localStorage.setItem('game-hero-closed', `${!isOpen}`);
@@ -18,12 +14,8 @@ export const GameHero = () => {
 
   useEffect(() => {
     const isClosed = window.localStorage.getItem('game-hero-closed');
-    window.addEventListener('beforeunload', setCookie);
     setOpen(isClosed === 'true');
-    return () => {
-      window.removeEventListener('beforeunload', setCookie);
-      setOpen(true);
-    };
+    window.localStorage.setItem('game-hero-closed', `true`);
   }, []);
   return (
     <>
