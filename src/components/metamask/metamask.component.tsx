@@ -9,6 +9,7 @@ import { RootState } from 'src/store/store';
 import { MetaMaskHandler } from './metamask.handler';
 import './metamask.component.scss';
 import { useNavigate } from 'react-router-dom';
+import { Wildapter } from './adaptor';
 
 interface Link {
   to: string;
@@ -65,7 +66,8 @@ export const MetaMaskComponent = () => {
     [extension, network, permission, t],
   );
   const direction = () => {
-    window.open('https://metatask.io/', '_blank');
+    // window.open('https://metatask.io/', '_blank');
+    Wildapter.enablePermissionToAccessAccounts();
   };
 
   useLayoutEffect(() => {
