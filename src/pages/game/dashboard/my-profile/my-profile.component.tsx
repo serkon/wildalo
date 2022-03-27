@@ -36,6 +36,9 @@ export const MyProfile = () => {
             <Box fontSize={16} fontWeight={700} mt={8}>
               {ranger?.username}
             </Box>
+            <Box fontWeight="400" fontSize={'13px'} lineHeight="100%" mb="4">
+              {store.metamask.walletAddress && store.metamask.walletAddress.slice(0, 13)}
+            </Box>
             {(ranger && (
               <Link as={NavLink} to={'user/profile'} variant="header" fontWeight="400" fontSize={'13px'} lineHeight="100%">
                 {t('common.Edit_Profile')}

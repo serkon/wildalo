@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { store } from 'src/store/store';
 
 export enum AuthorizationHeader {
   Bearer = 'Bearer',
@@ -9,6 +10,7 @@ export enum AuthorizationHeader {
 
 const env = process.env.REACT_APP_API_URL;
 
+// store.subscribe(() => console.log(store.getState()));
 export const api = axios.create({
   baseURL: env,
   headers: {
@@ -24,15 +26,19 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use(
-  (response: AxiosRequestConfig<any>) => {
+  (request: AxiosRequestConfig<any>) => {
+    request.headers = { ...request.headers };
     const token = window.localStorage.getItem(AuthorizationHeader.AccessToken);
-
-    response.headers = { ...response.headers };
     if (token) {
-      response.headers['Authorization'] = 'Bearer ' + token;
+      request.headers['Authorization'] = 'Bearer ' + token;
     }
-
-    return response;
+    const { metamask } = store.getState();
+    if (metamask && request.method === 'post') {
+      request.headers['metamask'] = metamask.walletAddress;
+      request.data = { ...request.data };
+      request.data['data'] = { ...request.data['data'], id: metamask.walletAddress };
+    }
+    return request;
   },
   (error) => {
     Promise.reject(error);
@@ -93,6 +99,7 @@ export interface RefreshTokenResponse {
   [AuthorizationHeader.AccessToken]: string;
   status: string;
 }
+
 export interface LoginRequest {
   email: string;
   password: string;

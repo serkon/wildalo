@@ -6,7 +6,7 @@ import { HttpResponse } from 'src/components/axios/axios.component';
 import { FightsOverview } from 'src/components/fight/fight.dto';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useApi } from 'src/hooks';
-import { set_ranger } from 'src/store/reducers/RangerReducer';
+import { set_ranger, set_user_login } from 'src/store/reducers/RangerReducer';
 import { Ranger } from './user.dto';
 
 export const UserProfile = () => {
@@ -89,21 +89,24 @@ export const UserMenu = () => {
     { url: '/my/animal/fights' },
     (data: HttpResponse<FightsOverview>) => {
       setState(data.data);
-      console.log(store);
     },
     store.metamask.status,
     store.metamask.status,
   );
 
-  useApi(
+  const { data, isLoading, isError } = useApi(
     { url: '/my/info' },
     (data: HttpResponse<Ranger>) => {
       dispatch(set_ranger(data.data));
+      dispatch(set_user_login(true));
     },
     store.metamask.status,
     store.metamask.status,
   );
 
+  data;
+  isLoading;
+  isError;
   return (
     <>
       {store.layout.play && store.metamask.status && store.ranger.data && (
@@ -126,7 +129,7 @@ export const UserMenu = () => {
                   <HStack spacing="1">
                     <img src="/images/common/fodr.svg" />
                     <Box color="white" fontSize="15px">
-                      {store.ranger.data.claimableFodrBalance}
+                      {Number(BigInt(store.metamask.fodrBalance)) / Math.pow(10, 12)}
                     </Box>
                   </HStack>
                 </Stack>

@@ -124,6 +124,10 @@ class MetaMaskHandler {
     store.dispatch(set_metamask_wallet_address(data));
   }
 
+  public reload() {
+    window.location.reload();
+  }
+
   public registerEvents() {
     Wildapter.on(MetaMaskAdapterEnums.FOUND_METAMASK, () => {
       // this.setExtension(true);
@@ -147,12 +151,12 @@ class MetaMaskHandler {
 
     Wildapter.on(MetaMaskAdapterEnums.ACCOUNTS_CHANGED, async (_account: string[]) => {
       // this.setUserMetaMaskData(await this.getUserInfo());
-      // console.log('event: ACCOUNTS_CHANGED ', account);
-      this.init();
+      console.log('event: ACCOUNTS_CHANGED ', _account);
+      this.reload();
     });
 
     Wildapter.on(MetaMaskAdapterEnums.DISCONNECTED, (_error) => {
-      // console.log('event: DISCONNECTED ', JSON.stringify(error));
+      console.log('event: DISCONNECTED ', JSON.stringify(_error));
     });
 
     const handler = (error: any) => console.log('tribe gel:', error);

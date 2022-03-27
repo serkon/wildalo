@@ -2,24 +2,20 @@ import { useLocation } from 'react-router-dom';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { AxiosRequestConfig } from 'axios';
 import { useMediaQuery } from 'src/theme/util/media-query';
-import { api } from 'src/components/axios/axios.component';
+import { api, HttpRequest } from 'src/components/axios/axios.component';
 
 export const ScrollTo = ({ position = 0 }: { position?: number }): null => {
   const location = useLocation();
-
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location, position]);
-
   return null;
 };
 
 export const useSetTitle = (title: string): void => {
   useEffect(() => {
     const prevTitle = document.title;
-
     document.title = title;
-
     return () => {
       document.title = prevTitle;
     };
@@ -31,7 +27,6 @@ export const useProcess = () => process.env;
 export const useMobile = () => {
   const isDesktop = useMediaQuery('md');
   const root: HTMLDivElement | null = document.getElementById('root') as HTMLDivElement;
-
   useEffect(() => {
     !isDesktop ? root?.classList.add('mobile') : root?.classList.remove('mobile');
   });
@@ -83,7 +78,7 @@ export interface UseFetch {
   data: any;
 }
 
-export const useApi = (params: AxiosRequestConfig, callback?: (data: any) => void, watch: any = null, condition: boolean = true): UseFetch => {
+export const useApi = (params: AxiosRequestConfig<HttpRequest<{ domates: number }>>, callback?: (data: any) => void, watch: any = null, condition: boolean = true): UseFetch => {
   const [data, setData] = useState(null);
   const [fetch] = useState({ ...{ url: '', method: 'POST' }, ...params } as AxiosRequestConfig);
   const [isLoading, setIsLoading] = useState(false);
@@ -93,6 +88,7 @@ export const useApi = (params: AxiosRequestConfig, callback?: (data: any) => voi
     const fetchData = async () => {
       setIsError(false);
       setIsLoading(true);
+      api;
       try {
         const result = await api(fetch);
         setData(result.data);
