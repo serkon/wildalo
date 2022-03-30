@@ -34,7 +34,7 @@ api.interceptors.request.use(
     }
     const { metamask } = store.getState();
     if (metamask && request.method === 'post') {
-      request.headers['metamask'] = metamask.walletAddress;
+      request.headers['address'] = metamask.walletAddress;
       request.data = { ...request.data };
       request.data['data'] = { ...request.data['data'], id: metamask.walletAddress };
     }
