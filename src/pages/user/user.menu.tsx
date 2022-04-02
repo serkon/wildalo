@@ -25,7 +25,7 @@ export const UserProfile = () => {
             <Box fontWeight="400">{store.ranger.data && store.ranger.data.claimableFodrBalance}</Box>
           </HStack>
           <HStack color="white" justifyContent="space-between" marginTop="14px" fontWeight="600" lineHeight="15px">
-            <Box fontSize="13px">{t('common.TOTAL')}</Box>
+            <Box fontSize="13px">{t('common.WALLET')}</Box>
             <Box fontSize="16px">{Number(BigInt(store.metamask.fodrBalance)) / Math.pow(10, 12)}</Box>
           </HStack>
         </Stack>
@@ -38,7 +38,7 @@ export const UserProfile = () => {
             <Box fontWeight="400">{store.ranger.data && store.ranger.data.claimableWarcBalance}</Box>
           </HStack>
           <HStack color="white" justifyContent="space-between" marginTop="14px" fontWeight="600" lineHeight="15px">
-            <Box fontSize="13px">{t('common.TOTAL')}</Box>
+            <Box fontSize="13px">{t('common.WALLET')}</Box>
             <Box fontSize="16px">{Number(BigInt(store.metamask.warcBalance)) / Math.pow(10, 12)}</Box>
           </HStack>
         </Stack>

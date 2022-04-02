@@ -58,7 +58,7 @@ export const MyProfile = () => {
               </Box>
               <HStack color="white" marginTop="20px" alignItems={'baseline'} lineHeight="normal">
                 <Box fontSize="13px" flexGrow={1}>
-                  {t('common.TOTAL')}
+                  {t('common.WALLET')}
                 </Box>
                 <Image src="/images/gems/FODR.svg" width="32px" />
                 <Box fontSize="48px">{metamask.fodrBalance}</Box>
@@ -82,7 +82,7 @@ export const MyProfile = () => {
               </Box>
               <HStack color="white" marginTop="20px" alignItems={'baseline'} lineHeight="normal">
                 <Box fontSize="13px" flexGrow={1}>
-                  {t('common.TOTAL')}
+                  {t('common.WALLET')}
                 </Box>
                 <Image src="/images/gems/WARC.svg" width="32px" />
                 <Box fontSize="48px">{metamask.warcBalance}</Box>

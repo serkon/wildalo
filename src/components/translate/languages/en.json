@@ -2,6 +2,7 @@
   "hello": "en test",
   "withParam": "Test {param}",
   "common": {
+    "WALLET": "WALLET",
     "start": "FREE TO START",
     "FODR": "FODR",
     "WARC": "WARC",
