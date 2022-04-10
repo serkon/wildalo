@@ -78,7 +78,32 @@ export interface UseFetch {
   data: any;
 }
 
-export const useApi = (params: AxiosRequestConfig<HttpRequest<{ domates: number }>>, callback?: (data: any) => void, watch: any = null, condition: boolean = true): UseFetch => {
+/**
+ * @param params {url: '', method: ''}
+ * @param callback
+ * @param watch
+ * @param condition
+ * @returns {isLoading: boolean, isError: boolean, data: any}
+ *
+ * Usage Example:
+ *
+ * const { data, isLoading, isError } = useApi(
+ *   { url: '/my/animal/fights' },
+ *   (data: HttpResponse<FightsOverview>) => {
+ *     dispatch(set_ranger(data.data));
+ *     setState(data.data);
+ *   },
+ *   store.metamask.status,
+ *   store.metamask.status,
+ * );
+ */
+
+export const useApi = (
+  params: AxiosRequestConfig<HttpRequest<Record<string, any> | any[]>>,
+  callback?: (data: any) => void,
+  watch: any = null,
+  condition: boolean = true,
+): UseFetch => {
   const [data, setData] = useState(null);
   const [fetch] = useState({ ...{ url: '', method: 'POST' }, ...params } as AxiosRequestConfig);
   const [isLoading, setIsLoading] = useState(false);

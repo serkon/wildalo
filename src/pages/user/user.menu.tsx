@@ -119,7 +119,8 @@ export const UserMenu = () => {
               cursor={'pointer'}
               minW={0}
               _focus={{ boxShadow: '0 0 0 4px rgba(255, 255, 225, 0.1)' }}
-              _hover={{ boxShadow: '0 0 0 4px rgba(255, 255, 225, 0.1)' }}>
+              _hover={{ boxShadow: '0 0 0 4px rgba(255, 255, 225, 0.1)' }}
+            >
               <HStack spacing="7" backgroundColor="#0B2F28" borderColor="rgba(255,255,255,0.3)" borderWidth="1px" borderStyle="solid" borderRadius="24px">
                 <Avatar margin="4px" size={'sm'} src={`${store.ranger.data && process.env.REACT_APP_PUBLIC_URL}/uploads/${store.ranger.data?.imageId}.jpeg`} />
                 <Stack spacing="0" alignItems="end" paddingRight="21px" display={{ base: 'none', md: 'flex' }}>
@@ -141,7 +142,8 @@ export const UserMenu = () => {
               border="1px solid rgba(255,255,255,0.2)"
               boxShadow="0px 0px 10px rgba(0, 0, 0, 0.4);"
               textAlign="center"
-              zIndex={2}>
+              zIndex={2}
+            >
               <UserProfile />
             </MenuList>
           </Menu>
@@ -154,7 +156,8 @@ export const UserMenu = () => {
             color="white"
             padding="0 15px"
             marginLeft="10px"
-            display={{ base: 'none', lg: 'flex' }}>
+            display={{ base: 'none', lg: 'flex' }}
+          >
             <Box fontSize="14px" fontWeight="700">
               {t('common.Fight')}
             </Box>

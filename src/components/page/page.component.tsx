@@ -16,7 +16,7 @@ interface Link {
 }
 export const items: Link[] = [
   { title: 'links.dashboard', to: '/game/dashboard' },
-  { title: 'links.wildlings_and_herds', to: '/game/wildlings' },
+  { title: 'links.wildlings_and_herds', to: '/game/wah' },
   { title: 'links.fight', to: '/game/fight' },
   { title: 'links.my_profile', to: '/user/profile' },
 ];

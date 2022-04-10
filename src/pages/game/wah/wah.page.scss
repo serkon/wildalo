@@ -1,0 +1,18 @@
+.herd-container {
+  box-sizing: border-box;
+  padding: 20px;
+  border: 1px solid #12463d;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 25%);
+  background: #0b2d26;
+
+  .card-container {
+    border-radius: 10px;
+    background: #09241f;
+
+    &.empty {
+      height: 312px;
+      border: 1px dashed #16443a;
+    }
+  }
+}

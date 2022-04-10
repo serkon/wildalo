@@ -25,21 +25,23 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
 
   return (
     <>
-      <Box {...props} className={`animal ${props.className} ${props.stats && 'sequare'}`}>
+      <Box {...props} className={`animal ${props.className}`}>
         <div className="layout" style={style}>
-          <div className="overflow" style={{ backgroundImage: `url(/images/animals/${data.name}.jpg)` }} />
+          <div className="overflow" style={{ backgroundImage: `url(/images/animals/${data.name}.jpeg)` }} />
           <div className={`rarity-line ${data.rarity.toLowerCase()}`} />
           <div className="level" style={{ backgroundImage: `url(/images/level/level-${props.data.level}.svg)` }} />
           <div className={`rarity ${data.rarity.toLowerCase()}`} />
           <div className="region" style={regionPicture} />
           <div className="name">{t(`animals.${data.name}`)}</div>
         </div>
+        <div>{props.stats}</div>
         {props.stats && (
           <div className="stats">
-            <Grid templateColumns="repeat(3, 1fr)" gridColumnGap={'2px'} gridRowGap={0.5}>
+            ss
+            <Grid templateColumns="repeat(2, 1fr)" gridColumnGap={4} gridRowGap={2}>
               {Object.keys(data.primaryStats).map((item, key) => (
-                <GridItem key={key} className="prop">
-                  <img src={`/images/stats/${item}.svg`} style={{ display: 'inline' }} />
+                <GridItem w="24" h="6" key={key} className="prop">
+                  <img src={`./images/stats/${item}.svg`} />
                   <span className="item-value">{(data.primaryStats as any)[item]}</span>
                 </GridItem>
               ))}

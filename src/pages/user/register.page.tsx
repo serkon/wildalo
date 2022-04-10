@@ -8,19 +8,17 @@ import { User } from './user.dto';
 
 const validateUserName = (value: string) => {
   let error;
-
   if (!value) {
     error = 'Name is required';
   } else if (value.length < 3) {
     error = '😱 Your name is too short!';
   }
-
   return error;
 };
+
 const PageRegister = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { t } = useTranslate();
-
   return (
     <>
       <Heading as="h3" size="lg" variant="center" isTruncated className="page-banner">
@@ -31,7 +29,6 @@ const PageRegister = () => {
           initialValues={{ email: 'john1@doe.com', password: '1234567', username: 'srknc', files: [] }}
           validate={(values) => {
             const errors: User | Record<string, string> = {};
-
             Object.entries(values).map(([, value]) => {
               if (typeof value !== 'object') {
                 value = value.trim();
@@ -42,17 +39,13 @@ const PageRegister = () => {
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
               errors.email = 'Invalid email address';
             }
-
             return errors;
           }}
           onSubmit={(values, { setSubmitting }) => {
-            console.log(values, inputRef);
-
             setTimeout(() => {
               alert(JSON.stringify(values, null, 2));
               if (inputRef.current?.files?.length) {
                 const formData = new FormData();
-
                 formData.append('email', values.email);
                 formData.append('password', values.password);
                 formData.append('username', values.username);

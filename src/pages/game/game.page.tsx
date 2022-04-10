@@ -1,16 +1,18 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { set_layout_play_button } from 'src/store/reducers/LayoutReducer';
+import { PageDashboard } from './dashboard/dashboard.page';
 import { GameHero } from './hero/hero.page';
+import { PageWildingAndHerds } from './wah/wah.page';
 
 export const PageGame = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    navigate('/game/dashboard');
+    // navigate('/game/dashboard');
   }, [navigate]);
 
   useEffect(() => {
@@ -23,6 +25,11 @@ export const PageGame = () => {
   return (
     <>
       <GameHero />
+      <Routes>
+        <Route path="wah" element={<PageWildingAndHerds />} />
+        <Route path="dashboard" element={<PageDashboard />} />
+        <Route path="*" element={<PageDashboard />} />
+      </Routes>
       <Outlet />
     </>
   );
