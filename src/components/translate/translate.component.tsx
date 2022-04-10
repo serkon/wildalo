@@ -90,7 +90,8 @@ export class Language extends React.Component<Props, State> {
           tState: this.state,
           tChange: (language: string) => this.changeLanguage(language),
           t: this.translate,
-        }}>
+        }}
+      >
         <Suspense fallback={<div>{this.translate('loading')}</div>}>{this.state.status && <>{this.props.children}</>}</Suspense>
       </LanguageContext.Provider>
     );
