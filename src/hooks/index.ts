@@ -3,6 +3,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { AxiosRequestConfig } from 'axios';
 import { useMediaQuery } from 'src/theme/util/media-query';
 import { api, HttpRequest } from 'src/components/axios/axios.component';
+import { Subject } from 'rxjs';
+import { debounceTime, map } from 'rxjs/operators';
 
 export const ScrollTo = ({ position = 0 }: { position?: number }): null => {
   const location = useLocation();
@@ -128,4 +130,47 @@ export const useApi = (
   }, [watch, fetch]);
 
   return { data, isLoading, isError };
+};
+
+export const useConstructor = (callBack: () => void) => {
+  const hasBeenCalled = useRef(false);
+  if (hasBeenCalled.current) return;
+  callBack();
+  hasBeenCalled.current = true;
+};
+
+/**
+ * This hook is used to debounce the search input or anything like that
+ * Usage Example:
+ *
+ * Add to your component:
+ * ```typescript
+ * const onKeyPress = (item: any) => {
+ *   subject.next(item.target.value);
+ * };
+ * const { value, setValue, subject } = useObservable((value) => console.log('searching', value));
+ * ```
+ * Then render in component dom:
+ * `return (<div>{value}</div>)`
+ *
+ * @param callback
+ * @param debounce default 500ms
+ * @returns
+ */
+
+export const useObservable = (callback: (value: any) => void, debounce = 500) => {
+  const [value, setValue] = useState('');
+  const subject = new Subject<string>();
+  const observable = subject.pipe(
+    debounceTime(debounce),
+    map((value) => value),
+  );
+  useEffect(() => {
+    const subscription = observable.subscribe((value: string) => {
+      setValue(value);
+      callback(value);
+    });
+    return () => subscription.unsubscribe();
+  }, [observable]);
+  return { value, setValue, subject };
 };

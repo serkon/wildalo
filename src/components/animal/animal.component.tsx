@@ -8,7 +8,7 @@ interface Props {
   data: Animal | AnimalDetail;
   className?: string;
   scale?: number;
-  stats?: boolean;
+  stats?: any;
 }
 
 export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
