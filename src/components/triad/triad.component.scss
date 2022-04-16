@@ -3,7 +3,7 @@
   justify-content: center;
   padding-top: 14px;
 
-  .triad-left-side {
+  .triad-container {
     position: relative;
     display: flex;
     min-height: 190px;
@@ -66,21 +66,21 @@
     flex-direction: column;
     align-items: center;
 
-    .triad-left-side {
+    .triad-container {
       .animal-first {
-        left: -32px;
+        // left: -32px;
       }
 
       .animal-middle {
-        transform: scale(0.85) !important;
+        // transform: scale(0.85) !important;
 
         &:hover {
-          transform: scale(0.95) !important;
+          transform: scale(1.1) !important;
         }
       }
 
       .animal-last {
-        right: -32px;
+        // right: -32px;
       }
     }
   }

@@ -139,31 +139,33 @@ export class MetaMaskContractAdaptor extends EventEmitter implements MetaMaskCon
   }
 
   public async enablePermissionToAccessAccounts(): Promise<boolean> {
-    const self = this as MetaMaskContractAdaptor;
-    return new Promise((resolve, _reject) => {
-      self.provider
-        .request({
-          method: 'wallet_requestPermissions',
-          params: [{ eth_accounts: {} }],
-        })
-        .then((permissions: any[]) => {
-          const accountsPermission = permissions.find((permission: { parentCapability: string }) => permission.parentCapability === 'eth_accounts');
-          if (accountsPermission) {
-            self.emit(MetaMaskAdapterEnums.ENABLED_PERMISSION_TO_ACCESS_ACCOUNTS);
-            resolve(true);
-          }
-        })
-        .catch((error: { code: string }) => {
-          if (error.code == MetaMaskAdapterEnums.ERROR_CODES.METHOD_CANCELLED) {
-            self.emit(MetaMaskAdapterEnums.METHOD_CANCELLED, 'enablePermissionToAccessAccounts');
-          }
-          if (error.code == MetaMaskAdapterEnums.ERROR_CODES.ALREADY_METHOD_TRIGGERED) {
-            self.emit(MetaMaskAdapterEnums.ALREADY_METHOD_TRIGGERED, 'enablePermissionToAccessAccounts');
-          }
-          self.emit(MetaMaskAdapterEnums.HAS_NOT_PERMISSION_TO_ACCESS_ACCOUNTS);
-          resolve(false);
-        });
-    });
+    // const self = this as MetaMaskContractAdaptor;
+    return new Promise(
+      ((resolve: (value: boolean | PromiseLike<boolean>) => void, _reject: (reason?: any) => void) => {
+        this.provider
+          .request({
+            method: 'wallet_requestPermissions',
+            params: [{ eth_accounts: {} }],
+          })
+          .then((permissions: any[]) => {
+            const accountsPermission = permissions.find((permission: { parentCapability: string }) => permission.parentCapability === 'eth_accounts');
+            if (accountsPermission) {
+              this.emit(MetaMaskAdapterEnums.ENABLED_PERMISSION_TO_ACCESS_ACCOUNTS);
+              resolve(true);
+            }
+          })
+          .catch((error: { code: string }) => {
+            if (error.code == MetaMaskAdapterEnums.ERROR_CODES.METHOD_CANCELLED) {
+              this.emit(MetaMaskAdapterEnums.METHOD_CANCELLED, 'enablePermissionToAccessAccounts');
+            }
+            if (error.code == MetaMaskAdapterEnums.ERROR_CODES.ALREADY_METHOD_TRIGGERED) {
+              this.emit(MetaMaskAdapterEnums.ALREADY_METHOD_TRIGGERED, 'enablePermissionToAccessAccounts');
+            }
+            this.emit(MetaMaskAdapterEnums.HAS_NOT_PERMISSION_TO_ACCESS_ACCOUNTS);
+            resolve(false);
+          });
+      }).bind(this),
+    );
   }
 
   public async sign(message: string, password: string): Promise<string | null> {

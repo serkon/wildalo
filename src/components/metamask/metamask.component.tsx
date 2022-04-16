@@ -65,8 +65,10 @@ export const MetaMaskComponent = () => {
     },
     [extension, network, permission, t],
   );
-  const direction = () => {
-    // window.open('https://metatask.io/', '_blank');
+  const downloadMetamask = () => {
+    window.open('https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn', '_blank');
+  };
+  const checkPermission = () => {
     Wildapter.enablePermissionToAccessAccounts();
   };
 
@@ -108,7 +110,7 @@ export const MetaMaskComponent = () => {
               <Box>
                 <Box className={`content${extension ? ' content-left' : ''}`} ref={modalBodyRef} />
                 {extension && !permission && (
-                  <Button variant={'primary'} onClick={direction}>
+                  <Button variant={'primary'} onClick={checkPermission}>
                     {t(`metamask.modal.permission.button`)}
                   </Button>
                 )}
@@ -117,7 +119,7 @@ export const MetaMaskComponent = () => {
               {extension && permission && !network && <Box className={`metamask-network`} />}
             </Box>
             {!extension && (
-              <Button variant={'primary'} onClick={direction} margin="auto">
+              <Button variant={'primary'} onClick={downloadMetamask} margin="auto">
                 {t(`metamask.modal.extension.button`)}
               </Button>
             )}

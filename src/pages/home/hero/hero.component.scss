@@ -3,43 +3,9 @@
   padding-top: 40px;
 
   .hero-left-side {
-    position: relative;
     display: flex;
-    min-height: 480px;
-    width: 100%;
-
-    .ac {
-      position: absolute;
-      flex-shrink: 0;
-      box-shadow: 0 0 10px rgb(0 0 0 / 40%);
-      transition: all 0.2s;
-
-      &:hover {
-        transform: scale(1.1) !important;
-        box-shadow: 0 0 40px rgb(0 0 0 / 40%);
-      }
-    }
-
-    .animal-first {
-      left: 10px;
-
-      &:hover {
-        transform: scale(0.8) !important;
-      }
-    }
-
-    .animal-middle {
-      left: calc(50% - 135px);
-      z-index: 1;
-    }
-
-    .animal-last {
-      right: 10px;
-
-      &:hover {
-        transform: scale(0.8) !important;
-      }
-    }
+    align-items: center;
+    transform: scale(1.5);
   }
 
   .hero-right-side {
@@ -76,21 +42,7 @@
     align-items: center;
 
     .hero-left-side {
-      .animal-first {
-        left: -32px;
-      }
-
-      .animal-middle {
-        transform: scale(0.85) !important;
-
-        &:hover {
-          transform: scale(0.95) !important;
-        }
-      }
-
-      .animal-last {
-        right: -32px;
-      }
+      transform: scale(1);
     }
   }
 }

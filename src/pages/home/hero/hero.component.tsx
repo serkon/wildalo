@@ -1,105 +1,85 @@
 import { Container, Heading, Button, Box } from '@chakra-ui/react';
+import { Animal, AnimalRarity, Region } from 'src/components/animal/animal.dto';
 
-import { AnimalOldCard } from 'src/components/card/animal-card.component';
 import { useTranslate } from 'src/components/translate/translate.component';
-import { AnimalDetail, AnimalRarity, Region } from 'src/components/animal/animal.dto';
+import { Triad } from 'src/components/triad/triad.component';
 import { useMediaQuery } from 'src/theme/util/media-query';
 import './hero.component.scss';
 
-const animals: AnimalDetail[] = [
+const animals: Animal[] = [
   {
-    _id: '529da4c9-b340-4828-94ad-c9f613998070',
-    free: false,
-    rarity: AnimalRarity.RARE,
-    name: 'BLACK_MAMBA',
-    level: 3,
-    region: Region.AFRICA,
-    primaryStats: { healPoint: 40, attackPower: 40, speed: 5, defense: 10, weight: 2, lifeSpan: 11 },
-    secondaryStats: { poison: 20 },
-    description: 'This is a black mamba.',
-  },
-  {
-    _id: '529da4c9-b340-4828-94ad-c9f613998070',
-    free: false,
-    rarity: AnimalRarity.EXOTIC,
-    name: 'MUSTANG',
-    level: 1,
-    region: Region.NORTH_AMERICA,
-    primaryStats: { healPoint: 260, attackPower: 40, speed: 75, defense: 50, weight: 600, lifeSpan: 19 },
-    secondaryStats: { healBuff: 20, speedBuff: 20 },
-    description: 'This is an mustang.',
-  },
-  {
-    _id: '529da4c9-b340-4828-94ad-c9f613998070',
-    free: true,
+    _id: 'c3d955d0-c9b4-4e51-93bd-9fd50de129a2',
     rarity: AnimalRarity.COMMON,
-    name: 'OSPREY',
-    level: 8,
-    region: Region.EUROPE,
-    primaryStats: { healPoint: 90, attackPower: 35, speed: 120, defense: 35, weight: 2, lifeSpan: 9 },
-    secondaryStats: { speedBuff: 20 },
-    description: 'This is an osprey.',
-  },
-  {
-    _id: '529da4c9-b340-4828-94ad-c9f613998070',
     free: true,
-    rarity: AnimalRarity.EXOTIC,
-    name: 'GRAY_WHALE',
-    level: 1,
-    region: Region.NORTH_AMERICA,
-    primaryStats: { healPoint: 1200, attackPower: 20, speed: 5, defense: 20, weight: 36000, lifeSpan: 61 },
-    secondaryStats: { poison: 20 },
-    description: 'This is a gray whale.',
-  },
-  {
-    _id: '529da4c9-b340-4828-94ad-c9f613998070',
-    free: true,
-    rarity: AnimalRarity.COMMON,
-    name: 'AMERICAN_BISON',
-    level: 1,
-    region: Region.NORTH_AMERICA,
-    primaryStats: { healPoint: 500, attackPower: 80, speed: 50, defense: 150, weight: 190, lifeSpan: 26 },
-    secondaryStats: { attackBuff: 10, defenseBuff: 10 },
-    description: 'This is a black bear.',
-  },
-  {
-    _id: '3502ee1b-6cad-46ff-92f1-23b838033ef9',
-    free: true,
-    rarity: AnimalRarity.RARE,
     name: 'BLACK_BEAR',
-    level: 3,
-    region: Region.AFRICA,
-    primaryStats: { healPoint: 30, attackPower: 5, speed: 64, defense: 10, weight: 1, lifeSpan: 18 },
-    secondaryStats: { healBuff: 20 },
-    description: 'This is a toucan.',
+    level: 1,
+    region: Region.NORTH_AMERICA,
+    primaryStats: {
+      attackPower: 80,
+      defense: 150,
+      speed: 50,
+      healPoint: 500,
+      weight: 190,
+      lifeSpan: 26,
+    },
+    secondaryStats: {
+      attackBuff: 10,
+      defenseBuff: 10,
+    },
   },
   {
-    _id: 'de99cb6b-de50-4352-9b3e-45da2e87a5b0',
-    free: true,
+    _id: '41ac0c6b-09d2-4a44-86fd-26a403a61443',
+    rarity: AnimalRarity.RARE,
+    free: false,
+    name: 'AMERICAN_BISON',
+    level: 2,
+    region: Region.NORTH_AMERICA,
+    primaryStats: {
+      attackPower: 600,
+      defense: 50,
+      speed: 35,
+      healPoint: 200,
+      weight: 1200,
+      lifeSpan: 17,
+    },
+    secondaryStats: {
+      healBuff: 10,
+      defenseBuff: 20,
+    },
+  },
+  {
+    _id: 'df8b3ca6-b55d-489a-8878-e8e0eee77edd',
     rarity: AnimalRarity.EXOTIC,
-    name: 'GREAT_WHITE_SHARK',
-    level: 5,
-    region: Region.EUROPE,
-    primaryStats: { healPoint: 300, attackPower: 70, speed: 46, defense: 120, weight: 125, lifeSpan: 19 },
-    secondaryStats: { attackBuff: 10, defenseBuff: 10 },
-    description: 'This is a wild boar.',
+    free: false,
+    name: 'BLACK_RHINOCEROS',
+    level: 7,
+    region: Region.AFRICA,
+    primaryStats: {
+      attackPower: 500,
+      defense: 120,
+      speed: 42,
+      healPoint: 200,
+      weight: 1100,
+      lifeSpan: 47,
+    },
+    secondaryStats: {
+      attackBuff: 10,
+      defenseBuff: 10,
+      defenseDebuff: 10,
+    },
   },
 ];
 
 export const Hero = (): JSX.Element => {
   const { t } = useTranslate();
-  const isDesktop = useMediaQuery('md');
+  const isDesktop = useMediaQuery('lg');
   const redirect = (path: string) => {
     window.open(path, '_blank');
   };
 
   return (
     <Container maxW="container.xl" className={`hero ${isDesktop ? 'desktop' : 'mobile'}`}>
-      <Box className={`hero-left-side`}>
-        <AnimalOldCard data={animals[0]} scale={0.75} translateX="135px" className="animal-first ac" />
-        <AnimalOldCard data={animals[1]} className="ac animal-middle" />
-        <AnimalOldCard data={animals[2]} scale={0.75} className="animal-last ac" />
-      </Box>
+      <Triad data={animals} className="hero-left-side" />
       <aside className="hero-right-side">
         <Heading as="h2" size="2xl" color="custom.macaroni-and-cheese" className="hero-title">
           <div>{t('main.hero.header01')}</div>
