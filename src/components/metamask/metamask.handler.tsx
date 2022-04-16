@@ -135,17 +135,85 @@ class MetaMaskHandler {
       // this.init();
     });
 
+    Wildapter.on(MetaMaskAdapterEnums.UNLOCKED_ACCOUNT, () => {
+      // this.setExtension(true);
+      // console.log('event: UNLOCKED_ACCOUNT');
+      // this.init();
+    });
+
+    Wildapter.on(MetaMaskAdapterEnums.NOT_FOUND_METAMASK, () => {
+      // this.setExtension(true);
+      // console.log('event: NOT_FOUND_METAMASK');
+      // this.init();
+    });
+
+    Wildapter.on(MetaMaskAdapterEnums.ENABLED_PERMISSION_TO_ACCESS_ACCOUNTS, () => {
+      // this.setExtension(true);
+      // console.log('event: ENABLED_PERMISSION_TO_ACCESS_ACCOUNTS');
+      // this.init();
+    });
+
+    Wildapter.on(MetaMaskAdapterEnums.HAS_NOT_PERMISSION_TO_ACCESS_ACCOUNTS, () => {
+      // this.setExtension(true);
+      // console.log('event: HAS_NOT_PERMISSION_TO_ACCESS_ACCOUNTS');
+      // this.init();
+    });
+
+    Wildapter.on(MetaMaskAdapterEnums.WRONG_NETWORK, () => {
+      // this.setExtension(true);
+      // console.log('event: WRONG_NETWORK');
+      // this.init();
+    });
+
+    Wildapter.on(MetaMaskAdapterEnums.ACCOUNTS_CHANGED, () => {
+      // this.setExtension(true);
+      // console.log('event: ACCOUNTS_CHANGED');
+      // this.init();
+    });
+
+    Wildapter.on(MetaMaskAdapterEnums.CHAIN_CHANGED, () => {
+      // this.setExtension(true);
+      // console.log('event: CHAIN_CHANGED');
+      // this.init();
+    });
+
+    Wildapter.on(MetaMaskAdapterEnums.CONNECTED, () => {
+      // this.setExtension(true);
+      // console.log('event: CONNECTED');
+      // this.init();
+    });
+
+    Wildapter.on(MetaMaskAdapterEnums.DISCONNECTED, () => {
+      // this.setExtension(true);
+      // console.log('event: DISCONNECTED');
+      // this.init();
+    });
+
+    Wildapter.on(MetaMaskAdapterEnums.ALREADY_METHOD_TRIGGERED, () => {
+      // this.setExtension(true);
+      // console.log('event: ALREADY_METHOD_TRIGGERED');
+      // this.init();
+    });
+
+    Wildapter.on(MetaMaskAdapterEnums.METHOD_CANCELLED, () => {
+      // this.setExtension(true);
+      // console.log('event: METHOD_CANCELLED');
+      // this.init();
+    });
+
+    /** dddd */
+
     Wildapter.on(MetaMaskAdapterEnums.CONNECTED, async (_connection: { chainId: string }) => {
       // this.setNetwork(connection.chainId === process.env.REACT_APP_CHAIN_ID);
       // this.setUserMetaMaskData(await this.getUserInfo());
-      // console.log('event: CONNECTED: ', connection);
+      // console.log('event: CONNECTED: ', _connection);
       this.init();
     });
 
     Wildapter.on(MetaMaskAdapterEnums.CHAIN_CHANGED, async (_chainId: string) => {
       // this.setNetwork(chainId === process.env.REACT_APP_CHAIN_ID);
       // this.setUserMetaMaskData(await this.getUserInfo());
-      // console.log('event: CHAIN_CHANGED: ', chainId);
+      // console.log('event: CHAIN_CHANGED: ', _chainId);
       this.init();
     });
 

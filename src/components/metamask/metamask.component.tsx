@@ -1,15 +1,15 @@
 import React from 'react';
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Box, Link } from '@chakra-ui/react';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useSize } from 'src/theme/util/media-query';
-import { useSelector } from 'react-redux';
 import { RootState } from 'src/store/store';
 import { MetaMaskHandler } from './metamask.handler';
-import './metamask.component.scss';
-import { useNavigate } from 'react-router-dom';
 import { Wildapter } from './adaptor';
+import './metamask.component.scss';
 
 interface Link {
   to: string;
@@ -71,6 +71,10 @@ export const MetaMaskComponent = () => {
   const checkPermission = () => {
     Wildapter.enablePermissionToAccessAccounts();
   };
+  const reload = () => {
+    navigate('/');
+    window.location.reload();
+  };
 
   useLayoutEffect(() => {
     setExtension(selector.metamask.extension);
@@ -93,7 +97,6 @@ export const MetaMaskComponent = () => {
       setInit(true);
     };
     !isInit && createMetaMask();
-
     init();
   }, []);
 
@@ -103,7 +106,7 @@ export const MetaMaskComponent = () => {
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px) hue-rotate(10deg)" />
         <ModalContent bgColor={'#0B2F28'} className="metamask-modal-content">
           <ModalHeader className="header">{t(`metamask.modal.${!extension ? 'extension' : !permission ? 'permission' : !network ? 'network' : ''}.header`)}</ModalHeader>
-          <ModalCloseButton className="close" onClick={() => navigate('/')} />
+          <ModalCloseButton className="close" onClick={() => reload()} />
           <ModalBody className="body">
             {!extension && <Box className={`metamask-logo`} alignSelf="center" />}
             <Box display={'flex'} alignItems={!extension ? 'center' : 'flex-start'} flexDirection={!extension ? 'column' : 'row'}>
