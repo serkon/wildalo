@@ -35,7 +35,7 @@ export const MyProfile = () => {
           {ranger?.username}
         </Box>
         <Box fontWeight="400" fontSize={'13px'} lineHeight="100%" mb="4">
-          {store.metamask.walletAddress && store.metamask.walletAddress.slice(0, 13)}
+          {store.metamask.walletAddress && `${store.metamask.walletAddress.slice(0, 4)}...${store.metamask.walletAddress.slice(-4)}`}
         </Box>
         {(ranger && (
           <Link as={NavLink} to={'user/profile'} variant="header" fontWeight="400" fontSize={'13px'} lineHeight="100%">

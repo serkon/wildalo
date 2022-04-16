@@ -9,7 +9,6 @@ import { MyWildlings } from './my-wildling/my-wildling.component';
 import { MyHerds } from './my-herds/my-herds.component';
 import { MyFights } from './my-fights/my-fights.page';
 import { MyProfile } from './my-profile/my-profile.component';
-import { MetaMaskComponent } from 'src/components/metamask/metamask.component';
 import './dashboard.page.scss';
 
 export interface User {
@@ -43,7 +42,6 @@ export const PageDashboard = () => {
 
   return (
     <>
-      <MetaMaskComponent />
       <Page title="Dashboard">
         <Grid templateRows="repeat(2, auto)" templateColumns="repeat(5, auto)" gap={5} color="white">
           <GridItem bg="#09241F" colSpan={2} p={8} borderRadius="14px">
