@@ -151,7 +151,12 @@
       "description": "You can find your free wildlings under Wilding & Herds, you can create your first herd and start earning right away!"
     },
     "wah": {
-      "Filter_&_Sorting": "Filter & Sorting"
+      "Filter_&_Sorting": "Filter & Sorting",
+      "Buy_more_Wildings": "Buy more Wildings",
+      "Create_Herd": "Create Herd",
+      "Drag": "Drag the wildlings you want to include",
+      "Get_into_a_Fight": "Get into a Fight",
+      "Delete_herd": "Delete herd"
     }
   },
   "dashboard": {

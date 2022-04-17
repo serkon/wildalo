@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
+import { MetaMaskComponent } from 'src/components/metamask/metamask.component';
 import { set_layout_play_button } from 'src/store/reducers/LayoutReducer';
 import { PageDashboard } from './dashboard/dashboard.page';
 import { GameHero } from './hero/hero.page';
@@ -24,6 +25,7 @@ export const PageGame = () => {
 
   return (
     <>
+      <MetaMaskComponent />
       <GameHero />
       <Routes>
         <Route path="wah" element={<PageWildingAndHerds />} />

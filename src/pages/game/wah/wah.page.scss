@@ -1,22 +1,84 @@
-.herd-container {
-  box-sizing: border-box;
-  padding: 20px;
-  border: 1px solid #12463d;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgb(0 0 0 / 25%);
-  background: #0b2d26;
+.search {
+  box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+}
 
-  .card-container {
-    border-radius: 10px;
-    background: #09241f;
+.grid-card-container {
+  border-radius: 10px;
+  background: #09241f;
 
-    &.empty {
-      height: 312px;
-      border: 1px dashed #16443a;
-    }
+  &.empty {
+    height: 312px;
+    border: 1px dashed #16443a;
+    background-image: url("~/public/images/pages/game/wah/empty.svg");
+    background-repeat: no-repeat;
+    background-position: bottom right;
   }
 }
 
-.search {
-  box-shadow: (0 4px 4px rgb(0 0 0 / 25%));
+.accordion-herd-list {
+  .accordion-herd-item {
+    box-sizing: border-box;
+    padding: 0 16px;
+    border: 1px solid #12463d;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 25%);
+    background: #0b2d26;
+
+    .accordion-title {
+      .accordion-title-parent {
+        align-items: center;
+        justify-content: space-between;
+        color: #ffffff;
+
+        .accordion-opener {
+          box-shadow: none;
+        }
+
+        .herd-name-input {
+          padding-right: 8px;
+          border: 1px solid transparent;
+          font-family: inherit;
+          font-size: inherit;
+
+          &:focus,
+          &:hover {
+            // border-color: #ffc633;
+          }
+        }
+
+        .input-sizer {
+          position: relative;
+          display: inline-grid;
+          align-items: center;
+          font-family: inherit;
+          font-size: inherit;
+        }
+
+        .input-sizer::after {
+          content: attr(data-value) "  ";
+          padding-right: 40px;
+          height: 1px;
+          visibility: hidden;
+          font-family: inherit;
+          font-size: inherit;
+          white-space: pre-wrap;
+        }
+
+        .edit-herd-name-button {
+          min-width: 32px;
+        }
+
+        .get-into-fight {
+          margin: 0;
+          font-size: 14px;
+          font-weight: 700;
+          line-height: 16px;
+        }
+      }
+    }
+
+    .accordion-herd-item-content {
+      padding-bottom: 16px;
+    }
+  }
 }
