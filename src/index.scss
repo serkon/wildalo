@@ -1,3 +1,30 @@
+/**
+ScrollBar
+*/
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+  // background: rgb(18 70 61 / 40%);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 10px;
+  background: #0f443a;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555555;
+}
+
 :root {
   --color: #1ea4ce;
   --color-dark: #147594;

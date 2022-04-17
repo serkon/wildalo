@@ -24,9 +24,9 @@ export const Triad = (props: Props) => {
         {JSON.stringify(rest)}
         {data && data.length > 0 ? (
           <Box className={`triad-container`}>
-            <AnimalCard data={data[0]} scale={0.8} className="animal-first ac" stats={Boolean(stats)} />
-            <AnimalCard data={data[1]} scale={1} className="ac animal-middle" stats={Boolean(stats)} />
-            <AnimalCard data={data[2]} scale={0.8} className="animal-last ac" stats={Boolean(stats)} />
+            <AnimalCard data={data[0]} scale={0.8} className="animal-first ac" stats={Boolean(stats).toString()} />
+            <AnimalCard data={data[1]} scale={1} className="ac animal-middle" stats={Boolean(stats).toString()} />
+            <AnimalCard data={data[2]} scale={0.8} className="animal-last ac" stats={Boolean(stats).toString()} />
           </Box>
         ) : (
           <Box opacity={0.6} width="32" textAlign={'center'} lineHeight={'25px'} margin={14} marginBottom="20" fontSize="18px">
