@@ -68,7 +68,7 @@ export const WildlingsComponent = () => {
           search.length > 0 &&
           search.map((item, key) => (
             <GridItem key={key}>
-              <AnimalCard data={item} className="animal-first ac" stats="true" />
+              <AnimalCard data={item} className="animal-first ac" stats={true} />
             </GridItem>
           ))}
         <GridItem className="grid-card-container empty" alignItems={'center'} justifyContent={'center'} display="flex">
