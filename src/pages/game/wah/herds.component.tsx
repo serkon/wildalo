@@ -95,7 +95,7 @@ export const HerdsComponent = () => {
           </HStack>
         </HStack>
       </Flex>
-      <Accordion defaultIndex={[0]} allowMultiple className="accordion-herd-list">
+      <Accordion defaultIndex={[0]} allowToggle className="accordion-herd-list">
         {data.length > 0 &&
           data.map((herd: Herd, key) => (
             <AccordionItem key={key} className="accordion-herd-item" style={key > 0 ? { marginTop: '20px' } : {}}>
