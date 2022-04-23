@@ -54,6 +54,7 @@ export const HerdsComponent = () => {
     const item: { position: number; animal: Animal } | undefined = herd.animals && herd.animals.find((item) => item.position === position);
     return (item && item.animal) || null;
   };
+
   useApi({ url: 'my/herd/list' }, (data) => {
     setData(data.data);
     console.log(data);
@@ -192,7 +193,7 @@ export const HerdsComponent = () => {
                         return (
                           <GridItem
                             key={key}
-                            className={animal ? '' : 'grid-card-container empty'}
+                            className={`drop-zone grid-item ${animal ? 'grid-item-filled' : 'grid-item-empty'}`}
                             alignItems="center"
                             justifyContent={'center'}
                             display="flex"

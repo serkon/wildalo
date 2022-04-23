@@ -11,9 +11,21 @@ interface Props {
   stats?: boolean;
 }
 
+const onDragStart = (event: any, id: any) => {
+  // console.log('dragstart:', id);
+  event.dataTransfer.setData('id', JSON.stringify(id));
+  event.target.classList.add('dragging');
+};
+
+const onDragEnd = (event: any, id: any) => {
+  // console.log('dragend:', id);
+  event.dataTransfer.setData('id', JSON.stringify(id));
+  event.target.classList.remove('dragging');
+};
+
 export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
   const { t } = useTranslate();
-  const { data } = props;
+  const { data, stats, className, ...rest } = props;
   const regionPicture = {
     backgroundImage: `url(/images/regions/${data.region}.svg)`,
   };
@@ -25,7 +37,12 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
 
   return (
     <>
-      <Box {...props} className={`animal ${props.className} ${props.stats && 'sequare'}`}>
+      <Box
+        {...rest}
+        className={`animal ${className} ${stats && 'sequare'}`}
+        draggable
+        onDragStart={(event) => onDragStart(event, data)}
+        onDragEnd={(event) => onDragEnd(event, data)}>
         <div className="layout" style={style}>
           <div className="overflow" style={{ backgroundImage: `url(/images/animals/${data.name}.jpg)` }} />
           <div className={`rarity-line ${data.rarity.toLowerCase()}`} />
@@ -34,7 +51,7 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
           <div className="region" style={regionPicture} />
           <div className="name">{t(`animals.${data.name}`)}</div>
         </div>
-        {props.stats && (
+        {Boolean(props.stats) && (
           <div className="stats">
             <Grid templateColumns="repeat(3, 1fr)" gridColumnGap={'2px'} gridRowGap={0.5}>
               {Object.keys(data.primaryStats).map((item, key) => (

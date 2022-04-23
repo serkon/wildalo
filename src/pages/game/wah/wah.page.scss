@@ -2,11 +2,15 @@
   box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
 }
 
-.grid-card-container {
+.grid-item-container {
   border-radius: 10px;
   background: #09241f;
 
-  &.empty {
+  &.grid-item-filled {
+    border: 1px solid red;
+  }
+
+  &.grid-item-empty {
     height: 312px;
     border: 1px dashed #16443a;
     background-image: url("~/public/images/pages/game/wah/empty.svg");
