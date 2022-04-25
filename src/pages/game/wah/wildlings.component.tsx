@@ -1,30 +1,34 @@
 import { CloseIcon } from '@chakra-ui/icons';
 import { Flex, Box, IconButton, InputGroup, InputLeftElement, Input, InputRightElement, Button, HStack, Grid, GridItem, Image, Text } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
+import { useStore } from 'react-redux';
 import { AnimalCard } from 'src/components/animal/animal.component';
+import { Animal } from 'src/components/animal/animal.dto';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useObservable, useApi } from 'src/hooks';
+import { set_wildling } from 'src/store/reducers/WildlingReducer';
 
 export const WildlingsComponent = () => {
   const { t } = useTranslate();
   const refInput = useRef<HTMLInputElement>(null);
-  const [data, _setData] = useState<any[]>([]);
+  const store = useStore().getState();
+  const { dispatch } = useStore();
   const [search, setSearch] = useState<any[]>([]);
   const onKeyPress = (item: any) => {
     subject.next(item.target.value);
   };
   const onClear = () => {
-    setSearch(data);
+    setSearch(store.wildling.wildlings);
     refInput.current!.value = '';
   };
   const { subject } = useObservable((value) => {
-    const filtered = data.filter((item) => item.name.toLowerCase().includes(value.toLowerCase()));
+    const filtered = store.wildling.wildlings.filter((item: Animal) => item.name.toLowerCase().includes(value.toLowerCase()));
     setSearch(filtered);
   }, 400);
 
-  useApi({ url: 'my/animal/list' }, (data) => {
-    _setData(data.data);
+  useApi({ url: 'my/animal/list' }, async (data) => {
     setSearch(data.data);
+    dispatch(set_wildling(data.data));
   });
 
   return (
@@ -58,7 +62,7 @@ export const WildlingsComponent = () => {
           </Text>
           <Flex alignItems={'center'} justifyContent={'center'} width="44px" height="44px" borderRadius="50%" border="1px solid #2A5950" backgroundColor="#0B2F28">
             <Text fontWeight={'bold'} fontSize="24px" lineHeight="28px" marginLeft="-1px" letterSpacing="-1px">
-              {data.length ?? 0}
+              {store.wildling.wildlings.length ?? 0}
             </Text>
           </Flex>
         </HStack>

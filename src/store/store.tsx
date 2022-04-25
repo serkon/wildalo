@@ -3,6 +3,7 @@ import { applyMiddleware, CombinedState, combineReducers, createStore } from 're
 import { MetamaskReducer } from './reducers/MetamaskReducer';
 import { LayoutReducer } from './reducers/LayoutReducer';
 import { RangerReducer } from './reducers/RangerReducer';
+import { WildlingReducer } from './reducers/WildlingReducer';
 
 export interface Action<T> {
   type: string;
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   layout: LayoutReducer,
   metamask: MetamaskReducer,
   ranger: RangerReducer,
+  wildling: WildlingReducer,
 });
 
 const loggerMiddleware = (storeAPI: any) => (next: any) => (action: any) => {
