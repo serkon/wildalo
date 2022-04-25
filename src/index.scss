@@ -66,3 +66,22 @@ body,
   flex-direction: column;
   flex-grow: 1;
 }
+
+.drop-zone {
+  box-sizing: border-box;
+  // padding: 5px;
+  border: 1px dashed transparent;
+  transition: all 0.2s;
+
+  &.drag-over {
+    box-sizing: border-box;
+    border-radius: 8px;
+    border-color: #ffffff;
+    transform: scale(1.04);
+  }
+}
+
+.dragging {
+  opacity: 0.5;
+  transform: scale(0.9);
+}

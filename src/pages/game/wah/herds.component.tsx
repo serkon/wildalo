@@ -30,9 +30,11 @@ import {
 import { createRef, useRef, useState } from 'react';
 import { AnimalCard } from 'src/components/animal/animal.component';
 import { Animal } from 'src/components/animal/animal.dto';
+import { api } from 'src/components/axios/axios.component';
 import { Herd } from 'src/components/fight/fight.dto';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useApi } from 'src/hooks';
+import { dragger } from './wah.page';
 
 export const HerdsComponent = () => {
   const { t } = useTranslate();
@@ -53,6 +55,22 @@ export const HerdsComponent = () => {
     // TODO get herd animal by position
     const item: { position: number; animal: Animal } | undefined = herd.animals && herd.animals.find((item) => item.position === position);
     return (item && item.animal) || null;
+  };
+  const updateOnHerdDrag = async (newHerd: Herd): Promise<void> => {
+    try {
+      const response = await api.post('/herd/update', { data: newHerd });
+      console.log(response);
+      setData(() =>
+        data.map((item) => {
+          if (item._id === newHerd._id) {
+            return newHerd;
+          }
+          return item;
+        }),
+      );
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useApi({ url: 'my/herd/list' }, (data) => {
@@ -192,6 +210,27 @@ export const HerdsComponent = () => {
                         const animal = getHerdAnimalByPosition(herd, key);
                         return (
                           <GridItem
+                            zIndex={1}
+                            onDragOver={(e: any) => dragger.onDragOver(e)}
+                            onDrop={(e: any) => {
+                              dragger.onDrop(e, () => {
+                                const data = e.dataTransfer.getData('id');
+                                if (data) {
+                                  console.log('h:', herd);
+                                  const animal: Animal = JSON.parse(data);
+                                  const newHerd = { ...herd };
+                                  newHerd.animals = newHerd.animals ? [...newHerd.animals] : [];
+                                  newHerd.animals[key] = { position: key, animal };
+                                  updateOnHerdDrag(newHerd);
+                                }
+                              });
+                            }}
+                            onDragEnter={(e: any) => dragger.onDragEnter(e)}
+                            onDragLeave={(e: any) => dragger.onDragLeave(e)}
+                            onDragEnd={(e: any) => {
+                              e.preventDefault();
+                              console.log('end');
+                            }}
                             key={key}
                             className={`drop-zone grid-item ${animal ? 'grid-item-filled' : 'grid-item-empty'}`}
                             alignItems="center"

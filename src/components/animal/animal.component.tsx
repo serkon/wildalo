@@ -2,6 +2,8 @@ import { Box, Grid, GridItem } from '@chakra-ui/react';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 import { Animal, AnimalDetail } from './animal.dto';
+import { dragger } from 'src/pages/game/wah/wah.page';
+
 import './animal.component.scss';
 
 interface Props {
@@ -10,18 +12,6 @@ interface Props {
   scale?: number;
   stats?: boolean;
 }
-
-const onDragStart = (event: any, id: any) => {
-  // console.log('dragstart:', id);
-  event.dataTransfer.setData('id', JSON.stringify(id));
-  event.target.classList.add('dragging');
-};
-
-const onDragEnd = (event: any, id: any) => {
-  // console.log('dragend:', id);
-  event.dataTransfer.setData('id', JSON.stringify(id));
-  event.target.classList.remove('dragging');
-};
 
 export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
   const { t } = useTranslate();
@@ -41,8 +31,8 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
         {...rest}
         className={`animal ${className} ${stats && 'sequare'}`}
         draggable
-        onDragStart={(event) => onDragStart(event, data)}
-        onDragEnd={(event) => onDragEnd(event, data)}>
+        onDragStart={(event: any) => dragger.onDragStart(event, data)}
+        onDragEnd={(event: any) => dragger.onDragEnd(event)}>
         <div className="layout" style={style}>
           <div className="overflow" style={{ backgroundImage: `url(/images/animals/${data.name}.jpg)` }} />
           <div className={`rarity-line ${data.rarity.toLowerCase()}`} />
