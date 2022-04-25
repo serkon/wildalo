@@ -115,7 +115,6 @@ export const useApi = (
     const fetchData = async () => {
       setIsError(false);
       setIsLoading(true);
-      api;
       try {
         const result = await api(fetch);
         setData(result.data);
