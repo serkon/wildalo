@@ -18,6 +18,13 @@
   }
 }
 
+[drop-zone].drag-over-wildlings {
+  &.drag-over {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+}
+
 .accordion-herd-list {
   .accordion-herd-item {
     box-sizing: border-box;

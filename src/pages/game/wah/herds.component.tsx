@@ -223,12 +223,14 @@ export const HerdsComponent = () => {
                         const animal = getHerdAnimalByPosition(herd, key);
                         return (
                           <GridItem
-                            zIndex={1}
+                            drop-zone="herds"
                             onDragOver={(e: any) => Dragger.onDragOver(e)}
+                            onDragEnter={(e: any) => Dragger.onDragEnter(e)}
+                            onDragLeave={(e: any) => Dragger.onDragLeave(e)}
+                            onDragEnd={(e: any) => e.preventDefault()}
                             onDrop={(e: any) => {
                               Dragger.onDrop(e, () => {
                                 const data = e.dataTransfer.getData('id');
-                                console.log(e);
                                 if (data) {
                                   const animal: Animal = JSON.parse(data);
                                   const newHerd = { ...herd };
@@ -238,21 +240,14 @@ export const HerdsComponent = () => {
                                 }
                               });
                             }}
-                            onDragEnter={(e: any) => Dragger.onDragEnter(e)}
-                            onDragLeave={(e: any) => Dragger.onDragLeave(e)}
-                            onDragEnd={(e: any) => {
-                              e.preventDefault();
-                              console.log('end');
-                            }}
                             key={key}
-                            drop-zone="herd"
                             className={`drop-zone grid-item ${animal ? 'grid-item-filled' : 'grid-item-empty'}`}
                             alignItems="center"
                             justifyContent={'center'}
                             display="flex"
                             textAlign={'center'}>
                             {animal ? (
-                              <AnimalCard data={animal} stats={true} drop="wildling" />
+                              <AnimalCard data={animal} stats={true} draggable drop-target="wildlings" />
                             ) : (
                               <Text fontSize={12} maxW="150px">
                                 {t('game.wah.Drag')}

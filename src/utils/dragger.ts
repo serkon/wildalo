@@ -20,7 +20,6 @@ class DraggerHelper {
   }
 
   onDragStart(event: DragEvent, data: any, callback?: (event?: DragEvent, data?: any) => any) {
-    // console.log('drag start');
     this._target = (event.target as HTMLElement).getAttribute('drop-target');
     event.dataTransfer && event.dataTransfer.setData('id', JSON.stringify(data));
     event.target && (event.target as HTMLElement).classList.add('dragging');

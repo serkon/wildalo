@@ -67,17 +67,42 @@ body,
   flex-grow: 1;
 }
 
-.drop-zone {
+[drop-target] {
+  &.dragging {
+    &:hover {
+      content: "";
+    }
+  }
+}
+
+[drop-zone] {
   box-sizing: border-box;
-  // padding: 5px;
-  border: 1px dashed transparent;
   transition: all 0.2s;
 
+  &::before {
+    transition: all 0.2s;
+  }
+
   &.drag-over {
+    position: relative;
     box-sizing: border-box;
     border-radius: 8px;
-    border-color: #ffffff;
     transform: scale(1.04);
+    opacity: 0.5;
+
+    &::before {
+      --padding: -5px;
+
+      content: "";
+      position: absolute;
+      top: var(--padding);
+      right: var(--padding);
+      bottom: var(--padding);
+      left: var(--padding);
+      z-index: 1;
+      border: 1px dashed rgb(255 255 255 / 100%);
+      border-radius: 15px;
+    }
   }
 }
 

@@ -8,6 +8,7 @@ import { useTranslate } from 'src/components/translate/translate.component';
 import { useApi, useObservable } from 'src/hooks';
 import { set_wildling_list } from 'src/store/reducers/WildlingReducer';
 import { RootState } from 'src/store/store';
+import { Dragger } from 'src/utils/dragger';
 
 export const WildlingsComponent = () => {
   const { t } = useTranslate();
@@ -74,12 +75,30 @@ export const WildlingsComponent = () => {
           </Flex>
         </HStack>
       </Flex>
-      <Grid templateColumns="repeat(3, minmax(0, 1fr))" gap={6} color="white">
+      <Grid
+        templateColumns="repeat(3, minmax(0, 1fr))"
+        gap={6}
+        color="white"
+        drop-zone="wildlings"
+        onDragOver={(e: any) => Dragger.onDragOver(e)}
+        onDragEnter={(e: any) => Dragger.onDragEnter(e)}
+        onDragLeave={(e: any) => Dragger.onDragLeave(e)}
+        onDragEnd={(e: any) => e.preventDefault()}
+        onDrop={(e: any) => {
+          Dragger.onDrop(e, () => {
+            const data = e.dataTransfer.getData('id');
+            if (data) {
+              const animal: Animal = JSON.parse(data);
+              console.log('animal', animal);
+            }
+          });
+        }}
+        className="drag-over-wildlings">
         {search &&
           search.length > 0 &&
           search.map((item: Animal, key: number) => (
             <GridItem key={key}>
-              <AnimalCard data={item} className="animal-first ac" stats={true} drop="herd" />
+              <AnimalCard data={item} className="animal-first ac" stats={true} draggable drop-target="herds" />
             </GridItem>
           ))}
         <GridItem className="grid-card-container empty" alignItems={'center'} justifyContent={'center'} display="flex">

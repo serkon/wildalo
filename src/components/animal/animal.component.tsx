@@ -11,12 +11,12 @@ interface Props {
   className?: string;
   scale?: number;
   stats?: boolean;
-  drop?: string;
+  draggable?: boolean;
 }
 
 export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
   const { t } = useTranslate();
-  const { data, className, stats, scale, drop, ...rest } = props;
+  const { data, className, stats, scale, ...rest } = props;
   const regionPicture = {
     backgroundImage: `url(/images/regions/${data.region}.svg)`,
   };
@@ -31,10 +31,8 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
       <Box
         {...rest}
         className={`animal ${className} ${stats && 'sequare'}`}
-        draggable
         onDragStart={(event: any) => Dragger.onDragStart(event, data)}
-        onDragEnd={(event: any) => Dragger.onDragEnd(event, data)}
-        drop-target={drop}>
+        onDragEnd={(event: any) => Dragger.onDragEnd(event, data)}>
         <div className="layout" style={style}>
           <div className="overflow" style={{ backgroundImage: `url(/images/animals/${data.name}.jpg)` }} />
           <div className={`rarity-line ${data.rarity.toLowerCase()}`} />
