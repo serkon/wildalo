@@ -83,7 +83,6 @@ export const WildlingsComponent = () => {
         onDragOver={(e: any) => Dragger.onDragOver(e)}
         onDragEnter={(e: any) => Dragger.onDragEnter(e)}
         onDragLeave={(e: any) => Dragger.onDragLeave(e)}
-        onDragEnd={(e: any) => e.preventDefault()}
         onDrop={(e: any) => {
           Dragger.onDrop(e, () => {
             const data = e.dataTransfer.getData('id');
