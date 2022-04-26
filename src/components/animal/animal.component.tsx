@@ -2,27 +2,28 @@ import { Box, Grid, GridItem } from '@chakra-ui/react';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 import { Animal, AnimalDetail } from './animal.dto';
-import { dragger } from 'src/pages/game/wah/wah.page';
 
 import './animal.component.scss';
+import { Dragger } from 'src/utils/dragger';
 
 interface Props {
   data: Animal | AnimalDetail;
   className?: string;
   scale?: number;
   stats?: boolean;
+  drop?: string;
 }
 
 export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
   const { t } = useTranslate();
-  const { data, stats, className, ...rest } = props;
+  const { data, className, stats, scale, drop, ...rest } = props;
   const regionPicture = {
     backgroundImage: `url(/images/regions/${data.region}.svg)`,
   };
   const style: { transform?: string } = {};
 
-  if (props.scale) {
-    style.transform = `scale(${props.scale || 1}`;
+  if (scale) {
+    style.transform = `scale(${scale || 1}`;
   }
 
   return (
@@ -31,8 +32,9 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
         {...rest}
         className={`animal ${className} ${stats && 'sequare'}`}
         draggable
-        onDragStart={(event: any) => dragger.onDragStart(event, data)}
-        onDragEnd={(event: any) => dragger.onDragEnd(event)}>
+        onDragStart={(event: any) => Dragger.onDragStart(event, data)}
+        onDragEnd={(event: any) => Dragger.onDragEnd(event, data)}
+        drop-target={drop}>
         <div className="layout" style={style}>
           <div className="overflow" style={{ backgroundImage: `url(/images/animals/${data.name}.jpg)` }} />
           <div className={`rarity-line ${data.rarity.toLowerCase()}`} />

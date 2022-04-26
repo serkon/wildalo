@@ -27,18 +27,24 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from '@chakra-ui/react';
+import { AxiosResponse } from 'axios';
 import { createRef, useRef, useState } from 'react';
+import { useStore } from 'react-redux';
 import { AnimalCard } from 'src/components/animal/animal.component';
 import { Animal } from 'src/components/animal/animal.dto';
-import { api } from 'src/components/axios/axios.component';
+import { api, HttpResponse } from 'src/components/axios/axios.component';
 import { Herd } from 'src/components/fight/fight.dto';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useApi } from 'src/hooks';
-import { dragger } from './wah.page';
+import { delete_wildling, set_wildling_list } from 'src/store/reducers/WildlingReducer';
+import { Dragger } from 'src/utils/dragger';
 
 export const HerdsComponent = () => {
   const { t } = useTranslate();
-  const [data, setData] = useState<any[]>([]);
+  // const store = useStore().getState();
+  // const _store = useSelector((state: RootState) => state);
+  const { dispatch } = useStore();
+  const [data, setData] = useState<Herd[] | null>([]);
   const herdNameInputRef = useRef([]);
   const updateHerdName = (herd: Herd, ref: React.RefObject<HTMLInputElement>) => {
     // TODO update herd name
@@ -56,18 +62,25 @@ export const HerdsComponent = () => {
     const item: { position: number; animal: Animal } | undefined = herd.animals && herd.animals.find((item) => item.position === position);
     return (item && item.animal) || null;
   };
-  const updateOnHerdDrag = async (newHerd: Herd): Promise<void> => {
+  const updateWildingOnAnimalDrag = async () => {
+    const wildlingsResponse: AxiosResponse<HttpResponse<Animal[]>> = await api.post('my/animal/list');
+    dispatch(set_wildling_list(wildlingsResponse.data.data));
+  };
+  const updateHerdOnAnimalDrag = async (newHerd: Herd, animal: Animal): Promise<void> => {
     try {
-      const response = await api.post('/herd/update', { data: newHerd });
-      console.log(response);
-      setData(() =>
-        data.map((item) => {
-          if (item._id === newHerd._id) {
-            return newHerd;
-          }
-          return item;
-        }),
+      await api.post('/herd/update', { data: newHerd });
+      setData(
+        () =>
+          data &&
+          data.map((item) => {
+            if (item._id === newHerd._id) {
+              return newHerd;
+            }
+            return item;
+          }),
       );
+      dispatch(delete_wildling(animal));
+      updateWildingOnAnimalDrag();
     } catch (e) {
       console.log(e);
     }
@@ -75,7 +88,6 @@ export const HerdsComponent = () => {
 
   useApi({ url: 'my/herd/list' }, (data) => {
     setData(data.data);
-    console.log(data);
     herdNameInputRef.current = data.data.map((_item: Herd, key: number) => herdNameInputRef.current[key] ?? createRef());
   });
 
@@ -115,7 +127,8 @@ export const HerdsComponent = () => {
         </HStack>
       </Flex>
       <Accordion defaultIndex={[0]} allowToggle className="accordion-herd-list">
-        {data.length > 0 &&
+        {data &&
+          data.length > 0 &&
           data.map((herd: Herd, key) => (
             <AccordionItem key={key} className="accordion-herd-item" style={key > 0 ? { marginTop: '20px' } : {}}>
               {(state: { isExpanded: boolean; isDisabled: boolean }) => (
@@ -211,34 +224,35 @@ export const HerdsComponent = () => {
                         return (
                           <GridItem
                             zIndex={1}
-                            onDragOver={(e: any) => dragger.onDragOver(e)}
+                            onDragOver={(e: any) => Dragger.onDragOver(e)}
                             onDrop={(e: any) => {
-                              dragger.onDrop(e, () => {
+                              Dragger.onDrop(e, () => {
                                 const data = e.dataTransfer.getData('id');
+                                console.log(e);
                                 if (data) {
-                                  console.log('h:', herd);
                                   const animal: Animal = JSON.parse(data);
                                   const newHerd = { ...herd };
                                   newHerd.animals = newHerd.animals ? [...newHerd.animals] : [];
                                   newHerd.animals[key] = { position: key, animal };
-                                  updateOnHerdDrag(newHerd);
+                                  updateHerdOnAnimalDrag(newHerd, animal);
                                 }
                               });
                             }}
-                            onDragEnter={(e: any) => dragger.onDragEnter(e)}
-                            onDragLeave={(e: any) => dragger.onDragLeave(e)}
+                            onDragEnter={(e: any) => Dragger.onDragEnter(e)}
+                            onDragLeave={(e: any) => Dragger.onDragLeave(e)}
                             onDragEnd={(e: any) => {
                               e.preventDefault();
                               console.log('end');
                             }}
                             key={key}
+                            drop-zone="herd"
                             className={`drop-zone grid-item ${animal ? 'grid-item-filled' : 'grid-item-empty'}`}
                             alignItems="center"
                             justifyContent={'center'}
                             display="flex"
                             textAlign={'center'}>
                             {animal ? (
-                              <AnimalCard data={animal} stats={true} />
+                              <AnimalCard data={animal} stats={true} drop="wildling" />
                             ) : (
                               <Text fontSize={12} maxW="150px">
                                 {t('game.wah.Drag')}

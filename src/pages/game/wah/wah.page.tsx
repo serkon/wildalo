@@ -6,9 +6,6 @@ import { useTranslate } from 'src/components/translate/translate.component';
 import './wah.page.scss';
 import { WildlingsComponent } from './wildlings.component';
 import { HerdsComponent } from './herds.component';
-import { Dragger } from 'src/utils/dragger';
-
-export const dragger = new Dragger('drop-zone');
 
 export const PageWildingAndHerds = () => {
   const { t } = useTranslate();
