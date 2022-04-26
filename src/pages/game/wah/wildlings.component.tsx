@@ -4,11 +4,13 @@ import { useEffect, useRef, useState } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import { AnimalCard } from 'src/components/animal/animal.component';
 import { Animal } from 'src/components/animal/animal.dto';
+import { Herd } from 'src/components/fight/fight.dto';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useApi, useObservable } from 'src/hooks';
 import { set_wildling_list } from 'src/store/reducers/WildlingReducer';
 import { RootState } from 'src/store/store';
 import { Dragger } from 'src/utils/dragger';
+import { updateHerdOnAnimalDrag } from './wah.page';
 
 export const WildlingsComponent = () => {
   const { t } = useTranslate();
@@ -85,19 +87,32 @@ export const WildlingsComponent = () => {
         onDragLeave={(e: any) => Dragger.onDragLeave(e)}
         onDrop={(e: any) => {
           Dragger.onDrop(e, () => {
-            const data = e.dataTransfer.getData('id');
+            const data: string = e.dataTransfer.getData('id');
             if (data) {
-              const animal: Animal = JSON.parse(data);
-              console.log('animal', animal);
+              const { item, herd }: { item: { position: number; animal: Animal }; herd: Herd; key: number } = JSON.parse(data);
+              const newHerd = { ...herd };
+              newHerd.animals = newHerd.animals ? [...newHerd.animals] : [];
+              const getIndex = newHerd.animals.findIndex((h: any) => h.position === item.position);
+              newHerd.animals.splice(getIndex, 1);
+              updateHerdOnAnimalDrag(newHerd);
             }
           });
         }}
-        className="drag-over-wildlings">
+        className="drag-over-wildlings"
+      >
         {search &&
           search.length > 0 &&
           search.map((item: Animal, key: number) => (
             <GridItem key={key}>
-              <AnimalCard data={item} className="animal-first ac" stats={true} draggable drop-target="herds" />
+              <AnimalCard
+                data={item}
+                className="animal-first ac"
+                stats={true}
+                draggable
+                drop-target="herds"
+                onDragStart={(event: any) => Dragger.onDragStart(event, item)}
+                onDragEnd={(event: any) => Dragger.onDragEnd(event, item)}
+              />
             </GridItem>
           ))}
         <GridItem className="grid-card-container empty" alignItems={'center'} justifyContent={'center'} display="flex">

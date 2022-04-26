@@ -4,9 +4,8 @@ import { useTranslate } from 'src/components/translate/translate.component';
 import { Animal, AnimalDetail } from './animal.dto';
 
 import './animal.component.scss';
-import { Dragger } from 'src/utils/dragger';
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   data: Animal | AnimalDetail;
   className?: string;
   scale?: number;
@@ -28,11 +27,7 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
 
   return (
     <>
-      <Box
-        {...rest}
-        className={`animal ${className} ${stats && 'sequare'}`}
-        onDragStart={(event: any) => Dragger.onDragStart(event, data)}
-        onDragEnd={(event: any) => Dragger.onDragEnd(event, data)}>
+      <Box {...rest} className={`animal ${className} ${stats && 'sequare'}`}>
         <div className="layout" style={style}>
           <div className="overflow" style={{ backgroundImage: `url(/images/animals/${data.name}.jpg)` }} />
           <div className={`rarity-line ${data.rarity.toLowerCase()}`} />

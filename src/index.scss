@@ -28,9 +28,9 @@ ScrollBar
 :root {
   --color: #1ea4ce;
   --color-dark: #147594;
-  --font-family-title: "Berkshire Swash";
-  --font-family-body: "Ubuntu";
-  --font-animal-name: "Saira";
+  --font-family-title: 'Berkshire Swash';
+  --font-family-body: 'Ubuntu';
+  --font-animal-name: 'Saira';
   --font-500: #697488;
   --font-600: #525252;
   --font-700: #191919;
@@ -70,7 +70,7 @@ body,
 [drop-target] {
   &.dragging {
     &:hover {
-      content: "";
+      content: '';
     }
   }
 }
@@ -87,13 +87,13 @@ body,
     position: relative;
     box-sizing: border-box;
     border-radius: 8px;
-    transform: scale(1.04);
+    transform: scale(0.97);
     opacity: 0.5;
 
     &::before {
       --padding: -5px;
 
-      content: "";
+      content: '';
       position: absolute;
       top: var(--padding);
       right: var(--padding);
@@ -109,4 +109,13 @@ body,
 .dragging {
   opacity: 0.5;
   transform: scale(0.9);
+}
+
+img {
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }

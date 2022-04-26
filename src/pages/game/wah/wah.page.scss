@@ -20,7 +20,7 @@
 
 [drop-zone].drag-over-wildlings {
   &.drag-over {
-    transform: scale(1);
+    transform: scale(0.99);
     opacity: 0.4;
   }
 }
