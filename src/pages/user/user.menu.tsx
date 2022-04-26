@@ -1,17 +1,19 @@
 import { Menu, MenuButton, Button, HStack, Avatar, Stack, Box, MenuList, Divider } from '@chakra-ui/react';
 import { useState } from 'react';
-import { useStore } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { HttpResponse } from 'src/components/axios/axios.component';
 import { FightsOverview } from 'src/components/fight/fight.dto';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useApi } from 'src/hooks';
 import { set_ranger, set_user_login } from 'src/store/reducers/RangerReducer';
+import { RootState } from 'src/store/store';
 import { Ranger } from './user.dto';
 
 export const UserProfile = () => {
   const { t } = useTranslate();
-  const store = useStore().getState();
+  // const store = useStore().getState(); // Bu hataya neden oluyor. Dom store değişince update olmuyor.
+  const store = useSelector((state: RootState) => state);
 
   return (
     <>

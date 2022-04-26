@@ -232,8 +232,5 @@ class MetaMaskHandler {
   }
 }
 
-const mh = new MetaMaskHandler();
-mh;
-
 export { MetaMaskHandler };
 window.wildapter = Wildapter;

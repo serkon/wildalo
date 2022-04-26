@@ -2,16 +2,26 @@
   box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
 }
 
-.grid-card-container {
+.grid-item {
   border-radius: 10px;
   background: #09241f;
 
-  &.empty {
+  &.grid-item-filled {
+  }
+
+  &.grid-item-empty {
     height: 312px;
     border: 1px dashed #16443a;
     background-image: url("~/public/images/pages/game/wah/empty.svg");
     background-repeat: no-repeat;
     background-position: bottom right;
+  }
+}
+
+[drop-zone].drag-over-wildlings {
+  &.drag-over {
+    transform: scale(0.99);
+    opacity: 0.4;
   }
 }
 

@@ -111,23 +111,25 @@ export const useApi = (
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-      api;
-      try {
-        const result = await api(fetch);
-        setData(result.data);
-        callback && callback(result.data);
-      } catch (error) {
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
+  useEffect(
+    () => {
+      const fetchData = async () => {
+        setIsError(false);
+        setIsLoading(true);
+        try {
+          const result = await api(fetch);
+          setData(result.data);
+          callback && callback(result.data);
+        } catch (error) {
+          setIsError(true);
+        }
+        setIsLoading(false);
+      };
 
-    condition && fetchData();
-  }, [watch, fetch]);
+      condition && fetchData();
+    },
+    Array.isArray(watch) ? [...watch, fetch] : [watch, fetch],
+  );
 
   return { data, isLoading, isError };
 };

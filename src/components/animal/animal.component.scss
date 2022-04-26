@@ -2,6 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  transform: translate(0, 0);
+  transition: all 0.3s;
+
+  &:hover {
+    transform: scale(1.01);
+    user-select: none;
+  }
 
   .layout {
     position: relative;

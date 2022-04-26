@@ -2,30 +2,32 @@ import { Box, Grid, GridItem } from '@chakra-ui/react';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 import { Animal, AnimalDetail } from './animal.dto';
+
 import './animal.component.scss';
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   data: Animal | AnimalDetail;
   className?: string;
   scale?: number;
   stats?: boolean;
+  draggable?: boolean;
 }
 
 export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
   const { t } = useTranslate();
-  const { data } = props;
+  const { data, className, stats, scale, ...rest } = props;
   const regionPicture = {
     backgroundImage: `url(/images/regions/${data.region}.svg)`,
   };
   const style: { transform?: string } = {};
 
-  if (props.scale) {
-    style.transform = `scale(${props.scale || 1}`;
+  if (scale) {
+    style.transform = `scale(${scale || 1}`;
   }
 
   return (
     <>
-      <Box {...props} className={`animal ${props.className} ${props.stats && 'sequare'}`}>
+      <Box {...rest} className={`animal ${className} ${stats && 'sequare'}`}>
         <div className="layout" style={style}>
           <div className="overflow" style={{ backgroundImage: `url(/images/animals/${data.name}.jpg)` }} />
           <div className={`rarity-line ${data.rarity.toLowerCase()}`} />
@@ -34,7 +36,7 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
           <div className="region" style={regionPicture} />
           <div className="name">{t(`animals.${data.name}`)}</div>
         </div>
-        {props.stats && (
+        {Boolean(props.stats) && (
           <div className="stats">
             <Grid templateColumns="repeat(3, 1fr)" gridColumnGap={'2px'} gridRowGap={0.5}>
               {Object.keys(data.primaryStats).map((item, key) => (

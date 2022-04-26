@@ -35,8 +35,6 @@ api.interceptors.request.use(
     const { metamask } = store.getState();
     if (metamask && request.method === 'post') {
       request.headers['address'] = metamask.walletAddress;
-      request.data = { ...request.data };
-      request.data['data'] = { ...request.data['data'], id: metamask.walletAddress };
     }
     return request;
   },
@@ -49,19 +47,15 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const res = error.response;
-
     if (res.status === 401 && !error.config.headers['RefreshToken']) {
       api.defaults.headers.common['RefreshToken'] = true;
       try {
         const refreshToken = window.localStorage.getItem(AuthorizationHeader.RefreshToken);
-
         if (refreshToken) {
           const refreshResponse: AxiosResponse<HttpResponse<RefreshTokenResponse>> = await api.post('/refresh', {
             refreshToken,
           });
-
           window.localStorage.setItem(AuthorizationHeader.AccessToken, refreshResponse.data.data[AuthorizationHeader.AccessToken] as string);
-
           // api.defaults.headers.common['Authorization'] = 'Bearer ' + refreshResponse.data.accessToken;
           error.config.headers['Authorization'] = 'Bearer ' + refreshResponse.data.data[AuthorizationHeader.AccessToken];
           error.config.headers['RefreshToken'] = false;
@@ -71,12 +65,11 @@ api.interceptors.response.use(
       } catch (error) {
         window.location.href = '/login';
       }
-
       return api(error.config);
     }
-    console.error('Looks like there was a problem. Status Code: ' + res.status);
-
-    return Promise.reject(error);
+    console.log('error: ', error, res);
+    // console.error('Looks like there was a problem. Status Code: ' + res.status);
+    return Promise.reject(res);
   },
 );
 
