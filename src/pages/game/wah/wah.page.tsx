@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Grid, GridItem } from '@chakra-ui/react';
 
 import { Page } from 'src/components/page/page.component';
@@ -31,8 +30,6 @@ export const updateHerdOnAnimalDrag = async (newHerd: Herd): Promise<void> => {
 
 export const PageWildingAndHerds = () => {
   const { t } = useTranslate();
-  const [data, _setData] = useState<any[]>([]);
-  data;
   t;
 
   return (

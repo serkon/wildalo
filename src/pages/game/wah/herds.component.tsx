@@ -168,7 +168,8 @@ export const HerdsComponent = () => {
                                     px="12px"
                                     borderRadius={'2px'}
                                     cursor="pointer"
-                                    _hover={{ backgroundColor: '#0B2F28' }}>
+                                    _hover={{ backgroundColor: '#0B2F28' }}
+                                  >
                                     {item.type}
                                   </Box>
                                 </PopoverTrigger>
@@ -225,7 +226,8 @@ export const HerdsComponent = () => {
                             alignItems="center"
                             justifyContent={'center'}
                             display="flex"
-                            textAlign={'center'}>
+                            textAlign={'center'}
+                          >
                             {item?.animal ? (
                               <AnimalCard
                                 data={item?.animal}
