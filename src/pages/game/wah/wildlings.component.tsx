@@ -10,7 +10,7 @@ import { useApi, useObservable } from 'src/hooks';
 import { set_wildling_list } from 'src/store/reducers/WildlingReducer';
 import { RootState } from 'src/store/store';
 import { Dragger } from 'src/utils/dragger';
-import { updateHerd } from './wah.page';
+import { updateHerdApi } from './wah.page';
 
 export const WildlingsComponent = () => {
   const { t } = useTranslate();
@@ -95,7 +95,7 @@ export const WildlingsComponent = () => {
               newHerd.animals = newHerd.animals ? [...newHerd.animals] : [];
               const getIndex = newHerd.animals.findIndex((h: any) => h.position === item.position);
               newHerd.animals.splice(getIndex, 1);
-              updateHerd(newHerd);
+              updateHerdApi(newHerd);
             }
           });
         }}

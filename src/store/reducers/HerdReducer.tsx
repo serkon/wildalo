@@ -2,7 +2,7 @@ import { Herd } from 'src/components/fight/fight.dto';
 import { Action } from 'src/store/store';
 
 export enum HerdEnum {
-  SET_HERD_LIST = 'SET_PLAY_BUTTON',
+  SET_HERD_LIST = 'SET_HERD_LIST',
   UPDATE_HERD = 'UPDATE_HERD',
 }
 

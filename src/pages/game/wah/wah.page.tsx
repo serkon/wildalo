@@ -11,20 +11,43 @@ import { HttpResponse, api } from 'src/components/axios/axios.component';
 import { Herd } from 'src/components/fight/fight.dto';
 import { set_wildling_list } from 'src/store/reducers/WildlingReducer';
 import { store } from 'src/store/store';
-import { update_herd } from 'src/store/reducers/HerdReducer';
+import { set_herd_list, update_herd } from 'src/store/reducers/HerdReducer';
 
-export const getWildingList = async () => {
-  const wildlingsResponse: AxiosResponse<HttpResponse<Animal[]>> = await api.post('my/animal/list');
-  store.dispatch(set_wildling_list(wildlingsResponse.data.data));
+export const getWildingListApi = async () => {
+  const animalListResponse: AxiosResponse<HttpResponse<Animal[]>> = await api.post('my/animal/list');
+  store.dispatch(set_wildling_list(animalListResponse.data.data ? animalListResponse.data.data : []));
 };
 
-export const updateHerd = async (newHerd: Herd, updateWildling: boolean = true): Promise<void> => {
+export const getHerdListApi = async () => {
+  const herdListResponse: AxiosResponse<HttpResponse<Herd[]>> = await api.post('my/herd/list');
+  store.dispatch(set_herd_list(herdListResponse.data.data ? herdListResponse.data.data : []));
+};
+
+export const updateHerdApi = async (newHerd: Herd, updateWildling: boolean = true): Promise<void> => {
   try {
     await api.post('/herd/update', { data: newHerd });
     store.dispatch(update_herd(newHerd));
-    updateWildling && getWildingList();
+    updateWildling && getWildingListApi();
   } catch (e) {
-    console.log(e);
+    console.log('update herd error: ', e);
+  }
+};
+
+export const createHerdApi = async (): Promise<Herd | null> => {
+  let herd: Herd | null = null;
+  try {
+    herd = await api.post('/herd/create');
+  } catch (e) {
+    console.log('create herd error: ', e);
+  }
+  return herd;
+};
+
+export const deleteHerdApi = async (herdId: string): Promise<void> => {
+  try {
+    await api.post('/herd/delete', { data: { id: herdId } });
+  } catch (e) {
+    console.log('delete herd error: ', e);
   }
 };
 
