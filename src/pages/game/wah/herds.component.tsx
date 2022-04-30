@@ -146,7 +146,7 @@ export const HerdsComponent = () => {
                             htmlSize={1}
                             p="0"
                             focusBorderColor="none"
-                            className={`herd-name-input ${(herdNameInputRef.current[key] as any).currente.i,,wei ? 'expanded' : ''}`}
+                            className={`herd-name-input`}
                             disabled
                           />
                         </label>
