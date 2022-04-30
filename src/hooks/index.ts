@@ -162,7 +162,7 @@ export const useConstructor = (callBack: () => void) => {
 
 export const useObservable = (callback: (value: any) => void, debounce = 500) => {
   const [value, setValue] = useState('');
-  const subject = new Subject<string>();
+  const subject = new Subject<any>();
   const observable = subject.pipe(
     debounceTime(debounce),
     map((value) => value),

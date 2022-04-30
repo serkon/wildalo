@@ -13,16 +13,16 @@ import { set_wildling_list } from 'src/store/reducers/WildlingReducer';
 import { store } from 'src/store/store';
 import { update_herd } from 'src/store/reducers/HerdReducer';
 
-export const updateWildingOnAnimalDrag = async () => {
+export const getWildingList = async () => {
   const wildlingsResponse: AxiosResponse<HttpResponse<Animal[]>> = await api.post('my/animal/list');
   store.dispatch(set_wildling_list(wildlingsResponse.data.data));
 };
 
-export const updateHerdOnAnimalDrag = async (newHerd: Herd): Promise<void> => {
+export const updateHerd = async (newHerd: Herd, updateWildling: boolean = true): Promise<void> => {
   try {
     await api.post('/herd/update', { data: newHerd });
     store.dispatch(update_herd(newHerd));
-    updateWildingOnAnimalDrag();
+    updateWildling && getWildingList();
   } catch (e) {
     console.log(e);
   }
