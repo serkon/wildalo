@@ -35,9 +35,7 @@ api.interceptors.request.use(
     const { metamask } = store.getState();
     if (metamask && request.method === 'post') {
       console.log(metamask);
-      request.headers['address'] = metamask.walletAddress;
-    } else {
-      window.location.href = '/';
+      metamask.walletAddress ? (request.headers['address'] = metamask.walletAddress) : (window.location.href = '/');
     }
     return request;
   },
