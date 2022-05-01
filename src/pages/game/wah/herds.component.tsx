@@ -27,31 +27,37 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from '@chakra-ui/react';
-import { createRef, useRef, useState } from 'react';
+import { createRef, useEffect, useRef } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import { AnimalCard } from 'src/components/animal/animal.component';
 import { Animal } from 'src/components/animal/animal.dto';
 import { Herd } from 'src/components/fight/fight.dto';
 import { useTranslate } from 'src/components/translate/translate.component';
-import { useApi } from 'src/hooks';
+import { useApi, useObservable } from 'src/hooks';
 import { set_herd_list } from 'src/store/reducers/HerdReducer';
 import { RootState } from 'src/store/store';
 import { Dragger } from 'src/utils/dragger';
-import { updateHerdOnAnimalDrag } from './wah.page';
+import { createHerdApi, deleteHerdApi, getHerdListApi, getWildingListApi, updateHerdApi } from './wah.page';
 
 export const HerdsComponent = () => {
   const { t } = useTranslate();
   // const store = useStore().getState();
   const store = useSelector((state: RootState) => state);
-  store;
   const { dispatch } = useStore();
-  const [_data, setData] = useState<Herd[] | null>([]);
   const herdNameInputRef = useRef([]);
+  // Update Herd Name Listener: Look updateHerdName method
+  const { subject } = useObservable(({ herd, ref }) => {
+    updateHerdApi(herd, false);
+    (ref.current as HTMLInputElement).disabled = true;
+  }, 1000);
   const updateHerdName = (herd: Herd, ref: React.RefObject<HTMLInputElement>) => {
-    // TODO update herd name
-    console.log(herd._id, ref.current?.value);
+    if (ref.current?.value) {
+      herd.name = ref.current?.value;
+      subject.next({ herd, ref });
+    }
   };
   const focusInput = (ref: React.RefObject<HTMLInputElement>) => {
+    (ref.current as HTMLInputElement).disabled = false;
     ref.current?.focus();
   };
   const directToFight = () => {
@@ -59,21 +65,33 @@ export const HerdsComponent = () => {
     console.log('direct to fight');
   };
   const getHerdAnimalByPosition = (herd: Herd, position: number): { position: number; animal: Animal } | null => {
-    // TODO get herd animal by position
     const item: { position: number; animal: Animal } | undefined = herd.animals && herd.animals.find((item) => item.position === position);
     return item || null;
   };
+  const createNewHerd = async () => {
+    console.log('Create new herd');
+    await createHerdApi();
+    getHerdListApi();
+  };
+  const deleteHerd = async (herd: Herd) => {
+    console.log('Delete Herd: ', herd);
+    await deleteHerdApi(herd._id);
+    getHerdListApi();
+    getWildingListApi();
+  };
+
+  useEffect(() => {
+    herdNameInputRef.current = store.herd.list.map((_item: Herd, key: number) => herdNameInputRef.current[key] ?? createRef());
+  }, [store.herd.list]);
 
   useApi({ url: 'my/herd/list' }, (data) => {
-    setData(data.data);
     dispatch(set_herd_list(data.data));
-    herdNameInputRef.current = data.data.map((_item: Herd, key: number) => herdNameInputRef.current[key] ?? createRef());
   });
 
   return (
     <>
       <Flex justifyContent={'space-between'} alignItems="center" mb={4}>
-        <Button leftIcon={<Image src="/images/pages/game/wah/add.svg" />} variant="outline" pl="4px">
+        <Button leftIcon={<Image src="/images/pages/game/wah/add.svg" />} variant="outline" pl="4px" onClick={() => createNewHerd()}>
           {t('game.wah.Create_Herd')}
         </Button>
         <HStack spacing={8}>
@@ -123,12 +141,14 @@ export const HerdsComponent = () => {
                             type="text"
                             defaultValue={herd.name}
                             ref={herdNameInputRef.current[key]}
+                            onBlur={() => ((herdNameInputRef.current[key] as any).current.disabled = true)}
                             onChange={() => updateHerdName(herd, herdNameInputRef.current[key])}
                             onInput={() => ((herdNameInputRef.current[key] as any).current.parentNode.dataset.value = (herdNameInputRef.current[key] as any).current.value)}
                             htmlSize={1}
                             p="0"
                             focusBorderColor="none"
-                            className="herd-name-input"
+                            className={`herd-name-input`}
+                            disabled
                           />
                         </label>
                         <InputRightElement>
@@ -191,7 +211,15 @@ export const HerdsComponent = () => {
                               </Popover>
                             </Box>
                           ))}
-                        <Button size="xs" ml="auto" leftIcon={<Image src="/images/pages/game/wah/trash.svg" />} variant="ghosy" fontSize={'12px'} color={'#FF937B'}>
+                        <Button
+                          size="xs"
+                          ml="auto"
+                          leftIcon={<Image src="/images/pages/game/wah/trash.svg" />}
+                          variant="ghosy"
+                          fontSize={'12px'}
+                          color={'#FF937B'}
+                          onClick={() => deleteHerd(herd)}
+                        >
                           {t('game.wah.Delete_herd')}
                         </Button>
                       </Flex>
@@ -217,7 +245,7 @@ export const HerdsComponent = () => {
                                   const getIndex = newHerd.animals.findIndex((item: any) => item.position === key);
                                   getIndex >= 0 && newHerd.animals.splice(getIndex, 1);
                                   newHerd.animals.push({ position: key, animal });
-                                  updateHerdOnAnimalDrag(newHerd);
+                                  updateHerdApi(newHerd);
                                 }
                               });
                             }}
