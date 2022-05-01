@@ -27,7 +27,7 @@ export const updateHerdApi = async (newHerd: Herd, updateWildling: boolean = tru
   try {
     await api.post('/herd/update', { data: newHerd });
     store.dispatch(update_herd(newHerd));
-    updateWildling && getWildingListApi();
+    updateWildling && getWildingListApi() && getHerdListApi();
   } catch (e) {
     console.log('update herd error: ', e);
   }
