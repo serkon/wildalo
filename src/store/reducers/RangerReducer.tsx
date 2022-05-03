@@ -1,5 +1,5 @@
 import { AnyAction, Reducer } from 'redux';
-import { Ranger } from 'src/pages/user/user.dto';
+import { Ranger } from 'src/utils/dto';
 import { Action } from 'src/store/store';
 
 export enum RangerEnum {

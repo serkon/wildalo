@@ -1,5 +1,5 @@
 import { Container, Heading, Button, Box } from '@chakra-ui/react';
-import { Animal, AnimalRarity, Region } from 'src/components/animal/animal.dto';
+import { Animal, AnimalRarity, Region } from 'src/utils/dto';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 import { Triad } from 'src/components/triad/triad.component';

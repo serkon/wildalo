@@ -3,12 +3,11 @@ import { useState } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { HttpResponse } from 'src/components/axios/axios.component';
-import { FightsOverview } from 'src/components/fight/fight.dto';
+import { FightsOverview, Ranger } from 'src/utils/dto';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useApi } from 'src/hooks';
 import { set_ranger, set_user_login } from 'src/store/reducers/RangerReducer';
 import { RootState } from 'src/store/store';
-import { Ranger } from './user.dto';
 
 export const UserProfile = () => {
   const { t } = useTranslate();

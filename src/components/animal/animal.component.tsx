@@ -1,7 +1,7 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react';
 
 import { useTranslate } from 'src/components/translate/translate.component';
-import { Animal, AnimalDetail } from './animal.dto';
+import { Animal, AnimalDetail } from 'src/utils/dto';
 
 import './animal.component.scss';
 

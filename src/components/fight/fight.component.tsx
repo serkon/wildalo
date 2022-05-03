@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar, Center, Flex, HStack, Stack, Text, Image, Divider } from '@chakra-ui/react';
 
 import { Timer } from 'src/components/timer/timer.component';
-import { Fight as FightInterface } from './fight.dto';
+import { Fight as FightInterface } from 'src/utils/dto';
 import './fight.component.scss';
 
 interface FightDetail {

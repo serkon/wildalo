@@ -30,8 +30,7 @@ import {
 import { createRef, useEffect, useRef } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import { AnimalCard } from 'src/components/animal/animal.component';
-import { Animal } from 'src/components/animal/animal.dto';
-import { Herd, HerdState } from 'src/components/fight/fight.dto';
+import { Animal, Herd, HerdState } from 'src/utils/dto';
 import { Timer } from 'src/components/timer/timer.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useApi, useObservable } from 'src/hooks';

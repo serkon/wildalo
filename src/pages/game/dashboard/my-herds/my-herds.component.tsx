@@ -5,7 +5,7 @@ import { AxiosResponse } from 'axios';
 import { useSelector } from 'react-redux';
 
 import { HttpResponse, api } from 'src/components/axios/axios.component';
-import { Herd, HerdState } from 'src/components/fight/fight.dto';
+import { Herd, HerdState } from 'src/utils/dto';
 import { useTranslate } from 'src/components/translate/translate.component';
 import './my-herds.component.scss';
 import { RootState } from 'src/store/store';

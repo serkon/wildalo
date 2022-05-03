@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Avatar, Box, Link, Flex, Divider, HStack, Heading, Button, Image } from '@chakra-ui/react';
 
 import { useTranslate } from 'src/components/translate/translate.component';
-import { Ranger } from 'src/pages/user/user.dto';
+import { Ranger } from 'src/utils/dto';
 import './my-profile.component.scss';
 
 export const MyProfile = () => {

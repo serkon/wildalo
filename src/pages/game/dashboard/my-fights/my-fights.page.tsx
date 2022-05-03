@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { api } from 'src/components/axios/axios.component';
 import { ChartPie } from 'src/components/chart/pie/pie.component';
 import { Fight } from 'src/components/fight/fight.component';
-import { FightsOverview } from 'src/components/fight/fight.dto';
+import { FightsOverview } from 'src/utils/dto';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 import { RootState } from 'src/store/store';

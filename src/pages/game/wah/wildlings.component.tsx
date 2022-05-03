@@ -3,8 +3,7 @@ import { Flex, Box, IconButton, InputGroup, InputLeftElement, Input, InputRightE
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import { AnimalCard } from 'src/components/animal/animal.component';
-import { Animal } from 'src/components/animal/animal.dto';
-import { Herd } from 'src/components/fight/fight.dto';
+import { Animal, Herd } from 'src/utils/dto';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useApi, useObservable } from 'src/hooks';
 import { set_wildling_list } from 'src/store/reducers/WildlingReducer';

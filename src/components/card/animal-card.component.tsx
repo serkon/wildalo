@@ -3,7 +3,7 @@ import { Box, GridItem } from '@chakra-ui/react';
 import { Grid } from '@chakra-ui/react';
 
 import { useTranslate } from 'src/components/translate/translate.component';
-import { Animal, AnimalDetail } from 'src/components/animal/animal.dto';
+import { Animal, AnimalDetail } from 'src/utils/dto';
 import './animal-card.scss';
 
 interface Props {

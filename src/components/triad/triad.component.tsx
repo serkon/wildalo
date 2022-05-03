@@ -1,6 +1,6 @@
 import { Box, Container } from '@chakra-ui/react';
 
-import { Animal } from 'src/components/animal/animal.dto';
+import { Animal } from 'src/utils/dto';
 import { AnimalCard } from 'src/components/animal/animal.component';
 import { useMediaQuery } from 'src/theme/util/media-query';
 import { useTranslate } from 'src/components/translate/translate.component';

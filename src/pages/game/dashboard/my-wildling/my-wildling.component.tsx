@@ -4,7 +4,7 @@ import { Heading, Flex, Button, HStack, Text, Box } from '@chakra-ui/react';
 import { api, HttpResponse } from 'src/components/axios/axios.component';
 import { Triad } from 'src/components/triad/triad.component';
 import { useTranslate } from 'src/components/translate/translate.component';
-import { Animal } from 'src/components/animal/animal.dto';
+import { Animal } from 'src/utils/dto';
 import { AxiosResponse } from 'axios';
 import { RootState } from 'src/store/store';
 import { useSelector } from 'react-redux';

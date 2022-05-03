@@ -1,5 +1,5 @@
 import { AnyAction, Reducer } from 'redux';
-import { Animal, AnimalDetail } from 'src/components/animal/animal.dto';
+import { Animal, AnimalDetail } from 'src/utils/dto';
 import { Action } from 'src/store/store';
 
 export enum WildlingEnum {

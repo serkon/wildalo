@@ -1,4 +1,4 @@
-import { Herd } from 'src/components/fight/fight.dto';
+import { Herd } from 'src/utils/dto';
 import { Action } from 'src/store/store';
 
 export enum HerdEnum {
