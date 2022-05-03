@@ -17,6 +17,7 @@ interface Props {
   children?: React.ReactNode;
   onChange?: (arg: State) => void;
   onComplete?: (arg: State) => void;
+  className?: string;
 }
 
 const formatNumber = (num: any) =>
@@ -99,7 +100,7 @@ export const Timer = (props: Props) => {
   }, []);
 
   return (
-    <div className="timer">
+    <div className={`${props.className ? props.className + 'timer' : 'timer'}`}>
       {!props.children ? (
         <>
           {props.day && (

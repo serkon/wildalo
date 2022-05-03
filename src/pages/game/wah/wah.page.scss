@@ -12,7 +12,7 @@
   &.grid-item-empty {
     height: 312px;
     border: 1px dashed #16443a;
-    background-image: url("~/public/images/pages/game/wah/empty.svg");
+    background-image: url('~/public/images/pages/game/wah/empty.svg');
     background-repeat: no-repeat;
     background-position: bottom right;
   }
@@ -44,10 +44,6 @@
           box-shadow: none;
         }
 
-        .input-sizer {
-          width: min-content;
-        }
-
         .herd-name-input {
           padding-right: 8px;
           max-width: 100px;
@@ -68,18 +64,19 @@
           position: relative;
           display: inline-grid;
           align-items: center;
+          width: min-content;
           font-family: inherit;
           font-size: inherit;
-        }
 
-        .input-sizer::after {
-          content: attr(data-value) "  ";
-          padding-right: 40px;
-          height: 1px;
-          visibility: hidden;
-          font-family: inherit;
-          font-size: inherit;
-          white-space: pre-wrap;
+          &::after {
+            content: attr(data-value) '  ';
+            padding-right: 40px;
+            height: 1px;
+            visibility: hidden;
+            font-family: inherit;
+            font-size: inherit;
+            white-space: pre-wrap;
+          }
         }
 
         .edit-herd-name-button {
@@ -91,6 +88,14 @@
           font-size: 14px;
           font-weight: 700;
           line-height: 16px;
+        }
+
+        .timer {
+          color: #77d163;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 16px;
+          user-select: none;
         }
       }
     }

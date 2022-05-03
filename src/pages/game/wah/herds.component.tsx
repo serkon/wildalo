@@ -32,6 +32,7 @@ import { useSelector, useStore } from 'react-redux';
 import { AnimalCard } from 'src/components/animal/animal.component';
 import { Animal } from 'src/components/animal/animal.dto';
 import { Herd, HerdState } from 'src/components/fight/fight.dto';
+import { Timer } from 'src/components/timer/timer.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useApi, useObservable } from 'src/hooks';
 import { set_herd_list } from 'src/store/reducers/HerdReducer';
@@ -171,19 +172,22 @@ export const HerdsComponent = () => {
                         </Button>
                       )}
                       {herd.state === HerdState.FIGHTING && (
-                        <Button
-                          isLoading
-                          loadingText={t('game.wah.Matchmaking')}
-                          className="get-into-fight"
-                          mr="4"
-                          variant={'ghost'}
-                          color="rgba(255, 255, 255, 0.5)"
-                          disabled
-                          boxShadow="none"
-                          p="0"
-                        >
-                          {t('game.wah.Matchmaking')}
-                        </Button>
+                        <>
+                          <Button
+                            isLoading
+                            loadingText={t('game.wah.Matchmaking')}
+                            className="get-into-fight"
+                            mr="4"
+                            variant={'ghost'}
+                            color="rgba(255, 255, 255, 0.5)"
+                            disabled
+                            boxShadow="none"
+                            p="0"
+                          >
+                            {t('game.wah.Matchmaking')}
+                          </Button>
+                          <Timer diff={212312123} />
+                        </>
                       )}
                       {herd.state === HerdState.DEAD && (
                         <Button className="get-into-fight" mr="4" variant={'outline'} boxShadow="none">
