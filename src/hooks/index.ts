@@ -128,7 +128,8 @@ export const useApi = (
 
       condition && fetchData();
     },
-    Array.isArray(watch) ? [...watch, fetch] : [watch, fetch],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    Array.isArray(watch) ? [...watch, fetch, condition] : [watch, fetch],
   );
 
   return { data, isLoading, isError };
@@ -172,7 +173,9 @@ export const useObservable = (callback: (value: any) => void, debounce = 500) =>
       setValue(value);
       callback(value);
     });
+    console.log('asda1');
     return () => subscription.unsubscribe();
-  }, [observable]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return { value, setValue, subject };
 };

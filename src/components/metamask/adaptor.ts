@@ -111,7 +111,7 @@ export class MetaMaskContractAdaptor extends EventEmitter implements MetaMaskCon
 
   public async checkPermissionToAccessAccounts(): Promise<boolean> {
     const self = this as MetaMaskContractAdaptor;
-    return new Promise((resolve, _reject) => {
+    return new Promise((resolve) => {
       self.provider
         .request({ method: 'eth_requestAccounts' })
         .then(() => {
@@ -141,7 +141,7 @@ export class MetaMaskContractAdaptor extends EventEmitter implements MetaMaskCon
   public async enablePermissionToAccessAccounts(): Promise<boolean> {
     // const self = this as MetaMaskContractAdaptor;
     return new Promise(
-      ((resolve: (value: boolean | PromiseLike<boolean>) => void, _reject: (reason?: any) => void) => {
+      ((resolve: (value: boolean | PromiseLike<boolean>) => void) => {
         this.provider
           .request({
             method: 'wallet_requestPermissions',

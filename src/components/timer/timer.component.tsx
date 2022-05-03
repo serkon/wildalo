@@ -54,7 +54,6 @@ export const Timer = (props: Props) => {
     const givenTime = new Date(props.date as Date);
     const nowTime = new Date();
     diff = givenTime.getTime() - nowTime.getTime();
-    console.log(diff);
   }
   const calculate = (ms: number) => {
     const days = formatNumber(Math.floor(ms / (24 * 60 * 60 * 1000)));
@@ -97,6 +96,7 @@ export const Timer = (props: Props) => {
     }
 
     return () => clear(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

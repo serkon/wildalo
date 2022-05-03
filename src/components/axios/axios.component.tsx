@@ -33,9 +33,11 @@ api.interceptors.request.use(
       request.headers['Authorization'] = 'Bearer ' + token;
     }
     const { metamask } = store.getState();
-    if (metamask && request.method === 'post') {
-      console.log(metamask);
-      metamask.walletAddress ? (request.headers['address'] = metamask.walletAddress) : (window.location.href = '/');
+    if (metamask && metamask.walletAddress && request.method === 'post') {
+      request.headers['address'] = metamask.walletAddress;
+    } else {
+      window.location.href = '/';
+      Promise.reject(new Error('No wallet address'));
     }
     return request;
   },

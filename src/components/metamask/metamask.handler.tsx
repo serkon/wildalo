@@ -203,14 +203,14 @@ class MetaMaskHandler {
 
     /** dddd */
 
-    Wildapter.on(MetaMaskAdapterEnums.CONNECTED, async (_connection: { chainId: string }) => {
+    Wildapter.on(MetaMaskAdapterEnums.CONNECTED, async () => {
       // this.setNetwork(connection.chainId === process.env.REACT_APP_CHAIN_ID);
       // this.setUserMetaMaskData(await this.getUserInfo());
       // console.log('event: CONNECTED: ', _connection);
       this.init();
     });
 
-    Wildapter.on(MetaMaskAdapterEnums.CHAIN_CHANGED, async (_chainId: string) => {
+    Wildapter.on(MetaMaskAdapterEnums.CHAIN_CHANGED, async () => {
       // this.setNetwork(chainId === process.env.REACT_APP_CHAIN_ID);
       // this.setUserMetaMaskData(await this.getUserInfo());
       // console.log('event: CHAIN_CHANGED: ', _chainId);

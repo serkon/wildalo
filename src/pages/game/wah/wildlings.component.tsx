@@ -22,7 +22,9 @@ export const WildlingsComponent = () => {
   };
   const onClear = () => {
     setSearch(store.wildling.list);
-    refInput.current!.value = '';
+    if (refInput.current) {
+      refInput.current.value = '';
+    }
   };
   const filter = (value: string) => {
     const filtered = store.wildling.list.filter((item: Animal) => item.name.toLowerCase().includes(value.toLowerCase()));
@@ -38,7 +40,10 @@ export const WildlingsComponent = () => {
   });
 
   useEffect(() => {
+    console.log('wildling list', store.wildling.list);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     filter(refInput.current!.value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store.wildling.list]);
 
   return (

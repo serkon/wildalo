@@ -21,6 +21,7 @@ export const PageGame = () => {
     return () => {
       dispatch(set_layout_play_button(false));
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
