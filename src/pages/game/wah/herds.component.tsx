@@ -31,7 +31,7 @@ import { createRef, useEffect, useRef } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import { AnimalCard } from 'src/components/animal/animal.component';
 import { Animal } from 'src/components/animal/animal.dto';
-import { Herd } from 'src/components/fight/fight.dto';
+import { Herd, HerdState } from 'src/components/fight/fight.dto';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useApi, useObservable } from 'src/hooks';
 import { set_herd_list } from 'src/store/reducers/HerdReducer';
@@ -165,9 +165,31 @@ export const HerdsComponent = () => {
                         {t('common.LEVEL')} {herd.level}
                       </Box>
                       <Box mr="4">{herd.animals?.length || 0} / 4</Box>
-                      <Button className="get-into-fight" mr="4" variant={'primary'} disabled={herd.animals?.length != 4} onClick={directToFight} boxShadow="none">
-                        {t('game.wah.Get_into_a_Fight')}
-                      </Button>
+                      {herd.state === HerdState.IDLE && (
+                        <Button className="get-into-fight" mr="4" variant={'primary'} disabled={herd.animals?.length !== 4} onClick={directToFight} boxShadow="none">
+                          {t('game.wah.Get_into_a_Fight')}
+                        </Button>
+                      )}
+                      {herd.state === HerdState.FIGHTING && (
+                        <Button
+                          isLoading
+                          loadingText={t('game.wah.Matchmaking')}
+                          className="get-into-fight"
+                          mr="4"
+                          variant={'ghost'}
+                          color="rgba(255, 255, 255, 0.5)"
+                          disabled
+                          boxShadow="none"
+                          p="0"
+                        >
+                          {t('game.wah.Matchmaking')}
+                        </Button>
+                      )}
+                      {herd.state === HerdState.DEAD && (
+                        <Button className="get-into-fight" mr="4" variant={'outline'} boxShadow="none">
+                          {t('game.wah.Match_Result')}
+                        </Button>
+                      )}
                     </Flex>
                     {state.isExpanded && (
                       <Flex className="accordion-title-sub" justifyContent={'space-beetwen'} mt="6px" mb="12px">

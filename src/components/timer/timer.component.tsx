@@ -11,7 +11,8 @@ interface State {
 }
 
 interface Props {
-  date: Date;
+  date?: Date;
+  diff?: number;
   day?: boolean;
   children?: React.ReactNode;
   onChange?: (arg: State) => void;
@@ -27,8 +28,9 @@ const formatNumber = (num: any) =>
 /**
  * Timer component that counts down to a given date1
  *
- * @param date - Date object
- * @param day - Boolean
+ * @param diff - miliseconds to count down
+ * @param date - Date object. If diff given date will be ignored.
+ * @param day - Boolean - If it is true day will be counted
  * @param onChange - Callback function
  * @param onComplete - Callback function
  *
@@ -46,9 +48,13 @@ export const Timer = (props: Props) => {
     ms: formatNumber(0),
     elapsed: null,
   });
-  const givenTime = new Date(props.date);
-  const nowTime = new Date();
-  const diffTime = givenTime.getTime() - nowTime.getTime();
+  let { diff } = props;
+  if (!diff) {
+    const givenTime = new Date(props.date as Date);
+    const nowTime = new Date();
+    diff = givenTime.getTime() - nowTime.getTime();
+    console.log(diff);
+  }
   const calculate = (ms: number) => {
     const days = formatNumber(Math.floor(ms / (24 * 60 * 60 * 1000)));
     const daysms = ms % (24 * 60 * 60 * 1000);
@@ -57,22 +63,20 @@ export const Timer = (props: Props) => {
     const minutes = formatNumber(Math.floor(hoursms / (60 * 1000)));
     const minutesms = ms % (60 * 1000);
     const seconds = formatNumber(Math.floor(minutesms / 1000));
-
     return { days, hours, minutes, seconds, ms };
   };
   const clear = (interval: NodeJS.Timer) => {
     clearInterval(interval);
     props.onComplete && props.onComplete(time);
-    console.log('clear me');
   };
 
   useEffect(() => {
     let interval: NodeJS.Timer;
 
-    if (diffTime < 0) {
+    if (diff && diff < 0) {
       props.onComplete && props.onComplete(time);
     } else {
-      const variable = calculate(diffTime);
+      const variable = calculate(diff as any);
 
       interval = setInterval(() => {
         if (variable.ms - 1000 <= 0) {

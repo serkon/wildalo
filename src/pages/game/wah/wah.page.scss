@@ -44,11 +44,19 @@
           box-shadow: none;
         }
 
+        .input-sizer {
+          width: min-content;
+        }
+
         .herd-name-input {
           padding-right: 8px;
+          max-width: 100px;
+          overflow: hidden;
           border: 1px solid transparent;
           font-family: inherit;
           font-size: inherit;
+          text-overflow: ellipsis;
+          white-space: nowrap;
 
           &:focus,
           &:hover {
