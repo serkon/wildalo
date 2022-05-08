@@ -9,6 +9,8 @@ import { Herd, HerdState } from 'src/utils/dto';
 import { useTranslate } from 'src/components/translate/translate.component';
 import './my-herds.component.scss';
 import { RootState } from 'src/store/store';
+import { useNavigate } from 'react-router-dom';
+import { LinkItem, LinkGame } from 'src/utils/links';
 
 const getHerds = async (): Promise<HttpResponse<Herd[]>> => {
   const response: AxiosResponse<HttpResponse<Herd[]>> = await api.post('/my/herd/list');
@@ -22,6 +24,10 @@ export const MyHerds = () => {
   const [idle, setIdle] = React.useState(0);
   const [winner, setWinner] = React.useState<Herd | null>(null);
   const store = useSelector<RootState>((state: RootState): RootState => state) as RootState;
+  const navigate = useNavigate();
+  const direction = (item: LinkItem) => {
+    item.external ? window.open(item.to, '_blank') : navigate(item.to);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -97,7 +103,7 @@ export const MyHerds = () => {
             <Button variant="ghost" fontWeight="bold">
               {t('common.create_new')}
             </Button>
-            <Button variant="outline" fontWeight="bold">
+            <Button variant="outline" fontWeight="bold" onClick={() => direction(LinkGame[1])}>
               {t('common.see_all')}
             </Button>
           </Flex>

@@ -8,6 +8,8 @@ import { Animal } from 'src/utils/dto';
 import { AxiosResponse } from 'axios';
 import { RootState } from 'src/store/store';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { LinkGame, LinkItem } from 'src/utils/links';
 
 const getAnimals = async (): Promise<HttpResponse<Animal[]>> => {
   const response: AxiosResponse<HttpResponse<Animal[]>> = await api.post('/my/animal/list', {
@@ -24,6 +26,10 @@ export const MyWildlings = () => {
   const { t } = useTranslate();
   const [animals, setAnimals] = React.useState<HttpResponse<Animal[]> | null>(null);
   const store = useSelector<RootState>((state: RootState): RootState => state) as RootState;
+  const navigate = useNavigate();
+  const direction = (item: LinkItem) => {
+    item.external ? window.open(item.to, '_blank') : navigate(item.to);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -58,7 +64,7 @@ export const MyWildlings = () => {
           <Button variant="ghost" fontWeight="bold">
             {t('common.buy_more')}
           </Button>
-          <Button variant="outline" fontWeight="bold">
+          <Button variant="outline" fontWeight="bold" onClick={() => direction(LinkGame[1])}>
             {t('common.see_all')}
           </Button>
         </Flex>

@@ -1,8 +1,9 @@
-import { Container, Flex, Center, Image, Stack, Tooltip, Box, Button } from '@chakra-ui/react';
+import { Container, Center, Text, Image, Flex, Button, Box, Heading, Stack, Tooltip, Link } from '@chakra-ui/react';
 import { useTranslate } from 'src/components/translate/translate.component';
 
 import './footer.component.scss';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { LinksFooter, LinkSocials, LinksTerms } from 'src/utils/links';
 
 interface Props {
   left?: JSX.Element;
@@ -11,29 +12,6 @@ interface Props {
   children?: JSX.Element | string;
   className?: string;
 }
-
-const items = [
-  { title: 'links.how_to_play', to: 'faq' },
-  { title: 'footer.terms_and_conditions', to: 'terms-and-conditions.pdf', external: true },
-  { title: 'links.whitepaper', to: 'whitepaper.pdf', external: true },
-  { title: 'footer.privacy_policy', to: 'privacy-and-policy.pdf', external: true },
-
-  // { 'title': 'links.about_us', 'to': '' },
-  // { 'title': 'links.contact_us', 'to': '' },
-  // { 'title': 'links.faqs', 'to': '' },
-];
-const socials = [
-  { title: 'social.discord', to: 'https://discord.gg/Vypt9GUjKh' },
-  { title: 'social.telegram', to: 'https://t.me/+jO3E4SQjH6U2MmEx' },
-  { title: 'social.twitter', to: 'https://twitter.com/wildalogame' },
-  { title: 'social.facebook', to: 'https://www.facebook.com/wildalogame' },
-  { title: 'social.reddit', to: 'https://www.reddit.com/r/wildalo/' },
-
-  // { 'title': 'social.youtube', 'to': 'https://www.youtube.com/channel/UCeqL4KyprLNMKwFQueOdsIw' },
-  // { 'title': 'social.linkedin', 'to': 'https://www.linkedin.com/in/wildalo-game-a23921229/' },
-  // { 'title': 'social.instagram', 'to': 'https://www.instagram.com/wildalogame/' },
-  // { 'title': 'social.medium', 'to': 'https://medium.com/@wildalogame' },
-];
 
 interface FooterLink {
   title: string;
@@ -56,6 +34,54 @@ export const Footer = (props: Props): JSX.Element => {
     <>
       <Center as="footer" className={props.className}>
         <Container maxW="container.xl" className="footer-container">
+          <Flex
+            my="40px"
+            pb="40px"
+            alignItems="center"
+            flexDirection={{ base: 'column', md: 'row' }}
+            className="footer-logo"
+            justifyContent={'space-between'}
+            borderBottom="1px solid rgba(255, 255, 255, 0.1)"
+          >
+            <Link as={NavLink} to={'/'}>
+              <Image srcSet={props.logo} objectFit="contain" maxW={{ base: '50%', md: '170px' }} opacity="0.4" />
+            </Link>
+            <Box flexDirection={'row'} display="flex">
+              <Text fontSize={'22px'} display={{ base: 'none', md: 'flex' }} mr="60px">
+                Ready to get started?
+              </Text>
+              <Button variant={'white'}>Start Winning!</Button>
+            </Box>
+          </Flex>
+          <Flex className="links">
+            {LinksFooter.map((item: { name: string; links: { title: string; to: string }[] }, key: number) => (
+              <Flex key={key} flexDirection="column" fontFamily={'roboto'} className="footer-link-column">
+                <Heading as="h6" size="md" variant={'footerLinkTitle'} mb="20px">
+                  {t(`footer.${item.name}`)}
+                </Heading>
+                {item.links.map((link: { title: string; to: string }, key: number) => (
+                  <Button variant="green" onClick={() => direction(link)} key={key} justifyContent="flex-start" mb="20px">
+                    {t(link.title)}
+                  </Button>
+                ))}
+              </Flex>
+            ))}
+          </Flex>
+          <Flex className="footer-terms-and-socials">
+            {LinksTerms.map((link: { title: string; to: string }, key: number) => (
+              <Button variant="footer" onClick={() => direction(link)} key={key} justifyContent="flex-start" mr="80px">
+                {t(link.title)}
+              </Button>
+            ))}
+            <Stack className="socials" mt={[32, 0]} justifyContent={{ base: 'space-between', md: 'end' }} width={{ base: 'auto', md: 'auto' }}>
+              {LinkSocials.map((social: { title: string; to: string }, key: number) => (
+                <Tooltip label={t(social.title)} aria-label="A tooltip" key={key}>
+                  <a href={`${social.to}`} target="_blank" style={socialLink(social.title)} className="social" color="white" rel="noreferrer" />
+                </Tooltip>
+              ))}
+            </Stack>
+          </Flex>
+          {/**
           <Flex width="full" alignItems="center" flexDirection={{ base: 'column', md: 'row' }}>
             <Image srcSet={props.logo} objectFit="contain" maxW={{ base: '50%', md: '170px' }} />
             <Box className="link-container" ml={[0, 124]} mt={[10, 0]}>
@@ -73,6 +99,7 @@ export const Footer = (props: Props): JSX.Element => {
               ))}
             </Stack>
           </Flex>
+          */}
         </Container>
       </Center>
     </>

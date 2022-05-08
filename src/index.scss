@@ -25,12 +25,22 @@ ScrollBar
   background: #555555;
 }
 
+/*
+import '@fontsource/berkshire-swash';
+import '@fontsource/ubuntu';
+import '@fontsource/saira';
+import '@fontsource/roboto';
+import '@fontsource/roboto-slab';
+*/
+
 :root {
   --color: #1ea4ce;
   --color-dark: #147594;
   --font-family-title: 'Berkshire Swash';
   --font-family-body: 'Ubuntu';
   --font-animal-name: 'Saira';
+  --font-family-roboto: 'Roboto';
+  --font-family-roboto-slab: 'Roboto Slab';
   --font-500: #697488;
   --font-600: #525252;
   --font-700: #191919;

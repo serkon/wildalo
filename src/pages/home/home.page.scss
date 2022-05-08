@@ -2,116 +2,55 @@
   // font-family: "Berkshire Swash" !important;
 
   main {
-    .page-banner {
-      height: 92px;
-      background-image: url("~/src/assets/images/hero/main-top.svg");
-      color: white;
-      font-weight: 200;
-      letter-spacing: 0.5px;
-    }
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 
-    section.one {
-      padding: 50px 0;
-
-      h1 {
-        margin-bottom: 64px;
-      }
-
-      p {
-        padding-bottom: 36px;
-      }
-    }
-
-    section.second {
-      position: relative;
+    .home-hero {
       display: flex;
+      flex-direction: column;
+      flex-grow: 1;
       align-items: center;
-      justify-content: flex-end;
-      margin-top: 96px;
-      margin-bottom: 156px;
-      height: 400px;
-      background-image: url(./images/section-second.svg);
+      justify-content: space-between;
+      min-height: 960px;
+      background-color: #210002;
       background-repeat: no-repeat;
-      background-position: top;
+      background-position: center center;
       background-size: cover;
-      text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
+    }
 
-      .title {
-        position: absolute;
-        top: -64px;
-        right: 156px;
+    .home-description {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: -1px;
+      background-color: #210002;
+
+      .play-now {
+        width: 215px;
+        height: 44px;
+        border-radius: 22px;
+        background: linear-gradient(263.62deg, #ffc633 33.34%, #ffae1b 65.52%);
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 20px;
+      }
+
+      .extensions {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 512px;
-        height: 165px;
-        background-image: url(./images/section-second-title.svg);
-        background-repeat: no-repeat;
-        background-position: -10% 50%;
-        background-size: cover;
-        color: white;
-      }
+        margin-top: 54px;
+        margin-bottom: 96px;
 
-      .description {
-        width: 470px;
-        color: white;
-      }
-
-      .stone {
-        position: absolute;
-        right: 214px;
-        bottom: -57px;
-        width: 148px;
-        height: 114px;
-        background-image: url(./images/section-second-stone.svg);
-        background-repeat: no-repeat;
-        background-position: -10% 50%;
-        background-size: cover;
+        img {
+          margin: 0 32px;
+        }
       }
     }
 
-    section.third {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      margin-top: 96px;
-      margin-bottom: 196px;
-      padding: 4rem 0;
-      background-color: white;
-
-      .title {
-        position: absolute;
-        top: -96px;
-        right: 156px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 512px;
-        height: 165px;
-        background-image: url(./images/section-third.svg);
-        background-repeat: no-repeat;
-        background-position: -10% 50%;
-        background-size: contain;
-        color: white;
-      }
-
-      .quarter {
-        margin-bottom: 1rem;
-        color: #021425;
-      }
-
-      .leaf {
-        position: absolute;
-        right: 214px;
-        bottom: -57px;
-        width: 112px;
-        height: 170px;
-        background-image: url(./images/section-third-leaf.svg);
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-      }
+    .home-become-ranger {
+      height: 600px;
+      background: linear-gradient(0deg, #0a2f28 18.13%, #092520 44.57%, #210002 100%);
     }
   }
 
