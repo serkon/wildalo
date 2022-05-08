@@ -22,6 +22,7 @@
     "Edit_Profile": "Edit Profile",
     "claim": "claim",
     "Start_Playing_Now": "Start Playing Now",
+    "Play_Now": "Play Now",
     "Connect": "Connect"
   },
   "links": {
@@ -35,7 +36,13 @@
     "wildlings_and_herds": "Wildlings & Herds",
     "my_profile": "My Profile",
     "how_to_play": "How to Play",
-    "faqs": "FAQs"
+    "faqs": "FAQs",
+    "team": "Team",
+    "about_us": "About Us",
+    "contact_us": "Contact Us",
+    "privacy_policy": "Privacy Policy",
+    "terms_and_conditions": "Terms & Conditions",
+    "ready_to_get_started": "Ready to get started?"
   },
   "social": {
     "facebook": "facebook",
@@ -121,7 +128,8 @@
     "LEOPARD_SEAL": "LEOPARD SEAL"
   },
   "main": {
-    "slogan": "New NFT trading card game coming soon!",
+    "slogan": "Play to Earn! Free to Start!",
+    "subslogan": "New NFT trading card game coming soon!<br> Collect and grow rare animal cards, form your herds, fight with other players and sell your cards to other traders.",
     "hero": {
       "header01": "Play to Earn",
       "header02": "Free to Start",
@@ -182,12 +190,7 @@
     "services": "Services",
     "about": "About",
     "help": "Help",
-    "about_us": "About Us",
-    "contact_us": "Contact Us",
     "team": "Team",
-    "privacy_policy": "Privacy Policy",
-    "terms_and_conditions": "Terms & Conditions",
-    "ready_to_get_started": "Ready to get started?",
     "start_winning": "Start Winning"
   },
   "metamask": {

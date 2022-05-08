@@ -2,31 +2,19 @@ import { Container, Heading, HStack, Link } from '@chakra-ui/react';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslate } from 'src/components/translate/translate.component';
+import { LinkGame } from 'src/utils/links';
 import './page.component.scss';
 
 interface Props {
   title: string;
   children?: React.ReactNode;
 }
-
-interface Link {
-  title: string;
-  to: string;
-  external?: boolean;
-}
-export const items: Link[] = [
-  { title: 'links.dashboard', to: '/game/dashboard' },
-  { title: 'links.wildlings_and_herds', to: '/game/wah' },
-  { title: 'links.fight', to: '/game/fight' },
-  { title: 'links.my_profile', to: '/user/profile' },
-];
-
 const Links = () => {
   const { t } = useTranslate();
 
   return (
     <React.Fragment>
-      {items.map((item: { title: string; to: string }, key: number) => (
+      {LinkGame.map((item: { title: string; to: string }, key: number) => (
         <Link as={NavLink} to={item.to} variant="header" key={key} fontWeight="400">
           {t(item.title)}
         </Link>
@@ -40,7 +28,7 @@ export const Page = (props: Props) => {
   const { title } = props;
 
   return (
-    <Container maxWidth="container.xl" className="page-container">
+    <Container maxWidth="container.xl" className="page-container" marginBottom="120px">
       <Heading as="h3" size="lg" isTruncated className="page-title" fontSize="132px" position="absolute" marginLeft="-9px" zIndex={-1}>
         {t(title)}
       </Heading>

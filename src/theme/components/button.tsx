@@ -61,7 +61,6 @@ export const Button = {
         },
       },
     },
-
     white: {
       color: '#09241F',
       borderColor: 'transparent',
@@ -71,6 +70,35 @@ export const Button = {
       lineHeight: '16px',
       _hover: {
         bg: 'rgba(255, 255, 255, 0.8)',
+      },
+    },
+    green: {
+      color: '#87AFA8',
+      fontWeight: 400,
+      fontSize: '15px',
+      lineHeight: '18px',
+      letterSpacing: '-0.204545px',
+      padding: 0,
+      height: 'auto',
+      boxShadow: 'none',
+      _focus: {
+        boxShadow: 'none',
+      },
+      _hover: {
+        textDecoration: 'underline',
+      },
+    },
+    footer: {
+      color: 'white',
+      border: 'none',
+      padding: 0,
+      fontWeight: 400,
+      fontSize: '15px',
+      _focus: {
+        boxShadow: 'none',
+      },
+      _hover: {
+        textDecoration: 'underline',
       },
     },
   },

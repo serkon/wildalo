@@ -50,7 +50,9 @@ export function Header({ logo = '' }: { logo: string }) {
           />
           <HStack spacing={8} alignItems={'center'} flexGrow={{ base: '0', md: '1' }}>
             <Box>
-              <Image srcSet={logo} objectFit="contain" maxW="170px" />
+              <Link as={NavLink} to={'/'}>
+                <Image srcSet={logo} objectFit="contain" maxW="170px" />
+              </Link>
             </Box>
           </HStack>
           <HStack as={'nav'} spacing={{ md: 6, lg: '44px' }} alignItems={'flex-end'} display={{ base: 'none', md: 'flex' }} padding={{ md: 6, lg: '44px' }}>

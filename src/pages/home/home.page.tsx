@@ -1,7 +1,4 @@
-import { Heading, Container, Text, Grid, GridItem } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-
-import { Hero } from './hero/hero.component';
+import { Box, Button, Heading, Image } from '@chakra-ui/react';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useMediaQuery } from 'src/theme/util/media-query';
 import './home.page.scss';
@@ -24,59 +21,33 @@ const roadmap = [
     description: ['New Spring Wildlings', 'Consumables', 'Ranger Guilds'],
   },
 ];
+roadmap;
 
 export const PageHome = () => {
   const { t } = useTranslate();
   const isLarge = useMediaQuery('md');
-
+  isLarge;
   return (
     <>
-      <Heading as="h3" size={isLarge ? 'lg' : 'sm'} variant="center" isTruncated className="page-banner" alignItems={'center'} display={'flex'} justifyContent={'center'}>
-        {t('main.slogan')}
-      </Heading>
-      <Hero />
-      <section className="one">
-        <Container maxW="container.md" flexDirection="column" textAlign="center">
-          <Heading as="h1" color="white">
-            {t('main.section.one.header')}
-          </Heading>
-          <Text textAlign="center">{t('main.section.one.description')}</Text>
-          <Link to="/faq" color="white">
-            {t('main.section.one.link')}
-          </Link>
-        </Container>
-      </section>
-      <section className="second">
-        <Container maxW="container.lg" display="flex" flexDirection="column" textAlign="right" alignItems="flex-end">
-          <Heading as="h3" size="xl" variant="center" isTruncated className="title">
-            {t('main.section.second.wild_animal_world')}
-          </Heading>
-          <div className="description">{t('main.section.second.description')}</div>
-          <div className="stone" />
-        </Container>
-      </section>
-      <section className="third">
-        <Container maxW="container.lg" display="flex" flexDirection="column" textAlign="left" alignItems="flex-end">
-          <Heading as="h3" size="xl" variant="center" isTruncated className="title">
-            {t('main.section.third.roadmap')}
-          </Heading>
-          <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(4, 1fr)' }} gap={10} padding={{ base: 4, md: 0 }} width="100%">
-            {roadmap.map((item, key) => (
-              <GridItem key={key} className="prop">
-                <Heading as="h3" size="xl" isTruncated className="quarter">
-                  {item.title}
-                </Heading>
-                <ul>
-                  {item.description.map((des: string, key: number) => (
-                    <li key={key}>{des}</li>
-                  ))}
-                </ul>
-              </GridItem>
-            ))}
-          </Grid>
-          <div className="leaf" />
-        </Container>
-      </section>
+      <Box backgroundImage="/images/pages/landing/hero-background.svg" className="home-hero">
+        <Image src="/images/pages/landing/hero-logo.svg" alt="Wildalo" height="152px" pt="48px" />
+        <Heading fontSize="5xl" textAlign={'center'} pb="48px" color="white">
+          {t('main.slogan')}
+        </Heading>
+      </Box>
+      <Box className="home-description">
+        <Heading width="660px" fontSize="18px" textAlign={'center'} pb="55px" color="white">
+          <div dangerouslySetInnerHTML={{ __html: t('main.subslogan') }} />
+        </Heading>
+        <Button variant={'primary'} className="play-now" height="44px" borderRadius="22px">
+          {t('common.Play_Now')}
+        </Button>
+        <Box className="extensions">
+          <Image src="/images/pages/landing/home-avalange-logo.svg" alt="" />
+          <Image src="/images/pages/landing/home-metamask-logo.svg" alt="" />
+        </Box>
+      </Box>
+      <Box className="home-become-ranger">.</Box>
     </>
   );
 };
