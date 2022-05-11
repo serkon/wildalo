@@ -21,7 +21,6 @@ export const Triad = (props: Props) => {
   return (
     <>
       <Container maxW="container.xl" className={`triad ${isDesktop ? 'desktop' : 'mobile'} ${className}`} {...rest}>
-        {JSON.stringify(rest)}
         {data && data.length > 0 ? (
           <Box className={`triad-container`}>
             <AnimalCard data={data[0]} scale={0.8} className="animal-first ac" stats={Boolean(stats)} />

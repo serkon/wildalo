@@ -40,7 +40,6 @@
       .extensions {
         display: flex;
         margin-top: 54px;
-        margin-bottom: 96px;
 
         img {
           margin: 0 32px;
@@ -49,8 +48,38 @@
     }
 
     .home-become-ranger {
-      height: 600px;
+      margin-bottom: 116px;
+      padding-top: 300px;
       background: linear-gradient(0deg, #0a2f28 18.13%, #092520 44.57%, #210002 100%);
+
+      .what-is-wildalo {
+        margin-top: 220px;
+      }
+
+      .overflow {
+        width: 220px;
+        height: 220px;
+      }
+
+      .animal-first {
+        transform: translateX(-80px);
+
+        &:hover {
+          transform: translateX(-80px) scale(1.1) !important;
+        }
+      }
+
+      .animal-middle {
+        left: calc(50% - 110px);
+      }
+
+      .animal-last {
+        transform: translateX(80px);
+
+        &:hover {
+          transform: translateX(80px) scale(1.1) !important;
+        }
+      }
     }
   }
 

@@ -130,27 +130,8 @@
   "main": {
     "slogan": "Play to Earn! Free to Start!",
     "subslogan": "New NFT trading card game coming soon!<br> Collect and grow rare animal cards, form your herds, fight with other players and sell your cards to other traders.",
-    "hero": {
-      "header01": "Play to Earn",
-      "header02": "Free to Start",
-      "description_first": "Become a Ranger in a new world. Join our Discord and Telegram for launch details.",
-      "join_discord": "Join Discord",
-      "join_telegram": "Join Telegram"
-    },
-    "section": {
-      "one": {
-        "header": "What is Wildalo?",
-        "description": "Collect and grow rare animal cards, form your herds, fight with other players and sell your cards to other traders. Powered by Avalanche blockchain.",
-        "link": "HOW TO PLAY"
-      },
-      "second": {
-        "wild_animal_world": "Wild Animal World",
-        "description": "Wildalo is a wild world filled with amazing animals also known as wildlings . Wildalo players, aka Rangers, collect these wildlings to grow them (upgrade their levels), form herds with them and fight their herds with other herds to earn in game currency."
-      },
-      "third": {
-        "roadmap": "Roadmap"
-      }
-    }
+    "Become_a_Ranger_in_a_New_World!": "Become a Ranger in a New World!",
+    "Join_our_Discord": "Join our Discord and Telegram for launch details."
   },
   "game": {
     "hero": {
