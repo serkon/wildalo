@@ -131,7 +131,19 @@
     "slogan": "Play to Earn! Free to Start!",
     "subslogan": "New NFT trading card game coming soon!<br> Collect and grow rare animal cards, form your herds, fight with other players and sell your cards to other traders.",
     "Become_a_Ranger_in_a_New_World!": "Become a Ranger in a New World!",
-    "Join_our_Discord": "Join our Discord and Telegram for launch details."
+    "Join_our_Discord": "Join our Discord and Telegram for launch details.",
+    "carousel-01": {
+      "title": "Wildalo Beta has launched!",
+      "description": "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions."
+    },
+    "carousel-02": {
+      "title": "2 Wildalo Beta has launched!",
+      "description": "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions."
+    },
+    "carousel-03": {
+      "title": "3 Wildalo Beta has launched!",
+      "description": "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions."
+    }
   },
   "game": {
     "hero": {

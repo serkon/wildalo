@@ -27,7 +27,6 @@ export class Language extends React.Component<Props, State> {
 
   changeLanguage = async (language = 'en') => {
     let content: any;
-
     this.setState(
       // previous, props of the state also accessible in function parameter:
       // `(previousState, props) => ({status: false})`
@@ -47,7 +46,6 @@ export class Language extends React.Component<Props, State> {
   translate = (key: string, params?: any) => {
     let text = Language.getObjectPathValue(this.state.content, key) || key;
     const type = params !== null && typeof params !== 'undefined' ? params.constructor.name : null;
-
     if (type === 'Array') {
       params.forEach((param: any, paramIndex: number) => {
         text = text.replace(new RegExp(`{${paramIndex}}`, 'g'), param);
@@ -57,7 +55,6 @@ export class Language extends React.Component<Props, State> {
         text = text.replace(new RegExp(`{${keyName}}`, 'g'), params[keyName]);
       });
     }
-
     return text;
   };
 
@@ -72,14 +69,12 @@ export class Language extends React.Component<Props, State> {
   static getObjectPathValue(value: any, path: string) {
     // console.log('getObject: ', value, path);
     let data = value;
-
     if (path) {
       path = path.toString();
       path.split('.').forEach((val: any) => {
         data = data !== null && typeof data !== 'undefined' ? data[val] : null;
       });
     }
-
     return data;
   }
 
