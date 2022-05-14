@@ -1,8 +1,10 @@
 import { Box, Button, Container, Flex, Heading, Image, Stack, VStack } from '@chakra-ui/react';
+import { Carousel, CarouselItem } from 'src/components/carousel/carousel.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { Triad } from 'src/components/triad/triad.component';
 import { useMediaQuery } from 'src/theme/util/media-query';
 import { Animal, AnimalRarity, Region } from 'src/utils/dto';
+
 import './home.page.scss';
 
 const roadmap = [
@@ -21,6 +23,24 @@ const roadmap = [
   {
     title: 'H1’23',
     description: ['New Spring Wildlings', 'Consumables', 'Ranger Guilds'],
+  },
+];
+
+const carousel = [
+  {
+    title: 'main.carousel-01.title',
+    description: 'main.carousel-01.description',
+    button: { label: "Let's get started", click: '/signup' },
+  },
+  {
+    title: 'main.carousel-02.title',
+    description: 'main.carousel-02.description',
+    button: { label: "Let's get started", click: '/signup' },
+  },
+  {
+    title: 'main.carousel-03.title',
+    description: 'main.carousel-03.description',
+    button: { label: "Let's get started", click: '/signup' },
   },
 ];
 
@@ -142,6 +162,27 @@ export const PageHome = () => {
             </Heading>
             <Image src="/images/pages/landing/what-is-wildalo.png" />
           </Flex>
+        </Container>
+      </section>
+      <section className="home-roadmap">
+        <Container maxW="container.xl">
+          <VStack flexGrow="1">
+            <Heading fontSize="42px" pb="32px" color="white">
+              {t('main.Roadmap')}
+            </Heading>
+            <Carousel maxWidth="60%" margin="auto">
+              {carousel.map((item, index) => (
+                <CarouselItem key={index}>
+                  <Heading fontSize="42px" pb="32px" color="white">
+                    {t(item.title)}
+                  </Heading>
+                  <Box key={index} fontSize="14px" color="white" whiteSpace={'break-spaces'} textAlign="center">
+                    {t(item.description)}
+                  </Box>
+                </CarouselItem>
+              ))}
+            </Carousel>
+          </VStack>
         </Container>
       </section>
     </>
