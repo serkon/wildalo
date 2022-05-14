@@ -74,7 +74,7 @@ module.exports = {
     'linebreak-style': 0,
     'arrow-body-style': ['error', 'as-needed'],
     indent: [2, 2, { SwitchCase: 1 }],
-    quotes: ['error', 'single', { allowTemplateLiterals: true }],
+    quotes: ['error', 'single', { allowTemplateLiterals: true, avoidEscape: true }],
     'no-multi-spaces': 'error',
     'no-trailing-spaces': 'error',
     'space-before-function-paren': [
