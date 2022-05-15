@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useStateWithCallback } from 'src/hooks';
 import './carousel.component.scss';
 
 /**
@@ -33,6 +34,7 @@ interface Props {
   className?: string;
   maxWidth?: string;
   margin?: string;
+  timer?: number;
 }
 
 const getRandomID = () =>
@@ -42,22 +44,43 @@ const getRandomID = () =>
     return v.toString(16);
   });
 
+let timer!: NodeJS.Timer;
+
 export const Carousel = (props: React.PropsWithChildren<Props>) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useStateWithCallback<number>(0);
   const [items, setItems] = useState<React.ReactNode[]>([]);
   const contentRef = React.useRef<HTMLDivElement>(null);
+  const intervalStarter = (index: number): void => {
+    timer = setInterval(() => {
+      handleClick(index + 1);
+    }, props.timer || 5000);
+  };
+  const startTimer = () => {
+    intervalStarter(currentIndex ?? 0);
+  };
+  const clearTimer = () => {
+    clearInterval(timer as NodeJS.Timer);
+  };
   const handleClick = (index: number) => {
-    index <= items.length - 1 ? (index < 0 ? setCurrentIndex(items.length - 1) : setCurrentIndex(index)) : setCurrentIndex(0);
+    clearInterval(timer as NodeJS.Timer);
+    const i = index <= items.length - 1 ? (index < 0 ? items.length - 1 : index) : 0;
+    setCurrentIndex(i, () => intervalStarter(i));
   };
 
   useEffect(() => {
-    console.log(currentIndex);
     (contentRef.current as HTMLDivElement).style.transform = `translate(${-100 * currentIndex}%)`;
   }, [currentIndex]);
 
   useEffect(() => {
     setItems(() => Array.from(props.children as Array<React.ReactNode>));
   }, [props.children]);
+
+  useEffect(() => {
+    items.length > 0 && startTimer();
+    return () => {
+      clearTimer();
+    };
+  }, [items]);
 
   return (
     <>

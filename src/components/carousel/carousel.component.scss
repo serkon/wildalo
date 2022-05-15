@@ -30,13 +30,10 @@
       justify-content: var(--carousel-horizonta-align);
       width: 100%;
 
-      .carousel-item-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
+      h2 {
+        margin: 0 30px;
+        text-align: center;
+        white-space: break-spaces;
       }
     }
   }
@@ -58,9 +55,7 @@
       transition: all 0.5s ease;
 
       &.active {
-        --size: calc(var(--carousel-nav-item-active-height) / var(--carousel-nav-item-height));
-
-        transform: scale(var(--size));
+        transform: scale(2);
         background-color: var(--carousel-nav-item-active-color);
       }
     }
