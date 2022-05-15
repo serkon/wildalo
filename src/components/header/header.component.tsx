@@ -24,7 +24,7 @@ const Links = () => {
   return (
     <React.Fragment>
       {items.map((item: { title: string; to: string }, key: number) => (
-        <Link as={NavLink} to={item.to} color="#87afa8" variant="header" key={key}>
+        <Link as={NavLink} to={item.to} color={{ base: 'white', md: '#87afa8' }} variant="header" key={key} fontSize={{ base: '27px', md: '15px' }}>
           {t(item.title)}
         </Link>
       ))}
@@ -32,26 +32,49 @@ const Links = () => {
   );
 };
 
-export function Header({ logo = '' }: { logo: string }) {
+export function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
-      <Container maxW="container.xxl" as="header" background="custom.header">
-        <Flex height={70} width="full" alignItems={'center'} justifyContent={{ base: 'space-between', md: 'flex-end' }}>
+      <Container
+        maxW="container.xxl"
+        as="header"
+        background={{ base: 'rgba(18, 70, 61, 0.9)', md: '#12463D' }}
+        className="navigation-top"
+        paddingX={0}
+        position={{ base: 'fixed', md: 'static' }}
+        minHeight={isOpen ? '100%' : '70px'}
+        transition="all 0.2s ease-in-out"
+        display="flex"
+        flexDirection="column"
+        zIndex="2"
+      >
+        <Flex
+          height={70}
+          width="full"
+          alignItems={'center'}
+          justifyContent={{ base: 'space-between', md: 'flex-end' }}
+          className="header-nav"
+          paddingX={{ base: 4, md: '8' }}
+          backgroundColor="#12463D"
+        >
           <IconButton
             color="white"
             variant="ghost"
-            size={'md'}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+            icon={isOpen ? <CloseIcon /> : <HamburgerIcon w={6} h={6} />}
             aria-label={'Open Menu'}
             display={{ md: 'none' }}
             onClick={isOpen ? onClose : onOpen}
+            size="lg"
+            height={'48px'}
+            width={'48px'}
           />
           <HStack spacing={8} alignItems={'center'} flexGrow={{ base: '0', md: '1' }}>
             <Box>
               <Link as={NavLink} to={'/'}>
-                <Image srcSet={logo} objectFit="contain" maxW="170px" />
+                <Image src={'/images/common/logo.svg'} objectFit="contain" maxW="170px" display={{ base: 'none', md: 'flex' }} />
+                <Image src={'/images/common/logo-alone.svg'} objectFit="contain" maxW="170px" display={{ base: 'flex', md: 'none' }} />
               </Link>
             </Box>
           </HStack>
@@ -63,8 +86,8 @@ export function Header({ logo = '' }: { logo: string }) {
           </Flex>
         </Flex>
         {isOpen ? (
-          <Box pb={4} display={{ md: 'none' }}>
-            <Stack as={'nav'} spacing={4}>
+          <Box pb={4} display={{ base: 'flex', md: 'none' }} flexGrow="1" flexDirection={'column'}>
+            <Stack as={'nav'} justifyContent={'space-evenly'} flexGrow="1" alignItems={'center'}>
               <Links />
             </Stack>
           </Box>

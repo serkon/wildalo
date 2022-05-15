@@ -1,6 +1,6 @@
 export const Button = {
   baseStyle: {
-    borderRadius: '16px',
+    borderRadius: '24px',
     fontWeight: 'bold',
     textDecoration: 'none',
     _hover: {
@@ -15,7 +15,6 @@ export const Button = {
     ghost: {
       backgroundColor: 'transparent',
       color: '#FFC633',
-      height: '32px',
       fontSize: '14px',
       lineHeight: '16px',
       _hover: {
@@ -32,7 +31,6 @@ export const Button = {
     outline: {
       color: 'white',
       borderColor: '#FFC633',
-      height: '32px',
       fontSize: '14px',
       lineHeight: '16px',
       _hover: {
@@ -51,7 +49,6 @@ export const Button = {
       color: '#09241F',
       borderColor: 'transparent',
       backgroundColor: '#FFC633',
-      height: '32px',
       fontSize: '14px',
       lineHeight: '16px',
       _hover: {

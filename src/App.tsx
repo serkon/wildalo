@@ -38,7 +38,7 @@ function App(): JSX.Element {
   return (
     <ErrorBoundary>
       <Suspense fallback={<div>{t('loading')}</div>}>
-        <Header logo={logo} />
+        <Header />
         <main>
           <Outlet />
         </main>

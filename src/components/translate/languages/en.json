@@ -23,7 +23,8 @@
     "claim": "claim",
     "Start_Playing_Now": "Start Playing Now",
     "Play_Now": "Play Now",
-    "Connect": "Connect"
+    "Connect": "Connect",
+    "play": "Play"
   },
   "links": {
     "home": "Home",

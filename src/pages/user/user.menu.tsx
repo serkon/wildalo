@@ -8,6 +8,7 @@ import { useTranslate } from 'src/components/translate/translate.component';
 import { useApi } from 'src/hooks';
 import { set_ranger, set_user_login } from 'src/store/reducers/RangerReducer';
 import { RootState } from 'src/store/store';
+import { useMediaQuery } from 'src/theme/util/media-query';
 
 export const UserProfile = () => {
   const { t } = useTranslate();
@@ -68,6 +69,7 @@ export const UserProfile = () => {
 
 export const UserMenu = () => {
   const { t } = useTranslate();
+  const isLarge = useMediaQuery('md');
   const store = useStore().getState();
   const { dispatch } = useStore();
   const navigate = useNavigate();
@@ -170,8 +172,8 @@ export const UserMenu = () => {
       )}
       {!store.layout.play && (
         <>
-          <Button variant={'primary'} onClick={startPlayHandler}>
-            {t('common.Start_Playing_Now')}
+          <Button variant={'primary'} onClick={startPlayHandler} size={isLarge ? 'md' : 'md'}>
+            {t(isLarge ? 'common.Start_Playing_Now' : 'common.play')}
           </Button>
         </>
       )}
