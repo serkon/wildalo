@@ -3,7 +3,7 @@ import { useTranslate } from 'src/components/translate/translate.component';
 
 import './footer.component.scss';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LinksFooter, LinkSocials, LinksTerms } from 'src/utils/links';
+import { LinkItem, LinksFooter, LinkSocials, LinksTerms } from 'src/utils/links';
 
 interface Props {
   left?: JSX.Element;
@@ -13,12 +13,6 @@ interface Props {
   className?: string;
 }
 
-interface FooterLink {
-  title: string;
-  to: string;
-  external?: boolean;
-}
-
 export const Footer = (props: Props): JSX.Element => {
   const socialLink = (d: string) => ({
     WebkitMaskImage: `url(/images/socials/${t(d)}.svg)`,
@@ -26,7 +20,7 @@ export const Footer = (props: Props): JSX.Element => {
   });
   const { t } = useTranslate();
   const navigate = useNavigate();
-  const direction = (item: FooterLink) => {
+  const direction = (item: LinkItem) => {
     item.external ? window.open(item.to, '_blank') : navigate(item.to);
   };
 
@@ -37,23 +31,23 @@ export const Footer = (props: Props): JSX.Element => {
           <Flex
             my="40px"
             pb="40px"
-            alignItems="center"
+            alignItems={{ base: 'space-between', md: 'center' }}
             flexDirection={{ base: 'column', md: 'row' }}
             className="footer-logo"
             justifyContent={'space-between'}
             borderBottom="1px solid rgba(255, 255, 255, 0.1)"
           >
-            <Link as={NavLink} to={'/'}>
-              <Image srcSet={props.logo} objectFit="contain" maxW={{ base: '50%', md: '170px' }} opacity="0.4" />
+            <Link as={NavLink} to={'/'} mb={{ base: '24px', md: '0' }}>
+              <Image srcSet={props.logo} objectFit="contain" maxW={{ base: '100%', md: '170px' }} opacity="0.4" />
             </Link>
-            <Box flexDirection={'row'} display="flex">
-              <Text fontSize={'22px'} display={{ base: 'none', md: 'flex' }} mr="60px">
+            <Box flexDirection={'row'} display="flex" justifyContent={'space-between'}>
+              <Text fontSize={'22px'} display={{ base: 'flex', md: 'flex' }} mr={{ base: '10px', md: '60px' }}>
                 Ready to get started?
               </Text>
               <Button variant={'white'}>Start Winning!</Button>
             </Box>
           </Flex>
-          <Flex className="links">
+          <Flex className="links" width={{ base: '100%', md: '60%' }} justifyContent="space-between">
             {LinksFooter.map((item: { name: string; links: { title: string; to: string }[] }, key: number) => (
               <Flex key={key} flexDirection="column" fontFamily={'roboto'} className="footer-link-column">
                 <Heading as="h6" size="md" variant={'footerLinkTitle'} mb="20px">
@@ -67,13 +61,15 @@ export const Footer = (props: Props): JSX.Element => {
               </Flex>
             ))}
           </Flex>
-          <Flex className="footer-terms-and-socials">
-            {LinksTerms.map((link: { title: string; to: string }, key: number) => (
-              <Button variant="footer" onClick={() => direction(link)} key={key} justifyContent="flex-start" mr="80px">
-                {t(link.title)}
-              </Button>
-            ))}
-            <Stack className="socials" mt={[32, 0]} justifyContent={{ base: 'space-between', md: 'end' }} width={{ base: 'auto', md: 'auto' }}>
+          <Flex className="footer-terms-and-socials" flexDirection={{ base: 'column-reverse', md: 'row' }} mt={{ base: '48px', md: '48px' }}>
+            <Stack flexDirection={'row'} alignItems="center" justifyContent={'space-between'} flexGrow="1">
+              {LinksTerms.map((link: { title: string; to: string }, key: number) => (
+                <Button variant="footer" onClick={() => direction(link)} key={key} justifyContent="flex-start" m="0!important">
+                  {t(link.title)}
+                </Button>
+              ))}
+            </Stack>
+            <Stack className="socials" mb={{ base: '48px', md: 'auto' }} width={{ base: 'auto', md: 'auto' }} justifyContent={{ base: 'space-between', md: 'end' }} flexGrow="1">
               {LinkSocials.map((social: { title: string; to: string }, key: number) => (
                 <Tooltip label={t(social.title)} aria-label="A tooltip" key={key}>
                   <a href={`${social.to}`} target="_blank" style={socialLink(social.title)} className="social" color="white" rel="noreferrer" />

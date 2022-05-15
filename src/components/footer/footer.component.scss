@@ -6,12 +6,7 @@
   background-repeat: no-repeat;
   background-position: right bottom;
 
-  .footer-link-column {
-    margin-right: 200px;
-  }
-
   .footer-terms-and-socials {
-    margin-top: 80px;
     margin-bottom: 48px;
 
     .socials {
@@ -20,7 +15,6 @@
       grid-column-gap: 8px;
       grid-row-gap: 16px;
       text-align: end;
-      flex-grow: 1;
       align-items: center;
 
       .social {
