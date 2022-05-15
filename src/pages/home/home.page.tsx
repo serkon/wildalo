@@ -1,9 +1,11 @@
 import { Box, Button, Container, Flex, Heading, Image, Stack, VStack } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import { Carousel, CarouselItem } from 'src/components/carousel/carousel.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { Triad } from 'src/components/triad/triad.component';
 import { useMediaQuery } from 'src/theme/util/media-query';
 import { Animal, AnimalRarity, Region } from 'src/utils/dto';
+import { LinkItem } from 'src/utils/links';
 
 import './home.page.scss';
 
@@ -26,21 +28,21 @@ const roadmap = [
   },
 ];
 
-const carousel = [
+const carousel: { title: string; description: string; button: LinkItem }[] = [
   {
     title: 'main.carousel-01.title',
     description: 'main.carousel-01.description',
-    button: { label: "Let's get started", click: '/signup' },
+    button: { title: "Let's get started", to: '/game/dashboard' },
   },
   {
     title: 'main.carousel-02.title',
     description: 'main.carousel-02.description',
-    button: { label: "Let's get started", click: '/signup' },
+    button: { title: "Let's get started", to: '/game/wah' },
   },
   {
     title: 'main.carousel-03.title',
     description: 'main.carousel-03.description',
-    button: { label: "Let's get started", click: '/signup' },
+    button: { title: "Let's get started", to: '/signup' },
   },
 ];
 
@@ -113,38 +115,46 @@ roadmap;
 
 export const PageHome = () => {
   const { t } = useTranslate();
+  const navigate = useNavigate();
+  const direction = (item: LinkItem) => {
+    item.external ? window.open(item.to, '_blank') : navigate(item.to);
+  };
   const isLarge = useMediaQuery('md');
   // TODO remove:
   isLarge;
 
   return (
     <>
-      <Box backgroundImage="/images/pages/landing/hero-background.png" className="home-hero">
-        <Image src="/images/pages/landing/hero-logo.svg" alt="Wildalo" height="152px" pt="48px" />
-        <Heading fontSize="5xl" textAlign={'center'} pb="48px" color="white">
-          {t('main.slogan')}
-        </Heading>
-      </Box>
-      <Box className="home-description">
-        <Heading width="660px" fontSize="18px" textAlign={'center'} pb="55px" color="white">
-          <div dangerouslySetInnerHTML={{ __html: t('main.subslogan') }} />
-        </Heading>
-        <Button variant={'primary'} className="play-now" height="44px" borderRadius="22px">
-          {t('common.Play_Now')}
-        </Button>
-        <Box className="extensions">
-          <Image src="/images/pages/landing/home-avalange-logo.svg" alt="" />
-          <Image src="/images/pages/landing/home-metamask-logo.svg" alt="" />
+      <section className="home-hero">
+        <Box backgroundImage="/images/pages/landing/hero-background.png" className="home-hero-content" padding={'24px'}>
+          <Image src="/images/pages/landing/hero-logo.svg" alt="Wildalo" height="152px" pt="48px" />
+          <Heading fontSize="5xl" textAlign={'center'} pb="48px" color="white">
+            {t('main.slogan')}
+          </Heading>
         </Box>
-      </Box>
+        <Box className="home-description" padding={'24px'}>
+          <Heading width={{ base: '100%', md: '660px' }} fontSize="18px" textAlign={'center'} pb="55px" color="white">
+            <div dangerouslySetInnerHTML={{ __html: t('main.subslogan') }} />
+          </Heading>
+          <Button variant={'primary'} className="play-now" height="44px" borderRadius="22px">
+            {t('common.Play_Now')}
+          </Button>
+          <Box className="extensions" flexDirection={{ md: 'row' }}>
+            <Image src="/images/pages/landing/home-avalange-logo.svg" alt="" />
+            <Image src="/images/pages/landing/home-metamask-logo.svg" alt="" />
+          </Box>
+        </Box>
+      </section>
       <section className="home-become-ranger">
         <Container maxW="container.xl">
-          <Flex>
-            <VStack alignItems="flex-start" flexGrow="1">
-              <Heading fontSize="42px" pb="32px" color="white">
+          <Flex flexDirection={{ base: 'column-reverse', md: 'row' }}>
+            <VStack alignItems={{ base: 'center', md: 'flex-start' }} flexGrow="1" justifyContent={'center'} alignContent="center" mt={{ base: '96px', md: '0' }}>
+              <Heading fontSize="42px" pb="32px" color="white" textAlign={{ base: 'center', md: 'left' }}>
                 {t('main.Become_a_Ranger_in_a_New_World!')}
               </Heading>
-              <Box color="white">{t('main.Join_our_Discord')}</Box>
+              <Box color="white" textAlign={{ base: 'center', md: 'left' }}>
+                {t('main.Join_our_Discord')}
+              </Box>
               <Stack direction="row" spacing={4} mt="64px !important">
                 <Button leftIcon={<Image src="/images/socials/discord.svg" height="18px" />} variant="outline" height="42px" borderRadius="21px">
                   Join Discord
@@ -154,7 +164,7 @@ export const PageHome = () => {
                 </Button>
               </Stack>
             </VStack>
-            <Triad data={animals} />
+            <Triad data={animals} style={{ transform: 'scale(0.8)' }} />
           </Flex>
           <Flex className="what-is-wildalo" direction={'column'} alignItems="center">
             <Heading fontSize="42px" pb="32px" color="white">
@@ -164,13 +174,13 @@ export const PageHome = () => {
           </Flex>
         </Container>
       </section>
-      <section className="home-roadmap">
+      <section className="home-news-and-roadmap">
         <Container maxW="container.xl">
-          <VStack flexGrow="1">
-            <Heading fontSize="42px" pb="32px" color="white">
-              {t('main.Roadmap')}
+          <VStack flexGrow="1" width={{ base: '100%', md: '60%' }} margin="auto">
+            <Heading fontSize="32px" pb="24px" color="white" fontWeight="light">
+              {t('main.news')}
             </Heading>
-            <Carousel maxWidth="60%" margin="auto">
+            <Carousel maxWidth="100%" margin="auto" className="home-news">
               {carousel.map((item, index) => (
                 <CarouselItem key={index}>
                   <Heading fontSize="42px" pb="32px" color="white">
@@ -179,6 +189,9 @@ export const PageHome = () => {
                   <Box key={index} fontSize="14px" color="white" whiteSpace={'break-spaces'} textAlign="center">
                     {t(item.description)}
                   </Box>
+                  <Button onClick={() => direction(item.button)} variant={'outline'} my="8">
+                    {t(item.button.title)}
+                  </Button>
                 </CarouselItem>
               ))}
             </Carousel>

@@ -6,48 +6,50 @@
     flex-direction: column;
     flex-grow: 1;
 
-    .home-hero {
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 960px;
-      background-color: #210002;
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: cover;
-    }
-
-    .home-description {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin-top: -1px;
-      background-color: #210002;
-
-      .play-now {
-        width: 215px;
-        height: 44px;
-        border-radius: 22px;
-        background: linear-gradient(263.62deg, #ffc633 33.34%, #ffae1b 65.52%);
-        font-size: 17px;
-        font-weight: 700;
-        line-height: 20px;
+    section.home-hero {
+      .home-hero-content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 960px;
+        background-color: #210002;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
       }
 
-      .extensions {
+      .home-description {
         display: flex;
-        margin-top: 54px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: -1px;
+        background-color: #210002;
 
-        img {
-          margin: 0 32px;
+        .play-now {
+          width: 215px;
+          height: 44px;
+          border-radius: 22px;
+          background: linear-gradient(263.62deg, #ffc633 33.34%, #ffae1b 65.52%);
+          font-size: 17px;
+          font-weight: 700;
+          line-height: 20px;
+        }
+
+        .extensions {
+          display: flex;
+          margin-top: 54px;
+
+          img {
+            margin: 0 32px;
+          }
         }
       }
     }
 
-    .home-become-ranger {
+    section.home-become-ranger {
       margin-bottom: 116px;
       padding-top: 300px;
       background: linear-gradient(0deg, #0a2f28 18.13%, #092520 44.57%, #210002 100%);
@@ -84,29 +86,24 @@
   }
 
   &.mobile {
-    section.second {
-      .title {
-        right: 0;
-        width: 100%;
-      }
-
-      .description {
-        width: 100%;
-      }
-
-      .stone {
-        right: 0;
+    section.home-hero {
+      .home-description {
+        .extensions {
+          img {
+            display: flex;
+            flex-grow: 1;
+            margin: 0 15px;
+            width: 40%;
+          }
+        }
       }
     }
 
-    section.third {
-      .title {
-        right: 8px;
-        width: 95%;
-      }
-
-      .leaf {
-        right: 10px;
+    section.home-news-and-roadmap {
+      .home-news {
+        h2 {
+          font-size: 32px;
+        }
       }
     }
   }
