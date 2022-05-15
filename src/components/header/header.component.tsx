@@ -18,13 +18,13 @@ const items: HeaderLink[] = [
   { title: 'links.guide', to: 'guide' },
   { title: 'links.whitepaper', to: '/whitepaper.pdf', external: true },
 ];
-const Links = () => {
+const Links = ({ click }: React.PropsWithChildren<{ click?: any }>) => {
   const { t } = useTranslate();
 
   return (
     <React.Fragment>
       {items.map((item: { title: string; to: string }, key: number) => (
-        <Link as={NavLink} to={item.to} color={{ base: 'white', md: '#87afa8' }} variant="header" key={key} fontSize={{ base: '27px', md: '15px' }}>
+        <Link as={NavLink} to={item.to} color={{ base: 'white', md: '#87afa8' }} variant="header" key={key} fontSize={{ base: '27px', md: '15px' }} onClick={click ? click : false}>
           {t(item.title)}
         </Link>
       ))}
@@ -88,7 +88,7 @@ export function Header() {
         {isOpen ? (
           <Box pb={4} display={{ base: 'flex', md: 'none' }} flexGrow="1" flexDirection={'column'}>
             <Stack as={'nav'} justifyContent={'space-evenly'} flexGrow="1" alignItems={'center'}>
-              <Links />
+              <Links click={onClose} />
             </Stack>
           </Box>
         ) : null}

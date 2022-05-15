@@ -2,7 +2,6 @@ import { Accordion, AccordionItem, AccordionButton, AccordionPanel, Box, Contain
 import { MinusIcon, AddIcon } from '@chakra-ui/icons';
 
 import { useTranslate } from 'src/components/translate/translate.component';
-import { useMediaQuery } from 'src/theme/util/media-query';
 import './faq.page.scss';
 
 const faqs = [
@@ -39,16 +38,12 @@ const faqs = [
 
 export const PageFaq = () => {
   const { t } = useTranslate();
-  const isLarge = useMediaQuery('md');
 
   return (
     <>
-      <Heading as="h3" size={isLarge ? 'lg' : 'sm'} variant="center" isTruncated className="page-banner">
-        {t('main.slogan')}
-      </Heading>
       <Container maxW="container.md">
         <Heading as="h1" size="xl" variant="center" isTruncated color="white" className="page-header">
-          How to Play
+          {t('links.how_to_play')}
         </Heading>
         <Accordion allowToggle>
           {faqs.map((item, key) => (
