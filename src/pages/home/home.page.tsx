@@ -119,9 +119,7 @@ export const PageHome = () => {
   const direction = (item: LinkItem) => {
     item.external ? window.open(item.to, '_blank') : navigate(item.to);
   };
-  const isLarge = useMediaQuery('md');
-  // TODO remove:
-  isLarge;
+  const isLarge = useMediaQuery('lg');
 
   return (
     <>
@@ -164,7 +162,7 @@ export const PageHome = () => {
                 </Button>
               </Stack>
             </VStack>
-            <Triad data={animals} style={{ transform: 'scale(0.8)' }} />
+            <Triad data={animals} style={{ transform: isLarge ? 'scale(1)' : 'scale(0.8)' }} />
           </Flex>
           <Flex className="what-is-wildalo" direction={'column'} alignItems="center">
             <Heading fontSize="42px" pb="32px" color="white">
