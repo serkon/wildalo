@@ -1,4 +1,4 @@
-import { Box, Button, Container, Flex, Heading, Image, Stack, VStack } from '@chakra-ui/react';
+import { Box, Button, Container, Flex, Grid, GridItem, Heading, Image, ListItem, Stack, UnorderedList, VStack } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { Carousel, CarouselItem } from 'src/components/carousel/carousel.component';
 import { useTranslate } from 'src/components/translate/translate.component';
@@ -11,19 +11,19 @@ import './home.page.scss';
 
 const roadmap = [
   {
-    title: 'Q2',
+    title: '<span>Q2</span>-2021',
     description: ['TGE & Community Building', 'Herd Fights Begin'],
   },
   {
-    title: 'Q3',
+    title: '<span>Q3</span>-2022',
     description: ['New Fall Wildlings', 'Ranger Leaderboard & Tournaments', 'NFT sales in Wildalo Marketplace'],
   },
   {
-    title: 'Q4',
+    title: '<span>Q4</span>-2022',
     description: ['New Winter Wildlings', 'Wildalo Homesteads'],
   },
   {
-    title: 'H1’23',
+    title: '<span>H1’23</span>-2023',
     description: ['New Spring Wildlings', 'Consumables', 'Ranger Guilds'],
   },
 ];
@@ -174,11 +174,11 @@ export const PageHome = () => {
       </section>
       <section className="home-news-and-roadmap">
         <Container maxW="container.xl">
-          <VStack flexGrow="1" width={{ base: '100%', md: '60%' }} margin="auto">
+          <VStack className="home-news" flexGrow="1" width={{ base: '100%', md: '60%' }} margin="auto">
             <Heading fontSize="32px" pb="24px" color="white" fontWeight="light">
               {t('main.news')}
             </Heading>
-            <Carousel maxWidth="100%" margin="auto" className="home-news">
+            <Carousel maxWidth="100%" margin="auto" className="home-news-carousel">
               {carousel.map((item, index) => (
                 <CarouselItem key={index}>
                   <Heading fontSize="42px" pb="32px" color="white">
@@ -194,8 +194,60 @@ export const PageHome = () => {
               ))}
             </Carousel>
           </VStack>
+          <Stack className="home-roadmap" mt="360px">
+            <Heading fontSize="32px" pb="24px" color="white" fontWeight="light" textAlign={'center'}>
+              {t('main.roadmap')}
+            </Heading>
+            <Stack className="home-roadmap-list" overflow={{ base: 'none', md: 'auto' }}>
+              <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(4, 1fr)' }} gap={10} padding={{ base: 0, md: 4 }} width="100%" mb="32px" pb="32px">
+                {roadmap.map((item, key) => (
+                  <GridItem
+                    key={key}
+                    className="home-roadmap-list-item"
+                    width="100%"
+                    minWidth="274px"
+                    height="294px"
+                    padding="24px"
+                    borderRadius="20px"
+                    backgroundColor="#09241F"
+                    color="white"
+                  >
+                    <Heading as="h3" size="xl" mb="32px" isTruncated className="quarter" dangerouslySetInnerHTML={{ __html: item.title }} />
+                    <UnorderedList lineHeight={'32px'}>
+                      {item.description.map((des: string, key: number) => (
+                        <ListItem key={key}>{des}</ListItem>
+                      ))}
+                    </UnorderedList>
+                  </GridItem>
+                ))}
+              </Grid>
+            </Stack>
+          </Stack>
         </Container>
       </section>
+      <Box className="home-who-we-are" pt={{ base: '135px', md: '248px' }} pb={{ base: '290px', md: '512px' }}>
+        <Container maxW="container.xl">
+          <VStack className="home-who-we-are-content" flexGrow="1" width={{ base: '100%', md: '85%' }} margin="auto">
+            <Heading fontSize="32px" pb="24px" color="white" fontWeight="light">
+              {t('main.who_we_are')}
+            </Heading>
+            <Box
+              backgroundColor={'#09241F'}
+              width="100%"
+              borderRadius="20px"
+              px={{ base: '32px', md: '200px' }}
+              pt="90px"
+              pb="32px"
+              color="white"
+              textAlign={'center'}
+              alignItems="center"
+            >
+              <Box className="home-who-we-are-content-text" dangerouslySetInnerHTML={{ __html: t('main.who_we_are_description') }} />
+              <Image src="/images/pages/landing/google.svg" width={'110px'} marginX="auto" mt="96px !important" />
+            </Box>
+          </VStack>
+        </Container>
+      </Box>
     </>
   );
 };

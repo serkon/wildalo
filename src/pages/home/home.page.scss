@@ -83,6 +83,30 @@
         }
       }
     }
+
+    section.home-news-and-roadmap {
+      background-image: url(~/public/images/pages/landing/home-news-bg.svg);
+      background-repeat: no-repeat;
+      background-position: top;
+      background-size: contain;
+
+      .home-roadmap {
+        .home-roadmap-list {
+          h3 {
+            span {
+              color: #87afa8;
+            }
+          }
+        }
+      }
+    }
+
+    .home-who-we-are {
+      background-image: url(~/public/images/pages/landing/home-teams-bottom-bg.svg);
+      background-repeat: no-repeat;
+      background-position: bottom;
+      background-size: contain;
+    }
   }
 
   &.mobile {
@@ -100,7 +124,7 @@
     }
 
     section.home-news-and-roadmap {
-      .home-news {
+      .home-news-carousel {
         h2 {
           font-size: 32px;
         }

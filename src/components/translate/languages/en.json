@@ -144,7 +144,10 @@
     "carousel-03": {
       "title": "3 Wildalo Beta has launched!",
       "description": "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions."
-    }
+    },
+    "roadmap": "Roadmap",
+    "who_we_are": "Who We Are",
+    "who_we_are_description": "Tech executive, currently at Google Cloud in product strategy and business operations team, former CEO and Founder in e-commerce delivery start up,scaled the company to 150 ppl and $20M in revenues.Management consultant for 10 years"
   },
   "game": {
     "hero": {
