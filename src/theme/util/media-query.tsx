@@ -7,17 +7,22 @@ export function useMediaQuery(breakpoint: BreakPoint) {
 
   useEffect(() => {
     const media = window.matchMedia(`(min-width: ${theme.breakpoints[breakpoint]})`);
-
     setMatches(media.matches);
     media.onchange = (e: MediaQueryListEvent) => {
       setMatches(e.matches);
-      // console.log(matches);
     };
-  }, [breakpoint, matches]);
-
+  }, [breakpoint]);
   return matches;
 }
 
+/**
+ * Returns a current breakpoint
+ *
+ * Usage Example:
+ *
+ * const size = useSize();
+ * <Component prop={size === 'lg' ? 'lg-size': 'md-size' }></Component>
+ */
 export function useSize() {
   const [matches, setMatches] = useState<string>();
 
