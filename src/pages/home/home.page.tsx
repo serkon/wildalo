@@ -110,9 +110,6 @@ const animals: Animal[] = [
   },
 ];
 
-// TODO remove:
-roadmap;
-
 export const PageHome = () => {
   const { t } = useTranslate();
   const navigate = useNavigate();

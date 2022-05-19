@@ -1,32 +1,37 @@
 import React from 'react';
-import { Image, Box, Flex, HStack, IconButton, useDisclosure, Stack, Container, Link } from '@chakra-ui/react';
+import { Image, Box, Flex, HStack, IconButton, useDisclosure, Stack, Container, Link, Button } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 import { UserMenu } from 'src/pages/user/user.menu';
+import { LinkItem, LinksHeader } from 'src/utils/links';
 
-interface HeaderLink {
-  title: string;
-  to: string;
-  external?: boolean;
-}
-const items: HeaderLink[] = [
-  { title: 'links.home', to: '/' },
-  { title: 'links.marketplace', to: 'faq' },
-  { title: 'links.game', to: 'game' },
-  { title: 'links.guide', to: 'guide' },
-  { title: 'links.whitepaper', to: '/whitepaper.pdf', external: true },
-];
 const Links = ({ click }: React.PropsWithChildren<{ click?: any }>) => {
   const { t } = useTranslate();
+  const navigate = useNavigate();
+  const direction = (item: LinkItem) => {
+    item.external ? window.open(item.to, '_blank') : navigate(item.to);
+  };
 
   return (
     <React.Fragment>
-      {items.map((item: { title: string; to: string }, key: number) => (
-        <Link as={NavLink} to={item.to} color={{ base: 'white', md: '#87afa8' }} variant="header" key={key} fontSize={{ base: '27px', md: '15px' }} onClick={click ? click : false}>
-          {t(item.title)}
-        </Link>
+      {LinksHeader.map((item: { title: string; to: string }, key: number) => (
+        <>
+          <Button
+            variant="header"
+            onClick={() => {
+              direction(item);
+              click ? click : false;
+            }}
+            key={key}
+            justifyContent="flex-start"
+            fontSize={{ base: '27px', md: '15px' }}
+            color={{ base: 'white', md: '#87afa8' }}
+          >
+            {t(item.title)}
+          </Button>
+        </>
       ))}
     </React.Fragment>
   );
@@ -78,7 +83,7 @@ export function Header() {
               </Link>
             </Box>
           </HStack>
-          <HStack as={'nav'} spacing={{ md: 6, lg: '44px' }} alignItems={'flex-end'} display={{ base: 'none', md: 'flex' }} padding={{ md: 6, lg: '44px' }}>
+          <HStack as={'nav'} spacing={{ md: 0, lg: 8 }} alignItems={'flex-end'} display={{ base: 'none', md: 'flex' }} pr={{ base: 0, md: 8 }}>
             <Links />
           </HStack>
           <Flex alignItems={'center'} display={{ base: 'flex' }}>

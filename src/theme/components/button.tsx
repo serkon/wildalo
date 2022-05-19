@@ -85,6 +85,21 @@ export const Button = {
         textDecoration: 'underline',
       },
     },
+    header: {
+      color: '#87AFA8',
+      fontWeight: 'light',
+      fontSize: '15px',
+      _hover: {
+        color: '#FFC633',
+        textDecoration: 'none',
+      },
+      _focus: {
+        boxShadow: 'none',
+      },
+      _activeLink: {
+        color: '#FFC633',
+      },
+    },
     footer: {
       color: 'white',
       border: 'none',
