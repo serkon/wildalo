@@ -168,20 +168,27 @@ export class MetaMaskContractAdaptor extends EventEmitter implements MetaMaskCon
     );
   }
 
-  public async sign(message: string, password: string): Promise<string | null> {
+  public async sign(message: string): Promise<string | null> {
     const checkResult = await this.checkConnection();
-    const getSelectedAddress = await this.getSelectedAddress();
-    if (checkResult) {
-      return new Promise((resolve, reject) => {
-        this.web3.eth.personal.sign(message, getSelectedAddress as string, password, (error: Error, signature: string): void => {
-          if (error) {
-            reject(error);
-          }
-          resolve(signature);
-        });
-      });
+    if (!checkResult) {
+      return null;
     }
-    return null;
+    return new Promise((resolve, reject) => {
+      const init = async () => {
+        const getAddress = await this.getSelectedAddress();
+        if (getAddress) {
+          this.web3.eth.personal.sign(message, getAddress, 'wildalo', (error: Error, signature: string): void => {
+            if (error) {
+              reject(error);
+            }
+            resolve(signature);
+          });
+        } else {
+          resolve(null);
+        }
+      };
+      init();
+    });
   }
 
   public async getSelectedAddress(): Promise<string | null> {
@@ -251,6 +258,10 @@ export class MetaMaskContractAdaptor extends EventEmitter implements MetaMaskCon
     return this.sendContractMethod(this.wildaloContract, 'upgradeCard', cardId, burnedCardId);
   }
 
+  public async buyPackage(packageType: string, currency: string): Promise<any> {
+    return this.sendContractMethod(this.wildaloContract, 'buyPackage', packageType, currency);
+  }
+
   public async createAuction(currency: string, cardId: string, startPrice: string, endPrice: string, duration: string): Promise<any> {
     return this.sendContractMethod(this.wildaloContract, 'createAuction', currency, cardId, startPrice, endPrice, duration);
   }
@@ -264,7 +275,7 @@ export class MetaMaskContractAdaptor extends EventEmitter implements MetaMaskCon
   }
 
   // TEST
-  public async store(number: number): Promise<any> {
+  public async store(number: string): Promise<any> {
     return this.sendContractMethod(this.wildaloContract, 'store', number);
   }
 
