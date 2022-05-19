@@ -1,4 +1,4 @@
-import { Container, Center, Text, Image, Flex, Button, Box, Heading, Stack, Tooltip, Link } from '@chakra-ui/react';
+import { Container, Center, Text, Image, Flex, Button, Box, Heading, Stack, Tooltip, Link, HStack } from '@chakra-ui/react';
 import { useTranslate } from 'src/components/translate/translate.component';
 
 import './footer.component.scss';
@@ -42,12 +42,14 @@ export const Footer = (props: Props): JSX.Element => {
             </Link>
             <Box flexDirection={'row'} display="flex" justifyContent={'space-between'}>
               <Text fontSize={'22px'} display={{ base: 'flex', md: 'flex' }} mr={{ base: '10px', md: '60px' }}>
-                Ready to get started?
+                {t('footer.ready_to_get_started')}
               </Text>
-              <Button variant={'white'}>Start Winning!</Button>
+              <Button variant={'white'} as={NavLink} to="/game/dashboard">
+                {t('footer.start_winning')}
+              </Button>
             </Box>
           </Flex>
-          <Flex className="links" width={{ base: '100%', md: '60%' }} justifyContent="space-between">
+          <Flex className="links" flexDirection={{ base: 'column', md: 'row' }} columnGap="235px">
             {LinksFooter.map((item: { name: string; links: { title: string; to: string }[] }, key: number) => (
               <Flex key={key} flexDirection="column" fontFamily={'roboto'} className="footer-link-column">
                 <Heading as="h6" size="md" variant={'footerLinkTitle'} mb="20px">
@@ -69,13 +71,13 @@ export const Footer = (props: Props): JSX.Element => {
                 </Button>
               ))}
             </Stack>
-            <Stack className="socials" mb={{ base: '48px', md: 'auto' }} width={{ base: 'auto', md: 'auto' }} justifyContent={{ base: 'space-between', md: 'end' }} flexGrow="1">
+            <HStack className="socials" mb={{ base: '48px', md: '0' }} flexGrow="1" columnGap={'30px'} justifyContent={{ base: 'flex-start', md: 'flex-end' }}>
               {LinkSocials.map((social: { title: string; to: string }, key: number) => (
                 <Tooltip label={t(social.title)} aria-label="A tooltip" key={key}>
                   <a href={`${social.to}`} target="_blank" style={socialLink(social.title)} className="social" color="white" rel="noreferrer" />
                 </Tooltip>
               ))}
-            </Stack>
+            </HStack>
           </Flex>
           {/**
           <Flex width="full" alignItems="center" flexDirection={{ base: 'column', md: 'row' }}>

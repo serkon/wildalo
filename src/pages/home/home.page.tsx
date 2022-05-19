@@ -1,5 +1,5 @@
 import { Box, Button, Container, Flex, Grid, GridItem, Heading, Image, ListItem, Stack, UnorderedList, VStack } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Carousel, CarouselItem } from 'src/components/carousel/carousel.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { Triad } from 'src/components/triad/triad.component';
@@ -131,12 +131,16 @@ export const PageHome = () => {
           <Heading width={{ base: '100%', md: '660px' }} fontSize="18px" textAlign={'center'} pb="55px" color="white">
             <div dangerouslySetInnerHTML={{ __html: t('main.subslogan') }} />
           </Heading>
-          <Button variant={'primary'} className="play-now" height="44px" borderRadius="22px">
+          <Button as={NavLink} to={'game/dashboard'} variant={'primary'} className="play-now" height="44px" borderRadius="22px">
             {t('common.Play_Now')}
           </Button>
           <Box className="extensions" flexDirection={{ md: 'row' }}>
-            <Image src="/images/pages/landing/home-avalange-logo.svg" alt="" />
-            <Image src="/images/pages/landing/home-metamask-logo.svg" alt="" />
+            <Button variant="link" onClick={() => window.open('https://www.avax.network/', '_blank')}>
+              <Image src="/images/pages/landing/home-avalange-logo.svg" alt="" />
+            </Button>
+            <Button variant="link" onClick={() => window.open('https://metamask.io/', '_blank')}>
+              <Image src="/images/pages/landing/home-metamask-logo.svg" alt="" />
+            </Button>
           </Box>
         </Box>
       </section>

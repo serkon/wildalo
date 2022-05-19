@@ -10,11 +10,7 @@
     margin-bottom: 48px;
 
     .socials {
-      display: grid;
-      grid-template-columns: repeat(5, 36px);
-      grid-column-gap: 8px;
-      grid-row-gap: 16px;
-      text-align: end;
+      display: flex;
       align-items: center;
 
       .social {

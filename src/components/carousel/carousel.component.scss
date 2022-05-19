@@ -27,7 +27,7 @@
       flex: 1 0 100%;
       flex-direction: column;
       align-items: var(--carousel-horizonta-align);
-      justify-content: var(--carousel-horizonta-align);
+      justify-content: flex-start;
       width: 100%;
 
       h2 {

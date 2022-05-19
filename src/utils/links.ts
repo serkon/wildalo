@@ -3,6 +3,7 @@ export interface LinkItem {
   to: string;
   external?: boolean;
 }
+export const getLink = (links: LinkItem[], text: string) => links.find((link) => link.title === text);
 export const LinksHeader: LinkItem[] = [
   { title: 'links.home', to: '/' },
   { title: 'links.marketplace', to: 'marketplace' },
@@ -24,6 +25,7 @@ export const LinksFooter: { name: string; links: LinkItem[] }[] = [
       { title: 'links.marketplace', to: 'marketplace', external: true },
     ],
   },
+  /**/
   {
     name: 'about',
     links: [
@@ -32,26 +34,26 @@ export const LinksFooter: { name: string; links: LinkItem[] }[] = [
       { title: 'links.about_us', to: 'about' },
     ],
   },
+  /**/
   {
     name: 'help',
     links: [
       { title: 'links.guide', to: 'guide' },
-      { title: 'links.how_to_play', to: 'faq' },
-      { title: 'links.contact_us', to: '' },
+      // { title: 'links.contact_us', to: 'contact' },
     ],
   },
 ];
 export const LinksTerms: LinkItem[] = [
   { title: 'links.terms_and_conditions', to: 'terms-and-conditions.pdf', external: true },
-  { title: 'links.whitepaper', to: 'whitepaper.pdf', external: true },
+  { title: 'links.whitepaper', to: 'https://wildalo.gitbook.io/whitepaper', external: true },
   { title: 'links.privacy_policy', to: 'privacy-and-policy.pdf', external: true },
 ];
 export const LinkSocials: LinkItem[] = [
   { title: 'social.discord', to: 'https://discord.gg/Vypt9GUjKh' },
   { title: 'social.telegram', to: 'https://t.me/+jO3E4SQjH6U2MmEx' },
   { title: 'social.twitter', to: 'https://twitter.com/wildalogame' },
-  { title: 'social.facebook', to: 'https://www.facebook.com/wildalogame' },
-  { title: 'social.reddit', to: 'https://www.reddit.com/r/wildalo/' },
+  // { title: 'social.facebook', to: 'https://www.facebook.com/wildalogame' },
+  // { title: 'social.reddit', to: 'https://www.reddit.com/r/wildalo/' },
   // { 'title': 'social.youtube', 'to': 'https://www.youtube.com/channel/UCeqL4KyprLNMKwFQueOdsIw' },
   // { 'title': 'social.linkedin', 'to': 'https://www.linkedin.com/in/wildalo-game-a23921229/' },
   // { 'title': 'social.instagram', 'to': 'https://www.instagram.com/wildalogame/' },
