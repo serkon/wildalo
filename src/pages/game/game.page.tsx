@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { MetaMaskComponent } from 'src/components/metamask/metamask.component';
+import { RedirectComponent } from 'src/components/redirect/redirect.component';
 import { set_layout_play_button } from 'src/store/reducers/LayoutReducer';
 import { PageDashboard } from './dashboard/dashboard.page';
 import { GameHero } from './hero/hero.page';
@@ -26,6 +27,7 @@ export const PageGame = () => {
 
   return (
     <>
+      <RedirectComponent />
       <MetaMaskComponent />
       <GameHero />
       <Routes>
