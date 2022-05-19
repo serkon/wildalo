@@ -137,16 +137,19 @@
     "Join_our_Discord": "Join our Discord and Telegram for launch details.",
     "news": "News",
     "carousel-01": {
-      "title": "Wildalo Beta has launched!",
-      "description": "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions."
+      "title": " Introducing Wildalo: A Sustainable Play2Earn Web3 Game",
+      "description": "Wildalo is a new type of web3 game. It brings the best of free to play mechanics, engaging gameplay, artistic NFT collections and player-first attitude in a game metaverse designed for sustainability in mind. Wildalo is an exciting new world filled with Wildlings.",
+      "label": "Read the Medium Article"
     },
     "carousel-02": {
-      "title": "2 Wildalo Beta has launched!",
-      "description": "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions."
+      "title": "Wildalo is featured on Gamepedia",
+      "description": "Wildalo is a blockchain-based card and adventure game that utilizes the Avalanche network with its NFT assets and cryptocurrencies, FODR, and WARC. The game combines free-to-play with play-to-earn, which means players can start the game for free and make a profit while having fun playing the game.",
+      "label": "Check it out on Gamepedia"
     },
     "carousel-03": {
-      "title": "3 Wildalo Beta has launched!",
-      "description": "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions."
+      "title": "Wildalo whitepaper is live content",
+      "description": "Thinking about the P2E games today there are some issues such as token & NFT sales without any game launches, high economic barriers to play, and uncontrolled inflation/volatility in game currencies. Also in many of these games, the players do not have any control on the game dynamics.",
+      "label": "Read the Whitepaper"
     },
     "roadmap": "Roadmap",
     "who_we_are": "Who We Are",

@@ -32,17 +32,17 @@ const carousel: { title: string; description: string; button: LinkItem }[] = [
   {
     title: 'main.carousel-01.title',
     description: 'main.carousel-01.description',
-    button: { title: "Let's get started", to: '/game/dashboard' },
+    button: { title: 'main.carousel-01.label', to: 'https://medium.com/@wildalogame/introducing-wildalo-a-sustainable-play-and-earn-web3-game-c726e672e7ef', external: true },
   },
   {
     title: 'main.carousel-02.title',
     description: 'main.carousel-02.description',
-    button: { title: "Let's get started", to: '/game/wah' },
+    button: { title: 'main.carousel-02.label', to: 'https://spintop.network/gamepedia/games/wildalo#overview', external: true },
   },
   {
     title: 'main.carousel-03.title',
     description: 'main.carousel-03.description',
-    button: { title: "Let's get started", to: '/signup' },
+    button: { title: 'main.carousel-03.label', to: 'https://wildalo.gitbook.io/whitepaper', external: true },
   },
 ];
 

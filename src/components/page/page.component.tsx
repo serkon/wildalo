@@ -16,7 +16,7 @@ const Links = () => {
     <React.Fragment>
       {LinkGame.map((item: { title: string; to: string }, key: number) => (
         <Link as={NavLink} to={item.to} variant="header" key={key} fontWeight="400">
-          {t(item.title)} +
+          {t(item.title)}
         </Link>
       ))}
     </React.Fragment>
