@@ -7,7 +7,7 @@ export const LinksHeader: LinkItem[] = [
   { title: 'links.home', to: '/' },
   { title: 'links.marketplace', to: 'marketplace' },
   { title: 'links.game', to: 'game' },
-  { title: 'links.guide', to: 'faq' },
+  { title: 'links.guide', to: 'guide' },
   { title: 'links.whitepaper', to: 'https://wildalo.gitbook.io/whitepaper', external: true },
 ];
 export const LinkGame: LinkItem[] = [

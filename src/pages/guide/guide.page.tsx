@@ -2,7 +2,7 @@ import { Accordion, AccordionItem, AccordionButton, AccordionPanel, Box, Contain
 import { MinusIcon, AddIcon } from '@chakra-ui/icons';
 
 import { useTranslate } from 'src/components/translate/translate.component';
-import './faq.page.scss';
+import './guide.page.scss';
 
 const faqs = [
   {

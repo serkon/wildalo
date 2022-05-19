@@ -1,38 +1,39 @@
 import React from 'react';
 import { Image, Box, Flex, HStack, IconButton, useDisclosure, Stack, Container, Link, Button } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 import { UserMenu } from 'src/pages/user/user.menu';
 import { LinkItem, LinksHeader } from 'src/utils/links';
 
 const Links = ({ click }: React.PropsWithChildren<{ click?: any }>) => {
+  click;
   const { t } = useTranslate();
-  const navigate = useNavigate();
-  const direction = (item: LinkItem) => {
-    item.external ? window.open(item.to, '_blank') : navigate(item.to);
-  };
-
   return (
     <React.Fragment>
-      {LinksHeader.map((item: { title: string; to: string }, key: number) => (
-        <>
+      {LinksHeader.map((item: LinkItem, key: number) => {
+        let properties = {};
+        if (!item.external) {
+          properties = { as: NavLink, to: item.to };
+        }
+        return (
           <Button
+            {...properties}
             variant="header"
-            onClick={() => {
-              direction(item);
-              click ? click : false;
-            }}
             key={key}
             justifyContent="flex-start"
             fontSize={{ base: '27px', md: '15px' }}
             color={{ base: 'white', md: '#87afa8' }}
+            onClick={() => {
+              click ? click() : false;
+              item.external && window.open(item.to, '_blank');
+            }}
           >
             {t(item.title)}
           </Button>
-        </>
-      ))}
+        );
+      })}
     </React.Fragment>
   );
 };

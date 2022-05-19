@@ -16,7 +16,7 @@ import theme from './theme';
 import { store } from 'src/store/store';
 import { Language } from 'src/components/translate/translate.component';
 import { ScrollTo } from 'src/hooks';
-import { PageFaq } from 'src/pages/faq/faq.page';
+import { PageFaq } from 'src/pages/guide/guide.page';
 import { PageHome } from 'src/pages/home/home.page';
 import { PageNotFound } from 'src/pages/http/not-found.page';
 import { PageRegister } from 'src/pages/user/register.page';
@@ -34,8 +34,9 @@ ReactDOM.render(
             <Routes>
               <Route path="/" element={<App />}>
                 <Route path="" element={<PageHome />} />
-                <Route path="faq" element={<PageFaq />} />
+                <Route path="marketplace" element={<PageFaq />} />
                 <Route path="game/*" element={<PageGame />} />
+                <Route path="guide" element={<PageFaq />} />
                 <Route path="register" element={<PageRegister />} />
               </Route>
               <Route path="*" element={<PageNotFound />} />
