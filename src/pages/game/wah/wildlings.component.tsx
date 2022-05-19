@@ -35,12 +35,10 @@ export const WildlingsComponent = () => {
   }, 400);
 
   useApi({ url: 'my/animal/list' }, async (data) => {
-    console.log('my wilding data', data);
     dispatch(set_wildling_list(data.data));
   });
 
   useEffect(() => {
-    console.log('wildling list', store.wildling.list);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     filter(refInput.current!.value);
     // eslint-disable-next-line react-hooks/exhaustive-deps

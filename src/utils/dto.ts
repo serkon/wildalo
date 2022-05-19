@@ -247,6 +247,14 @@ export interface User {
 }
 
 /**
+ * Wallet DTOS
+ */
+
+export interface Nounce {
+  value: string;
+}
+
+/**
  * Http Request & Response DTOS
  */
 

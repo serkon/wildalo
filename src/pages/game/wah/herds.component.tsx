@@ -37,7 +37,7 @@ import { useApi, useObservable } from 'src/hooks';
 import { set_herd_list } from 'src/store/reducers/HerdReducer';
 import { RootState } from 'src/store/store';
 import { Dragger } from 'src/utils/dragger';
-import { createHerdApi, deleteHerdApi, getHerdListApi, getWildingListApi, updateHerdApi } from './wah.page';
+import { createHerdApi, updateHerdApi, deleteHerdApi, getHerdListApi, getWildingListApi } from './wah.page';
 
 export const HerdsComponent = () => {
   const { t } = useTranslate();

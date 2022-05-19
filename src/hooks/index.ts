@@ -173,7 +173,6 @@ export const useObservable = (callback: (value: any) => void, debounce = 500) =>
       setValue(value);
       callback(value);
     });
-    console.log('asda1');
     return () => subscription.unsubscribe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

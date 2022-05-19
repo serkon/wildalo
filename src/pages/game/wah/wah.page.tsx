@@ -1,16 +1,17 @@
 import { Grid, GridItem } from '@chakra-ui/react';
-
-import { Page } from 'src/components/page/page.component';
-import { useTranslate } from 'src/components/translate/translate.component';
-import './wah.page.scss';
-import { WildlingsComponent } from './wildlings.component';
-import { HerdsComponent } from './herds.component';
 import { AxiosResponse } from 'axios';
-import { HttpResponse, api } from 'src/components/axios/axios.component';
-import { Animal, Herd } from 'src/utils/dto';
-import { set_wildling_list } from 'src/store/reducers/WildlingReducer';
+
 import { store } from 'src/store/store';
+import { HttpResponse, api } from 'src/components/axios/axios.component';
+import { useTranslate } from 'src/components/translate/translate.component';
+import { set_wildling_list } from 'src/store/reducers/WildlingReducer';
 import { set_herd_list, update_herd } from 'src/store/reducers/HerdReducer';
+import { Contractor } from 'src/components/metamask/contractor';
+import { Animal, Herd } from 'src/utils/dto';
+import { Page } from 'src/components/page/page.component';
+import { HerdsComponent } from './herds.component';
+import { WildlingsComponent } from './wildlings.component';
+import './wah.page.scss';
 
 export const getWildingListApi = async () => {
   const animalListResponse: AxiosResponse<HttpResponse<Animal[]>> = await api.post('my/animal/list');
@@ -22,9 +23,21 @@ export const getHerdListApi = async () => {
   store.dispatch(set_herd_list(herdListResponse.data.data ? herdListResponse.data.data : []));
 };
 
+export const createHerdApi = async (): Promise<Herd | null> => {
+  let herd: Herd | null = null;
+  try {
+    const { headers } = await Contractor.header();
+    herd = await api.post('/herd/create', { headers });
+  } catch (e) {
+    console.log('create herd error: ', e);
+  }
+  return herd;
+};
+
 export const updateHerdApi = async (newHerd: Herd, updateWildling: boolean = true): Promise<void> => {
   try {
-    await api.post('/herd/update', { data: newHerd });
+    const { headers } = await Contractor.header();
+    await api.post('/herd/update', { data: newHerd }, { headers });
     store.dispatch(update_herd(newHerd));
     updateWildling && getWildingListApi() && getHerdListApi();
   } catch (e) {
@@ -32,19 +45,10 @@ export const updateHerdApi = async (newHerd: Herd, updateWildling: boolean = tru
   }
 };
 
-export const createHerdApi = async (): Promise<Herd | null> => {
-  let herd: Herd | null = null;
-  try {
-    herd = await api.post('/herd/create');
-  } catch (e) {
-    console.log('create herd error: ', e);
-  }
-  return herd;
-};
-
 export const deleteHerdApi = async (herdId: string): Promise<void> => {
   try {
-    await api.post('/herd/delete', { data: { id: herdId } });
+    const { headers } = await Contractor.header();
+    await api.post('/herd/delete', { data: { id: herdId } }, { headers });
   } catch (e) {
     console.log('delete herd error: ', e);
   }
