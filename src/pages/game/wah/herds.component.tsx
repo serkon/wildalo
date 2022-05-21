@@ -26,6 +26,7 @@ import {
   PopoverFooter,
   PopoverHeader,
   PopoverTrigger,
+  Tooltip,
 } from '@chakra-ui/react';
 import { createRef, useEffect, useRef } from 'react';
 import { useSelector, useStore } from 'react-redux';
@@ -135,32 +136,34 @@ export const HerdsComponent = () => {
                       <AccordionButton w={8} justifyContent="center" className="accordion-opener" shadow={'none'} boxShadow="none">
                         <AccordionIcon />
                       </AccordionButton>
-                      <InputGroup width={'auto'}>
-                        <label className="input-sizer" data-value={herd.name}>
-                          <Input
-                            type="text"
-                            defaultValue={herd.name}
-                            ref={herdNameInputRef.current[key]}
-                            onBlur={() => ((herdNameInputRef.current[key] as any).current.disabled = true)}
-                            onChange={() => updateHerdName(herd, herdNameInputRef.current[key])}
-                            onInput={() => ((herdNameInputRef.current[key] as any).current.parentNode.dataset.value = (herdNameInputRef.current[key] as any).current.value)}
-                            htmlSize={1}
-                            p="0"
-                            focusBorderColor="none"
-                            className={`herd-name-input`}
-                            disabled
-                          />
-                        </label>
-                        <InputRightElement>
-                          <IconButton
-                            aria-label="Edit Herd Name"
-                            icon={<Image src="/images/pages/game/wah/edit.svg" />}
-                            onClick={() => focusInput(herdNameInputRef.current[key])}
-                            variant="ghost"
-                            className="edit-herd-name-button"
-                          />
-                        </InputRightElement>
-                      </InputGroup>
+                      <Tooltip label={herd.name} fontSize="md">
+                        <InputGroup width={'auto'}>
+                          <label className="input-sizer" data-value={herd.name}>
+                            <Input
+                              type="text"
+                              defaultValue={herd.name}
+                              ref={herdNameInputRef.current[key]}
+                              onBlur={() => ((herdNameInputRef.current[key] as any).current.disabled = true)}
+                              onChange={() => updateHerdName(herd, herdNameInputRef.current[key])}
+                              onInput={() => ((herdNameInputRef.current[key] as any).current.parentNode.dataset.value = (herdNameInputRef.current[key] as any).current.value)}
+                              htmlSize={1}
+                              p="0"
+                              focusBorderColor="none"
+                              className={`herd-name-input`}
+                              disabled
+                            />
+                          </label>
+                          <InputRightElement>
+                            <IconButton
+                              aria-label="Edit Herd Name"
+                              icon={<Image src="/images/pages/game/wah/edit.svg" />}
+                              onClick={() => focusInput(herdNameInputRef.current[key])}
+                              variant="ghost"
+                              className="edit-herd-name-button"
+                            />
+                          </InputRightElement>
+                        </InputGroup>
+                      </Tooltip>
                       <Box fontSize={11} fontWeight={700} backgroundColor="#615A48" padding="2px 4px" ml="auto" mr="4" borderRadius="2px">
                         {t('common.LEVEL')} {herd.level}
                       </Box>
