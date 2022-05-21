@@ -304,9 +304,14 @@ export const HerdsComponent = () => {
                                 }
                               />
                             ) : (
-                              <Text fontSize={12} maxW="150px">
-                                {t('game.wah.Drag')}
-                              </Text>
+                              <>
+                                <Box position={'absolute'} left="20px" top="20px" className="number">
+                                  #{key + 1}
+                                </Box>
+                                <Text fontSize={12} maxW="150px">
+                                  {t('game.wah.Drag')}
+                                </Text>
+                              </>
                             )}
                           </GridItem>
                         );
