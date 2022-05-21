@@ -177,14 +177,20 @@ export enum HerdState {
   DEAD = 'DEAD',
 }
 
-export interface HomesteadBonus {
-  type: SecondaryStat;
-  value: number;
-  region: Region;
-  animalCount: number;
+export enum BonusType {
+  HOMESTEAD_BONUS = 'HOMESTEAD_BONUS',
+  CONTINENT_BONUS = 'CONTINENT_BONUS',
+  SUPER_MEGA_BONUS = 'SUPER_MEGA_BONUS',
+  ANOTHER_BONUS = 'ANOTHER_BONUS',
 }
 
-export interface OtherBonus {
+export interface Bonus {
+  type: BonusType;
+  description: string;
+  list: BonusItem[];
+}
+
+export interface BonusItem {
   type: SecondaryStat;
   value: number;
   region: Region;
@@ -198,7 +204,7 @@ export interface Herd {
   lost: number;
   state: HerdState;
   animals?: { position: number; animal: Animal }[];
-  bonus: Array<HomesteadBonus | OtherBonus>;
+  bonuses: Bonus[];
   level: number;
   remainingTime?: number;
 }
