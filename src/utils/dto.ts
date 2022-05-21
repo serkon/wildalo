@@ -250,7 +250,7 @@ export interface User {
  * Wallet DTOS
  */
 
-export interface Nounce {
+export interface Nonce {
   value: string;
 }
 
