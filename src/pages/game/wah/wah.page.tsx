@@ -60,7 +60,7 @@ export const PageWildingAndHerds = () => {
 
   return (
     <Page title="Wildings & Herds">
-      <Grid templateColumns="minmax(0, 1fr) 500px" gap={4} color="white">
+      <Grid templateColumns="minmax(0, 1fr) minmax(0, 0.72548fr)" gap={4} color="white">
         <GridItem bg="#09241F" p={6} borderRadius="14px">
           <WildlingsComponent />
         </GridItem>

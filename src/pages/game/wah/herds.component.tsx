@@ -166,7 +166,7 @@ export const HerdsComponent = () => {
                       </Box>
                       <Box mr="4">{herd.animals?.length || 0} / 4</Box>
                       {herd.state === HerdState.IDLE && (
-                        <Button className="get-into-fight" mr="4" variant={'primary'} disabled={herd.animals?.length !== 4} onClick={directToFight} boxShadow="none">
+                        <Button size="md" className="get-into-fight" mr="4" variant={'primary'} disabled={herd.animals?.length !== 4} onClick={directToFight} boxShadow="none">
                           {t('game.wah.Get_into_a_Fight')}
                         </Button>
                       )}
@@ -182,6 +182,7 @@ export const HerdsComponent = () => {
                             disabled
                             boxShadow="none"
                             p="0"
+                            size="xs"
                           >
                             {t('game.wah.Matchmaking')}
                           </Button>

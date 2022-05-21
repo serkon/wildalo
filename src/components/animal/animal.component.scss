@@ -207,6 +207,11 @@
       font-family: var(--font-animal-name);
       line-height: 22px;
       font-weight: 700;
+
+      .item-value {
+        font-size: 12px;
+        font-weight: 700;
+      }
     }
   }
 }

@@ -11,6 +11,26 @@ export const Button = {
       backgroundColor: 'interit',
     },
   },
+  sizes: {
+    lg: {
+      h: 12,
+      minW: 12,
+      fontSize: 'lg',
+      px: 6,
+    },
+    md: {
+      h: 8,
+      minW: 8,
+      fontSize: 'md',
+      px: 4,
+    },
+    sm: {
+      h: 6,
+      minW: 6,
+      fontSize: 'sm',
+      px: 3,
+    },
+  },
   variants: {
     ghost: {
       backgroundColor: 'transparent',
