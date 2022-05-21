@@ -174,7 +174,6 @@ export const useObservable = (callback: (value: any) => void, debounce = 500) =>
       callback(value);
     });
     return () => subscription.unsubscribe();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [callback, observable]);
   return { value, setValue, subject };
 };

@@ -36,6 +36,8 @@ api.interceptors.request.use(
     if (metamask && metamask.walletAddress && request.method === 'post') {
       request.headers['address'] = metamask.walletAddress;
     } else {
+      // TODO remove debugger, window.location href kalsın. O wallet address bulamazsa ana sayfaya atıyor.
+      // sen en güzeli burada bir alert verip ana sayfaya yönlendir.
       window.location.href = '/';
       Promise.reject(new Error('No wallet address'));
     }
