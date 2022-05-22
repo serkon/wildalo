@@ -27,7 +27,7 @@ export const RedirectComponent = () => {
     <>
       <Modal blockScrollOnMount={false} isOpen={isInit} onClose={onClose} isCentered size={size}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px) hue-rotate(10deg)" />
-        <ModalContent bgColor={'#0B2F28'} className="metamask-modal-content" mx="25px">
+        <ModalContent bgColor={'#0B2F28'} className="modal-content" mx="25px">
           <ModalHeader pb="0 !important" pt="40px !important" />
           <ModalCloseButton className="close" />
           <ModalBody className="body">

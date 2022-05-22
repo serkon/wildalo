@@ -1,5 +1,5 @@
 import { Accordion, AccordionItem, AccordionButton, AccordionPanel, Box, Container, Heading } from '@chakra-ui/react';
-import { MinusIcon, AddIcon } from '@chakra-ui/icons';
+import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 import './guide.page.scss';
@@ -40,23 +40,25 @@ export const PageFaq = () => {
   const { t } = useTranslate();
 
   return (
-    <>
+    <Box backgroundImage={'url(/images/pages/guide/guide-bottom.png)'} backgroundPosition="bottom center" backgroundSize={'contain'} backgroundRepeat="no-repeat">
       <Container maxW="container.md">
         <Heading as="h1" size="xl" variant="center" isTruncated color="white" className="page-header">
-          {t('links.how_to_play')}
+          {t('guide.title')}
         </Heading>
-        <Accordion allowToggle>
+        <Box color={'white'} mb="76px">
+          {t('guide.description')}
+        </Box>
+        <Accordion allowToggle mb="250px">
           {faqs.map((item, key) => (
             <AccordionItem key={key}>
               {({ isExpanded }) => (
                 <>
                   <h2 className={isExpanded ? 'expanded' : 'collapsed'}>
-                    <div className="dot">{key + 1}</div>
                     <AccordionButton>
                       <Box flex="1" textAlign="left">
                         {item.title}
                       </Box>
-                      {isExpanded ? <MinusIcon fontSize="12px" /> : <AddIcon fontSize="12px" />}
+                      {isExpanded ? <ArrowUpIcon fontSize="24px" /> : <ArrowDownIcon fontSize="24px" />}
                     </AccordionButton>
                   </h2>
                   <AccordionPanel pb={4}>{item.description}</AccordionPanel>
@@ -66,6 +68,6 @@ export const PageFaq = () => {
           ))}
         </Accordion>
       </Container>
-    </>
+    </Box>
   );
 };

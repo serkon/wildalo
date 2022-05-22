@@ -129,3 +129,34 @@ img {
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+
+.modal-content {
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 14px !important;
+  box-shadow: 0 0 30px rgb(0 0 0 / 60%) !important;
+  background-color: #0b2f28;
+
+  .header {
+    margin-bottom: 30px;
+    padding: 30px 42px;
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 33px;
+  }
+
+  .close {
+    color: #ffffff;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 42px;
+    // padding-bottom: 24px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25px;
+  }
+}

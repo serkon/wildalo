@@ -38,7 +38,6 @@
     "dashboard": "Dashboard",
     "wildlings_and_herds": "Wildlings & Herds",
     "my_profile": "My Profile",
-    "how_to_play": "How to Play",
     "faqs": "FAQs",
     "team": "Team",
     "about_us": "About Us",
@@ -152,8 +151,17 @@
       "label": "Read the Whitepaper"
     },
     "roadmap": "Roadmap",
+    "What_is_Wildalo": "What is Wildalo?",
+    "Join_Discord": "Join Discord",
+    "Join_Telegram": "Join Telegram",
+    "Join_Twitter": "Join Twitter",
+    "Follow_Us": "Follow Us",
     "who_we_are": "Who We Are",
     "who_we_are_description": "We gathered aroung two OG gamers and Googlers, both have been playing games for 20+ years as well as being active in the gaming community. We are excited by the potential of web3 to revolutionize gaming for the benefit of the gamers and the gaming industry. Our passionate team is decentralized just like web3 hailing from Silicon Valley, Turkey, Finland, Ireland and Sweden."
+  },
+  "guide": {
+    "title": "Guide",
+    "description": "You can read the short guides we have prepared for you to get to know the game and its ecosystem better. And for much more, you can meet the community and find answers to your questions by using our Discord and Telegram channels."
   },
   "game": {
     "hero": {

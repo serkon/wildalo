@@ -1,104 +1,73 @@
-.metamask-modal-content {
-  border: 1px solid rgb(255 255 255 / 10%);
-  border-radius: 14px !important;
-  box-shadow: 0 0 30px rgb(0 0 0 / 60%) !important;
-  background-color: #0b2f28;
+.metamask-bold {
+  color: #6cb4a6;
+}
 
-  .header {
-    margin-bottom: 30px;
-    padding: 30px 42px;
-    color: #ffffff;
-    font-size: 28px;
-    font-weight: 400;
-    line-height: 33px;
+.metamask-logo {
+  margin-bottom: 35px;
+  max-width: 382px;
+  width: 100%;
+  height: 72px;
+  background-image: url("~/public/images/common/metamask.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.metamask-network {
+  width: 45%;
+  height: 140px;
+  background-image: url("~/public/images/common/network.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.metamask-permission {
+  width: 45%;
+  height: 140px;
+  background-image: url("~/public/images/common/permission.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.content {
+  margin-bottom: 35px;
+  max-width: 400px;
+  text-align: center;
+
+  a {
+    color: #ffc633;
   }
+}
 
-  .close {
-    color: #ffffff;
-  }
+.content-left {
+  text-align: left;
+}
 
-  .body {
-    display: flex;
-    flex-direction: column;
-    padding: 24px 42px;
-    // padding-bottom: 24px;
-    color: #ffffff;
+.help {
+  margin-top: 67px;
+  padding: 27px;
+  width: 100%;
+  border-radius: 12px;
+  background-color: #09241f;
+
+  .help-title {
+    margin-bottom: 20px;
     font-size: 16px;
-    font-weight: 400;
-    line-height: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 19px;
+  }
 
-    .metamask-bold {
-      color: #6cb4a6;
-    }
+  .help-content {
+    margin-left: 12px;
+    color: #ffc633;
 
-    .metamask-logo {
-      margin-bottom: 35px;
-      max-width: 382px;
-      width: 100%;
-      height: 72px;
-      background-image: url("~/public/images/common/metamask.svg");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-    }
-
-    .metamask-network {
-      width: 45%;
-      height: 140px;
-      background-image: url("~/public/images/common/network.svg");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-    }
-
-    .metamask-permission {
-      width: 45%;
-      height: 140px;
-      background-image: url("~/public/images/common/permission.svg");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-    }
-
-    .content {
-      margin-bottom: 35px;
-      max-width: 400px;
-      text-align: center;
-
-      a {
-        color: #ffc633;
-      }
-    }
-
-    .content-left {
-      text-align: left;
-    }
-
-    .help {
-      margin-top: 67px;
-      padding: 27px;
-      width: 100%;
-      border-radius: 12px;
-      background-color: #09241f;
-
-      .help-title {
-        margin-bottom: 20px;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 19px;
-      }
-
-      .help-content {
-        margin-left: 12px;
-        color: #ffc633;
-
-        li a {
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 16px;
-        }
-      }
+    li a {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 16px;
     }
   }
 }

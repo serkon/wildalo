@@ -3,7 +3,7 @@ export interface LinkItem {
   to: string;
   external?: boolean;
 }
-export const getLink = (links: LinkItem[], text: string) => links.find((link) => link.title === text);
+export const getLink = (links: LinkItem[], text: string): LinkItem | undefined => links.find((link) => link.title === text);
 export const LinksHeader: LinkItem[] = [
   { title: 'links.home', to: '/' },
   { title: 'links.marketplace', to: 'marketplace' },
@@ -30,8 +30,8 @@ export const LinksFooter: { name: string; links: LinkItem[] }[] = [
     name: 'about',
     links: [
       { title: 'links.whitepaper', to: 'whitepaper.pdf', external: true },
-      { title: 'links.team', to: 'team' },
-      { title: 'links.about_us', to: 'about' },
+      // { title: 'links.team', to: 'team' },
+      // { title: 'links.about_us', to: 'about' },
     ],
   },
   /**/
@@ -49,9 +49,9 @@ export const LinksTerms: LinkItem[] = [
   { title: 'links.privacy_policy', to: 'privacy-and-policy.pdf', external: true },
 ];
 export const LinkSocials: LinkItem[] = [
-  { title: 'social.discord', to: 'https://discord.gg/Vypt9GUjKh' },
-  { title: 'social.telegram', to: 'https://t.me/+jO3E4SQjH6U2MmEx' },
-  { title: 'social.twitter', to: 'https://twitter.com/wildalogame' },
+  { title: 'social.discord', to: 'https://discord.gg/Vypt9GUjKh', external: true },
+  { title: 'social.telegram', to: 'https://t.me/+jO3E4SQjH6U2MmEx', external: true },
+  { title: 'social.twitter', to: 'https://twitter.com/wildalogame', external: true },
   // { title: 'social.facebook', to: 'https://www.facebook.com/wildalogame' },
   // { title: 'social.reddit', to: 'https://www.reddit.com/r/wildalo/' },
   // { 'title': 'social.youtube', 'to': 'https://www.youtube.com/channel/UCeqL4KyprLNMKwFQueOdsIw' },

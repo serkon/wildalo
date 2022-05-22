@@ -200,8 +200,8 @@ export const HerdsComponent = () => {
                     </Flex>
                     {state.isExpanded && (
                       <Flex className="accordion-title-sub" justifyContent={'space-beetwen'} mt="6px" mb="12px">
-                        {herd.bonus &&
-                          herd.bonus.map((item: any, key: number) => (
+                        {herd.bonuses &&
+                          herd.bonuses.map((item: any, key: number) => (
                             <Box key={key}>
                               {/* TODO get bonus name */}
                               <Popover placement="bottom" closeOnBlur={false} trigger="hover">

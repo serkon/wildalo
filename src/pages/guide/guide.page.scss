@@ -1,5 +1,6 @@
 .page-header {
-  padding: 60px 0;
+  padding-top: 60px;
+  padding-bottom: 18px;
   color: white;
   font-size: 40px;
 }
@@ -8,28 +9,17 @@
   padding-bottom: 60px;
 
   .chakra-accordion__item {
+    margin-bottom: 24px;
+    padding: 36px;
     border: none;
-    border-bottom: 1px solid #9ecbaa;
+    border-radius: 20px;
+    background-color: #09241f;
 
     h2 {
       position: relative;
       display: flex;
       align-items: center;
-      height: 100px;
-
-      .dot {
-        position: absolute;
-        left: -91px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 61px;
-        height: 61px;
-        background-image: url("./faq-collapsed.svg");
-        background-repeat: no-repeat;
-        background-position: center;
-        font-size: 30px;
-      }
+      color: #ffc633;
 
       .chakra-accordion__button {
         padding: 0;
@@ -54,7 +44,8 @@
     }
 
     .chakra-accordion__panel {
-      padding-bottom: 40px;
+      padding: 0;
+      padding-top: 36px;
       color: white;
       font-size: 20px;
       font-weight: 300;

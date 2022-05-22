@@ -105,7 +105,7 @@ export const MetaMaskComponent = () => {
     <>
       <Modal blockScrollOnMount={false} isOpen={isInit && !(extension && network && permission)} onClose={onClose} isCentered size={size}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px) hue-rotate(10deg)" />
-        <ModalContent bgColor={'#0B2F28'} className="metamask-modal-content">
+        <ModalContent bgColor={'#0B2F28'} className="modal-content">
           <ModalHeader className="header">{t(`metamask.modal.${!extension ? 'extension' : !permission ? 'permission' : !network ? 'network' : ''}.header`)}</ModalHeader>
           <ModalCloseButton className="close" onClick={() => reload()} />
           <ModalBody className="body">

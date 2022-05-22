@@ -5,13 +5,13 @@ import { useTranslate } from 'src/components/translate/translate.component';
 import { Triad } from 'src/components/triad/triad.component';
 import { useMediaQuery } from 'src/theme/util/media-query';
 import { Animal, AnimalRarity, Region } from 'src/utils/dto';
-import { LinkItem } from 'src/utils/links';
+import { getLink, LinkItem, LinkSocials } from 'src/utils/links';
 
 import './home.page.scss';
 
 const roadmap = [
   {
-    title: '<span>Q2</span>-2021',
+    title: '<span>Q2</span>-2022',
     description: ['TGE & Community Building', 'Herd Fights Begin'],
   },
   {
@@ -23,7 +23,7 @@ const roadmap = [
     description: ['New Winter Wildlings', 'Wildalo Homesteads'],
   },
   {
-    title: '<span>H1’23</span>-2023',
+    title: '<span>H1</span>-2023',
     description: ['New Spring Wildlings', 'Consumables', 'Ranger Guilds'],
   },
 ];
@@ -154,20 +154,41 @@ export const PageHome = () => {
               <Box color="white" textAlign={{ base: 'center', md: 'left' }}>
                 {t('main.Join_our_Discord')}
               </Box>
-              <Stack direction="row" spacing={4} mt="64px !important">
-                <Button leftIcon={<Image src="/images/socials/discord.svg" height="18px" />} variant="outline" height="42px" borderRadius="21px">
-                  Join Discord
+              <Flex direction="row" mt="64px !important" columnGap={2} rowGap={2} flexWrap="wrap" justifyContent={'center'}>
+                <Button
+                  leftIcon={<Image src="/images/socials/discord.svg" height="18px" />}
+                  variant="outline"
+                  height="42px"
+                  borderRadius="21px"
+                  onClick={() => direction(getLink(LinkSocials, 'social.discord') as LinkItem)}
+                >
+                  {t('main.Join_Discord')}
                 </Button>
-                <Button leftIcon={<Image src="/images/socials/telegram.svg" height="18px" />} variant="outline" height="42px" borderRadius="21px">
-                  Join Telegram
+                <Button
+                  leftIcon={<Image src="/images/socials/telegram.svg" height="18px" />}
+                  variant="outline"
+                  height="42px"
+                  borderRadius="21px"
+                  onClick={() => direction(getLink(LinkSocials, 'social.telegram') as LinkItem)}
+                >
+                  {t('main.Join_Telegram')}
                 </Button>
-              </Stack>
+                <Button
+                  leftIcon={<Image src="/images/socials/twitter.svg" height="18px" />}
+                  variant="outline"
+                  height="42px"
+                  borderRadius="21px"
+                  onClick={() => direction(getLink(LinkSocials, 'social.twitter') as LinkItem)}
+                >
+                  {t('main.Follow_Us')}
+                </Button>
+              </Flex>
             </VStack>
             <Triad data={animals} style={{ transform: isLarge ? 'scale(1)' : 'scale(0.8)' }} />
           </Flex>
           <Flex className="what-is-wildalo" direction={'column'} alignItems="center">
-            <Heading fontSize="42px" pb="32px" color="white">
-              What is Wildalo?
+            <Heading fontSize="42px" pb="32px" color="white" textAlign={'center'}>
+              {t('main.What_is_Wildalo')}
             </Heading>
             <Image src="/images/pages/landing/what-is-wildalo.png" />
           </Flex>
@@ -236,15 +257,14 @@ export const PageHome = () => {
               backgroundColor={'#09241F'}
               width="100%"
               borderRadius="20px"
-              px={{ base: '32px', md: '200px' }}
-              pt="90px"
-              pb="32px"
+              px={{ base: '32px', md: '150px' }}
+              py={{ base: '32px', md: '90px' }}
               color="white"
               textAlign={'center'}
               alignItems="center"
             >
               <Box className="home-who-we-are-content-text" dangerouslySetInnerHTML={{ __html: t('main.who_we_are_description') }} />
-              <Image src="/images/pages/landing/google.svg" width={'110px'} marginX="auto" mt="96px !important" />
+              <Image src="/images/common/logo.svg" marginX="auto" mt="64px !important" />
             </Box>
           </VStack>
         </Container>

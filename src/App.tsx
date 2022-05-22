@@ -10,6 +10,7 @@ import { Footer } from 'src/components/footer/footer.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 
 import logo from './assets/logo.svg';
+import { Box } from '@chakra-ui/react';
 
 function App(): JSX.Element {
   const { t } = useTranslate();
@@ -39,9 +40,9 @@ function App(): JSX.Element {
     <ErrorBoundary>
       <Suspense fallback={<div>{t('loading')}</div>}>
         <Header />
-        <main>
+        <Box className="main" mt={{ base: '70px', md: 0 }}>
           <Outlet />
-        </main>
+        </Box>
         <Footer logo={logo} className="footer" />
       </Suspense>
     </ErrorBoundary>

@@ -21,6 +21,7 @@ import { PageHome } from 'src/pages/home/home.page';
 import { PageNotFound } from 'src/pages/http/not-found.page';
 import { PageRegister } from 'src/pages/user/register.page';
 import { PageGame } from 'src/pages/game/game.page';
+import { PageMarketplace } from './pages/ marketplace/marketplace.page';
 
 const root: HTMLDivElement | null = document.getElementById('root') as HTMLDivElement;
 
@@ -34,7 +35,7 @@ ReactDOM.render(
             <Routes>
               <Route path="/" element={<App />}>
                 <Route path="" element={<PageHome />} />
-                <Route path="marketplace" element={<PageFaq />} />
+                <Route path="marketplace" element={<PageMarketplace />} />
                 <Route path="game/*" element={<PageGame />} />
                 <Route path="guide" element={<PageFaq />} />
                 <Route path="register" element={<PageRegister />} />
