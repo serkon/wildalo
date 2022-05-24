@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Box, Link } from '@chakra-ui/react';
 
 import { useTranslate } from 'src/components/translate/translate.component';
-import { useSize } from 'src/theme/util/media-query';
+import { useMediaQuery, useSize } from 'src/theme/util/media-query';
 import { RootState } from 'src/store/store';
 import { MetaMaskHandler } from './metamask.handler';
 import { Wildapter } from './adaptor';
@@ -48,12 +48,15 @@ export const MetaMaskComponent = () => {
   const [network, setNetwork] = useState(false);
   const [permission, setPermission] = useState(false);
   const [isInit, setInit] = useState(false);
+  const isLargerThan = useMediaQuery('sm');
+
   const navigate = useNavigate();
   const { onClose } = useDisclosure({
     onOpen: () => {
       // setExtension(true);
     },
     onClose: () => {
+      document.documentElement.classList.remove('modal');
       setExtension(true);
       setNetwork(true);
       setPermission(true);
@@ -100,6 +103,10 @@ export const MetaMaskComponent = () => {
     init();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    !isLargerThan ? document.documentElement.classList.add('modal') : document.documentElement.classList.remove('modal');
+  }, [isLargerThan]);
 
   return (
     <>

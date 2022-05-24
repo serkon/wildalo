@@ -67,6 +67,14 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  &.mobile.modal {
+    overflow: hidden;
+
+    body {
+      overflow: hidden;
+    }
+  }
 }
 
 html,

@@ -28,9 +28,9 @@ export const useProcess = () => process.env;
 
 export const useMobile = () => {
   const isDesktop = useMediaQuery('md');
-  const root: HTMLDivElement | null = document.getElementById('root') as HTMLDivElement;
+  // const root: HTMLDivElement | null = document.getElementById('root') as HTMLDivElement;
   useEffect(() => {
-    !isDesktop ? root?.classList.add('mobile') : root?.classList.remove('mobile');
+    !isDesktop ? document.documentElement.classList.add('mobile') : document.documentElement.classList.remove('mobile');
   });
 };
 

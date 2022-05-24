@@ -12,19 +12,23 @@ export const RedirectComponent = () => {
   const size = useSize();
   const isLargerThan = useMediaQuery('sm');
   const [isInit, setInit] = useState(false);
+  const navigate = useNavigate();
   const { onClose } = useDisclosure({
     onClose: () => {
+      document.documentElement.classList.remove('modal');
       setInit(false);
       navigate('/');
     },
   });
-  const navigate = useNavigate();
+
   useEffect(() => {
     setInit(!isLargerThan);
+    !isLargerThan ? document.documentElement.classList.add('modal') : document.documentElement.classList.remove('modal');
   }, [isLargerThan]);
 
   return (
     <>
+      <Box>{isInit}</Box>
       <Modal blockScrollOnMount={false} isOpen={isInit} onClose={onClose} isCentered size={size}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px) hue-rotate(10deg)" />
         <ModalContent bgColor={'#0B2F28'} className="modal-content" mx="25px">
