@@ -40,7 +40,13 @@ export const PageFaq = () => {
   const { t } = useTranslate();
 
   return (
-    <Box backgroundImage={'url(/images/pages/guide/guide-bottom.png)'} backgroundPosition="bottom center" backgroundSize={'contain'} backgroundRepeat="no-repeat">
+    <Box
+      backgroundImage={'url(/images/pages/guide/guide-bottom.png)'}
+      backgroundPosition="bottom center"
+      backgroundSize={'contain'}
+      backgroundRepeat="no-repeat"
+      className="page-guide"
+    >
       <Container maxW="container.md">
         <Heading as="h1" size="xl" variant="center" isTruncated color="white" className="page-header">
           {t('guide.title')}

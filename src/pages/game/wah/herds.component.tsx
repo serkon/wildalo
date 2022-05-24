@@ -17,13 +17,11 @@ import {
   AccordionItem,
   AccordionPanel,
   AccordionButton,
-  ButtonGroup,
   Popover,
   PopoverArrow,
   PopoverBody,
   PopoverCloseButton,
   PopoverContent,
-  PopoverFooter,
   PopoverHeader,
   PopoverTrigger,
   Tooltip,
@@ -31,7 +29,7 @@ import {
 import { createRef, useEffect, useRef } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import { AnimalCard } from 'src/components/animal/animal.component';
-import { Animal, Herd, HerdState } from 'src/utils/dto';
+import { Animal, BonusItem, Herd, HerdState } from 'src/utils/dto';
 import { Timer } from 'src/components/timer/timer.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useApi, useObservable } from 'src/hooks';
@@ -202,9 +200,9 @@ export const HerdsComponent = () => {
                       <Flex className="accordion-title-sub" justifyContent={'space-beetwen'} mt="6px" mb="12px">
                         {herd.bonuses &&
                           herd.bonuses.map((item: any, key: number) => (
-                            <Box key={key}>
+                            <Box key={key} mr="8px">
                               {/* TODO get bonus name */}
-                              <Popover placement="bottom" closeOnBlur={false} trigger="hover">
+                              <Popover placement="bottom" closeOnBlur={false} trigger="hover" arrowShadowColor={'rgba(255,255,255, 0.1)'} arrowSize={16}>
                                 <PopoverTrigger>
                                   <Box
                                     fontSize={11}
@@ -219,23 +217,67 @@ export const HerdsComponent = () => {
                                     cursor="pointer"
                                     _hover={{ backgroundColor: '#0B2F28' }}
                                   >
-                                    {item.type}
+                                    {t(`bonus.${item.type}`)}
                                   </Box>
                                 </PopoverTrigger>
-                                <PopoverContent color="white" bg="blue.800" borderColor="blue.800">
-                                  <PopoverHeader pt={4} fontWeight="bold" border="0">
-                                    Manage Your Channels
+                                <PopoverContent
+                                  color="white"
+                                  borderRadius="14px"
+                                  bg="#09241F"
+                                  border="1px solid rgba(255, 255, 255, 0.1) !important"
+                                  p="12px 18px"
+                                  boxShadow={' 0px 0px 10px rgba(0, 0, 0, 0.4) !important'}
+                                  marginTop="8px"
+                                >
+                                  <PopoverHeader p={0} fontWeight="bold" border="0" fontSize={'12px'} lineHeight="20px" mb="9px">
+                                    {t(`bonus.${item.type}`)}
                                   </PopoverHeader>
-                                  <PopoverArrow />
+                                  <PopoverArrow backgroundColor={'#09241F'} />
                                   <PopoverCloseButton />
-                                  <PopoverBody>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</PopoverBody>
-                                  <PopoverFooter border="0" d="flex" alignItems="center" justifyContent="space-between" pb={4}>
-                                    <Box fontSize="sm">Step 2 of 4</Box>
-                                    <ButtonGroup size="sm">
-                                      <Button colorScheme="green">Setup Email</Button>
-                                      <Button colorScheme="blue">Next</Button>
-                                    </ButtonGroup>
-                                  </PopoverFooter>
+                                  <PopoverBody padding={0}>
+                                    <Box fontSize={'12px'} lineHeight="20px" mb="24px">
+                                      {t(`bonus.${item.type}_DESCRIPTION`)}
+                                    </Box>
+                                    {item.list &&
+                                      item.list.map((bonusItem: BonusItem, bonusKey: number) => (
+                                        <Flex
+                                          key={bonusKey}
+                                          className="bonus-item"
+                                          justifyContent={'space-between'}
+                                          alignItems="center"
+                                          borderBottom={`1px solid ${item.list.length - 1 === bonusKey ? 'trasparent' : '#12463D'}`}
+                                          mb={item.list.length - 1 === bonusKey ? '0' : '16px'}
+                                          pb={item.list.length - 1 === bonusKey ? '0' : '16px'}
+                                        >
+                                          <Box>
+                                            <Flex direction={'column'}>
+                                              <Box fontSize={'14px'} fontWeight="bolder">
+                                                +{bonusItem.animalCount}
+                                              </Box>
+                                              <Box color="#87AFA8" lineHeight={'13px'} fontSize="11px" fontWeight={'400'}>
+                                                {t('common.Card')}
+                                              </Box>
+                                            </Flex>
+                                          </Box>
+                                          <Box flexGrow={1} ml="12px">
+                                            <Image src={`/images/regions/${bonusItem.region}.svg`} height="26px" />
+                                          </Box>
+                                          <Box>
+                                            <Flex direction={'column'}>
+                                              <Box fontSize="11px" color={'#87AFA8'}>
+                                                {t(`stats.${bonusItem.type}`)}
+                                              </Box>
+                                              <Flex alignItems={'center'} justifyContent="flex-end">
+                                                <Image src={`/images/stats/${bonusItem.type}.svg`} />
+                                                <Text fontWeight={'bold'} fontSize="12px">
+                                                  {bonusItem.value}%
+                                                </Text>
+                                              </Flex>
+                                            </Flex>
+                                          </Box>
+                                        </Flex>
+                                      ))}
+                                  </PopoverBody>
                                 </PopoverContent>
                               </Popover>
                             </Box>

@@ -186,7 +186,6 @@ export enum BonusType {
 
 export interface Bonus {
   type: BonusType;
-  description: string;
   list: BonusItem[];
 }
 

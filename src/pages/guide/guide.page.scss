@@ -5,50 +5,52 @@
   font-size: 40px;
 }
 
-.chakra-accordion {
-  padding-bottom: 60px;
+.page-guide {
+  .chakra-accordion {
+    padding-bottom: 60px;
 
-  .chakra-accordion__item {
-    margin-bottom: 24px;
-    padding: 36px;
-    border: none;
-    border-radius: 20px;
-    background-color: #09241f;
+    .chakra-accordion__item {
+      margin-bottom: 24px;
+      padding: 36px;
+      border: none;
+      border-radius: 20px;
+      background-color: #09241f;
 
-    h2 {
-      position: relative;
-      display: flex;
-      align-items: center;
-      color: #ffc633;
-
-      .chakra-accordion__button {
-        padding: 0;
-        box-shadow: none;
-        color: white;
-        font-size: 32px;
-
-        &:hover {
-          background: none;
-        }
-      }
-
-      &.expanded {
-        .dot {
-          background-image: url("./faq-expanded.svg");
-        }
+      h2 {
+        position: relative;
+        display: flex;
+        align-items: center;
+        color: #ffc633;
 
         .chakra-accordion__button {
-          color: #e99d37;
+          padding: 0;
+          box-shadow: none;
+          color: white;
+          font-size: 32px;
+
+          &:hover {
+            background: none;
+          }
+        }
+
+        &.expanded {
+          .dot {
+            background-image: url("./faq-expanded.svg");
+          }
+
+          .chakra-accordion__button {
+            color: #e99d37;
+          }
         }
       }
-    }
 
-    .chakra-accordion__panel {
-      padding: 0;
-      padding-top: 36px;
-      color: white;
-      font-size: 20px;
-      font-weight: 300;
+      .chakra-accordion__panel {
+        padding: 0;
+        padding-top: 36px;
+        color: white;
+        font-size: 20px;
+        font-weight: 300;
+      }
     }
   }
 }

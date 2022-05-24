@@ -40,6 +40,10 @@
 
 .accordion-herd-list {
   .accordion-herd-item {
+    --popper-arrow-bg: red;
+    --popper-arrow-color: red;
+    --popper-arrow-shadow-color: red;
+
     box-sizing: border-box;
     padding: 0 16px;
     border: 1px solid #12463d;

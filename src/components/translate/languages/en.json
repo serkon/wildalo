@@ -26,7 +26,46 @@
     "Connect": "Connect",
     "play": "Play",
     "How to Play": "How to Play",
-    "close": "Close"
+    "close": "Close",
+    "Card": "Card"
+  },
+  "stats": {
+    "attackBuff": "Attack Buff",
+    "attackDebuff": "Attack Debuff",
+    "damageReflection": "Damage Reflection",
+    "poison": "Poison",
+    "defenseBuff": "Defense Buff",
+    "defenseDebuff": "Defense Debuff",
+    "healBuff": "Heal Buff",
+    "speedBuff": "Speed Buff",
+    "speedDebuff": "Speed Debuff",
+    "lifeSteal": "Life Steal",
+    "attackPower": "Attack Power",
+    "defense": "Defense",
+    "speed": "Speed",
+    "healPoint": "HealPoint",
+    "weight": "Weight",
+    "lifeSpan": "LifeSpan"
+  },
+  "regions": {
+    "NORTH_AMERICA": "NORTH_AMERICA",
+    "SOUTH_AMERICA": "SOUTH_AMERICA",
+    "AFRICA": "AFRICA",
+    "EUROPE": "EUROPE",
+    "ASIA": "ASIA",
+    "ANTARCTICA": "ANTARCTICA",
+    "AUSTRALIA": "AUSTRALIA",
+    "OCEANIA": "OCEANIA"
+  },
+  "bonus": {
+    "CONTINENT_BONUS": "CONTINENT BONUS",
+    "HOMESTEAD_BONUS": "HOMESTEAD BONUS",
+    "SUPER_MEGA_BONUS": "SUPER MEGA BONUS",
+    "ANOTHER_BONUS": "ANOTHER BONUS",
+    "CONTINENT_BONUS_DESCRIPTION": "Continent is A herd of wildlings sharing the same continent increases the strength of the overall herd.",
+    "HOMESTEAD_BONUS_DESCRIPTION": "HomeSteead is a herd of wildlings sharing the same continent increases the strength of the overall herd.",
+    "SUPER_MEGA_BONUS_DESCRIPTION": "SuperMega is a herd of wildlings sharing the same continent increases the strength of the overall herd.",
+    "ANOTHER_BONUS_DESCRIPTION": "Another is a herd of wildlings sharing the same continent increases the strength of the overall herd."
   },
   "links": {
     "home": "Home",
@@ -212,17 +251,17 @@
       "help_content": "[\"How do I set up MetaMask on Avalanche?\",\"Join our Discord Server\",\"Join our Telegram Group\",\"Download Metamask\"]",
       "extension": {
         "header": "Please install Metamask",
-        "content": "In order to play the game, your <span class='metamask-bold'>Metamask plugin must be installed</span> and the avalanche network must be set.",
+        "content": "In order to play the game, your <span class:'metamask-bold'>Metamask plugin must be installed</span> and the avalanche network must be set.",
         "button": "Download Metamask"
       },
       "network": {
         "header": "Wrong network selected in your wallet!",
-        "content": "<span class='metamask-bold'>Please change to Avalanche network to continue!</span> If you need help you can use the <a href='' class='chakra-link'>Metamask setup guide</a> on Avalanche.",
+        "content": "<span class:'metamask-bold'>Please change to Avalanche network to continue!</span> If you need help you can use the <a href:'' class:'chakra-link'>Metamask setup guide</a> on Avalanche.",
         "button": "Try to Reconnect"
       },
       "permission": {
         "header": "Wallet not connected",
-        "content": "<span class='metamask-bold'>Please connect your Metamask wallet to play.</span> Kindly mind that Avalanche Network needs to be selected to continue as well.",
+        "content": "<span class:'metamask-bold'>Please connect your Metamask wallet to play.</span> Kindly mind that Avalanche Network needs to be selected to continue as well.",
         "button": "Connect Now"
       }
     }
