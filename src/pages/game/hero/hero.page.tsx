@@ -6,7 +6,7 @@ import './hero.page.scss';
 
 export const GameHero = () => {
   const { t } = useTranslate();
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setOpen] = useState(true);
   const onToggle = () => {
     setOpen(!isOpen);
     window.localStorage.setItem('game-hero-closed', `${!isOpen}`);
