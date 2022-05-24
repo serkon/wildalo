@@ -184,7 +184,7 @@ export const PageHome = () => {
                 </Button>
               </Flex>
             </VStack>
-            <Triad data={animals} style={{ transform: isLarge ? 'scale(1)' : 'scale(0.8)' }} />
+            <Triad data={animals} style={{ transform: isLarge ? 'scale(1)' : 'scale(0.7)' }} />
           </Flex>
           <Flex className="what-is-wildalo" direction={'column'} alignItems="center">
             <Heading fontSize="42px" pb="32px" color="white" textAlign={'center'}>
