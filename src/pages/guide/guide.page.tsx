@@ -1,8 +1,10 @@
-import { Accordion, AccordionItem, AccordionButton, AccordionPanel, Box, Container, Heading } from '@chakra-ui/react';
+import { Accordion, AccordionItem, AccordionButton, AccordionPanel, Box, Container, Heading, Button, Flex, Image } from '@chakra-ui/react';
 import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 import './guide.page.scss';
+import { getLink, LinkSocials, LinkItem } from 'src/utils/links';
+import { useNavigate } from 'react-router-dom';
 
 const faqs = [
   {
@@ -38,6 +40,10 @@ const faqs = [
 
 export const PageFaq = () => {
   const { t } = useTranslate();
+  const navigate = useNavigate();
+  const direction = (item: LinkItem) => {
+    item.external ? window.open(item.to, '_blank') : navigate(item.to);
+  };
 
   return (
     <Box
@@ -51,9 +57,38 @@ export const PageFaq = () => {
         <Heading as="h1" size="xl" variant="center" isTruncated color="white" className="page-header">
           {t('guide.title')}
         </Heading>
-        <Box color={'white'} mb="76px">
+        <Box color={'white'} mb="36px">
           {t('guide.description')}
         </Box>
+        <Flex direction="row" columnGap={2} rowGap={2} flexWrap="wrap" justifyContent={'flex-start'} mb="76px">
+          <Button
+            leftIcon={<Image src="/images/socials/discord.svg" height="18px" />}
+            variant="outline"
+            height="42px"
+            borderRadius="21px"
+            onClick={() => direction(getLink(LinkSocials, 'social.discord') as LinkItem)}
+          >
+            {t('main.Join_Discord')}
+          </Button>
+          <Button
+            leftIcon={<Image src="/images/socials/telegram.svg" height="18px" />}
+            variant="outline"
+            height="42px"
+            borderRadius="21px"
+            onClick={() => direction(getLink(LinkSocials, 'social.telegram') as LinkItem)}
+          >
+            {t('main.Join_Telegram')}
+          </Button>
+          <Button
+            leftIcon={<Image src="/images/socials/twitter.svg" height="18px" />}
+            variant="outline"
+            height="42px"
+            borderRadius="21px"
+            onClick={() => direction(getLink(LinkSocials, 'social.twitter') as LinkItem)}
+          >
+            {t('main.Follow_Us')}
+          </Button>
+        </Flex>
         <Accordion allowToggle mb="250px">
           {faqs.map((item, key) => (
             <AccordionItem key={key}>

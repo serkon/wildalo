@@ -29,7 +29,7 @@ export const LinksFooter: { name: string; links: LinkItem[] }[] = [
   {
     name: 'about',
     links: [
-      { title: 'links.whitepaper', to: 'whitepaper.pdf', external: true },
+      { title: 'links.whitepaper', to: 'https://wildalo.gitbook.io/whitepaper', external: true },
       // { title: 'links.team', to: 'team' },
       // { title: 'links.about_us', to: 'about' },
     ],
@@ -45,7 +45,7 @@ export const LinksFooter: { name: string; links: LinkItem[] }[] = [
 ];
 export const LinksTerms: LinkItem[] = [
   { title: 'links.terms_and_conditions', to: 'terms-and-conditions.pdf', external: true },
-  { title: 'links.whitepaper', to: 'https://wildalo.gitbook.io/whitepaper', external: true },
+  // { title: 'links.whitepaper', to: 'https://wildalo.gitbook.io/whitepaper', external: true },
   { title: 'links.privacy_policy', to: 'privacy-and-policy.pdf', external: true },
 ];
 export const LinkSocials: LinkItem[] = [

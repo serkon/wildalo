@@ -11,7 +11,6 @@
 
     .chakra-accordion__item {
       margin-bottom: 24px;
-      padding: 36px;
       border: none;
       border-radius: 20px;
       background-color: #09241f;
@@ -23,9 +22,9 @@
         color: #ffc633;
 
         .chakra-accordion__button {
-          padding: 0;
+          padding: 36px;
           box-shadow: none;
-          color: white;
+          color: #e99d37;
           font-size: 32px;
 
           &:hover {
@@ -45,7 +44,7 @@
       }
 
       .chakra-accordion__panel {
-        padding: 0;
+        padding: 36px;
         padding-top: 36px;
         color: white;
         font-size: 20px;

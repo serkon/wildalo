@@ -64,7 +64,7 @@ export const Footer = (props: Props): JSX.Element => {
             ))}
           </Flex>
           <Flex className="footer-terms-and-socials" flexDirection={{ base: 'column-reverse', md: 'row' }} mt={{ base: '48px', md: '48px' }}>
-            <Stack flexDirection={'row'} alignItems="center" justifyContent={'space-between'} flexGrow="1">
+            <Stack flexDirection={'row'} alignItems="center" flexGrow="1" columnGap={'56px'}>
               {LinksTerms.map((link: { title: string; to: string }, key: number) => (
                 <Button variant="footer" onClick={() => direction(link)} key={key} justifyContent="flex-start" m="0!important">
                   {t(link.title)}
