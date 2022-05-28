@@ -56,6 +56,14 @@
 
       .what-is-wildalo {
         margin-top: 220px;
+
+        .image-container {
+          border: 20px solid #17342e;
+          border-radius: 11px;
+          overflow: hidden;
+          align-items: center;
+          display: flex;
+        }
       }
 
       .overflow {
@@ -131,4 +139,12 @@
       }
     }
   }
+}
+
+.chakra-alert {
+  background-color: #0b2f28;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.6);
+  border-radius: 14px;
+  color: white;
 }

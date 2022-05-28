@@ -1,4 +1,5 @@
-import { Box, Button, Container, Flex, Grid, GridItem, Heading, Image, ListItem, Stack, UnorderedList, VStack } from '@chakra-ui/react';
+import { Box, Button, Container, Flex, Grid, GridItem, Heading, Image, ListItem, Stack, UnorderedList, useToast, VStack } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Carousel, CarouselItem } from 'src/components/carousel/carousel.component';
 import { useTranslate } from 'src/components/translate/translate.component';
@@ -112,11 +113,32 @@ const animals: Animal[] = [
 
 export const PageHome = () => {
   const { t } = useTranslate();
+  const toast = useToast();
   const navigate = useNavigate();
   const direction = (item: LinkItem) => {
     item.external ? window.open(item.to, '_blank') : navigate(item.to);
   };
   const isLarge = useMediaQuery('lg');
+  const onToggle = () => {
+    window.localStorage.setItem('disclaimer', 'true');
+  };
+  onToggle;
+
+  useEffect(() => {
+    const isClosed = window.localStorage.getItem('disclaimer');
+    window.localStorage.setItem('disclaimer', 'true');
+    !isClosed &&
+      toast({
+        title: t('main.disclaimer'),
+        position: 'bottom',
+        isClosable: true,
+        duration: 10000,
+        variant: 'with-shadow',
+        onCloseComplete: () => {
+          onToggle();
+        },
+      });
+  }, []);
 
   return (
     <>
@@ -190,7 +212,9 @@ export const PageHome = () => {
             <Heading fontSize="42px" pb="32px" color="white" textAlign={'center'}>
               {t('main.What_is_Wildalo')}
             </Heading>
-            <Image src="/images/pages/landing/what-is-wildalo.png" />
+            <Box className="image-container" maxW="60%">
+              <Image src="/images/pages/landing/what-is-wildalo.png" />
+            </Box>
           </Flex>
         </Container>
       </section>

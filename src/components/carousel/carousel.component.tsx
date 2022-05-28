@@ -80,7 +80,7 @@ export const Carousel = (props: React.PropsWithChildren<Props>) => {
     return () => {
       clearTimer();
     };
-  }, [items]);
+  }, [items, startTimer]);
 
   return (
     <>
