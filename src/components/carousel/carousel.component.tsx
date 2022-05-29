@@ -73,6 +73,8 @@ export const Carousel = (props: React.PropsWithChildren<Props>) => {
 
   useEffect(() => {
     setItems(() => Array.from(props.children as Array<React.ReactNode>));
+
+    return setItems(() => []);
   }, [props.children]);
 
   useEffect(() => {

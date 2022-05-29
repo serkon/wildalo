@@ -11,7 +11,6 @@ import { Maintenance } from 'src/utils/dto';
 import { HttpResponse } from 'src/components/axios/axios.component';
 import { set_maintenance } from 'src/store/reducers/LayoutReducer';
 import { useDispatch } from 'react-redux';
-import { DispatchType } from 'src/store/store';
 
 export const MaintenanceComponent = () => {
   const { t } = useTranslate();
@@ -19,12 +18,12 @@ export const MaintenanceComponent = () => {
   const navigate = useNavigate();
   const { onClose } = useDisclosure({
     onClose: () => {
-      document.documentElement.classList.remove('modal');
       navigate('/');
+      setMaintenance(false);
     },
   });
   const [isMaintenance, setMaintenance] = useState(false);
-  const dispatch = useDispatch<DispatchType>();
+  const dispatch = useDispatch();
   useApi({ url: '/admin/maintenance' }, (data: HttpResponse<Maintenance>) => {
     dispatch(set_maintenance(data.data.status));
     setMaintenance(data.data.status);

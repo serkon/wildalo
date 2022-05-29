@@ -6,6 +6,8 @@ import { useMediaQuery, useSize } from 'src/theme/util/media-query';
 
 import preview from './preview.svg';
 import { useNavigate } from 'react-router-dom';
+import { set_desktop } from 'src/store/reducers/LayoutReducer';
+import { useDispatch } from 'react-redux';
 
 export const RedirectComponent = () => {
   const { t } = useTranslate();
@@ -20,11 +22,18 @@ export const RedirectComponent = () => {
       navigate('/');
     },
   });
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setInit(!isLargerThan);
+    dispatch(set_desktop(isLargerThan));
     !isLargerThan ? document.documentElement.classList.add('modal') : document.documentElement.classList.remove('modal');
-  }, [isLargerThan]);
+
+    return () => {
+      setInit(false);
+      dispatch(set_desktop(isLargerThan));
+    };
+  }, [dispatch, isLargerThan]);
 
   return (
     <>

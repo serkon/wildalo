@@ -70,7 +70,7 @@ export const UserProfile = () => {
 export const UserMenu = () => {
   const { t } = useTranslate();
   const isLarge = useMediaQuery('md');
-  const store = useStore().getState();
+  const store = useSelector<RootState>((state: RootState): RootState => state) as RootState;
   const { dispatch } = useStore();
   const navigate = useNavigate();
   const startPlayHandler = () => {
@@ -112,7 +112,7 @@ export const UserMenu = () => {
   isError;
   return (
     <>
-      {store.layout.play && store.metamask.status && store.ranger.data && (
+      {store.layout.playButton && store.metamask.status && store.ranger.data && (
         <>
           <Menu flip={true}>
             <MenuButton
@@ -170,14 +170,14 @@ export const UserMenu = () => {
           </HStack>
         </>
       )}
-      {!store.layout.play && (
+      {!store.layout.playButton && (
         <>
           <Button variant={'primary'} onClick={startPlayHandler} size={isLarge ? 'md' : 'md'}>
             {t(isLarge ? 'common.Start_Playing_Now' : 'common.play')}
           </Button>
         </>
       )}
-      {((store.layout.play && !store.ranger.data) || (store.layout.play && !store.metamask.status)) && (
+      {((store.layout.playButton && !store.ranger.data) || (store.layout.playButton && !store.metamask.status)) && (
         <>
           <Button variant={'primary'} onClick={reload}>
             {t('common.Connect')}
