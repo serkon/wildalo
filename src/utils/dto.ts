@@ -260,6 +260,15 @@ export interface Nonce {
 }
 
 /**
+ * Admin
+ */
+
+export interface Maintenance {
+  status: boolean;
+  time?: number;
+}
+
+/**
  * Http Request & Response DTOS
  */
 

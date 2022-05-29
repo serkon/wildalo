@@ -38,7 +38,7 @@ api.interceptors.request.use(
     } else {
       // TODO remove debugger, window.location href kalsın. O wallet address bulamazsa ana sayfaya atıyor.
       // sen en güzeli burada bir alert verip ana sayfaya yönlendir.
-      window.location.href = '/';
+      // window.location.href = '/';
       Promise.reject(new Error('No wallet address'));
     }
     return request;
