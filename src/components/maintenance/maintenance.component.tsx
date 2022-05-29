@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Box, Image } from '@chakra-ui/react';
 
 import { useTranslate } from 'src/components/translate/translate.component';
@@ -24,10 +24,15 @@ export const MaintenanceComponent = () => {
   });
   const [isMaintenance, setMaintenance] = useState(false);
   const dispatch = useDispatch();
-  useApi({ url: '/admin/maintenance' }, (data: HttpResponse<Maintenance>) => {
+  const { isError } = useApi({ url: '/admin/maintenance' }, (data: HttpResponse<Maintenance>) => {
     dispatch(set_maintenance(data.data.status));
     setMaintenance(data.data.status);
   });
+
+  useEffect(() => {
+    dispatch(set_maintenance(true));
+    setMaintenance(true);
+  }, [isError]);
 
   return (
     <>
