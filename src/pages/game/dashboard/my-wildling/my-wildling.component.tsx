@@ -34,11 +34,12 @@ export const MyWildlings = () => {
   useEffect(() => {
     async function fetchData() {
       const response = await getAnimals();
-
       setAnimals(response);
     }
 
     store.metamask.status && fetchData();
+
+    return () => setAnimals(null);
   }, [store.metamask.status]);
 
   return (

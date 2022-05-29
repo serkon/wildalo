@@ -74,7 +74,7 @@ export const Carousel = (props: React.PropsWithChildren<Props>) => {
   useEffect(() => {
     setItems(() => Array.from(props.children as Array<React.ReactNode>));
 
-    return setItems(() => []);
+    return () => setItems(() => []);
   }, [props.children]);
 
   useEffect(() => {
@@ -82,7 +82,7 @@ export const Carousel = (props: React.PropsWithChildren<Props>) => {
     return () => {
       clearTimer();
     };
-  }, [items, startTimer]);
+  }, [items]);
 
   return (
     <>

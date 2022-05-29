@@ -30,8 +30,8 @@ export const MaintenanceComponent = () => {
   });
 
   useEffect(() => {
-    dispatch(set_maintenance(true));
-    setMaintenance(true);
+    dispatch(set_maintenance(isError));
+    setMaintenance(isError);
   }, [isError]);
 
   return (

@@ -51,6 +51,12 @@ export const MyHerds = () => {
     }
 
     fetchData();
+
+    return () => {
+      setHerds(null);
+      setIdle(0);
+      setWinner(null);
+    };
   }, [store.metamask.status]);
 
   return (

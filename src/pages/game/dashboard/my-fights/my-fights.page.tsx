@@ -33,6 +33,8 @@ export const MyFights = () => {
     if (store.metamask.status) {
       fetchData();
     }
+
+    return () => setResponse(undefined);
   }, [store.metamask.status]);
 
   return (

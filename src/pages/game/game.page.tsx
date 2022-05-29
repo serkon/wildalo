@@ -19,7 +19,6 @@ export const PageGame = () => {
   }, [navigate]);
 
   useEffect(() => {
-    console.log('dispatch');
     dispatch(set_layout_play_button(true));
     return () => {
       dispatch(set_layout_play_button(false));
@@ -30,7 +29,7 @@ export const PageGame = () => {
     <>
       <PlayableComponent />
       {store.layout.isPlayable && (
-        <Box pointerEvents={'none'} className="play-now">
+        <Box pointerEvents={store.layout.isPlayable ? 'all' : 'none'}>
           <GameHero />
           <Routes>
             <Route path="wah" element={<PageWildingAndHerds />} />
