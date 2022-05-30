@@ -35,6 +35,8 @@ export const RedirectComponent = () => {
     };
   }, [dispatch, isLargerThan]);
 
+  console.log('redirect', isInit);
+
   return (
     <>
       <Modal blockScrollOnMount={false} isOpen={isInit} onClose={onClose} isCentered size={size}>

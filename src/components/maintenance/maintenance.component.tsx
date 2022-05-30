@@ -27,11 +27,14 @@ export const MaintenanceComponent = () => {
   const { isError } = useApi({ url: '/admin/maintenance' }, (data: HttpResponse<Maintenance>) => {
     dispatch(set_maintenance(data.data.status));
     setMaintenance(data.data.status);
+    data;
   });
 
   useEffect(() => {
-    dispatch(set_maintenance(isError));
-    setMaintenance(isError);
+    if (isError) {
+      dispatch(set_maintenance(isError));
+      setMaintenance(isError);
+    }
   }, [isError]);
 
   return (

@@ -22,7 +22,7 @@ export const LinksFooter: { name: string; links: LinkItem[] }[] = [
     name: 'services',
     links: [
       { title: 'links.game', to: 'game' },
-      { title: 'links.marketplace', to: 'marketplace', external: true },
+      { title: 'links.marketplace', to: 'marketplace' },
     ],
   },
   /**/

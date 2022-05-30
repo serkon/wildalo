@@ -16,7 +16,7 @@ export interface LayoutReducerState {
 
 const initial = {
   playButton: false,
-  maintenance: false,
+  maintenance: true,
   isPlayable: true,
   isDesktop: false,
 };
