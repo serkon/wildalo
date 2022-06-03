@@ -1,6 +1,6 @@
 import { CloseIcon } from '@chakra-ui/icons';
 import { Flex, Box, IconButton, InputGroup, InputLeftElement, Input, InputRightElement, Button, HStack, Grid, GridItem, Image, Text } from '@chakra-ui/react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import { AnimalCard } from 'src/components/animal/animal.component';
 import { Animal, Herd } from 'src/utils/dto';
@@ -36,13 +36,8 @@ export const WildlingsComponent = () => {
 
   useApi({ url: 'my/animal/list' }, async (data) => {
     dispatch(set_wildling_list(data.data));
+    setSearch(data.data);
   });
-
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    filter(refInput.current!.value);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [store.wildling.list]);
 
   return (
     <>

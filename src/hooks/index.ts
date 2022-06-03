@@ -127,6 +127,11 @@ export const useApi = (
       };
 
       condition && fetchData();
+      return () => {
+        setData(null);
+        setIsLoading(false);
+        setIsError(false);
+      };
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     Array.isArray(watch) ? [...watch, fetch, condition] : [watch, fetch],
