@@ -25,6 +25,7 @@ import {
   PopoverHeader,
   PopoverTrigger,
   Tooltip,
+  Spinner,
 } from '@chakra-ui/react';
 import { createRef, useEffect, useRef } from 'react';
 import { useSelector, useStore } from 'react-redux';
@@ -36,7 +37,8 @@ import { useApi, useObservable } from 'src/hooks';
 import { set_herd_list } from 'src/store/reducers/HerdReducer';
 import { RootState } from 'src/store/store';
 import { Dragger } from 'src/utils/dragger';
-import { createHerdApi, updateHerdApi, deleteHerdApi, getHerdListApi, getWildingListApi } from './wah.page';
+import { createHerdApi, updateHerdApi, deleteHerdApi, getHerdListApi, getWildingListApi, createFightApi, cancelFightApi } from './wah.page';
+import './herd.socket';
 
 export const HerdsComponent = () => {
   const { t } = useTranslate();
@@ -59,27 +61,28 @@ export const HerdsComponent = () => {
     (ref.current as HTMLInputElement).disabled = false;
     ref.current?.focus();
   };
-  const directToFight = () => {
-    // TODO navigate to fight
-    console.log('direct to fight');
+  const directToFight = (herd: Herd) => {
+    createFightApi(herd);
+  };
+  const cancelFight = (herd: Herd) => {
+    cancelFightApi(herd);
   };
   const getHerdAnimalByPosition = (herd: Herd, position: number): { position: number; animal: Animal } | null => {
     const item: { position: number; animal: Animal } | undefined = herd.animals && herd.animals.find((item) => item.position === position);
     return item || null;
   };
   const createNewHerd = async () => {
-    console.log('Create new herd');
     await createHerdApi();
     getHerdListApi();
   };
   const deleteHerd = async (herd: Herd) => {
-    console.log('Delete Herd: ', herd);
     await deleteHerdApi(herd._id);
     getHerdListApi();
     getWildingListApi();
   };
 
   useEffect(() => {
+    console.log('liste', store.herd.list);
     herdNameInputRef.current = store.herd.list.map((_item: Herd, key: number) => herdNameInputRef.current[key] ?? createRef());
   }, [store.herd.list]);
 
@@ -126,7 +129,7 @@ export const HerdsComponent = () => {
         {store.herd.list &&
           store.herd.list.length > 0 &&
           store.herd.list.map((herd: Herd, key) => (
-            <AccordionItem key={key} className="accordion-herd-item" style={key > 0 ? { marginTop: '20px' } : {}}>
+            <AccordionItem key={key} className="accordion-herd-item" style={key > 0 ? { marginTop: '20px' } : {}} position="relative">
               {(state: { isExpanded: boolean; isDisabled: boolean }) => (
                 <>
                   <Box className="accordion-title">
@@ -167,28 +170,61 @@ export const HerdsComponent = () => {
                       </Box>
                       <Box mr="4">{herd.animals?.length || 0} / 4</Box>
                       {herd.state === HerdState.IDLE && (
-                        <Button size="md" className="get-into-fight" mr="4" variant={'primary'} disabled={herd.animals?.length !== 4} onClick={directToFight} boxShadow="none">
+                        <Button
+                          size="md"
+                          className="get-into-fight"
+                          mr="4"
+                          variant={'primary'}
+                          disabled={herd.animals?.length !== 4}
+                          onClick={() => directToFight(herd)}
+                          boxShadow="none"
+                        >
                           {t('game.wah.Get_into_a_Fight')}
                         </Button>
                       )}
                       {herd.state === HerdState.FIGHTING && (
                         <>
+                          <Timer diff={herd.remainingTime} />
+                          <Button variant={'ghost'}>
+                            <Image src="/images/pages/game/wah/fight-detail.svg" />
+                          </Button>
+                        </>
+                      )}
+                      {herd.state === HerdState.QUEUE && (
+                        <Box
+                          position={'absolute'}
+                          left="0"
+                          top="0"
+                          right={0}
+                          bottom="0"
+                          backgroundColor={'rgba(15, 68, 58, 0.5)'}
+                          backdropFilter="blur(8px)"
+                          borderRadius={'11px'}
+                          display="flex"
+                          alignItems={'center'}
+                          justifyContent="center"
+                          zIndex={2}
+                        >
+                          <Box display="flex" flexGrow={1} flexDirection="row" alignItems={'center'} justifyContent="center">
+                            <Spinner color="#FFC633" />
+                            <Text fontSize={'16px'} fontWeight="600" ml="8px">
+                              {t('game.wah.Matchmaking')}
+                            </Text>
+                          </Box>
                           <Button
-                            isLoading
-                            loadingText={t('game.wah.Matchmaking')}
-                            className="get-into-fight"
+                            className="fight-cancel"
                             mr="4"
                             variant={'ghost'}
-                            color="rgba(255, 255, 255, 0.5)"
-                            disabled
+                            color="#FFC633"
                             boxShadow="none"
-                            p="0"
                             size="xs"
+                            position={'absolute'}
+                            right="0"
+                            onClick={() => cancelFight(herd)}
                           >
-                            {t('game.wah.Matchmaking')}
+                            {t('common.Cancel')}
                           </Button>
-                          <Timer diff={212312123} />
-                        </>
+                        </Box>
                       )}
                       {herd.state === HerdState.DEAD && (
                         <Button className="get-into-fight" mr="4" variant={'outline'} boxShadow="none">
@@ -331,7 +367,7 @@ export const HerdsComponent = () => {
                               <AnimalCard
                                 data={item?.animal}
                                 stats={true}
-                                draggable
+                                draggable={HerdState.IDLE === herd.state}
                                 drop-target="wildlings"
                                 onDragStart={(event: any) => Dragger.onDragStart(event, { item, herd, key })}
                                 onDragEnd={(event: any) =>

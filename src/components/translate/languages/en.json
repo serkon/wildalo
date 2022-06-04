@@ -27,7 +27,8 @@
     "play": "Play",
     "How to Play": "How to Play",
     "close": "Close",
-    "Card": "Card"
+    "Card": "Card",
+    "Cancel": "Cancel"
   },
   "stats": {
     "attackBuff": "Attack Buff",
@@ -215,7 +216,7 @@
       "Create_Herd": "Create Herd",
       "Drag": "Drag the wildlings you want to include",
       "Get_into_a_Fight": "Get into a Fight",
-      "Matchmaking": "Matchmaking",
+      "Matchmaking": "Matchmaking...",
       "Match_Result": "Match Result",
       "Delete_herd": "Delete herd"
     }

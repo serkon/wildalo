@@ -10,6 +10,8 @@ import { RootState } from 'src/store/store';
 import { MetaMaskHandler } from './metamask.handler';
 import { Wildapter } from './adaptor';
 import './metamask.component.scss';
+import socket from 'src/utils/socket';
+import { getRandomID } from 'src/utils/randomizer';
 
 interface Link {
   to: string;
@@ -47,6 +49,7 @@ export const MetaMaskComponent = () => {
   const [extension, setExtension] = useState(false);
   const [network, setNetwork] = useState(false);
   const [permission, setPermission] = useState(false);
+  const [, setStatus] = useState(false);
   const [isInit, setInit] = useState(false);
   const isLargerThan = useMediaQuery('sm');
 
@@ -78,6 +81,16 @@ export const MetaMaskComponent = () => {
     navigate('/');
     window.location.reload();
   };
+
+  useLayoutEffect(() => {
+    if (selector.metamask.status) {
+      setStatus(true);
+      socket.emit('create-game-room', {
+        room: selector.metamask.walletAddress,
+        user: getRandomID(),
+      });
+    }
+  }, [selector.metamask.status, selector.metamask.walletAddress]);
 
   useLayoutEffect(() => {
     setExtension(selector.metamask.extension);

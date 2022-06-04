@@ -11,6 +11,7 @@ import { Animal, Herd } from 'src/utils/dto';
 import { Page } from 'src/components/page/page.component';
 import { HerdsComponent } from './herds.component';
 import { WildlingsComponent } from './wildlings.component';
+import socket from 'src/utils/socket';
 import './wah.page.scss';
 
 export const getWildingListApi = async () => {
@@ -23,11 +24,37 @@ export const getHerdListApi = async () => {
   store.dispatch(set_herd_list(herdListResponse.data.data ? herdListResponse.data.data : []));
 };
 
+export const createFightApi = async (herd: Herd): Promise<Herd | null> => {
+  try {
+    const { headers } = await Contractor.header();
+    const { data } = await api.post('/fight/create', { data: { herd } }, { headers });
+    herd && store.dispatch(update_herd(data.data));
+    // getHerdListApi();
+    const { metamask } = store.getState();
+    socket.emit('matchmaking-demo', { room: metamask.walletAddress, herd: herd._id });
+  } catch (e) {
+    console.log('create fight error: ', e);
+  }
+  return herd;
+};
+
+export const cancelFightApi = async (herd: Herd): Promise<Herd | null> => {
+  try {
+    const { data } = await api.post('/fight/cancel', { data: { herd } });
+    getHerdListApi();
+    console.log('cancel fight: ', data);
+  } catch (e) {
+    console.log('cancel fight error: ', e);
+  }
+  return herd;
+};
+
 export const createHerdApi = async (): Promise<Herd | null> => {
   let herd: Herd | null = null;
   try {
     const { headers } = await Contractor.header();
     herd = await api.post('/herd/create', { headers });
+    getHerdListApi();
   } catch (e) {
     console.log('create herd error: ', e);
   }
@@ -49,6 +76,7 @@ export const deleteHerdApi = async (herdId: string): Promise<void> => {
   try {
     const { headers } = await Contractor.header();
     await api.post('/herd/delete', { data: { id: herdId } }, { headers });
+    getHerdListApi();
   } catch (e) {
     console.log('delete herd error: ', e);
   }

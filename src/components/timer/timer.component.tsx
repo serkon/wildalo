@@ -79,7 +79,7 @@ export const Timer = (props: Props) => {
       const variable = calculate(diff as any);
 
       interval = setInterval(() => {
-        if (variable.ms - 1000 <= 0) {
+        if (variable.ms - 1000 < 0) {
           clear(interval);
         } else {
           variable.ms -= 1000;

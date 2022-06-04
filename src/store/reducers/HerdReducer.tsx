@@ -20,13 +20,17 @@ export const HerdReducer = (state: HerdReducerState = initial, action: Action<an
       return { ...state, list: action.payload };
     }
     case HerdEnum.UPDATE_HERD: {
+      console.log('update herd: ', action.payload);
+      const newList = state.list.map((item) => {
+        if (item._id === action.payload._id) {
+          return action.payload;
+        }
+        return item;
+      });
+      console.log(newList);
       return {
-        list: state.list.map((item) => {
-          if (item._id === action.payload._id) {
-            return action.payload;
-          }
-          return item;
-        }),
+        ...state,
+        list: newList,
       };
     }
     default:

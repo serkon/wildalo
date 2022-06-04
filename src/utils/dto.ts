@@ -172,8 +172,9 @@ export interface FightDetail {
  */
 
 export enum HerdState {
-  FIGHTING = 'FIGHTING',
   IDLE = 'IDLE',
+  QUEUE = 'QUEUE',
+  FIGHTING = 'FIGHTING',
   DEAD = 'DEAD',
 }
 
