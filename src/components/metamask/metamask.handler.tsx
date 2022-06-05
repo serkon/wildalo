@@ -9,6 +9,7 @@ import {
   set_metamask_status,
 } from 'src/store/reducers/MetamaskReducer';
 import { store } from 'src/store/store';
+import { api } from 'src/components/axios/axios.component';
 
 class MetaMaskHandler {
   static instance: MetaMaskHandler;
@@ -43,6 +44,7 @@ class MetaMaskHandler {
     try {
       const account = await Wildapter.provider.request({ method: 'eth_accounts' });
       status = account.length > 0;
+      console.log('checkPermission: ', status);
       this.setMetaMaskWalletAddress(status ? account[0] : null);
     } catch (error) {
       this.setMetaMaskWalletAddress(null);
@@ -67,8 +69,16 @@ class MetaMaskHandler {
       status = task.filter((item) => item === false).length <= 0;
       this.checkBalance();
     }
-    store.dispatch(set_metamask_status(status));
-    return status;
+    let returnValue = false;
+    try {
+      const { metamask } = store.getState();
+      const response = await api.post('/user/login', { data: { username: 'wildalo', email: 'gamer@wildalo.com', address: metamask.walletAddress } });
+      store.dispatch(set_metamask_status(status && response.data.data));
+      returnValue = status && response.data.data;
+    } catch (error) {
+      console.log('TODO: user not found error: ', error);
+    }
+    return returnValue;
   }
 
   reset() {

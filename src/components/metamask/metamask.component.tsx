@@ -3,15 +3,15 @@ import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Box, Link } from '@chakra-ui/react';
+import socket from 'src/utils/socket';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useMediaQuery, useSize } from 'src/theme/util/media-query';
 import { RootState } from 'src/store/store';
+import { getRandomID } from 'src/utils/randomizer';
 import { MetaMaskHandler } from './metamask.handler';
 import { Wildapter } from './adaptor';
 import './metamask.component.scss';
-import socket from 'src/utils/socket';
-import { getRandomID } from 'src/utils/randomizer';
 
 interface Link {
   to: string;
@@ -108,9 +108,13 @@ export const MetaMaskComponent = () => {
 
   useEffect(() => {
     const init = async () => {
-      const status = await createMetaMask().init();
+      const handler = await createMetaMask();
+      const status = await handler.init();
       !status && console.log('TODO: Disconnect logged in user');
-      setInit(true);
+      if (status) {
+        // Metamask is installed
+        setInit(true);
+      }
     };
     !isInit && createMetaMask();
     init();
