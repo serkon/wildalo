@@ -46,7 +46,7 @@ export const MaintenanceComponent = () => {
           <ModalCloseButton className="close" />
           <ModalBody className="body">
             <Box display={'flex'} alignItems={'center'} flexDirection={'column'}>
-              <Image src={preview} alt="preview" />
+              <Image src={preview} alt="preview" minH="230px" minW="230px" />
               <Box alignItems={'center'} display="flex" flexDirection={'column'}>
                 <Box fontSize={'20px'} fontWeight="900" textAlign={'center'} mt="8">
                   Coming Soon
