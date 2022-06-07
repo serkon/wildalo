@@ -10,6 +10,7 @@ import {
 } from 'src/store/reducers/MetamaskReducer';
 import { store } from 'src/store/store';
 import { api } from 'src/components/axios/axios.component';
+import { set_user_login } from 'src/store/reducers/RangerReducer';
 
 class MetaMaskHandler {
   static instance: MetaMaskHandler;
@@ -44,7 +45,6 @@ class MetaMaskHandler {
     try {
       const account = await Wildapter.provider.request({ method: 'eth_accounts' });
       status = account.length > 0;
-      console.log('checkPermission: ', status);
       this.setMetaMaskWalletAddress(status ? account[0] : null);
     } catch (error) {
       this.setMetaMaskWalletAddress(null);
@@ -69,16 +69,18 @@ class MetaMaskHandler {
       status = task.filter((item) => item === false).length <= 0;
       this.checkBalance();
     }
-    let returnValue = false;
-    try {
-      const { metamask } = store.getState();
-      const response = await api.post('/user/login', { data: { username: 'wildalo', email: 'gamer@wildalo.com', address: metamask.walletAddress } });
-      store.dispatch(set_metamask_status(status && response.data.data));
-      returnValue = status && response.data.data;
-    } catch (error) {
-      console.log('TODO: user not found error: ', error);
+    if (status) {
+      try {
+        const { metamask } = store.getState();
+        const response = await api.post('/user/login', { data: { username: 'wildalo', email: 'gamer@wildalo.com', address: metamask.walletAddress } });
+        store.dispatch(set_user_login(response.data.data));
+      } catch (error) {
+        console.log('TODO: user not found error: ', error);
+        store.dispatch(set_user_login(false));
+      }
     }
-    return returnValue;
+    store.dispatch(set_metamask_status(status));
+    return status;
   }
 
   reset() {
@@ -213,17 +215,17 @@ class MetaMaskHandler {
 
     /** dddd */
 
-    Wildapter.on(MetaMaskAdapterEnums.CONNECTED, async () => {
+    Wildapter.on(MetaMaskAdapterEnums.CONNECTED, async (_connection) => {
       // this.setNetwork(connection.chainId === process.env.REACT_APP_CHAIN_ID);
       // this.setUserMetaMaskData(await this.getUserInfo());
       // console.log('event: CONNECTED: ', _connection);
-      this.init();
+      // this.init();
     });
 
-    Wildapter.on(MetaMaskAdapterEnums.CHAIN_CHANGED, async () => {
+    Wildapter.on(MetaMaskAdapterEnums.CHAIN_CHANGED, async (_chainId) => {
       // this.setNetwork(chainId === process.env.REACT_APP_CHAIN_ID);
       // this.setUserMetaMaskData(await this.getUserInfo());
-      // console.log('event: CHAIN_CHANGED: ', _chainId);
+      console.log('event: CHAIN_CHANGED: ', _chainId);
       this.init();
     });
 

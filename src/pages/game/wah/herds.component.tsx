@@ -161,6 +161,7 @@ export const HerdsComponent = () => {
                               onClick={() => focusInput(herdNameInputRef.current[key])}
                               variant="ghost"
                               className="edit-herd-name-button"
+                              disabled={herd.state !== HerdState.IDLE}
                             />
                           </InputRightElement>
                         </InputGroup>
@@ -326,6 +327,7 @@ export const HerdsComponent = () => {
                           fontSize={'12px'}
                           color={'#FF937B'}
                           onClick={() => deleteHerd(herd)}
+                          disabled={herd.state !== HerdState.IDLE}
                         >
                           {t('game.wah.Delete_herd')}
                         </Button>
@@ -368,6 +370,7 @@ export const HerdsComponent = () => {
                                 data={item?.animal}
                                 stats={true}
                                 draggable={HerdState.IDLE === herd.state}
+                                style={{ opacity: HerdState.IDLE === herd.state ? 1 : 0.5 }}
                                 drop-target="wildlings"
                                 onDragStart={(event: any) => Dragger.onDragStart(event, { item, herd, key })}
                                 onDragEnd={(event: any) =>

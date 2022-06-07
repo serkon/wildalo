@@ -49,8 +49,7 @@ export const MetaMaskComponent = () => {
   const [extension, setExtension] = useState(false);
   const [network, setNetwork] = useState(false);
   const [permission, setPermission] = useState(false);
-  const [, setStatus] = useState(false);
-  const [isInit, setInit] = useState(false);
+  const [isCheckComplete, setCheckComplete] = useState(false);
   const isLargerThan = useMediaQuery('sm');
 
   const navigate = useNavigate();
@@ -84,7 +83,6 @@ export const MetaMaskComponent = () => {
 
   useLayoutEffect(() => {
     if (selector.metamask.status) {
-      setStatus(true);
       socket.emit('create-game-room', {
         room: selector.metamask.walletAddress,
         user: getRandomID(),
@@ -109,18 +107,20 @@ export const MetaMaskComponent = () => {
   useEffect(() => {
     const init = async () => {
       const handler = await createMetaMask();
-      const status = await handler.init();
-      !status && console.log('TODO: Disconnect logged in user');
-      if (status) {
-        // Metamask is installed
-        setInit(true);
-      }
+      await handler.init();
+      setCheckComplete(true);
     };
-    !isInit && createMetaMask();
     init();
-
-    return () => setInit(false);
+    return () => setCheckComplete(false);
   }, []);
+
+  useEffect(() => {
+    if (isCheckComplete) {
+      const task = [extension, network, permission];
+      const status = task.filter((item) => item === false).length <= 0;
+      !status && console.log('TODO: Disconnect logged in user');
+    }
+  }, [isCheckComplete]);
 
   useEffect(() => {
     !isLargerThan ? document.documentElement.classList.add('modal') : document.documentElement.classList.remove('modal');
@@ -128,12 +128,13 @@ export const MetaMaskComponent = () => {
 
   return (
     <>
-      <Modal blockScrollOnMount={false} isOpen={isInit && !(extension && network && permission)} onClose={onClose} isCentered size={size}>
+      <Modal blockScrollOnMount={false} isOpen={isCheckComplete && !(extension && network && permission)} onClose={onClose} isCentered size={size}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px) hue-rotate(10deg)" />
         <ModalContent bgColor={'#0B2F28'} className="modal-content">
           <ModalHeader className="header">{t(`metamask.modal.${!extension ? 'extension' : !permission ? 'permission' : !network ? 'network' : ''}.header`)}</ModalHeader>
           <ModalCloseButton className="close" onClick={() => reload()} />
           <ModalBody className="body">
+            <Box color={'white'}>+{JSON.stringify(isCheckComplete && !(extension && network && permission))}+</Box>
             {!extension && <Box className={`metamask-logo`} alignSelf="center" />}
             <Box display={'flex'} alignItems={!extension ? 'center' : 'flex-start'} flexDirection={!extension ? 'column' : 'row'}>
               <Box>

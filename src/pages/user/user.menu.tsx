@@ -6,7 +6,7 @@ import { HttpResponse } from 'src/components/axios/axios.component';
 import { FightsOverview, Ranger } from 'src/utils/dto';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useApi } from 'src/hooks';
-import { set_ranger, set_user_login } from 'src/store/reducers/RangerReducer';
+import { set_ranger } from 'src/store/reducers/RangerReducer';
 import { RootState } from 'src/store/store';
 import { useMediaQuery } from 'src/theme/util/media-query';
 
@@ -94,17 +94,16 @@ export const UserMenu = () => {
       setState(data.data);
     },
     store.metamask.status,
-    store.metamask.status,
+    store.metamask.status && store.ranger.login,
   );
 
   const { data, isLoading, isError } = useApi(
     { url: '/my/info' },
     (data: HttpResponse<Ranger>) => {
       dispatch(set_ranger(data.data));
-      dispatch(set_user_login(true));
     },
     store.metamask.status,
-    store.metamask.status,
+    store.metamask.status && store.ranger.login,
   );
 
   data;

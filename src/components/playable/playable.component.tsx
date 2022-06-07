@@ -11,8 +11,8 @@ export const PlayableComponent = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(set_playable(!store.layout.maintenance && store.layout.isDesktop && store.metamask.status));
-  }, [store.layout.maintenance, store.metamask.status, store.layout.isDesktop, dispatch]);
+    dispatch(set_playable(!store.layout.maintenance && store.layout.isDesktop && store.metamask.status && store.ranger.login));
+  }, [store.layout.maintenance, store.metamask.status, store.layout.isDesktop, store.ranger.login, dispatch]);
 
   return (
     <>
