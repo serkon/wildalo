@@ -74,6 +74,9 @@ class MetaMaskHandler {
         const { metamask } = store.getState();
         const response = await api.post('/user/login', { data: { username: 'wildalo', email: 'gamer@wildalo.com', address: metamask.walletAddress } });
         store.dispatch(set_user_login(response.data.data));
+        if (!response.data.data) {
+          console.log('TODO: user not logged in');
+        }
       } catch (error) {
         console.log('TODO: user not found error: ', error);
         store.dispatch(set_user_login(false));

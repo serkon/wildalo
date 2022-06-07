@@ -118,7 +118,7 @@ export const MetaMaskComponent = () => {
     if (isCheckComplete) {
       const task = [extension, network, permission];
       const status = task.filter((item) => item === false).length <= 0;
-      !status && console.log('TODO: Disconnect logged in user');
+      !status && console.log('TODO: Metamask adapter status is false');
     }
   }, [isCheckComplete]);
 
@@ -134,7 +134,6 @@ export const MetaMaskComponent = () => {
           <ModalHeader className="header">{t(`metamask.modal.${!extension ? 'extension' : !permission ? 'permission' : !network ? 'network' : ''}.header`)}</ModalHeader>
           <ModalCloseButton className="close" onClick={() => reload()} />
           <ModalBody className="body">
-            <Box color={'white'}>+{JSON.stringify(isCheckComplete && !(extension && network && permission))}+</Box>
             {!extension && <Box className={`metamask-logo`} alignSelf="center" />}
             <Box display={'flex'} alignItems={!extension ? 'center' : 'flex-start'} flexDirection={!extension ? 'column' : 'row'}>
               <Box>
