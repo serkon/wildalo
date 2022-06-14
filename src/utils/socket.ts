@@ -1,7 +1,9 @@
 import { io, Socket } from 'socket.io-client';
 import { getHerdListApi } from 'src/pages/game/wah/wah.page';
 import { getRandomID } from './randomizer';
-const socket: Socket = io('http://localhost:3001', {
+
+const env = process.env.REACT_APP_SOCKET_URL;
+const socket: Socket = io(env as string, {
   reconnectionDelay: 1000,
   reconnection: true,
   transports: ['websocket'],
