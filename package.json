@@ -76,8 +76,8 @@
   "scripts": {
     "// REACT_APP_ENV=dev npm run start:env": "run this for environment .env.dev",
     "start:env": "sh -ac '. .env.${REACT_APP_ENV}; react-app-rewired start'",
-    "build:production": "REACT_APP_ENV=production sh -ac '. .env.${REACT_APP_ENV}; react-app-rewired build'",
-    "build:dev": "REACT_APP_ENV=dev sh -ac '. .env.${REACT_APP_ENV}; react-app-rewired build'",
+    "build:production": "REACT_APP_ENV=production sh -ac '. ./.env.${REACT_APP_ENV}; react-app-rewired build'",
+    "build:dev": "REACT_APP_ENV=dev sh -ac '. ./.env.${REACT_APP_ENV}; react-app-rewired build'",
     "start-old": "react-scripts start",
     "build-old": "react-scripts build",
     "test-old": "react-scripts test",
