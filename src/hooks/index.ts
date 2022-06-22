@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AxiosRequestConfig } from 'axios';
 import { useMediaQuery } from 'src/theme/util/media-query';
 import { api, HttpRequest } from 'src/components/axios/axios.component';
@@ -12,6 +12,32 @@ export const ScrollTo = ({ position = 0 }: { position?: number }): null => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location, position]);
   return null;
+};
+
+/**
+ * Usage:
+ *
+ * import { useMounted } from 'src/hooks';
+ *
+ * const App = () => {
+ *   const isMounted = useIsMounted();
+ *
+ *   useEffect(() => {
+ *     isMounted.current && console.log('#### page: 1app.tsx');
+ *   }, [isMounted]);
+ * }
+ */
+export const useIsMounted = () => {
+  const isMounted = React.useRef(false);
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  return isMounted;
 };
 
 export const useSetTitle = (title: string): void => {

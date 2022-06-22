@@ -22,6 +22,7 @@ import { PageNotFound } from 'src/pages/http/not-found.page';
 import { PageRegister } from 'src/pages/user/register.page';
 import { PageGame } from 'src/pages/game/game.page';
 import { PageMarketplace } from './pages/ marketplace/marketplace.page';
+import { Disclaimer } from './components/disclaimer/disclaimer.component';
 
 const root: HTMLDivElement | null = document.getElementById('root') as HTMLDivElement;
 
@@ -44,6 +45,7 @@ ReactDOM.render(
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
             <Outlet />
+            <Disclaimer />
           </Language>
         </ChakraProvider>
       </Provider>

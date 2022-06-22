@@ -26,7 +26,7 @@ const PageRegister = () => {
       </Heading>
       <Container maxWidth="container.xl" className="dashboard-page">
         <Formik
-          initialValues={{ email: 'john1@doe.com', password: '1234567', username: 'srknc', files: [] }}
+          initialValues={{ email: 'john1@doe.com', password: 'Asdf+321!', username: 'srknc', files: [] }}
           validate={(values) => {
             const errors: User | Record<string, string> = {};
             Object.entries(values).map(([, value]) => {
