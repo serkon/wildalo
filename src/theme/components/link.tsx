@@ -2,6 +2,7 @@ export const Link = {
   baseStyle: {
     borderRadius: 3,
     textDecoration: 'none',
+    boxShadow: 'none !important',
     _hover: {
       textDecorarion: 'none',
     },
