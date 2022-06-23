@@ -21,7 +21,17 @@ export const getWildingListApi = async () => {
 
 export const getHerdListApi = async () => {
   const herdListResponse: AxiosResponse<HttpResponse<Herd[]>> = await api.post('my/herd/list');
-  store.dispatch(set_herd_list(herdListResponse.data.data ? herdListResponse.data.data : []));
+  console.log('asdasdasd', herdListResponse.data.data);
+  store.dispatch(
+    set_herd_list({
+      list: herdListResponse.data.data ? herdListResponse.data.data : [],
+      paging: {
+        current: herdListResponse.data.paging?.current as number,
+        limit: herdListResponse.data.paging?.limit as number,
+        total: herdListResponse.data.paging?.total as number,
+      },
+    }),
+  );
 };
 
 export const createFightApi = async (herd: Herd): Promise<Herd | null> => {
@@ -66,7 +76,10 @@ export const updateHerdApi = async (newHerd: Herd, updateWildling: boolean = tru
     const { headers } = await Contractor.header();
     await api.post('/herd/update', { data: newHerd }, { headers });
     store.dispatch(update_herd(newHerd));
-    updateWildling && getWildingListApi() && getHerdListApi();
+    if (updateWildling) {
+      getWildingListApi();
+      getHerdListApi();
+    }
   } catch (e) {
     console.log('update herd error: ', e);
   }

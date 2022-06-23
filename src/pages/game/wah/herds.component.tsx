@@ -28,13 +28,12 @@ import {
   Spinner,
 } from '@chakra-ui/react';
 import { createRef, useEffect, useRef } from 'react';
-import { useSelector, useStore } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { AnimalCard } from 'src/components/animal/animal.component';
 import { Animal, BonusItem, Herd, HerdState } from 'src/utils/dto';
 import { Timer } from 'src/components/timer/timer.component';
 import { useTranslate } from 'src/components/translate/translate.component';
-import { useApi, useObservable } from 'src/hooks';
-import { set_herd_list } from 'src/store/reducers/HerdReducer';
+import { useObservable } from 'src/hooks';
 import { RootState } from 'src/store/store';
 import { Dragger } from 'src/utils/dragger';
 import { createHerdApi, updateHerdApi, deleteHerdApi, getHerdListApi, getWildingListApi, createFightApi, cancelFightApi } from './wah.page';
@@ -44,7 +43,6 @@ export const HerdsComponent = () => {
   const { t } = useTranslate();
   // const store = useStore().getState();
   const store = useSelector((state: RootState) => state);
-  const { dispatch } = useStore();
   const herdNameInputRef = useRef([]);
   // Update Herd Name Listener: Look updateHerdName method
   const { subject } = useObservable(({ herd, ref }) => {
@@ -86,9 +84,9 @@ export const HerdsComponent = () => {
     herdNameInputRef.current = store.herd.list.map((_item: Herd, key: number) => herdNameInputRef.current[key] ?? createRef());
   }, [store.herd.list]);
 
-  useApi({ url: 'my/herd/list' }, (data) => {
-    dispatch(set_herd_list(data.data));
-  });
+  useEffect(() => {
+    getHerdListApi();
+  }, []);
 
   return (
     <>
@@ -100,7 +98,7 @@ export const HerdsComponent = () => {
           <VStack>
             <IconButton icon={<Image src="/images/pages/game/wah/info.svg" />} aria-label={'information'} variant="ghost" minW={0} height="24px" />
             <Text fontSize={'11px'} mt="6px !important">
-              Tips!
+              {t('game.wah.Tips!')}
             </Text>
           </VStack>
           <HStack>
@@ -109,7 +107,7 @@ export const HerdsComponent = () => {
             </Text>
             <Flex alignItems={'center'} justifyContent={'center'} width="44px" height="44px" borderRadius="50%" border="1px solid #2A5950" backgroundColor="#0B2F28">
               <Text fontWeight={'bold'} fontSize="24px" lineHeight="28px" marginLeft="-1px" letterSpacing="-1px">
-                {11}
+                {store.herd.list.filter((item) => item.state === HerdState.IDLE).length}
               </Text>
             </Flex>
           </HStack>
@@ -119,7 +117,7 @@ export const HerdsComponent = () => {
             </Text>
             <Flex alignItems={'center'} justifyContent={'center'} width="44px" height="44px" borderRadius="50%" border="1px solid #2A5950" backgroundColor="#0B2F28">
               <Text fontWeight={'bold'} fontSize="24px" lineHeight="28px" marginLeft="-1px" letterSpacing="-1px">
-                {0}
+                {store.herd.paging.total}
               </Text>
             </Flex>
           </HStack>

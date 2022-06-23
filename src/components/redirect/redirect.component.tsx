@@ -44,7 +44,7 @@ export const RedirectComponent = () => {
           <ModalCloseButton className="close" />
           <ModalBody className="body">
             <Box display={'flex'} alignItems={'center'} flexDirection={'column'}>
-              <Image src={preview} alt="preview" />
+              <Image src={preview} alt="preview" minH="170px" />
               <Box alignItems={'center'} display="flex" flexDirection={'column'}>
                 <Box fontSize={'20px'} fontWeight="900" textAlign={'center'} mt="8">
                   Please visit Wildalo on desktop to start playing now!
