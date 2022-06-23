@@ -8,7 +8,7 @@ export enum HerdEnum {
 
 export interface HerdReducerState {
   list: Herd[];
-  paging: {
+  paging?: {
     current: number;
     total: number;
     limit: number;

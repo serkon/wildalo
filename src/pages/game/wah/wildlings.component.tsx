@@ -1,21 +1,19 @@
 import { CloseIcon } from '@chakra-ui/icons';
 import { Flex, Box, IconButton, InputGroup, InputLeftElement, Input, InputRightElement, Button, HStack, Grid, GridItem, Image, Text } from '@chakra-ui/react';
-import { useRef, useState } from 'react';
-import { useSelector, useStore } from 'react-redux';
+import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { AnimalCard } from 'src/components/animal/animal.component';
 import { Animal, Herd } from 'src/utils/dto';
 import { useTranslate } from 'src/components/translate/translate.component';
-import { useApi, useObservable } from 'src/hooks';
-import { set_wildling_list } from 'src/store/reducers/WildlingReducer';
+import { useObservable } from 'src/hooks';
 import { RootState } from 'src/store/store';
 import { Dragger } from 'src/utils/dragger';
-import { updateHerdApi } from './wah.page';
+import { getWildingListApi, updateHerdApi } from './wah.page';
 
 export const WildlingsComponent = () => {
   const { t } = useTranslate();
   const refInput = useRef<HTMLInputElement>(null);
   const store = useSelector((state: RootState) => state);
-  const { dispatch } = useStore();
   const [search, setSearch] = useState<any[]>([]);
   const onKeyPress = (item: any) => {
     subject.next(item.target.value);
@@ -34,10 +32,13 @@ export const WildlingsComponent = () => {
     filter(value);
   }, 400);
 
-  useApi({ url: 'my/animal/list' }, async (data) => {
-    dispatch(set_wildling_list(data.data));
-    setSearch(data.data);
-  });
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await getWildingListApi();
+      setSearch(data.list);
+    };
+    fetch();
+  }, []);
 
   return (
     <>
@@ -70,7 +71,7 @@ export const WildlingsComponent = () => {
           </Text>
           <Flex alignItems={'center'} justifyContent={'center'} width="44px" height="44px" borderRadius="50%" border="1px solid #2A5950" backgroundColor="#0B2F28">
             <Text fontWeight={'bold'} fontSize="24px" lineHeight="28px" marginLeft="-1px" letterSpacing="-1px">
-              {store.wildling.list.length ?? 0}
+              {store.wildling.paging.total ?? 0}
             </Text>
           </Flex>
         </HStack>

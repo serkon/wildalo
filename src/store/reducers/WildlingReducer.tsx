@@ -10,29 +10,39 @@ export enum WildlingEnum {
 
 export interface WildlingReducerState {
   list: Animal[] | AnimalDetail[];
+  paging?: {
+    current: number;
+    total: number;
+    limit: number;
+  };
 }
 
 const init: WildlingReducerState = {
   list: [],
+  paging: {
+    current: 0,
+    total: 0,
+    limit: 0,
+  },
 };
 
 export const WildlingReducer: Reducer = (state: WildlingReducerState = init, action): WildlingReducerState => {
   switch (action.type) {
     case WildlingEnum.SET_WILDLING_LIST: {
-      return { list: action.payload };
+      return { ...state, ...action.payload };
     }
     case WildlingEnum.UPDATE_WILDLING_LIST: {
       return { ...state, list: action.payload };
     }
     case WildlingEnum.DELETE_WILDLING: {
-      return { list: state.list.filter((item: Animal) => item._id !== action.payload._id) };
+      return { ...state, list: state.list.filter((item: Animal) => item._id !== action.payload._id) };
     }
     default:
       return state;
   }
 };
 
-export const set_wildling_list = (payload: Animal[]): AnyAction => ({
+export const set_wildling_list = (payload: WildlingReducerState): AnyAction => ({
   type: WildlingEnum.SET_WILDLING_LIST,
   payload,
 });

@@ -16,22 +16,30 @@ import './wah.page.scss';
 
 export const getWildingListApi = async () => {
   const animalListResponse: AxiosResponse<HttpResponse<Animal[]>> = await api.post('my/animal/list');
-  store.dispatch(set_wildling_list(animalListResponse.data.data ? animalListResponse.data.data : []));
+  const storeState = {
+    list: animalListResponse.data.data ? animalListResponse.data.data : [],
+    paging: {
+      current: animalListResponse.data.paging?.current as number,
+      limit: animalListResponse.data.paging?.limit as number,
+      total: animalListResponse.data.paging?.total as number,
+    },
+  };
+  store.dispatch(set_wildling_list(storeState));
+  return storeState;
 };
 
 export const getHerdListApi = async () => {
   const herdListResponse: AxiosResponse<HttpResponse<Herd[]>> = await api.post('my/herd/list');
-  console.log('asdasdasd', herdListResponse.data.data);
-  store.dispatch(
-    set_herd_list({
-      list: herdListResponse.data.data ? herdListResponse.data.data : [],
-      paging: {
-        current: herdListResponse.data.paging?.current as number,
-        limit: herdListResponse.data.paging?.limit as number,
-        total: herdListResponse.data.paging?.total as number,
-      },
-    }),
-  );
+  const storeState = {
+    list: herdListResponse.data.data ? herdListResponse.data.data : [],
+    paging: {
+      current: herdListResponse.data.paging?.current as number,
+      limit: herdListResponse.data.paging?.limit as number,
+      total: herdListResponse.data.paging?.total as number,
+    },
+  };
+  store.dispatch(set_herd_list(storeState));
+  return storeState;
 };
 
 export const createFightApi = async (herd: Herd): Promise<Herd | null> => {
