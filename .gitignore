@@ -33,6 +33,7 @@ speed-measure-plugin*.json
 
 # IDE - VSCode
 .history/*
+.lh/*
 
 # misc
 .env.local
