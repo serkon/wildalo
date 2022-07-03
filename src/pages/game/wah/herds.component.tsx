@@ -17,20 +17,13 @@ import {
   AccordionItem,
   AccordionPanel,
   AccordionButton,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
   Tooltip,
   Spinner,
 } from '@chakra-ui/react';
 import { createRef, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { AnimalCard } from 'src/components/animal/animal.component';
-import { Animal, BonusItem, Herd, HerdState } from 'src/utils/dto';
+import { Animal, Herd, HerdState } from 'src/utils/dto';
 import { Timer } from 'src/components/timer/timer.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useObservable } from 'src/hooks';
@@ -38,13 +31,15 @@ import { RootState } from 'src/store/store';
 import { Dragger } from 'src/utils/dragger';
 import { createHerdApi, updateHerdApi, deleteHerdApi, getHerdListApi, getWildingListApi, createFightApi, cancelFightApi } from './wah.page';
 import './herd.socket';
+import { FightDetailModal } from 'src/pages/game/fight/fight-detail-modal.component';
+import { HerdBonus } from 'src/components/bonus/herd-bonus.component';
 
 export const HerdsComponent = () => {
   const { t } = useTranslate();
   // const store = useStore().getState();
   const store = useSelector((state: RootState) => state);
   const herdNameInputRef = useRef([]);
-  // Update Herd Name Listener: Look updateHerdName method
+  // TODO: Update Herd Name Listener: Look updateHerdName method
   const { subject } = useObservable(({ herd, ref }) => {
     updateHerdApi(herd, false);
     (ref.current as HTMLInputElement).disabled = true;
@@ -79,8 +74,13 @@ export const HerdsComponent = () => {
     getWildingListApi();
   };
 
+  const mutableRefObject = useRef<React.ElementRef<typeof FightDetailModal>>(null);
+
+  const openFightDetailModal = (herd: Herd) => {
+    mutableRefObject.current?.openModal(herd._id);
+  };
+
   useEffect(() => {
-    console.log('liste', store.herd.list);
     herdNameInputRef.current = store.herd.list.map((_item: Herd, key: number) => herdNameInputRef.current[key] ?? createRef());
   }, [store.herd.list]);
 
@@ -90,11 +90,13 @@ export const HerdsComponent = () => {
 
   return (
     <>
+      <FightDetailModal ref={mutableRefObject} />
       <Flex justifyContent={'space-between'} alignItems="center" mb={4}>
         <Button leftIcon={<Image src="/images/pages/game/wah/add.svg" />} variant="outline" pl="4px" onClick={() => createNewHerd()}>
           {t('game.wah.Create_Herd')}
         </Button>
         <HStack spacing={8}>
+          {/* TODO Tip'i gizledim bunu MVP sonrasında açıp içerisini doldurmak gerek */}
           <VStack hidden>
             <IconButton icon={<Image src="/images/pages/game/wah/info.svg" />} aria-label={'information'} variant="ghost" minW={0} height="24px" />
             <Text fontSize={'11px'} mt="6px !important">
@@ -184,7 +186,7 @@ export const HerdsComponent = () => {
                       {herd.state === HerdState.FIGHTING && (
                         <>
                           <Timer diff={herd.remainingTime} />
-                          <Button variant={'ghost'}>
+                          <Button variant={'ghost'} onClick={() => openFightDetailModal(herd)}>
                             <Image src="/images/pages/game/wah/fight-detail.svg" />
                           </Button>
                         </>
@@ -233,95 +235,12 @@ export const HerdsComponent = () => {
                     </Flex>
                     {state.isExpanded && (
                       <Flex className="accordion-title-sub" justifyContent={'space-beetwen'} mt="6px" mb="12px">
-                        {herd.bonuses &&
-                          herd.bonuses.map((item: any, key: number) => (
-                            <Box key={key} mr="8px">
-                              {/* TODO get bonus name */}
-                              <Popover placement="bottom" closeOnBlur={false} trigger="hover" arrowShadowColor={'rgba(255,255,255, 0.1)'} arrowSize={16}>
-                                <PopoverTrigger>
-                                  <Box
-                                    fontSize={11}
-                                    fontWeight={700}
-                                    lineHeight="13px"
-                                    color="#73AEA4"
-                                    backgroundColor="#09241F"
-                                    border="1px solid #73AEA4"
-                                    padding={'2px'}
-                                    px="12px"
-                                    borderRadius={'2px'}
-                                    cursor="pointer"
-                                    _hover={{ backgroundColor: '#0B2F28' }}
-                                  >
-                                    {t(`bonus.${item.type}`)}
-                                  </Box>
-                                </PopoverTrigger>
-                                <PopoverContent
-                                  color="white"
-                                  borderRadius="14px"
-                                  bg="#09241F"
-                                  border="1px solid rgba(255, 255, 255, 0.1) !important"
-                                  p="12px 18px"
-                                  boxShadow={' 0px 0px 10px rgba(0, 0, 0, 0.4) !important'}
-                                  marginTop="8px"
-                                >
-                                  <PopoverHeader p={0} fontWeight="bold" border="0" fontSize={'12px'} lineHeight="20px" mb="9px">
-                                    {t(`bonus.${item.type}`)}
-                                  </PopoverHeader>
-                                  <PopoverArrow backgroundColor={'#09241F'} />
-                                  <PopoverCloseButton />
-                                  <PopoverBody padding={0}>
-                                    <Box fontSize={'12px'} lineHeight="20px" mb="24px">
-                                      {t(`bonus.${item.type}_DESCRIPTION`)}
-                                    </Box>
-                                    {item.list &&
-                                      item.list.map((bonusItem: BonusItem, bonusKey: number) => (
-                                        <Flex
-                                          key={bonusKey}
-                                          className="bonus-item"
-                                          justifyContent={'space-between'}
-                                          alignItems="center"
-                                          borderBottom={`1px solid ${item.list.length - 1 === bonusKey ? 'trasparent' : '#12463D'}`}
-                                          mb={item.list.length - 1 === bonusKey ? '0' : '16px'}
-                                          pb={item.list.length - 1 === bonusKey ? '0' : '16px'}
-                                        >
-                                          <Box>
-                                            <Flex direction={'column'}>
-                                              <Box fontSize={'14px'} fontWeight="bolder">
-                                                +{bonusItem.animalCount}
-                                              </Box>
-                                              <Box color="#87AFA8" lineHeight={'13px'} fontSize="11px" fontWeight={'400'}>
-                                                {t('common.Card')}
-                                              </Box>
-                                            </Flex>
-                                          </Box>
-                                          <Box flexGrow={1} ml="12px">
-                                            <Image src={`/images/regions/${bonusItem.region}.svg`} height="26px" />
-                                          </Box>
-                                          <Box>
-                                            <Flex direction={'column'}>
-                                              <Box fontSize="11px" color={'#87AFA8'}>
-                                                {t(`stats.${bonusItem.type}`)}
-                                              </Box>
-                                              <Flex alignItems={'center'} justifyContent="flex-end">
-                                                <Image src={`/images/stats/${bonusItem.type}.svg`} />
-                                                <Text fontWeight={'bold'} fontSize="12px">
-                                                  {bonusItem.value}%
-                                                </Text>
-                                              </Flex>
-                                            </Flex>
-                                          </Box>
-                                        </Flex>
-                                      ))}
-                                  </PopoverBody>
-                                </PopoverContent>
-                              </Popover>
-                            </Box>
-                          ))}
+                        <HerdBonus herd={herd} />
                         <Button
                           size="xs"
                           ml="auto"
                           leftIcon={<Image src="/images/pages/game/wah/trash.svg" />}
-                          variant="ghosy"
+                          variant="ghost"
                           fontSize={'12px'}
                           color={'#FF937B'}
                           onClick={() => deleteHerd(herd)}

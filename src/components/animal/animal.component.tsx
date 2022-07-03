@@ -11,11 +11,12 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   scale?: number;
   stats?: boolean;
   draggable?: boolean;
+  position?: number;
 }
 
 export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
   const { t } = useTranslate();
-  const { data, className, stats, scale, ...rest } = props;
+  const { data, className, stats, scale, position, ...rest } = props;
   const regionPicture = {
     backgroundImage: `url(/images/regions/${data.region}.svg)`,
   };
@@ -34,7 +35,10 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
           <div className="level" style={{ backgroundImage: `url(/images/level/level-${props.data.level}.svg)` }} />
           <div className={`rarity ${data.rarity.toLowerCase()}`} />
           <div className="region" style={regionPicture} />
-          <div className="name">{t(`animals.${data.name}`)}</div>
+          <div className="name">
+            {position !== undefined && <span className="position">#{position + 1}&nbsp;</span>}
+            {t(`animals.${data.name}`)}
+          </div>
         </div>
         {Boolean(props.stats) && (
           <div className="stats">

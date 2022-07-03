@@ -37,7 +37,6 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
         <div>{props.stats}</div>
         {props.stats && (
           <div className="stats">
-            ss
             <Grid templateColumns="repeat(2, 1fr)" gridColumnGap={4} gridRowGap={2}>
               {Object.keys(data.primaryStats).map((item, key) => (
                 <GridItem w="24" h="6" key={key} className="prop">

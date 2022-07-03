@@ -28,7 +28,7 @@ export const UserProfile = () => {
           </HStack>
           <HStack color="white" justifyContent="space-between" marginTop="14px" fontWeight="600" lineHeight="15px">
             <Box fontSize="13px">{t('common.WALLET')}</Box>
-            <Box fontSize="16px">{Number(BigInt(store.metamask.fodrBalance)) / Math.pow(10, 12)}</Box>
+            <Box fontSize="16px">{store.metamask.fodrBalance}</Box>
           </HStack>
         </Stack>
         <Stack marginTop="23px" textAlign="left">
@@ -41,7 +41,7 @@ export const UserProfile = () => {
           </HStack>
           <HStack color="white" justifyContent="space-between" marginTop="14px" fontWeight="600" lineHeight="15px">
             <Box fontSize="13px">{t('common.WALLET')}</Box>
-            <Box fontSize="16px">{Number(BigInt(store.metamask.warcBalance)) / Math.pow(10, 12)}</Box>
+            <Box fontSize="16px">{store.metamask.warcBalance}</Box>
           </HStack>
         </Stack>
         <Button variant="outline" mt={'30px'} mb={'24px'}>

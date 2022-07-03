@@ -28,7 +28,12 @@
     "How to Play": "How to Play",
     "close": "Close",
     "Card": "Card",
-    "Cancel": "Cancel"
+    "Cancel": "Cancel",
+    "Fight_Not_Found": "Fight Not Found",
+    "Connect_With_Administer": "Connect With Administer",
+    "Fight_Detail": "Fight Detail",
+    "This_fight_still_continues": "This fight still continues",
+    "you_can_find": "You can find the details on your <span class='fight-color'>Fight!</span> page after the fight completed"
   },
   "stats": {
     "attackBuff": "Attack Buff",
@@ -258,17 +263,17 @@
       "help_content": "[\"How do I set up MetaMask on Avalanche?\",\"Join our Discord Server\",\"Join our Telegram Group\",\"Download Metamask\"]",
       "extension": {
         "header": "Please install Metamask",
-        "content": "In order to play the game, your <span class:'metamask-bold'>Metamask plugin must be installed</span> and the avalanche network must be set.",
+        "content": "In order to play the game, your <span class='metamask-bold'>Metamask plugin must be installed</span> and the avalanche network must be set.",
         "button": "Download Metamask"
       },
       "network": {
         "header": "Wrong network selected in your wallet!",
-        "content": "<span class:'metamask-bold'>Please change to Avalanche network to continue!</span> If you need help you can use the <a href:'' class:'chakra-link'>Metamask setup guide</a> on Avalanche.",
+        "content": "<span class='metamask-bold'>Please change to Avalanche network to continue!</span> If you need help you can use the <a href:'' class:'chakra-link'>Metamask setup guide</a> on Avalanche.",
         "button": "Try to Reconnect"
       },
       "permission": {
         "header": "Wallet not connected",
-        "content": "<span class:'metamask-bold'>Please connect your Metamask wallet to play.</span> Kindly mind that Avalanche Network needs to be selected to continue as well.",
+        "content": "<span class='metamask-bold'>Please connect your Metamask wallet to play.</span> Kindly mind that Avalanche Network needs to be selected to continue as well.",
         "button": "Connect Now"
       }
     }

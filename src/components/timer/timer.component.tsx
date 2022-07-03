@@ -18,6 +18,7 @@ interface Props {
   onChange?: (arg: State) => void;
   onComplete?: (arg: State) => void;
   className?: string;
+  hidden?: boolean;
 }
 
 const formatNumber = (num: any) =>
@@ -100,7 +101,7 @@ export const Timer = (props: Props) => {
   }, []);
 
   return (
-    <div className={`${props.className ? props.className + 'timer' : 'timer'}`}>
+    <div className={`${props.className ? props.className + ' timer' : 'timer'}`} hidden={props.hidden}>
       {!props.children ? (
         <>
           {props.day && (

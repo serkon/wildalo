@@ -2,6 +2,10 @@ import Web3 from 'web3';
 import { Contract } from 'web3-eth-contract';
 import { EventEmitter } from 'eventemitter3';
 
+import { default as FODRJSON } from './build/Fodr.json';
+import { default as WARCJSON } from './build/Warc.json';
+import { default as WILDALOJSON } from './build/Wildalo.json';
+
 export interface MetaMaskContractAdaptorInterface {
   on: (event: string, listener: (...args: any[]) => void) => void;
   off: (event: string, listener: (...args: any[]) => void) => void;
@@ -40,24 +44,34 @@ export class MetaMaskContractAdaptor extends EventEmitter implements MetaMaskCon
   public provider: any;
   private web3!: Web3;
   private wildaloContract!: Contract;
+  private warcContract!: Contract;
+  private fodrContract!: Contract;
   private isFoundMetaMask = false;
   static on: any;
   // private warcContract: Contract;
   // private fodrContract: Contract;
 
-  constructor(private targetChainId: string, wildaloContractAddress: string, wildaloContractJson: any) {
-    // constructor other parameters: WarcContractAddress: string, WarcContractJson : any, FodrContractAddress: string, FodrContractJson : any,
+  constructor(
+    private targetChainId: string,
+    public wildaloContractAddress: string,
+    public warcContractAddress: string,
+    public fodrContractAddress: string,
+    public repositoryContractAddress: string,
+  ) {
     super();
     if (!window) {
       throw Error('Window required.');
     }
-    this.initialize(wildaloContractAddress, wildaloContractJson);
+    this.initialize(wildaloContractAddress, warcContractAddress, fodrContractAddress);
   }
 
-  public async initialize(wildaloContractAddress: string, wildaloContractJson: any) {
+  public async initialize(wildaloContractAddress: string, warcContractAddress: string, fodrContractAddress: string) {
     this.provider = window.ethereum;
     this.web3 = await new Web3(this.provider);
-    this.wildaloContract = new this.web3.eth.Contract(wildaloContractJson, wildaloContractAddress);
+    this.wildaloContract = new this.web3.eth.Contract(WILDALOJSON.abi as any[], wildaloContractAddress);
+    this.warcContract = new this.web3.eth.Contract(WARCJSON.abi as any[], warcContractAddress);
+    this.fodrContract = new this.web3.eth.Contract(FODRJSON.abi as any[], fodrContractAddress);
+
     this.registerEvents();
     // this.warcContract = new this.web3.eth.Contract(WarcContractJson, WarcContractAddress);
     // this.fodrContract = new this.web3.eth.Contract(FodrContractJson, FodrContractAddress);
@@ -204,28 +218,27 @@ export class MetaMaskContractAdaptor extends EventEmitter implements MetaMaskCon
     return this.provider.chainId;
   }
 
-  public async getFordBudget(): Promise<number> {
-    const checkResult = await this.checkConnection();
-    if (!checkResult) {
-      return 0;
-    }
-    return 250000000000000;
-  }
-
-  public async getWarcBudget(): Promise<number> {
-    const checkResult = await this.checkConnection();
-    if (!checkResult) {
-      return 0;
-    }
-    return 120000000000000;
-  }
-
   private async sendContractMethod(contract: Contract, method: string, ...args: any[]): Promise<string | boolean> {
     const checkResult = await this.checkConnection();
     if (checkResult) {
       const from = await this.getSelectedAddress();
       return new Promise((resolve, reject) => {
         contract.methods[method](...args).send({ from }, (error: Error, transactionHash: string) => {
+          error && reject(error);
+          resolve(transactionHash);
+        });
+      });
+    }
+
+    return checkResult;
+  }
+
+  private async sendByValueContractMethod(contract: Contract, method: string, value: string, ...args: any[]): Promise<string | boolean> {
+    const checkResult = await this.checkConnection();
+    if (checkResult) {
+      const from = await this.getSelectedAddress();
+      return new Promise((resolve, reject) => {
+        contract.methods[method](...args).send({ from, value }, (error: Error, transactionHash: string) => {
           error && reject(error);
           resolve(transactionHash);
         });
@@ -247,19 +260,27 @@ export class MetaMaskContractAdaptor extends EventEmitter implements MetaMaskCon
         });
       });
     }
+
     return checkResult;
   }
 
   // ##################################################################################
-  //  CONTRACT METHODS
+  // CONTRACT METHODS
   // ##################################################################################
 
+  // ##################################################################################
+  // wildaloContract
+  // ##################################################################################
   public async upgradeCard(cardId: string, burnedCardId: string): Promise<any> {
     return this.sendContractMethod(this.wildaloContract, 'upgradeCard', cardId, burnedCardId);
   }
 
-  public async buyPackage(packageType: string, currency: string): Promise<any> {
-    return this.sendContractMethod(this.wildaloContract, 'buyPackage', packageType, currency);
+  public async getPackagePrice(packageType: string, currency: string): Promise<string | boolean> {
+    return this.callContractMethod(this.wildaloContract, packageType, currency);
+  }
+
+  public async buyPackage(packageType: string, currency: string, value: string): Promise<any> {
+    return this.sendByValueContractMethod(this.wildaloContract, 'buyPackage', value, packageType, currency);
   }
 
   public async createAuction(currency: string, cardId: string, startPrice: string, endPrice: string, duration: string): Promise<any> {
@@ -270,898 +291,42 @@ export class MetaMaskContractAdaptor extends EventEmitter implements MetaMaskCon
     return this.sendContractMethod(this.wildaloContract, 'cancelAuction', cardId);
   }
 
-  public async bid(cardId: string): Promise<any> {
-    return this.sendContractMethod(this.wildaloContract, 'bid', cardId);
+  public async bid(cardId: string, value: string): Promise<any> {
+    return this.sendByValueContractMethod(this.wildaloContract, 'bid', value, cardId);
   }
 
-  // TEST
-  public async store(number: string): Promise<any> {
-    return this.sendContractMethod(this.wildaloContract, 'store', number);
+  // ##################################################################################
+  // fodrContract
+  // ##################################################################################
+
+  public async getFordBudget(): Promise<string | boolean> {
+    const from = await this.getSelectedAddress();
+    return this.callContractMethod(this.fodrContract, 'balanceOf', from);
   }
 
-  public async retrieve(): Promise<any> {
-    return this.callContractMethod(this.wildaloContract, 'retrieve');
+  public async approveFodr(value: string): Promise<any> {
+    return this.sendContractMethod(this.fodrContract, 'approve', this.repositoryContractAddress, value);
+  }
+
+  public async allowanceFodr(): Promise<any> {
+    const from = await this.getSelectedAddress();
+    return this.callContractMethod(this.fodrContract, 'allowance', from, this.repositoryContractAddress);
+  }
+
+  // ##################################################################################
+  // warcContract
+  // ##################################################################################
+
+  public async getWarcBudget(): Promise<string | boolean> {
+    const from = await this.getSelectedAddress();
+    return this.callContractMethod(this.warcContract, 'balanceOf', from);
   }
 }
 
-export const Wildapter: MetaMaskContractAdaptor = new MetaMaskContractAdaptor('0xa869', '0x4860F3f0217D738A3cfF28C5E6e10C977ca8e35d', [
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_address',
-        type: 'address',
-      },
-    ],
-    name: 'setAuctionContract',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'name',
-    outputs: [
-      {
-        name: '',
-        type: 'string',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'getApproved',
-    outputs: [
-      {
-        name: '',
-        type: 'address',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_to',
-        type: 'address',
-      },
-      {
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'approve',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'isLinked',
-    outputs: [
-      {
-        name: '',
-        type: 'bool',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'totalSupply',
-    outputs: [
-      {
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_from',
-        type: 'address',
-      },
-      {
-        name: '_to',
-        type: 'address',
-      },
-      {
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'transferFrom',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'retrieve',
-    outputs: [
-      {
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        name: '_owner',
-        type: 'address',
-      },
-      {
-        name: '_index',
-        type: 'uint256',
-      },
-    ],
-    name: 'tokenOfOwnerByIndex',
-    outputs: [
-      {
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_address',
-        type: 'address',
-      },
-    ],
-    name: 'setCardBaseContract',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        name: '_address',
-        type: 'address',
-      },
-    ],
-    name: 'isSharedWith',
-    outputs: [
-      {
-        name: '',
-        type: 'bool',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_address',
-        type: 'address',
-      },
-    ],
-    name: 'setRepositoryContract',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_to',
-        type: 'address',
-      },
-      {
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'mint',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_from',
-        type: 'address',
-      },
-      {
-        name: '_to',
-        type: 'address',
-      },
-      {
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'safeTransferFrom',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'exists',
-    outputs: [
-      {
-        name: '',
-        type: 'bool',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        name: '_index',
-        type: 'uint256',
-      },
-    ],
-    name: 'tokenByIndex',
-    outputs: [
-      {
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_address',
-        type: 'address',
-      },
-      {
-        name: '_isShared',
-        type: 'bool',
-      },
-      {
-        name: '_linked',
-        type: 'bool',
-      },
-    ],
-    name: 'setSharingWith',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_address',
-        type: 'address',
-      },
-    ],
-    name: 'setCardPackageContract',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: 'num',
-        type: 'uint256',
-      },
-    ],
-    name: 'store',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'ownerOf',
-    outputs: [
-      {
-        name: '',
-        type: 'address',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        name: '_owner',
-        type: 'address',
-      },
-    ],
-    name: 'balanceOf',
-    outputs: [
-      {
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [],
-    name: 'acceptOwnership',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'owner',
-    outputs: [
-      {
-        name: '',
-        type: 'address',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'symbol',
-    outputs: [
-      {
-        name: '',
-        type: 'string',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_address',
-        type: 'address',
-      },
-    ],
-    name: 'setSettingsContract',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_to',
-        type: 'address',
-      },
-      {
-        name: '_approved',
-        type: 'bool',
-      },
-    ],
-    name: 'setApprovalForAll',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_from',
-        type: 'address',
-      },
-      {
-        name: '_to',
-        type: 'address',
-      },
-      {
-        name: '_tokenId',
-        type: 'uint256',
-      },
-      {
-        name: '_data',
-        type: 'bytes',
-      },
-    ],
-    name: 'safeTransferFrom',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_address',
-        type: 'address',
-      },
-    ],
-    name: 'setCardContract',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: 'newOwner',
-    outputs: [
-      {
-        name: '',
-        type: 'address',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        name: '_owner',
-        type: 'address',
-      },
-      {
-        name: '_operator',
-        type: 'address',
-      },
-    ],
-    name: 'isApprovedForAll',
-    outputs: [
-      {
-        name: '',
-        type: 'bool',
-      },
-    ],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_newOwner',
-        type: 'address',
-      },
-    ],
-    name: 'transferOwnership',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: '_from',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        name: '_to',
-        type: 'address',
-      },
-    ],
-    name: 'OwnershipTransferred',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: 'to',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        name: '_cardId',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        name: '_burnedCardId',
-        type: 'uint256',
-      },
-    ],
-    name: 'UpgradeCard',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: 'to',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        name: '_packageType',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        name: '_currency',
-        type: 'uint256',
-      },
-    ],
-    name: 'BuyPackage',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: 'to',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        name: '_currency',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        name: '_cardId',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        name: '_startPrice',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        name: '_endPrice',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        name: '_duration',
-        type: 'uint256',
-      },
-    ],
-    name: 'CreatAuction',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: 'to',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        name: '_cardId',
-        type: 'uint256',
-      },
-    ],
-    name: 'CancelAuction',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: '_to',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'Mint',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'Burn',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: '_from',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        name: '_to',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'Transfer',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: '_owner',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        name: '_approved',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'Approval',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: '_owner',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        name: '_operator',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        name: '_approved',
-        type: 'bool',
-      },
-    ],
-    name: 'ApprovalForAll',
-    type: 'event',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_to',
-        type: 'address',
-      },
-      {
-        name: '_amount',
-        type: 'uint256',
-      },
-    ],
-    name: 'mintFodr',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_metedata',
-        type: 'uint256',
-      },
-    ],
-    name: 'createCardBase',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_to',
-        type: 'address',
-      },
-      {
-        name: '_baseId',
-        type: 'uint256',
-      },
-    ],
-    name: 'mintCardWithBaseId',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_cardId',
-        type: 'uint256',
-      },
-      {
-        name: '_burnedCardId',
-        type: 'uint256',
-      },
-    ],
-    name: 'upgradeCard',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_packageType',
-        type: 'uint256',
-      },
-      {
-        name: '_currency',
-        type: 'uint256',
-      },
-    ],
-    name: 'buyPackage',
-    outputs: [],
-    payable: true,
-    stateMutability: 'payable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_currency',
-        type: 'uint256',
-      },
-      {
-        name: '_cardId',
-        type: 'uint256',
-      },
-      {
-        name: '_startPrice',
-        type: 'uint256',
-      },
-      {
-        name: '_endPrice',
-        type: 'uint256',
-      },
-      {
-        name: '_duration',
-        type: 'uint256',
-      },
-    ],
-    name: 'createAuction',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_cardId',
-        type: 'uint256',
-      },
-    ],
-    name: 'cancelAuction',
-    outputs: [],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: '_cardId',
-        type: 'uint256',
-      },
-    ],
-    name: 'bid',
-    outputs: [],
-    payable: true,
-    stateMutability: 'payable',
-    type: 'function',
-  },
-]);
+export const Wildapter: MetaMaskContractAdaptor = new MetaMaskContractAdaptor(
+  process.env.REACT_APP_TARGET_CHAIN_ID as string,
+  process.env.REACT_APP_WILDALO_CONTRACT_ADDRESS as string,
+  process.env.REACT_APP_WARC_CONTRACT_ADDRESS as string,
+  process.env.REACT_APP_FODR_CONTRACT_ADDRESS as string,
+  process.env.REACT_APP_REPOSITORY_CONTRACT_ADDRESS as string,
+);

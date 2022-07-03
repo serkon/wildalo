@@ -11,6 +11,7 @@ import {
 import { store } from 'src/store/store';
 import { api } from 'src/components/axios/axios.component';
 import { set_user_login } from 'src/store/reducers/RangerReducer';
+import { fodrCurrency, warcCurrency } from 'src/utils/currency';
 
 class MetaMaskHandler {
   static instance: MetaMaskHandler;
@@ -55,8 +56,10 @@ class MetaMaskHandler {
   }
 
   public async checkBalance(): Promise<void> {
-    this.setMetaMaskFodrBalance(await Wildapter.getFordBudget());
-    this.setMetaMaskWarcBalance(await Wildapter.getWarcBudget());
+    const fodr = await Wildapter.getFordBudget();
+    const warc = await Wildapter.getWarcBudget();
+    this.setMetaMaskFodrBalance(fodrCurrency(typeof fodr === 'string' ? fodr : '0'));
+    this.setMetaMaskWarcBalance(warcCurrency(typeof warc === 'string' ? warc : '0'));
   }
 
   public async init(): Promise<boolean> {
@@ -219,14 +222,14 @@ class MetaMaskHandler {
     /** dddd */
 
     Wildapter.on(MetaMaskAdapterEnums.CONNECTED, async (_connection) => {
-      // this.setNetwork(connection.chainId === process.env.REACT_APP_CHAIN_ID);
+      // this.setNetwork(connection.chainId === process.env.REACT_APP_TARGET_CHAIN_ID);
       // this.setUserMetaMaskData(await this.getUserInfo());
       // console.log('event: CONNECTED: ', _connection);
       // this.init();
     });
 
     Wildapter.on(MetaMaskAdapterEnums.CHAIN_CHANGED, async (_chainId) => {
-      // this.setNetwork(chainId === process.env.REACT_APP_CHAIN_ID);
+      // this.setNetwork(chainId === process.env.REACT_APP_TARGET_CHAIN_ID);
       // this.setUserMetaMaskData(await this.getUserInfo());
       console.log('event: CHAIN_CHANGED: ', _chainId);
       this.init();

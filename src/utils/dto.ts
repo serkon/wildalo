@@ -147,7 +147,10 @@ export interface Fighter {
   _id: string;
   imageId: string;
   username: string;
+  // TODO herdname zaten herd içerisinde geliyor olacak. herd: Herd propertysi sonradan eklendi. Mevcut yapı bozulmasın diye
+  // herdname'e dokunulmadı. İleride BE ekibi ile konuşup herdname'i kaldırabiliriz bu DTO içerisinden
   herdname: string;
+  herd: Herd;
 }
 
 export interface Fight {
@@ -161,10 +164,6 @@ export interface FightsOverview {
   winScore: number;
   totalScore: number;
   treshold: number;
-}
-
-export interface FightDetail {
-  _id: string;
 }
 
 /**
