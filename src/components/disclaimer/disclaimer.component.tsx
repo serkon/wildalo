@@ -18,7 +18,7 @@ export const Disclaimer = () => {
       toast({
         position: 'bottom',
         isClosable: true,
-        duration: 10000,
+        duration: null,
         variant: 'with-shadow',
         onCloseComplete: () => {
           onToggle();
