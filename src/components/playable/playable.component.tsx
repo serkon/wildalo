@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'src/store/store';
-import { MaintenanceComponent } from 'src/components/maintenance/maintenance.component';
-import { MetaMaskComponent } from 'src/components/metamask/metamask.component';
-import { RedirectComponent } from 'src/components/redirect/redirect.component';
 import { set_playable } from 'src/store/reducers/LayoutReducer';
+import { RedirectComponent } from 'src/components/redirect/redirect.component';
+import { MetaMaskComponent } from 'src/components/metamask/metamask.component';
 
 export const PlayableComponent = () => {
   const store = useSelector<RootState>((state: RootState): RootState => state) as RootState;
@@ -16,9 +15,17 @@ export const PlayableComponent = () => {
 
   return (
     <>
-      <MaintenanceComponent />
-      {!store.layout.maintenance && <RedirectComponent />}
-      {!store.layout.maintenance && store.layout.isDesktop && <MetaMaskComponent />}
+      {
+        // TODO (maintenance):: uncomment above when maintenance is ready and remove below
+        /*
+          <MaintenanceComponent />
+          {!store.layout.maintenance && <RedirectComponent />}
+          {!store.layout.maintenance && store.layout.isDesktop && <MetaMaskComponent />}
+        */
+      }
+
+      <RedirectComponent />
+      {store.layout.isDesktop && <MetaMaskComponent />}
     </>
   );
 };
