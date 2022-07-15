@@ -92,7 +92,7 @@
     "gen:theme-typings": "chakra-cli tokens src/theme/theme.tsx",
     "postinstall": "npm run husky & npm run gen:theme-typings",
     "prehusky": "husky install",
-    "husky": "npx husky add .husky/commit-msg 'npx commitlint --edit $1'",
+    "husky": "npx husky add .husky/pre-push 'npm run test --watchAll=false --code-coverage --browsers=ChromeHeadless' && npx husky add .husky/commit-msg 'npx commitlint --edit $1'",
     "lint": "eslint src/**/*.tsx",
     "######### ESLINT:TYPESCRIPT": "",
     "fix": "eslint . --ext .ts,.tsx --fix",
