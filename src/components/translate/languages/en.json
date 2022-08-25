@@ -277,5 +277,9 @@
         "button": "Connect Now"
       }
     }
+  },
+  "marketplace": {
+    "Wildalo_Marketplace": "Wildalo Marketplace",
+    "Add_more_Wildlings_to_Collection": "Add more Wildlings to Collection"
   }
 }
