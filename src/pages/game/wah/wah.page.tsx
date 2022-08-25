@@ -48,6 +48,15 @@ export const createFightApi = async (herd: Herd): Promise<Herd | null> => {
     const { data } = await api.post('/fight/create', { data: { herd } }, { headers });
     herd && store.dispatch(update_herd(data.data));
     // getHerdListApi();
+    /**
+     * @TODO: socket emit sample - Aşağıdaki kodu silmeyi unutma
+     * Kendi sunucumda (nodejs) components/socket altında bir 'matchmaking-demo' yaptım
+     * Demoda fight create edildikten sonra belirli bir süre sonrasında herd'ün statusunu update etsin diye socket'i
+     * trigger ediyorum. Bu sayede oradan bana status update edildi bilgisi geliyor 'update-herd-list' socket methodundan.
+     *
+     * // const { metamask } = store.getState();
+     * // socket.emit('matchmaking-demo', { room: metamask.walletAddress, herd: herd._id });
+     */
     const { metamask } = store.getState();
     socket.emit('matchmaking-demo', { room: metamask.walletAddress, herd: herd._id });
   } catch (e) {
