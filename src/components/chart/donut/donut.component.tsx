@@ -8,19 +8,19 @@ const data = [
     name: 'Rare',
     percentage: 20, // percentage
     value: 80, // millions
-    color: '#0789F8',
+    color: 'hsla(208, 98%, 50%, 0.4)',
   },
   {
     name: 'Exotic',
     percentage: 35,
     value: 140,
-    color: '#F9BA00',
+    color: 'hsla(45, 100%, 50%, 0.4)',
   },
   {
     name: 'Common',
     percentage: 10,
     value: 40,
-    color: '#FE8C00',
+    color: 'hsla(0, 0%, 77%, 0.4)',
   },
   /*
   {
@@ -172,8 +172,8 @@ export const ChartDonut = ({ width = '100%', height = '100%', stroke = 10, margi
       .attr('r', variables.current.radius)
       .attr('transform', 'rotate(-90)')
       .attr('fill', 'none')
-      .attr('stroke', 'hsla(0, 0%, 77%, 0.3')
-      .attr('stroke-width', stroke - 2)
+      .attr('stroke', 'hsla(0, 0%, 77%, 0.1)')
+      .attr('stroke-width', stroke - 13)
       .attr('stroke-linecap', 'round')
       // hide the stroke of the circle using the radius
       // this to compute the circumference of the shape
