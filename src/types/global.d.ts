@@ -8,4 +8,11 @@ export declare global {
     web3;
     wildapter: MetamaskContractAdaptor;
   }
+
+  interface SVGSVGElement {
+    xmlns?: string;
+    xmlnsXlink?: string;
+  }
 }
+
+declare module 'd3';

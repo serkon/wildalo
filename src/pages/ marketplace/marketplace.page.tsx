@@ -1,5 +1,6 @@
 import { Box, Button, Container, Flex, Heading, Image } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
+import { ChartDonut } from 'src/components/chart/donut/donut.component';
 import { PlayableComponent } from 'src/components/playable/playable.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { RootState } from 'src/store/store';
@@ -41,7 +42,7 @@ export const PageMarketplace = () => {
               {translate('marketplace.Add_more_Wildlings_to_Collection')}
             </Heading>
           </Box>
-          <Box borderRadius="20px" display="flex" alignItems="flex-start" overflow="hidden" className="border-10">
+          <Box borderRadius="20px" display="flex" alignItems="strech" overflow="hidden" className="border-10">
             <Box
               color={'white'}
               gridRowGap="4px"
@@ -69,8 +70,8 @@ export const PageMarketplace = () => {
                 </Flex>
               </Button>
             </Box>
-            <Box flexGrow="1" w="100%">
-              right
+            <Box flexGrow="1" alignItems="stretch" w="100%">
+              <ChartDonut margin={40} stroke={18} />
             </Box>
             <Box margin="20px" backgroundColor="#252525" padding="20px" borderRadius="14px">
               <Box fontSize="17px" color="white">
