@@ -136,7 +136,7 @@ export const PageHome = () => {
           </Button>
           <Box className="extensions" flexDirection={{ md: 'row' }}>
             <Button variant="link" onClick={() => window.open('https://www.avax.network/', '_blank')}>
-              <Image src="/images/pages/landing/home-avalange-logo.svg" alt="" />
+              <Image src="/images/pages/landing/home-polygon-logo.svg" alt="" />
             </Button>
             <Button variant="link" onClick={() => window.open('https://metamask.io/', '_blank')}>
               <Image src="/images/pages/landing/home-metamask-logo.svg" alt="" />
