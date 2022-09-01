@@ -135,7 +135,7 @@ export const PageHome = () => {
             {t('common.Play_Now')}
           </Button>
           <Box className="extensions" flexDirection={{ md: 'row' }}>
-            <Button variant="link" onClick={() => window.open('https://www.avax.network/', '_blank')}>
+            <Button variant="link" onClick={() => window.open('https://polygon.technology/', '_blank')}>
               <Image src="/images/pages/landing/home-polygon-logo.svg" alt="" />
             </Button>
             <Button variant="link" onClick={() => window.open('https://metamask.io/', '_blank')}>

@@ -47,7 +47,7 @@ export default socket;
 
 // **Fight Start**
 // When user click "Get into a Fight" button in herd.component the fight start method triggered.
-// Client send to herd data through the CreateFightApi to the '/fight/create' path.
+// Client send to herd data through the CreateFightApi to the '/herd/enQueue' path.
 // Server receive the data and return this Herd with status FIGHTING.
 // Client shows Matchmaking loading animation, while server emit the "update-herd-list" event with the updated herd list.
 // I added to sample code snippest here for understanding the process.

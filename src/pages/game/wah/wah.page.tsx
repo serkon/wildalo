@@ -45,7 +45,8 @@ export const getHerdListApi = async () => {
 export const createFightApi = async (herd: Herd): Promise<Herd | null> => {
   try {
     const { headers } = await Contractor.header();
-    const { data } = await api.post('/fight/create', { data: { herd } }, { headers });
+    // const { data } = await api.post('/fight/create', { data: { herd } }, { headers });
+    const { data } = await api.post('/herd/enQueue', { data: { herd } }, { headers });
     herd && store.dispatch(update_herd(data.data));
     // getHerdListApi();
     /**
