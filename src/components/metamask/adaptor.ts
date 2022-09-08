@@ -54,11 +54,11 @@ export class MetaMaskContractAdaptor extends EventEmitter implements MetaMaskCon
   constructor(
     private targetChainId: string,
     public wildaloContractAddress: string,
-  //  public wildaloContractJson: any,
+    //  public wildaloContractJson: any,
     public warcContractAddress: string,
-  //  public warcContractJson: any,
+    //  public warcContractJson: any,
     public fodrContractAddress: string,
-  //  public fodrContractJson: any,
+    //  public fodrContractJson: any,
     private repositoryContractAddress: string,
   ) {
     super();
