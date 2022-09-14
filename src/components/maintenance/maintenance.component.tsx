@@ -22,19 +22,25 @@ export const MaintenanceComponent = () => {
       setMaintenance(false);
     },
   });
-  const [isMaintenance, setMaintenance] = useState(false);
+  const [isMaintenance, setMaintenance] = useState(process.env.REACT_APP_MAINTENANCE === 'true');
   const dispatch = useDispatch();
-  const { isError } = useApi({ url: '/admin/maintenance' }, (data: HttpResponse<Maintenance>) => {
-    dispatch(set_maintenance(data.data.status));
-    setMaintenance(data.data.status);
-  });
+
+  const { isError } = useApi(
+    { url: '/admin/maintenance' },
+    (data: HttpResponse<Maintenance>) => {
+      dispatch(set_maintenance(data.data.status));
+      setMaintenance(data.data.status);
+    },
+    null,
+    !isMaintenance,
+  );
 
   useEffect(() => {
     if (isError) {
       dispatch(set_maintenance(isError));
       setMaintenance(isError);
     }
-  }, [isError]);
+  }, [dispatch, isError]);
 
   return (
     <>
