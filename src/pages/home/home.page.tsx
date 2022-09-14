@@ -11,10 +11,6 @@ import './home.page.scss';
 
 const roadmap = [
   {
-    title: '<span>Q2</span>-2022',
-    description: ['TGE & Community Building', 'Herd Fights Begin'],
-  },
-  {
     title: '<span>Q3</span>-2022',
     description: ['New Fall Wildlings', 'Ranger Leaderboard & Tournaments', 'NFT sales in Wildalo Marketplace'],
   },
