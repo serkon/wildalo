@@ -1,8 +1,9 @@
 import { Box, Button, Container, Flex, Grid, GridItem, Heading, Image, ListItem, Stack, UnorderedList, VStack } from '@chakra-ui/react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Carousel, CarouselItem } from 'src/components/carousel/carousel.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { Triad } from 'src/components/triad/triad.component';
+import { useDirection } from 'src/hooks';
 import { useMediaQuery } from 'src/theme/util/media-query';
 import { Animal, AnimalRarity, Region } from 'src/utils/dto';
 import { getLink, LinkItem, LinkSocials } from 'src/utils/links';
@@ -108,10 +109,7 @@ const animals: Animal[] = [
 
 export const PageHome = () => {
   const { t } = useTranslate();
-  const navigate = useNavigate();
-  const direction = (item: LinkItem) => {
-    item.external ? window.open(item.to, '_blank') : navigate(item.to);
-  };
+  const direction = useDirection();
   const isLarge = useMediaQuery('lg');
 
   return (

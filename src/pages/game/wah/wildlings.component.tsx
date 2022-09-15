@@ -5,13 +5,15 @@ import { useSelector } from 'react-redux';
 import { AnimalCard } from 'src/components/animal/animal.component';
 import { Animal, Herd } from 'src/utils/dto';
 import { useTranslate } from 'src/components/translate/translate.component';
-import { useObservable } from 'src/hooks';
+import { useDirection, useObservable } from 'src/hooks';
 import { RootState } from 'src/store/store';
 import { Dragger } from 'src/utils/dragger';
 import { getWildingListApi, updateHerdApi } from './wah.page';
+import { LinksHeader } from 'src/utils/links';
 
 export const WildlingsComponent = () => {
   const { t } = useTranslate();
+  const direction = useDirection();
   const refInput = useRef<HTMLInputElement>(null);
   const store = useSelector((state: RootState) => state);
   const [search, setSearch] = useState<any[]>([]);
@@ -115,7 +117,9 @@ export const WildlingsComponent = () => {
             </GridItem>
           ))}
         <GridItem className="grid-card-container empty" alignItems={'center'} justifyContent={'center'} display="flex">
-          <Button variant={'primary'}>{t('game.wah.Buy_more_Wildings')}</Button>
+          <Button variant={'primary'} onClick={() => direction(LinksHeader[4])}>
+            {t('game.wah.Buy_more_Wildings')}
+          </Button>
         </GridItem>
       </Grid>
     </>

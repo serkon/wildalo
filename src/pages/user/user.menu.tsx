@@ -1,14 +1,14 @@
 import { Menu, MenuButton, Button, HStack, Avatar, Stack, Box, MenuList, Divider } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useSelector, useStore } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { HttpResponse } from 'src/components/axios/axios.component';
 import { FightsOverview, Ranger } from 'src/utils/dto';
 import { useTranslate } from 'src/components/translate/translate.component';
-import { useApi } from 'src/hooks';
+import { useApi, useDirection } from 'src/hooks';
 import { set_ranger } from 'src/store/reducers/RangerReducer';
 import { RootState } from 'src/store/store';
 import { useMediaQuery } from 'src/theme/util/media-query';
+import { LinkGame } from 'src/utils/links';
 
 export const UserProfile = () => {
   const { t } = useTranslate();
@@ -72,10 +72,10 @@ export const UserMenu = () => {
   const isLarge = useMediaQuery('md');
   const store = useSelector<RootState>((state: RootState): RootState => state) as RootState;
   const { dispatch } = useStore();
-  const navigate = useNavigate();
+  const direction = useDirection();
   const startPlayHandler = () => {
     // window.location.reload();
-    navigate('/game/dashboard');
+    direction(LinkGame[0]);
   };
   const [state, setState] = useState<FightsOverview>({
     fights: [],

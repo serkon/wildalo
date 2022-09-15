@@ -2,8 +2,9 @@ import { Container, Center, Text, Image, Flex, Button, Box, Heading, Stack, Tool
 import { useTranslate } from 'src/components/translate/translate.component';
 
 import './footer.component.scss';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { LinkItem, LinksFooter, LinkSocials, LinksTerms } from 'src/utils/links';
+import { NavLink } from 'react-router-dom';
+import { LinksFooter, LinkSocials, LinksTerms } from 'src/utils/links';
+import { useDirection } from 'src/hooks';
 
 interface Props {
   left?: JSX.Element;
@@ -19,10 +20,7 @@ export const Footer = (props: Props): JSX.Element => {
     maskImage: `url(/images/socials/${t(d)}.svg)`,
   });
   const { t } = useTranslate();
-  const navigate = useNavigate();
-  const direction = (item: LinkItem) => {
-    item.external ? window.open(item.to, '_blank') : navigate(item.to);
-  };
+  const direction = useDirection();
 
   return (
     <>

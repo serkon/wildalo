@@ -5,21 +5,22 @@ import { useTranslate } from 'src/components/translate/translate.component';
 import { useMediaQuery, useSize } from 'src/theme/util/media-query';
 
 import preview from './preview.svg';
-import { useNavigate } from 'react-router-dom';
 import { set_desktop } from 'src/store/reducers/LayoutReducer';
 import { useDispatch } from 'react-redux';
+import { useDirection } from 'src/hooks';
+import { LinksHeader } from 'src/utils/links';
 
 export const RedirectComponent = () => {
   const { t } = useTranslate();
   const size = useSize();
   const isLargerThan = useMediaQuery('sm');
   const [isInit, setInit] = useState(false);
-  const navigate = useNavigate();
+  const direction = useDirection();
   const { onClose } = useDisclosure({
     onClose: () => {
       document.documentElement.classList.remove('modal');
       setInit(false);
-      navigate('/');
+      direction(LinksHeader[0]);
     },
   });
   const dispatch = useDispatch();

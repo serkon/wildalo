@@ -1,10 +1,11 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AxiosRequestConfig } from 'axios';
 import { useMediaQuery } from 'src/theme/util/media-query';
 import { api, HttpRequest } from 'src/components/axios/axios.component';
 import { Subject } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
+import { LinkItem } from 'src/utils/links';
 
 export const ScrollTo = ({ position = 0 }: { position?: number }): null => {
   const location = useLocation();
@@ -207,4 +208,19 @@ export const useObservable = (callback: (value: any) => void, debounce = 500) =>
     return () => subscription.unsubscribe();
   }, [callback, observable]);
   return { value, setValue, subject };
+};
+
+/**
+ * Redirections
+ */
+export const useDirection = () => {
+  const navigate = useNavigate();
+  const direction = React.useCallback(
+    (item: LinkItem) => {
+      item.external ? window.open(item.to, '_blank') : navigate(item.to);
+    },
+    [navigate],
+  );
+
+  return direction;
 };

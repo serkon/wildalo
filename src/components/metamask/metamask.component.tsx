@@ -1,6 +1,5 @@
 import React from 'react';
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Box, Link } from '@chakra-ui/react';
 import socket from 'src/utils/socket';
@@ -12,6 +11,8 @@ import { getRandomID } from 'src/utils/randomizer';
 import { MetaMaskHandler } from './metamask.handler';
 import { Wildapter } from './adaptor';
 import './metamask.component.scss';
+import { useDirection } from 'src/hooks';
+import { LinksHeader } from 'src/utils/links';
 
 interface Link {
   to: string;
@@ -52,7 +53,7 @@ export const MetaMaskComponent = () => {
   const [isCheckComplete, setCheckComplete] = useState(false);
   const isLargerThan = useMediaQuery('sm');
 
-  const navigate = useNavigate();
+  const direction = useDirection();
   const { onClose } = useDisclosure({
     onOpen: () => {
       // setExtension(true);
@@ -77,7 +78,7 @@ export const MetaMaskComponent = () => {
     Wildapter.enablePermissionToAccessAccounts();
   };
   const reload = () => {
-    navigate('/');
+    direction(LinksHeader[0]);
     window.location.reload();
   };
 

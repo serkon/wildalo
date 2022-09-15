@@ -5,20 +5,20 @@ import { useTranslate } from 'src/components/translate/translate.component';
 import { useSize } from 'src/theme/util/media-query';
 
 import preview from './preview.png';
-import { useNavigate } from 'react-router-dom';
-import { useApi } from 'src/hooks';
+import { useApi, useDirection } from 'src/hooks';
 import { Maintenance } from 'src/utils/dto';
 import { HttpResponse } from 'src/components/axios/axios.component';
 import { set_maintenance } from 'src/store/reducers/LayoutReducer';
 import { useDispatch } from 'react-redux';
+import { LinksHeader } from 'src/utils/links';
 
 export const MaintenanceComponent = () => {
   const { t } = useTranslate();
   const size = useSize();
-  const navigate = useNavigate();
+  const direction = useDirection();
   const { onClose } = useDisclosure({
     onClose: () => {
-      navigate('/');
+      direction(LinksHeader[0]);
       setMaintenance(false);
     },
   });

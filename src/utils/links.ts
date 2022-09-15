@@ -6,10 +6,10 @@ export interface LinkItem {
 export const getLink = (links: LinkItem[], text: string): LinkItem | undefined => links.find((link) => link.title === text);
 export const LinksHeader: LinkItem[] = [
   { title: 'links.home', to: '/' },
-  { title: 'links.guide', to: 'guide' },
+  { title: 'links.guide', to: '/guide' },
   { title: 'links.whitepaper', to: 'https://wildalo.gitbook.io/whitepaper', external: true },
-  { title: 'links.game', to: 'game' },
-  { title: 'links.marketplace', to: 'marketplace' },
+  { title: 'links.game', to: '/game' },
+  { title: 'links.marketplace', to: '/marketplace' },
 ];
 export const LinkGame: LinkItem[] = [
   { title: 'links.dashboard', to: '/game/dashboard' },
@@ -21,8 +21,8 @@ export const LinksFooter: { name: string; links: LinkItem[] }[] = [
   {
     name: 'services',
     links: [
-      { title: 'links.game', to: 'game' },
-      { title: 'links.marketplace', to: 'marketplace' },
+      { title: 'links.game', to: '/game' },
+      { title: 'links.marketplace', to: '/marketplace' },
     ],
   },
   /**/
@@ -38,7 +38,7 @@ export const LinksFooter: { name: string; links: LinkItem[] }[] = [
   {
     name: 'help',
     links: [
-      { title: 'links.guide', to: 'guide' },
+      { title: 'links.guide', to: '/guide' },
       // { title: 'links.contact_us', to: 'contact' },
     ],
   },

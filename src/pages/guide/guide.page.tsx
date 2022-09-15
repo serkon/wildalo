@@ -4,7 +4,7 @@ import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 import { useTranslate } from 'src/components/translate/translate.component';
 import './guide.page.scss';
 import { getLink, LinkSocials, LinkItem } from 'src/utils/links';
-import { useNavigate } from 'react-router-dom';
+import { useDirection } from 'src/hooks';
 
 const faqs = [
   {
@@ -40,10 +40,7 @@ const faqs = [
 
 export const PageFaq = () => {
   const { t } = useTranslate();
-  const navigate = useNavigate();
-  const direction = (item: LinkItem) => {
-    item.external ? window.open(item.to, '_blank') : navigate(item.to);
-  };
+  const direction = useDirection();
 
   return (
     <Box

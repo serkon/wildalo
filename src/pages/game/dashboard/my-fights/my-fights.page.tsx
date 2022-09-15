@@ -9,6 +9,8 @@ import { FightsOverview } from 'src/utils/dto';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 import { RootState } from 'src/store/store';
+import { useDirection } from 'src/hooks';
+import { LinkGame } from 'src/utils/links';
 
 const requestFightsOverview = async (): Promise<AxiosResponse<FightsOverview>> => {
   const response = await api.post('/my/animal/fights');
@@ -20,9 +22,7 @@ export const MyFights = () => {
   const { t } = useTranslate();
   const [res, setResponse] = React.useState<FightsOverview>();
   const store = useSelector<RootState>((state: RootState): RootState => state) as RootState;
-  const getNew = () => {
-    console.log('get new');
-  };
+  const direction = useDirection();
 
   useEffect(() => {
     async function fetchData() {
@@ -62,7 +62,7 @@ export const MyFights = () => {
         </Box>
       )}
       {/* TODO: Store'da adamın hiç herds'i yoksa disable et kontrolü ekle */}
-      <Button variant={'primary'} mt="34px" disabled={!store.metamask.status || (res && res.fights.length >= 3)} onClick={getNew}>
+      <Button variant={'primary'} mt="34px" disabled={!store.metamask.status || (res && res.fights.length >= 3)} onClick={() => direction(LinkGame[1])}>
         {t('dashboard.start_new')}!
         <HStack position={'absolute'} right={'16px'} fontSize="12px" fontWeight={'bold'}>
           <Box>{t('dashboard.Remaining')}</Box>
