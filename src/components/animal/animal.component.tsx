@@ -1,7 +1,8 @@
-import { Box, Grid, GridItem } from '@chakra-ui/react';
+import { Box, Flex, Grid, GridItem, Heading, Image } from '@chakra-ui/react';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 import { Animal, AnimalDetail } from 'src/utils/dto';
+import { Timer } from 'src/components/timer/timer.component';
 
 import './animal.component.scss';
 
@@ -28,7 +29,7 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
 
   return (
     <>
-      <Box {...rest} className={`animal ${className} ${stats && 'sequare'}`}>
+      <Box {...rest} className={`animal${className ? ` ${className}` : ''}${stats ? ' sequare' : ''}`}>
         <div className="layout" style={style}>
           <div className="overflow" style={{ backgroundImage: `url(/images/animals/${data.name}.jpg)` }} />
           <div className={`rarity-line ${data.rarity.toLowerCase()}`} />
@@ -50,6 +51,17 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
                 </GridItem>
               ))}
             </Grid>
+          </div>
+        )}
+        {data.auction && (
+          <div className={`auction`}>
+            <Heading as="h3" size="md">
+              {t('In Auction')}
+            </Heading>
+            <Flex color="#77D163" fontWeight={'bold'} fontSize="15">
+              <Image src={'/images/pages/game/wah/timer-icon.svg'} mr="2" />
+              <Timer diff={data.auction.remainingTime} onChange={(state) => console.log(state)} hidden={false} day={true} />
+            </Flex>
           </div>
         )}
       </Box>

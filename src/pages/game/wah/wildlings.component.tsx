@@ -109,7 +109,7 @@ export const WildlingsComponent = () => {
                 data={item}
                 className="animal-first ac"
                 stats={true}
-                draggable
+                draggable={!item.auction}
                 drop-target="herds"
                 onDragStart={(event: any) => Dragger.onDragStart(event, item)}
                 onDragEnd={(event: any) => Dragger.onDragEnd(event, item)}
