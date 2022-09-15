@@ -8,12 +8,13 @@ export const Disclaimer = () => {
   const { t } = useTranslate();
   const toast = useToast();
   const onToggle = () => {
+    debugger;
     window.localStorage.setItem('disclaimer', 'true');
   };
 
   useEffect(() => {
     const isClosed = window.localStorage.getItem('disclaimer');
-    window.localStorage.setItem('disclaimer', 'true');
+    // window.localStorage.setItem('disclaimer', 'true');
     !isClosed &&
       toast({
         position: 'bottom',
