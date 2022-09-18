@@ -83,7 +83,7 @@ export const FightDetailModal = React.forwardRef<ImperativeHandle, Props>((_prop
                   <Box className="versus" />
                   <Box className="herds-right">
                     <Grid className="herds" templateColumns="repeat(2, 1fr)" gridColumnGap={16} gridRowGap={8}>
-                      {fight.fighters[0].herd.animals?.map((item, key) => (
+                      {fight.fighters[1].herd.animals?.map((item, key) => (
                         <GridItem className="animal-grid-item" key={key}>
                           <AnimalCard data={item.animal} position={item.position} />
                         </GridItem>
