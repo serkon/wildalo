@@ -60,7 +60,7 @@ export const AnimalCard = (props: React.PropsWithChildren<Props>) => {
             </Heading>
             <Flex color="#77D163" fontWeight={'bold'} fontSize="15">
               <Image src={'/images/pages/game/wah/timer-icon.svg'} mr="2" />
-              <Timer diff={data.auction.remainingTime} onChange={(state) => console.log(state)} hidden={false} day={true} />
+              <Timer diff={data.auction.remainingTime} hidden={false} day={true} />
             </Flex>
           </div>
         )}
