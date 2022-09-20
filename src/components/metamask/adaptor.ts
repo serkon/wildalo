@@ -279,7 +279,7 @@ export class MetaMaskContractAdaptor extends EventEmitter implements MetaMaskCon
   }
 
   public async getPackagePrice(packageType: string, currency: string): Promise<string | boolean> {
-    return this.callContractMethod(this.wildaloContract, packageType, currency);
+    return this.callContractMethod(this.wildaloContract, 'getPackagePrice', packageType, currency);
   }
 
   public async buyPackage(packageType: string, currency: string, value: string): Promise<any> {
