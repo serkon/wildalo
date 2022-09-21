@@ -8,7 +8,6 @@ export const Disclaimer = () => {
   const { t } = useTranslate();
   const toast = useToast();
   const onToggle = () => {
-    debugger;
     window.localStorage.setItem('disclaimer', 'true');
   };
 
@@ -38,5 +37,5 @@ export const Disclaimer = () => {
       });
   }, []);
 
-  return <>sad</>;
+  return <></>;
 };
