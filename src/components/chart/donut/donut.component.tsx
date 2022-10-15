@@ -22,26 +22,6 @@ const data = [
     value: 40,
     color: 'hsla(0, 0%, 77%, 0.4)',
   },
-  /*
-  {
-    name: 'Foundation',
-    percentage: 10,
-    value: 120,
-    color: '#A6A8F8',
-  },
-  {
-    name: 'Option pool',
-    percentage: 12.5,
-    value: 50,
-    color: '#47D7A8',
-  },
-  {
-    name: 'Team Tokens',
-    percentage: 12.5,
-    value: 50,
-    color: '#3BCB60',
-  },
-  */
 ];
 
 interface DefaultDonutProps {
@@ -64,27 +44,27 @@ export const ChartDonut = ({ width = '100%', height = '100%', stroke = 10, margi
   const variables = useRef<Record<string, any>>({});
 
   useEffect(() => {
+    const setSvg = () => {
+      if (selection.current) {
+        variables.current.style = svg.current ? getComputedStyle(svg.current) : null;
+        variables.current.width = parseFloat(variables.current.style.width) - margin * 2;
+        variables.current.height = parseFloat(variables.current.style.height) - margin * 2;
+        variables.current.radius = Math.min(parseFloat(variables.current.width), parseFloat(variables.current.height)) / 2;
+        console.log('radius: ', variables.current.radius);
+        const group: d3.Selection<SVGGElement, unknown, null, undefined> = groupCreate(selection.current);
+        const groupDefault: d3.Selection<SVGGElement, unknown, null, undefined> = groupDefaultCreate(group);
+        setGroupDefault(groupDefault);
+        createArc(group);
+        draw(groupDefault);
+      }
+    };
+
     selection.current = d3.select(svg.current);
     setSvg();
     // TODO: remove below
     data;
-    stroke;
-  }, []);
-
-  const setSvg = () => {
-    if (selection.current) {
-      variables.current.style = svg.current ? getComputedStyle(svg.current) : null;
-      variables.current.width = parseFloat(variables.current.style.width) - margin * 2;
-      variables.current.height = parseFloat(variables.current.style.height) - margin * 2;
-      variables.current.radius = Math.min(parseFloat(variables.current.width), parseFloat(variables.current.height)) / 2;
-      console.log('radius: ', variables.current.radius);
-      const group: d3.Selection<SVGGElement, unknown, null, undefined> = groupCreate(selection.current);
-      const groupDefault: d3.Selection<SVGGElement, unknown, null, undefined> = groupDefaultCreate(group);
-      setGroupDefault(groupDefault);
-      createArc(group);
-      draw(groupDefault);
-    }
-  };
+    console.log('donut component');
+  });
 
   const groupCreate = (element: d3.Selection<SVGSVGElement | null, unknown, null, undefined>) => element.append('g').attr('transform', `translate(${margin} ${margin})`);
   const groupDefaultCreate = (element: d3.Selection<SVGGElement, unknown, null, undefined>) =>

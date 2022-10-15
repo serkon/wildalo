@@ -35,7 +35,7 @@ export const Disclaimer = () => {
           </Box>
         ),
       });
-  }, []);
+  }, [t, toast]);
 
   return <></>;
 };

@@ -121,7 +121,9 @@ export const MetaMaskComponent = () => {
       const status = task.filter((item) => item === false).length <= 0;
       !status && console.log('TODO: Metamask adapter status is false');
     }
-  }, [isCheckComplete]);
+    // TODO: metamask çok uyarı veriyorsa bunun nedeni aşağıdaki array üzerinde sadece
+    // [isCheckComplete] bırak. Diğerlerini yeni ekledim.
+  }, [extension, isCheckComplete, network, permission]);
 
   useEffect(() => {
     !isLargerThan ? document.documentElement.classList.add('modal') : document.documentElement.classList.remove('modal');

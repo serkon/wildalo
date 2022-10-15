@@ -84,6 +84,7 @@ export class Language extends React.Component<Props, State> {
         value={{
           tState: this.state,
           tChange: (language: string) => this.changeLanguage(language),
+          // TODO update t to translate
           t: this.translate,
         }}
       >

@@ -221,6 +221,7 @@ class MetaMaskHandler {
 
     /** dddd */
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     Wildapter.on(MetaMaskAdapterEnums.CONNECTED, async (_connection) => {
       // this.setNetwork(connection.chainId === process.env.REACT_APP_TARGET_CHAIN_ID);
       // this.setUserMetaMaskData(await this.getUserInfo());

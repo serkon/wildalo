@@ -82,6 +82,7 @@ export const Carousel = (props: React.PropsWithChildren<Props>) => {
     return () => {
       clearTimer();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items]);
 
   return (
