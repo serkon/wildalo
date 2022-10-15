@@ -15,7 +15,9 @@ export const WildlingsComponent = () => {
   const { t } = useTranslate();
   const direction = useDirection();
   const refInput = useRef<HTMLInputElement>(null);
-  const store = useSelector((state: RootState) => state);
+
+  const store: RootState = useSelector<RootState>((state: RootState): RootState => state) as RootState;
+
   const [search, setSearch] = useState<any[]>([]);
   const onKeyPress = (item: any) => {
     subject.next(item.target.value);
@@ -36,8 +38,8 @@ export const WildlingsComponent = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const data = await getWildingListApi();
-      setSearch(data.list);
+      await getWildingListApi();
+      setSearch(store.wildling.list);
     };
     fetch();
   }, []);

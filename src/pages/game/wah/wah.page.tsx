@@ -2,21 +2,22 @@ import { Grid, GridItem } from '@chakra-ui/react';
 import { AxiosResponse } from 'axios';
 
 import { store } from 'src/store/store';
-import { HttpResponse, api } from 'src/components/axios/axios.component';
+import { HttpResponse, api, Paging } from 'src/components/axios/axios.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { set_wildling_list } from 'src/store/reducers/WildlingReducer';
 import { set_herd_list, update_herd } from 'src/store/reducers/HerdReducer';
 import { Contractor } from 'src/components/metamask/contractor';
-import { Animal, Herd } from 'src/utils/dto';
+import { Animal, FightsOverview, Herd } from 'src/utils/dto';
 import { Page } from 'src/components/page/page.component';
 import { HerdsComponent } from './herds.component';
 import { WildlingsComponent } from './wildlings.component';
 import socket from 'src/utils/socket';
 import './wah.page.scss';
+import { set_fights_overview } from 'src/store/reducers/FightReducer';
 
 export const getWildingListApi = async () => {
   const animalListResponse: AxiosResponse<HttpResponse<Animal[]>> = await api.post('my/animal/list');
-  const storeState = {
+  const storeState: { list: Animal[]; paging: Paging } = {
     list: animalListResponse.data.data ? animalListResponse.data.data : [],
     paging: {
       current: animalListResponse.data.paging?.current as number,
@@ -26,6 +27,12 @@ export const getWildingListApi = async () => {
   };
   store.dispatch(set_wildling_list(storeState));
   return storeState;
+};
+
+export const getFightsApi = async () => {
+  const response: AxiosResponse<HttpResponse<FightsOverview>> = await api.post('my/animal/fights');
+  store.dispatch(set_fights_overview(response.data.data));
+  return response.data.data;
 };
 
 export const getHerdListApi = async () => {

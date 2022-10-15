@@ -5,21 +5,25 @@ import { LayoutReducer } from './reducers/LayoutReducer';
 import { RangerReducer } from './reducers/RangerReducer';
 import { WildlingReducer } from './reducers/WildlingReducer';
 import { HerdReducer } from './reducers/HerdReducer';
+import { FightReducer } from './reducers/FightReducer';
 
 export interface Action<T> {
   type: string;
   payload: T;
 }
 
-const rootReducer = combineReducers({
+const reducers = {
   // products: ProductReducer,
   // basket: BasketReducer,
   layout: LayoutReducer,
   metamask: MetamaskReducer,
   ranger: RangerReducer,
   wildling: WildlingReducer,
+  overview: FightReducer,
   herd: HerdReducer,
-});
+};
+
+const rootReducer = combineReducers(reducers);
 
 const loggerMiddleware = (storeAPI: any) => (next: any) => (action: any) => {
   // console.log('dispatching', action);

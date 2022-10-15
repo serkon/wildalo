@@ -210,7 +210,6 @@ export class MetaMaskContractAdaptor extends EventEmitter implements MetaMaskCon
 
   public async getSelectedAddress(): Promise<string | null> {
     const accounts = await this.provider.request({ method: 'eth_requestAccounts' });
-    console.log(accounts);
     if (accounts && accounts.length) {
       return accounts[0];
     }

@@ -1,41 +1,35 @@
 import { Heading, Flex, HStack, Text, Button, Box, Badge, Stack } from '@chakra-ui/react';
-import { AxiosResponse } from 'axios';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { api } from 'src/components/axios/axios.component';
 import { ChartPie } from 'src/components/chart/pie/pie.component';
 import { Fight } from 'src/components/fight/fight.component';
-import { FightsOverview } from 'src/utils/dto';
+import { Fight as FightInterface } from 'src/utils/dto';
 
 import { useTranslate } from 'src/components/translate/translate.component';
 import { RootState } from 'src/store/store';
 import { useDirection } from 'src/hooks';
 import { LinkGame } from 'src/utils/links';
-
-const requestFightsOverview = async (): Promise<AxiosResponse<FightsOverview>> => {
-  const response = await api.post('/my/animal/fights');
-
-  return response.data;
-};
+import { getFights } from 'src/pages/game/wah/wah.page';
 
 export const MyFights = () => {
   const { t } = useTranslate();
-  const [res, setResponse] = React.useState<FightsOverview>();
   const store = useSelector<RootState>((state: RootState): RootState => state) as RootState;
   const direction = useDirection();
+  const ref = React.useRef<number>(0);
 
   useEffect(() => {
     async function fetchData() {
-      const response: AxiosResponse<FightsOverview> = await requestFightsOverview();
-      setResponse(response.data);
+      await getFights();
     }
 
     if (store.metamask.status) {
       fetchData();
     }
-
-    return () => setResponse(undefined);
   }, [store.metamask.status]);
+
+  useEffect(() => {
+    ref.current = Math.floor((store.fightsOverview.winScore * 100) / store.fightsOverview.totalScore ?? 1);
+  }, [store.fightsOverview]);
 
   return (
     <div className="my-herds">
@@ -49,32 +43,32 @@ export const MyFights = () => {
           </Text>
           <Flex alignItems={'center'} justifyContent={'center'} width="44px" height="44px" borderRadius="50%" border="1px solid #2A5950" backgroundColor="#0B2F28">
             <Text fontWeight={'bold'} fontSize="24px" lineHeight="28px" marginLeft="-1px" letterSpacing="-1px" color="#77D163">
-              {res ? res.fights.length : 0}
+              {store.fightsOverview.fights.length ?? 0}
             </Text>
           </Flex>
         </HStack>
       </Flex>
-      {res && res.fights.length > 0 ? (
-        res.fights.map((_item, key) => <Fight key={key} detail={_item} />)
+      {store.fightsOverview.fights.length > 0 ? (
+        store.fightsOverview.fights.map((_item: FightInterface, key: React.Key | null | undefined) => <Fight key={key} detail={_item} />)
       ) : (
         <Box opacity={0.6} width="56" textAlign={'center'} lineHeight={'25px'} mx="auto" marginTop="14" marginBottom="8" fontSize="18px">
           {t('dashboard.no_fights_found')}
         </Box>
       )}
       {/* TODO: Store'da adamın hiç herds'i yoksa disable et kontrolü ekle */}
-      <Button variant={'primary'} mt="34px" disabled={!store.metamask.status || (res && res.fights.length >= 3)} onClick={() => direction(LinkGame[1])}>
+      <Button variant={'primary'} mt="34px" disabled={!store.metamask.status || store.fightsOverview.fights.length >= 3} onClick={() => direction(LinkGame[1])}>
         {t('dashboard.start_new')}!
         <HStack position={'absolute'} right={'16px'} fontSize="12px" fontWeight={'bold'}>
           <Box>{t('dashboard.Remaining')}</Box>
           <Badge color="white" bg="black" borderRadius="50%" width="20px" height="20px" alignItems="center" justifyContent="center" display="flex">
-            {3 - (res ? res.fights.length : 0)}
+            {3 - (store.fightsOverview.fights.length ?? 0)}
           </Badge>
         </HStack>
       </Button>
-      <ChartPie data={res ? (res?.winScore * 100) / res?.totalScore : 0} description="Fight Win Rate" width="207px" height="207px" style={{ marginTop: '67px' }} />
+      {ref.current >= 0 && <ChartPie data={ref.current} description="Fight Win Rate" width="207px" height="207px" style={{ marginTop: '67px' }} />}
       <Stack alignItems={'center'}>
         <Box fontWeight={500} fontSize={'19px'} lineHeight="27px">
-          {res?.winScore ?? 0} / {res?.totalScore ?? 0}
+          {store.fightsOverview.winScore ?? 0} / {store.fightsOverview.totalScore ?? 1}
         </Box>
         <Box fontSize={'10px'} marginTop="-2px!important" lineHeight="14px" opacity={0.3}>
           {t('dashboard.Total_Fights')}

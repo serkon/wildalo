@@ -1,42 +1,25 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Heading, Flex, Button, HStack, Text, Box } from '@chakra-ui/react';
 
-import { api, HttpResponse } from 'src/components/axios/axios.component';
 import { Triad } from 'src/components/triad/triad.component';
 import { useTranslate } from 'src/components/translate/translate.component';
-import { Animal } from 'src/utils/dto';
-import { AxiosResponse } from 'axios';
 import { RootState } from 'src/store/store';
 import { useSelector } from 'react-redux';
 import { LinkGame, LinksHeader } from 'src/utils/links';
 import { useDirection } from 'src/hooks';
-
-const getAnimals = async (): Promise<HttpResponse<Animal[]>> => {
-  const response: AxiosResponse<HttpResponse<Animal[]>> = await api.post('/my/animal/list', {
-    paging: {
-      current: 0,
-      limit: 3,
-    },
-  });
-
-  return response.data;
-};
+import { getWildingListApi } from 'src/pages/game/wah/wah.page';
 
 export const MyWildlings = () => {
   const { t } = useTranslate();
-  const [animals, setAnimals] = React.useState<HttpResponse<Animal[]> | null>(null);
   const store = useSelector<RootState>((state: RootState): RootState => state) as RootState;
   const direction = useDirection();
 
   useEffect(() => {
-    async function fetchData() {
-      const response = await getAnimals();
-      setAnimals(response);
+    async function fetch() {
+      await getWildingListApi();
     }
 
-    store.metamask.status && fetchData();
-
-    return () => setAnimals(null);
+    fetch();
   }, [store.metamask.status]);
 
   return (
@@ -51,13 +34,13 @@ export const MyWildlings = () => {
           </Text>
           <Flex alignItems={'center'} justifyContent={'center'} width="44px" height="44px" borderRadius="50%" border="1px solid #2A5950" backgroundColor="#0B2F28">
             <Text fontWeight={'bold'} fontSize="24px" lineHeight="28px" marginLeft="-1px" letterSpacing="-1px">
-              {(animals?.paging && animals?.paging?.total) || 0}
+              {store.wildling.paging.total ?? 0}
             </Text>
           </Flex>
         </HStack>
       </Flex>
-      <Triad data={animals?.data} />
-      {animals && animals.data.length > 0 ? (
+      <Triad data={store.wildling.list} />
+      {store.wildling.list.length > 0 ? (
         <Flex justifyContent={'space-between'} pt="3">
           <Button variant="ghost" fontWeight="bold" onClick={() => direction(LinksHeader[4])}>
             {t('common.buy_more')}

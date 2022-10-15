@@ -29,6 +29,8 @@ const countCircle = (element: HTMLDivElement, counter = 100) => {
       clearInterval(timerID);
     }
   }, intervalTime);
+
+  return timerID;
 };
 
 // <NEWPROPS extends Props & React.HTMLAttributes<HTMLDivElement>> ya da <NEWPROPS extends Props>
@@ -48,9 +50,12 @@ export const ChartPie = <NEWPROPS extends Props>({
   const divRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    let timer: NodeJS.Timer;
     if (divRef.current) {
-      countCircle(divRef.current, Number(data));
+      timer = countCircle(divRef.current, Number(data));
     }
+
+    return () => clearInterval(timer);
   }, [data]);
 
   return (
@@ -71,7 +76,7 @@ export const ChartPie = <NEWPROPS extends Props>({
           <div className="title">
             <div className="title-info">
               <span className="title-data" ref={divRef}>
-                {data}
+                {data.toString()}
               </span>
               <span className="title-percent">%</span>
             </div>

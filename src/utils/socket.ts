@@ -1,5 +1,5 @@
 import { io, Socket } from 'socket.io-client';
-import { getHerdListApi } from 'src/pages/game/wah/wah.page';
+import { getFightsApi, getHerdListApi, getWildingListApi } from 'src/pages/game/wah/wah.page';
 import { getRandomID } from './randomizer';
 
 const socketUrl = process.env.REACT_APP_SOCKET_URL;
@@ -29,11 +29,26 @@ socket.on('disconnect', (reason) => {
 });
 
 /**
+ * Fight
+ */
+socket.on('update-fight-list', (data: any) => {
+  console.log('#server update fight list request sent:', data);
+  getFightsApi();
+});
+
+/**
+ * Wilding
+ */
+socket.on('update-animal-list', (data: any) => {
+  console.log('#server update wildling list request sent:', data);
+  getWildingListApi();
+});
+
+/**
  * Herd
  */
-
 socket.on('update-herd-list', (data: any) => {
-  console.log('#server chat message: ', data);
+  console.log('#server update herd list request sent:', data);
   getHerdListApi();
 });
 

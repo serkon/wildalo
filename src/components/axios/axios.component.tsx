@@ -81,6 +81,13 @@ api.interceptors.response.use(
 /**
  * Http Response DTOS
  */
+
+export interface Paging {
+  current: number;
+  limit: number;
+  total: number;
+}
+
 export interface HttpResponse<T> {
   data: T;
   paging?: { current: number; limit: number; total: number };
