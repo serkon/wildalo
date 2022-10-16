@@ -1,14 +1,15 @@
 import { Menu, MenuButton, Button, HStack, Avatar, Stack, Box, MenuList, Divider } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import { HttpResponse } from 'src/components/axios/axios.component';
-import { FightsOverview, Ranger } from 'src/utils/dto';
+import { Ranger } from 'src/utils/dto';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { useApi, useDirection } from 'src/hooks';
 import { set_ranger } from 'src/store/reducers/RangerReducer';
 import { RootState } from 'src/store/store';
 import { useMediaQuery } from 'src/theme/util/media-query';
 import { LinkGame } from 'src/utils/links';
+import { getFightsApi } from 'src/pages/game/wah/wah.page';
 
 export const UserProfile = () => {
   const { t } = useTranslate();
@@ -77,27 +78,21 @@ export const UserMenu = () => {
     // window.location.reload();
     direction(LinkGame[0]);
   };
-  const [state, setState] = useState<FightsOverview>({
-    fights: [],
-    winScore: 0,
-    totalScore: 0,
-    treshold: 0,
-  });
-
   const reload = () => {
     window.location.reload();
   };
 
-  useApi(
-    { url: '/my/animal/fights' },
-    (data: HttpResponse<FightsOverview>) => {
-      setState(data.data);
-    },
-    store.metamask.status,
-    store.metamask.status && store.ranger.login,
-  );
+  useEffect(() => {
+    async function fetchData() {
+      await getFightsApi();
+    }
 
-  const { data, isLoading, isError } = useApi(
+    if (store.metamask.status) {
+      fetchData();
+    }
+  }, [store.metamask.status, store.ranger.login]);
+
+  useApi(
     { url: '/my/info' },
     (data: HttpResponse<Ranger>) => {
       dispatch(set_ranger(data.data));
@@ -106,9 +101,6 @@ export const UserMenu = () => {
     store.metamask.status && store.ranger.login,
   );
 
-  data;
-  isLoading;
-  isError;
   return (
     <>
       {store.layout.playButton && store.metamask.status && store.ranger.data && (
@@ -132,7 +124,10 @@ export const UserMenu = () => {
                   <HStack spacing="1">
                     <img src="/images/common/fodr.svg" />
                     <Box color="white" fontSize="15px">
-                      {Number(BigInt(store.metamask.fodrBalance)) / Math.pow(10, 12)}
+                      {
+                        // Number(BigInt(store.metamask.fodrBalance)) / Math.pow(10, 12)
+                        store.metamask.fodrBalance
+                      }
                     </Box>
                   </HStack>
                 </Stack>
@@ -164,7 +159,7 @@ export const UserMenu = () => {
               {t('common.Fight')}
             </Box>
             <Box fontSize="11px" fontWeight="800" borderRadius="50%" bg="#FB3535" width="16px" height="16px" alignItems="center" justifyContent="center" display="flex">
-              {state.fights.length}
+              {store.overview.fights.length}
             </Box>
           </HStack>
         </>

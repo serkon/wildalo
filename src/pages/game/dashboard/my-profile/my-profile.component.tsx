@@ -22,7 +22,7 @@ export const MyProfile = () => {
 
   useEffect(() => {
     const { fodrBalance, warcBalance } = store.metamask;
-    setMetamask({ fodrBalance: Number(BigInt(fodrBalance)) / Math.pow(10, 12), warcBalance: Number(BigInt(warcBalance)) / Math.pow(10, 12) });
+    setMetamask({ fodrBalance: Number(fodrBalance), warcBalance: Number(warcBalance) });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store.metamask.fodrBalance, store.metamask.warcBalance]);
 
