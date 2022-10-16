@@ -1,6 +1,8 @@
 import { Box, Button, Container, Flex, Heading, Image } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ChartDonut } from 'src/components/chart/donut/donut.component';
+import { Wildapter } from 'src/components/metamask/adaptor';
 import { PlayableComponent } from 'src/components/playable/playable.component';
 import { useTranslate } from 'src/components/translate/translate.component';
 import { RootState } from 'src/store/store';
@@ -9,6 +11,19 @@ import './marketplace.page.scss';
 export const PageMarketplace = () => {
   const store = useSelector<RootState>((state: RootState): RootState => state) as RootState;
   const { t: translate } = useTranslate();
+  const [price, setPrice] = useState(0);
+  const buyPackage = () => {
+    Wildapter.buyPackage('1', '1', price.toString());
+  };
+
+  useEffect(() => {
+    const mint = async () => {
+      const price = await Wildapter.getPackagePrice('1', '1');
+      setPrice(Number(price));
+    };
+
+    mint();
+  }, []);
 
   return (
     <>
@@ -52,19 +67,19 @@ export const PageMarketplace = () => {
               padding="20px 35px"
             >
               <Heading as="h3" size="md" fontSize="24px">
-                1 Wildling
+                1 {translate('marketplace.Wildling')}
               </Heading>
               <Heading as="h3" size="md" color="#9ea1a2" fontSize="24px">
-                PACK
+                {translate('marketplace.PACK')}
               </Heading>
               <Box width={'380px'} pt="10px" pb="60px">
-                Add new wildlings to your herd and increase your chances to win.
+                {translate('marketplace.Add_new_wildlings')}
               </Box>
-              <Button variant={'primary'} padding={'4px'} marginRight="auto" paddingLeft="38px" height="40px">
-                <Box>Mint Wildling</Box>
+              <Button variant={'primary'} padding={'4px'} marginRight="auto" paddingLeft="38px" height="40px" onClick={() => buyPackage()}>
+                <Box>{translate('marketplace.Mint_Wildling')}</Box>
                 <Flex alignItems={'center'} backgroundColor="#1b1b1b" borderRadius={'17px'} padding="8px" paddingLeft={'12px'} marginLeft={'32px'}>
                   <Box color="white" fontWeight={'15px'} marginRight="7px">
-                    0.10
+                    {price / Math.pow(10, 12)}
                   </Box>
                   <Image src="/images/gems/FODR.svg" width="14px" height="14px" />
                 </Flex>
@@ -75,15 +90,15 @@ export const PageMarketplace = () => {
             </Box>
             <Box margin="20px" backgroundColor="#252525" padding="20px" borderRadius="14px">
               <Box fontSize="17px" color="white">
-                Play to Earn! Free to Start!
+                {translate('marketplace.Play_Start')}
               </Box>
               <Box marginTop="24px" fontSize="15px" color="white">
-                But if you have little patience and you must have the strongest herd now, you can add FODR to your account immediately or trade cards on Kalao.
+                {translate('marketplace.But_if_you_have')}
               </Box>
               <Box mt="52px">
-                <Button variant={'outline'}>Buy FODR</Button>
+                <Button variant={'outline'}>{translate('marketplace.Buy_FODR')}</Button>
                 <Button variant={'ghost'} ml="22px">
-                  Trade on Kalao
+                  {translate('marketplace.Trade_on_Kalao')}
                 </Button>
               </Box>
             </Box>
