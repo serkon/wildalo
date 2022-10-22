@@ -1,5 +1,5 @@
 import { Heading, Flex, HStack, Text, Button, Box, Badge, Stack } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { ChartPie } from 'src/components/chart/pie/pie.component';
 import { Fight } from 'src/components/fight/fight.component';
@@ -10,12 +10,18 @@ import { RootState } from 'src/store/store';
 import { useDirection } from 'src/hooks';
 import { LinkGame } from 'src/utils/links';
 import { getFightsApi } from 'src/pages/game/wah/wah.page';
+import { FightDetailModal } from 'src/pages/game/fight/fight-detail-modal.component';
 
 export const MyFights = () => {
   const { t } = useTranslate();
   const store = useSelector<RootState>((state: RootState): RootState => state) as RootState;
   const direction = useDirection();
   const ref = React.useRef<number>(0);
+  const mutableRefObject = useRef<React.ElementRef<typeof FightDetailModal>>(null);
+  const openFightDetailModal = (fightId: string) => {
+    fightId && mutableRefObject.current?.openModal(fightId);
+  };
+  openFightDetailModal;
 
   useEffect(() => {
     async function fetchData() {
@@ -33,6 +39,7 @@ export const MyFights = () => {
 
   return (
     <div className="my-herds">
+      <FightDetailModal ref={mutableRefObject} />
       <Flex justifyContent={'space-between'} marginBottom={3}>
         <Heading fontSize={'16px'} alignItems="center" display={'flex'}>
           {t('dashboard.fight_overview')}
@@ -49,7 +56,11 @@ export const MyFights = () => {
         </HStack>
       </Flex>
       {store.overview.fights.length > 0 ? (
-        store.overview.fights.map((_item: FightInterface, key: React.Key | null | undefined) => <Fight key={key} detail={_item} />)
+        store.overview.fights.map((fight: FightInterface, key: React.Key | null | undefined) => (
+          <Box key={key} onClick={() => openFightDetailModal(fight._id)}>
+            <Fight detail={fight} />
+          </Box>
+        ))
       ) : (
         <Box opacity={0.6} width="56" textAlign={'center'} lineHeight={'25px'} mx="auto" marginTop="14" marginBottom="8" fontSize="18px">
           {t('dashboard.no_fights_found')}
