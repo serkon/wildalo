@@ -31,7 +31,7 @@ export const MyProfile = () => {
   return (
     <>
       <Flex justifyContent={'center'} alignItems="center" padding="16px 18px" direction={'column'} position="relative">
-        <Avatar margin="0" width="128px" height={'128px'} src={`${ranger && process.env.REACT_APP_PUBLIC_URL}/uploads/${ranger?.imageId}.jpeg`} />
+        <Avatar margin="0" width="128px" height={'128px'} src={`${ranger && process.env.REACT_APP_PUBLIC_URL}/uploads/${ranger?.imageId}.jpg`} />
         <Box fontSize={16} fontWeight={700} mt={8}>
           {ranger?.username}
         </Box>

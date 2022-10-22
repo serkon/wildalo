@@ -51,7 +51,7 @@ export const UserProfile = () => {
       </Box>
       <Divider />
       <Stack justifyContent={'center'} alignItems="center" padding="28px 18px 16px 18px">
-        <Avatar margin="4px" size={'lg'} src={`${store.ranger.data && process.env.REACT_APP_PUBLIC_URL}/uploads/${store.ranger.data?.imageId}.jpeg`} />
+        <Avatar margin="4px" size={'lg'} src={`${store.ranger.data && process.env.REACT_APP_PUBLIC_URL}/uploads/${store.ranger.data?.imageId}.jpg`} />
         <HStack color="white">
           <Box fontSize={13} fontWeight={700}>
             {store.ranger.data && store.ranger.data.name}
@@ -116,7 +116,7 @@ export const UserMenu = () => {
               _hover={{ boxShadow: '0 0 0 4px rgba(255, 255, 225, 0.1)' }}
             >
               <HStack spacing="7" backgroundColor="#0B2F28" borderColor="rgba(255,255,255,0.3)" borderWidth="1px" borderStyle="solid" borderRadius="24px">
-                <Avatar margin="4px" size={'sm'} src={`${store.ranger.data && process.env.REACT_APP_PUBLIC_URL}/uploads/${store.ranger.data?.imageId}.jpeg`} />
+                <Avatar margin="4px" size={'sm'} src={`${store.ranger.data && process.env.REACT_APP_PUBLIC_URL}/uploads/${store.ranger.data?.imageId}.jpg`} />
                 <Stack spacing="0" alignItems="end" paddingRight="21px" display={{ base: 'none', md: 'flex' }}>
                   <Box color="white" fontSize="12px" marginBottom="0.5">
                     {store.ranger.data.username}

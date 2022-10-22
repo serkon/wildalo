@@ -24,7 +24,7 @@ export const Fight = (props: Props) => {
     <>
       <Flex justifyContent={'space-between'} className={`fight${modal ? ' with-modal' : ''}`} {...rest}>
         <HStack className="fighter-one">
-          <Avatar margin="0" width="36px" height={'36px'} src={`${process.env.REACT_APP_PUBLIC_URL}/uploads/${detail.fighters[0].imageId}.jpeg`} />
+          <Avatar margin="0" width="36px" height={'36px'} src={`${process.env.REACT_APP_PUBLIC_URL}/uploads/${detail.fighters[0].imageId}.jpg`} />
           <Stack className="fighter">
             <Text className="ranger">{detail.fighters[0].username}</Text>
             <Text className="herd">{detail.fighters[0].herdname}</Text>
@@ -40,7 +40,7 @@ export const Fight = (props: Props) => {
           </VStack>
         </Center>
         <HStack className="fighter-second">
-          <Avatar margin="0" width="36px" height={'36px'} src={`${process.env.REACT_APP_PUBLIC_URL}/uploads/${detail.fighters[1].imageId}.jpeg`} />
+          <Avatar margin="0" width="36px" height={'36px'} src={`${process.env.REACT_APP_PUBLIC_URL}/uploads/${detail.fighters[1].imageId}.jpg`} />
           <Stack className="fighter">
             <Text className="ranger">{detail.fighters[1].username}</Text>
             <Text className="herd">{detail.fighters[1].herdname}</Text>
