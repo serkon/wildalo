@@ -28,8 +28,8 @@ export const MyFights = () => {
   }, [store.metamask.status]);
 
   useEffect(() => {
-    ref.current = Math.floor((store.overview.winScore * 100) / store.overview.totalScore ?? 1);
-  }, [store.overview]);
+    ref.current = Math.floor((store.overview.winScore * 100) / (store.overview.totalScore || 1));
+  }, [store.overview.winScore, store.overview.totalScore]);
 
   return (
     <div className="my-herds">
@@ -65,10 +65,11 @@ export const MyFights = () => {
           </Badge>
         </HStack>
       </Button>
-      {ref.current >= 0 && <ChartPie data={ref.current} description="Fight Win Rate" width="207px" height="207px" style={{ marginTop: '67px' }} />}
+      {ref.current}
+      {<ChartPie data={ref.current} description="Fight Win Rate" width="207px" height="207px" style={{ marginTop: '67px' }} />}
       <Stack alignItems={'center'}>
         <Box fontWeight={500} fontSize={'19px'} lineHeight="27px">
-          {store.overview.winScore ?? 0} / {store.overview.totalScore ?? 1}
+          {store.overview.winScore} / {store.overview.totalScore}
         </Box>
         <Box fontSize={'10px'} marginTop="-2px!important" lineHeight="14px" opacity={0.3}>
           {t('dashboard.Total_Fights')}
