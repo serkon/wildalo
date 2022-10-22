@@ -65,7 +65,6 @@ export const MyFights = () => {
           </Badge>
         </HStack>
       </Button>
-      {ref.current}
       {<ChartPie data={ref.current} description="Fight Win Rate" width="207px" height="207px" style={{ marginTop: '67px' }} />}
       <Stack alignItems={'center'}>
         <Box fontWeight={500} fontSize={'19px'} lineHeight="27px">
