@@ -205,7 +205,7 @@ export interface Herd {
   level: number;
   bonuses: Bonus[];
   animals?: { position: number; animal: Animal }[];
-  fightId?: number;
+  fightId?: string;
   remainingTime?: number;
 }
 

@@ -77,7 +77,7 @@ export const HerdsComponent = () => {
   const mutableRefObject = useRef<React.ElementRef<typeof FightDetailModal>>(null);
 
   const openFightDetailModal = (herd: Herd) => {
-    mutableRefObject.current?.openModal(herd._id);
+    herd.fightId && mutableRefObject.current?.openModal(herd.fightId);
   };
 
   useEffect(() => {
