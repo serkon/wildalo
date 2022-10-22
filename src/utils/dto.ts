@@ -202,9 +202,10 @@ export interface Herd {
   win: number;
   lost: number;
   state: HerdState;
-  animals?: { position: number; animal: Animal }[];
-  bonuses: Bonus[];
   level: number;
+  bonuses: Bonus[];
+  animals?: { position: number; animal: Animal }[];
+  fightId?: number;
   remainingTime?: number;
 }
 
