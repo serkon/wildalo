@@ -4,6 +4,7 @@ declare module 'react-router-dom';
 export declare global {
   interface Window {
     getVersion: () => any;
+    setMaintenance: () => void;
     ethereum;
     web3;
     wildapter: MetamaskContractAdaptor;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Box, Image } from '@chakra-ui/react';
 
 import { useTranslate } from 'src/components/translate/translate.component';
@@ -9,42 +9,46 @@ import { useApi, useDirection } from 'src/hooks';
 import { Maintenance } from 'src/utils/dto';
 import { HttpResponse } from 'src/components/axios/axios.component';
 import { set_maintenance } from 'src/store/reducers/LayoutReducer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { LinksHeader } from 'src/utils/links';
+import { RootState } from 'src/store/store';
 
 export const MaintenanceComponent = () => {
   const { t } = useTranslate();
+  const store = useSelector((state: RootState) => state);
   const size = useSize();
   const direction = useDirection();
   const { onClose } = useDisclosure({
     onClose: () => {
       direction(LinksHeader[0]);
-      setMaintenance(false);
     },
   });
-  const [isMaintenance, setMaintenance] = useState(process.env.REACT_APP_MAINTENANCE === 'true');
   const dispatch = useDispatch();
 
   const { isError } = useApi(
     { url: '/admin/maintenance' },
     (data: HttpResponse<Maintenance>) => {
       dispatch(set_maintenance(data.data.status));
-      setMaintenance(data.data.status);
+      console.log('after party:', data.data.status);
     },
     null,
-    !isMaintenance,
+    process.env.REACT_APP_MAINTENANCE === 'false',
   );
 
   useEffect(() => {
     if (isError) {
       dispatch(set_maintenance(isError));
-      setMaintenance(isError);
     }
   }, [dispatch, isError]);
 
+  useEffect(() => {
+    dispatch(set_maintenance(process.env.REACT_APP_MAINTENANCE === 'true'));
+    console.log('ilk', process.env.REACT_APP_MAINTENANCE === 'true');
+  }, []);
+
   return (
     <>
-      <Modal blockScrollOnMount={false} isOpen={isMaintenance} onClose={onClose} isCentered size={size}>
+      <Modal blockScrollOnMount={false} isOpen={store.layout.maintenance} onClose={onClose} isCentered size={size}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px) hue-rotate(10deg)" />
         <ModalContent bgColor={'#0B2F28'} className="modal-content" mx="25px">
           <ModalHeader pb="0 !important" pt="40px !important" />

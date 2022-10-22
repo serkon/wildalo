@@ -27,7 +27,6 @@ export const FightDetailModal = React.forwardRef<ImperativeHandle, Props>((_prop
   const [fight, setFight] = useState<Fight | null>();
   const insertHTMLRef = useCallback(
     (node: HTMLDivElement) => {
-      console.log(node);
       if (node) node.innerHTML = t(`common.you_can_find`);
     },
     [t],
