@@ -37,12 +37,12 @@ export const WildlingsComponent = () => {
   }, 400);
 
   useEffect(() => {
-    const fetch = async () => {
-      await getWildingListApi();
-      setSearch(store.wildling.list);
-    };
-    fetch();
+    getWildingListApi();
   }, []);
+
+  useEffect(() => {
+    setSearch(store.wildling.list);
+  }, [store.wildling.list]);
 
   return (
     <>
